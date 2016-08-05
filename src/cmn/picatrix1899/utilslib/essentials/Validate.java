@@ -696,7 +696,7 @@ public abstract class Validate
 		
 		public static boolean isNull(Vector2d v) { return v == null || (isNull(v.getX()) && isNull(v.getY())); }
 		
-		public static boolean isNull(Vector3f v) { return v == null || (isNull(v.getX()) && isNull(v.getY()) && isNull(v.getZ())); }
+		public static boolean isNull(Vector3f v) { return v == null || (isNull(v.x) && isNull(v.y) && isNull(v.z)); }
 		
 		public static boolean isNull(Vector3d v) { return v == null || (isNull(v.getX()) && isNull(v.getY()) && isNull(v.getZ())); }
 		

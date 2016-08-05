@@ -154,27 +154,27 @@ public class Matrix4f
 		
 		float omc = 1 - c;
 		
-		float xy = axis.getX() * axis.getY();
-		float xz = axis.getX() * axis.getZ();
-		float yz = axis.getY() * axis.getZ();
+		float xy = axis.x * axis.y;
+		float xz = axis.x * axis.z;
+		float yz = axis.y * axis.z;
 		
-		float sx = s * axis.getX();
-		float sy = s * axis.getY();
-		float sz = s * axis.getZ();
+		float sx = s * axis.x;
+		float sy = s * axis.y;
+		float sz = s * axis.z;
 		
-		this.m00 = axis.getX() * axis.getX() * omc + c;
+		this.m00 = axis.x * axis.x * omc + c;
 		this.m01 = xy * omc - sz;
 		this.m02 = xz * omc + sy;
 		this.m03 = 0.0f;
 		
 		this.m10 = xy * omc + sz;
-		this.m11 = axis.getY() * axis.getY() * omc + c;
+		this.m11 = axis.y * axis.y * omc + c;
 		this.m12 = yz * omc - sx;
 		this.m13 = 0.0f;
 		
 		this.m20 = xz * omc - sy; 
 		this.m21 = yz * omc + sx;
-		this.m22 = axis.getZ() * axis.getZ() * omc + c;
+		this.m22 = axis.z * axis.z * omc + c;
 		this.m23 = 0.0f;
 		
 		this.m30 = 0.0f;
@@ -187,7 +187,7 @@ public class Matrix4f
 	
 	public static Matrix4f iTranslation(Vector3f v) { return new Matrix4f().initTranslation(v); }
 	
-	public Matrix4f initTranslation(Vector3f v) { return initTranslation(v.getX(), v.getY(), v.getZ()); }
+	public Matrix4f initTranslation(Vector3f v) { return initTranslation(v.x, v.y, v.z); }
 	
 	public static Matrix4f iTranslation(float tx, float ty, float tz) { return new Matrix4f().initTranslation(tx, ty, tz); }
 	
@@ -221,7 +221,7 @@ public class Matrix4f
 	
 	public Matrix4f initScaling(Vector3f v)
 	{
-		return initScaling(v.getX(), v.getY(), v.getZ());
+		return initScaling(v.x, v.y, v.z);
 	}
 	
 	public static Matrix4f iScaling(float sx, float sy, float sz) { return new Matrix4f().initScaling(sx, sy, sz); }
@@ -287,7 +287,7 @@ public class Matrix4f
 	
 	public Matrix4f translate(float tx, float ty, float tz, Matrix4f dest) { return translate(tx, ty, tz, this, dest); }
 	
-	public Matrix4f translate(Vector3f v, Matrix4f src, Matrix4f dest) { return translate(v.getX(), v.getY(), v.getZ(), src, dest); }
+	public Matrix4f translate(Vector3f v, Matrix4f src, Matrix4f dest) { return translate(v.x, v.y, v.z, src, dest); }
 	
 	public Matrix4f translate(float tx, float ty, float tz, Matrix4f src, Matrix4f dest) { return Matrix4f.mul(new Matrix4f().initTranslation(tx, ty, tz), src, dest); }
 	
@@ -309,15 +309,15 @@ public class Matrix4f
 	
 	
 	
-	public Matrix4f scale(Vector3f v) { return scale(v.getX(), v.getY(), v.getZ()); }
+	public Matrix4f scale(Vector3f v) { return scale(v.x, v.y, v.z); }
 	
 	public Matrix4f scale(float sx,float sy,float sz) { return scale(sx, sy, sz, this); }
 	
-	public Matrix4f scale(Vector3f v, Matrix4f dest) { return scale(v.getX(), v.getY(), v.getZ(), this, dest); }
+	public Matrix4f scale(Vector3f v, Matrix4f dest) { return scale(v.x, v.y, v.z, this, dest); }
 	
 	public Matrix4f scale(float sx, float sy, float sz, Matrix4f dest) { return scale(sx, sy, sz, this, dest); }
 	
-	public Matrix4f scale(Vector3f v, Matrix4f src, Matrix4f dest) { return scale(v.getX(), v.getY(), v.getZ(), src, dest); }
+	public Matrix4f scale(Vector3f v, Matrix4f src, Matrix4f dest) { return scale(v.x, v.y, v.z, src, dest); }
 	
 	public Matrix4f scale(float sx, float sy, float sz, Matrix4f src, Matrix4f dest) { return Matrix4f.mul(new Matrix4f().initScaling(sx,  sy,  sz), src, dest); }
 	
@@ -386,9 +386,9 @@ public class Matrix4f
 			dest = new Vector3f();
 		}
 		
-		float x = l.m00 * r.getX() + l.m01 * r.getY() + l.m02 * r.getZ() + l.m03 * 1.0f;
-		float y = l.m10 * r.getX() + l.m11 * r.getY() + l.m12 * r.getZ() + l.m13 * 1.0f;
-		float z = l.m20 * r.getX() + l.m21 * r.getY() + l.m22 * r.getZ() + l.m23 * 1.0f;
+		float x = l.m00 * r.x + l.m01 * r.y + l.m02 * r.z + l.m03 * 1.0f;
+		float y = l.m10 * r.x + l.m11 * r.y + l.m12 * r.z + l.m13 * 1.0f;
+		float z = l.m20 * r.x + l.m21 * r.y + l.m22 * r.z + l.m23 * 1.0f;
 
 		dest.setX(x).setY(y).setZ(z);
 		
@@ -402,12 +402,12 @@ public class Matrix4f
 			dest = new Vector4f();
 		}
 		
-		float x = l.m00 * r.getX() + l.m01 * r.getY() + l.m02 * r.getZ() + l.m03 * r.getW();
-		float y = l.m10 * r.getX() + l.m11 * r.getY() + l.m12 * r.getZ() + l.m13 * r.getW();
-		float z = l.m20 * r.getX() + l.m21 * r.getY() + l.m22 * r.getZ() + l.m23 * r.getW();
-		float w = l.m30 * r.getX() + l.m31 * r.getY() + l.m32 * r.getZ() + l.m33 * r.getW();
+		float x = l.m00 * r.x + l.m01 * r.y + l.m02 * r.z + l.m03 * r.a;
+		float y = l.m10 * r.x + l.m11 * r.y + l.m12 * r.z + l.m13 * r.a;
+		float z = l.m20 * r.x + l.m21 * r.y + l.m22 * r.z + l.m23 * r.a;
+		float a = l.m30 * r.x + l.m31 * r.y + l.m32 * r.z + l.m33 * r.a;
 
-		dest.setX(x).setY(y).setZ(z).setW(w);
+		dest.setX(x).setY(y).setZ(z).setA(a);
 		
 		return dest;
 	}

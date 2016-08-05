@@ -66,110 +66,6 @@ public class Vector3f implements DataHolder
 	public Vector3f setZ(float z) { this.z = z; return this; }
 	
 	
-
-	public float getX() { return this.x; }
-
-	public float getY() { return this.y; }
-
-	public float getZ() { return this.z; }
-	
-	
-
-	public static Vector3f add(Vector3f v1, Vector3f v2) { return Vector3f.add(v1, v2.x, v2.y, v2.z); }
-
-	public static Vector3f add(Vector3f v1, float scalar) { return Vector3f.add(v1, scalar, scalar, scalar); }
-
-	public static Vector3f add(Vector3f v1, float x, float y, float z) { return v1.add(x, y, z); }
-
-	public static Vector3f sub(Vector3f v1, Vector3f v2) { return Vector3f.sub(v1, v2.x, v2.y, v2.z); }
-
-	public static Vector3f sub(Vector3f v1, float scalar) { return Vector3f.sub(v1, scalar, scalar, scalar); }
-	
-	public static Vector3f sub(Vector3f v1, float x, float y, float z) { return v1.sub(x, y, z); }
-	
-	public static Vector3f mul(Vector3f v1, Vector3f v2) { return Vector3f.mul(v1, v2.x, v2.y, v2.z); }
-
-	public static Vector3f mul(Vector3f v1, float scalar) { return Vector3f.mul(v1, scalar, scalar, scalar); }
-	
-	public static Vector3f mul(Vector3f v1, float x, float y, float z) { return v1.mul(x, y, z); }
-	
-	public static Vector3f div(Vector3f v1, Vector3f v2) { return Vector3f.div(v1, v2.x, v2.y, v2.z); }
-	
-	public static Vector3f div(Vector3f v1, float scalar) { return Vector3f.div(v1, scalar, scalar, scalar); }
-	
-	public static Vector3f div(Vector3f v1, float x, float y, float z) { return v1.div(x, y, z); }
-	
-	public static Vector3f pow(Vector3f v1, Vector3f v2) { return Vector3f.pow(v1, v2.x, v2.y, v2.z); }
-	
-	public static Vector3f pow(Vector3f v1, float scalar) { return Vector3f.pow(v1, scalar, scalar, scalar); }
-	
-	public static Vector3f pow(Vector3f v1, float x, float y, float z) { return v1.pow(x, y, z); }
-	
-	
-	
-	public static Vector3f addN(Vector3f v1, Vector3f v2) { return Vector3f.addN(v1, v2.x, v2.y, v2.z); }
-
-	public static Vector3f addN(Vector3f v1, float scalar) { return Vector3f.addN(v1, scalar, scalar, scalar); }
-
-	public static Vector3f addN(Vector3f v1, float x, float y, float z) { return v1.addN(x, y, z); }
-
-	public static Vector3f subN(Vector3f v1, Vector3f v2) { return Vector3f.subN(v1, v2.x, v2.y, v2.z); }
-
-	public static Vector3f subN(Vector3f v1, float scalar) { return Vector3f.subN(v1, scalar, scalar, scalar); }
-	
-	public static Vector3f subN(Vector3f v1, float x, float y, float z) { return v1.subN(x, y, z); }
-	
-	public static Vector3f mulN(Vector3f v1, Vector3f v2) { return Vector3f.mulN(v1, v2.x, v2.y, v2.z); }
-
-	public static Vector3f mulN(Vector3f v1, float scalar) { return Vector3f.mulN(v1, scalar, scalar, scalar); }
-	
-	public static Vector3f mulN(Vector3f v1, float x, float y, float z) { return v1.mulN(x, y, z); }
-	
-	public static Vector3f divN(Vector3f v1, Vector3f v2) { return Vector3f.divN(v1, v2.x, v2.y, v2.z); }
-	
-	public static Vector3f divN(Vector3f v1, float scalar) { return Vector3f.divN(v1, scalar, scalar, scalar); }
-	
-	public static Vector3f divN(Vector3f v1, float x, float y, float z) { return v1.divN(x, y, z); }
-	
-	public static Vector3f powN(Vector3f v1, Vector3f v2) { return Vector3f.powN(v1, v2.x, v2.y, v2.z); }
-	
-	public static Vector3f powN(Vector3f v1, float scalar) { return Vector3f.powN(v1, scalar, scalar, scalar); }
-	
-	public static Vector3f powN(Vector3f v1, float x, float y, float z) { return v1.powN(x, y, z); }
-	
-	
-	
-	public static Vector3f addR(Vector3f v1, Vector3f v2, Vector3f v3) { return Vector3f.addR(v1, v2.x, v2.y, v2.z, v3); }
-	
-	public static Vector3f addR(Vector3f v1, float scalar, Vector3f v3) { return Vector3f.addR(v1, scalar, scalar, scalar, v3); }
-	
-	public static Vector3f addR(Vector3f v1, float x, float y, float z, Vector3f v3) { return v3.set(v1).add(x,y,z); }
-	
-	public static Vector3f subR(Vector3f v1, Vector3f v2, Vector3f v3) { return Vector3f.subR(v1, v2.x, v2.y, v2.z, v3); }
-	
-	public static Vector3f subR(Vector3f v1, float scalar, Vector3f v3) { return Vector3f.subR(v1, scalar, scalar, scalar, v3); }
-	
-	public static Vector3f subR(Vector3f v1, float x, float y, float z, Vector3f v3) { return v3.set(v1).sub(x,y,z); }
-	
-	public static Vector3f mulR(Vector3f v1, Vector3f v2, Vector3f v3) { return Vector3f.mulR(v1, v2.x, v2.y, v2.z, v3); }
-	
-	public static Vector3f mulR(Vector3f v1, float scalar, Vector3f v3) { return Vector3f.mulR(v1, scalar, scalar, scalar, v3); }
-	
-	public static Vector3f mulR(Vector3f v1, float x, float y, float z, Vector3f v3) { return v3.set(v1).mul(x,y,z); }
-	
-	public static Vector3f divR(Vector3f v1, Vector3f v2, Vector3f v3) { return Vector3f.divR(v1, v2.x, v2.y, v2.z, v3); }
-	
-	public static Vector3f divR(Vector3f v1, float scalar, Vector3f v3) { return Vector3f.divR(v1, scalar, scalar, scalar, v3); }
-	
-	public static Vector3f divR(Vector3f v1, float x, float y, float z, Vector3f v3) { return v3.set(v1).div(x,y,z); }
-	
-	public static Vector3f powR(Vector3f v1, Vector3f v2, Vector3f v3) { return Vector3f.powR(v1, v2.x, v2.y, v2.z, v3); }
-	
-	public static Vector3f powR(Vector3f v1, float scalar, Vector3f v3) { return Vector3f.powR(v1, scalar, scalar, scalar, v3); }
-	
-	public static Vector3f powR(Vector3f v1, float x, float y, float z, Vector3f v3) { return v3.set(v1).pow(x,y,z); }
-	
-	
 	public static Vector3f max(Vector3f... v)
 	{
 		Vector3f out = new Vector3f();
@@ -215,7 +111,7 @@ public class Vector3f implements DataHolder
 	}
 	
 	
-	public Vector3f add(Vector3f v) { return add(v.x, v.y,v.z); }
+	public Vector3f add(Vector3f v) { return add(v.x, v.y, v.z); }
 	
 	public Vector3f add(float scalar) { return add(scalar, scalar, scalar); }
 	
@@ -254,17 +150,6 @@ public class Vector3f implements DataHolder
 	public Vector3f div(double scalar) { return div(scalar, scalar, scalar); }
 	
 	public Vector3f div(double x, double y, double z) { return setX((float)(this.x / x)).setY((float)(this.y / y)).setZ((float)(this.z / z)); }
-	
-	public Vector3f pow(Vector3f v) {return pow(v.x, v.y, v.z); }
-	
-	public Vector3f pow(float scalar) { return pow(scalar, scalar, scalar); }
-	
-	public Vector3f pow(float x, float y, float z) { return setX((float) Math.pow(this.x, x)).setY((float) Math.pow(this.y, y)).setZ((float) Math.pow(this.z, z)); }
-	
-	public Vector3f pow(double scalar) { return pow(scalar, scalar, scalar); }
-	
-	public Vector3f pow(double x, double y, double z) { return setX((float) Math.pow(this.x, x)).setY((float) Math.pow(this.y, y)).setZ((float) Math.pow(this.z, z)); }
-	
 	
 	public Vector3f addN(Vector3f v) { return addN(v.x, v.y, v.z); }
 	
@@ -305,17 +190,6 @@ public class Vector3f implements DataHolder
 	public Vector3f divN(double scalar) { return divN(scalar, scalar, scalar); }
 	
 	public Vector3f divN(double x, double y, double z) { return clone().div(x, y, z); }
-	
-	public Vector3f powN(Vector3f v) { return powN(v.x, v.y, v.z); }
-	
-	public Vector3f powN(float scalar) { return powN(scalar, scalar, scalar); }
-	
-	public Vector3f powN(float x, float y, float z) { return clone().pow(x, y, z); }
-	
-	public Vector3f powN(double scalar) { return powN(scalar, scalar, scalar); }
-	
-	public Vector3f powN(double x, double y, double z) { return clone().pow(x, y, z); }
-	
 	
 	
 	public Vector3f addR(Vector3f v, Vector3f v2) { return addR(v.x, v.y, v.z, v2); }
@@ -358,16 +232,6 @@ public class Vector3f implements DataHolder
 	
 	public Vector3f divR(double x, double y, double z, Vector3f v2) { return v2.set(this).div(x, y, z); }
 	
-	public Vector3f powR(Vector3f v, Vector3f v2) {return powR(v.x, v.y, v.z, v2); }
-	
-	public Vector3f powR(float scalar, Vector3f v2) { return powR(scalar, scalar, scalar, v2); }
-	
-	public Vector3f powR(float x, float y, float z, Vector3f v2) { return v2.set(this).pow(x, y, z); }
-	
-	public Vector3f powR(double scalar, Vector3f v2) { return powR(scalar, scalar, scalar, v2); }
-	
-	public Vector3f powR(double x, double y, double z, Vector3f v2) { return v2.set(this).pow(x, y, z); }
-	
 	
 	
 	public float length() { return (float) Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z); }
@@ -378,23 +242,7 @@ public class Vector3f implements DataHolder
 	
 	public Vector3f invert() { return mul(-1.0f); }
 	
-	public Vector3f invert(boolean x, boolean y, boolean z) { return mul(x ? -1.0f : 1.0f, y ? -1.0f : 1.0f, z ? -1.0f : 1.0f); }
-	
-	public Vector3f invertX() { return invert(true, false, false); }
-	
-	public Vector3f invertY() { return invert(false, true, false); }
-	
-	public Vector3f invertZ() { return invert(false, false, true); }
-	
 	public Vector3f inverted() { return clone().invert(); }
-	
-	public Vector3f inverted(boolean x, boolean y, boolean z) {return clone().invert(x, y, z); }
-	
-	public Vector3f invertedX() { return clone().invertX(); }
-	
-	public Vector3f invertedY() { return clone().invertY(); }
-	
-	public Vector3f invertedZ() { return clone().invertZ(); }
 	
 	public float dot(Vector3f v) { return this.x * v.x + this.y * v.y + this.z * v.z; }
 	
@@ -404,6 +252,15 @@ public class Vector3f implements DataHolder
 	}
 	
 	public Vector3f lerp(Vector3f dest, float factor) { return dest.subN(this).mul(factor).add(this); }
+	
+	public Vector3f project(Vector3f v)
+	{	
+		Vector3f vn = v.normalized();
+		 float f = this.dot(vn);
+		 
+		 return vn.mul(f);
+	}
+	
 	
 	public Vector3f rot(Vector3f axis, float angle)
 	{
@@ -433,122 +290,42 @@ public class Vector3f implements DataHolder
 	}
 	
 	
-	public float max()
-	{
-		return Math.max(this.x, Math.max(this.y, this.z));
-	}
+	public float max() { return Math.max(this.x, Math.max(this.y, this.z)); }
 	
 	public float min() { return Math.min(this.x, Math.min(this.y, this.z)); }
 	
-	public Vector3f abs() { return abs(true, true, true); }
-	
-	public Vector3f abs(boolean x, boolean y, boolean z)
-	{
-		setX(x ? (float) Math.abs(this.x) : this.x);
-		setY(y ? (float) Math.abs(this.y) : this.y);
-		setZ(z ? (float) Math.abs(this.z) : this.z);
-		
-		return this;
-	}
-	
-	public Vector3f absX() { return abs(true, false, false); }
-	
-	public Vector3f absY() { return abs(false, true, false); }
-	
-	public Vector3f absZ() { return abs(false, false, true); }
-	
-	public Vector3f floor() { return floor(true, true, true); }
-	
-	public Vector3f floor(boolean x, boolean y, boolean z)
-	{
-		setX(x ? (float) Math.floor(this.x) : this.x);
-		setY(y ? (float) Math.floor(this.y) : this.y);
-		setZ(z ? (float) Math.floor(this.z) : this.z);
-		
-		return this;
-	}
-	
-	public Vector3f floorX() { return floor(true, false, false); }
-	
-	public Vector3f floorY() { return floor(false, true, false); }
-	
-	public Vector3f floorZ() { return floor(false, false, true); }
-	
-	public Vector3f ceil() { return ceil(true, true, true); }
-	
-	public Vector3f ceil(boolean x, boolean y, boolean z)
-	{
-		setX(x ? (float) Math.ceil(this.x) : this.x);
-		setY(y ? (float) Math.ceil(this.y) : this.y);
-		setZ(z ? (float) Math.ceil(this.z) : this.z);
-		
-		return this;
-	}
-	
-	public Vector3f ceilX() { return ceil(true, false, false); }
-	
-	public Vector3f ceilY() { return ceil(false, true, false); }
-	
-	public Vector3f ceilZ() { return ceil(false, false, true); }
-	
-	public Vector3f round() { return round(true, true, true); }
-	
-	public Vector3f round(boolean x, boolean y, boolean z)
-	{
-		setX(x ? (float) Math.round(this.x) : this.x);
-		setY(y ? (float) Math.round(this.y) : this.y);
-		setZ(z ? (float) Math.round(this.z) : this.z);
-		
-		return this;
-	}
-	
-	public Vector3f roundX() { return round(true, false, false); }
-	
-	public Vector3f roundY() { return round(false, true, false); }
-	
-	public Vector3f roundZ() { return round(false, false, true); }
-	
-	
 
+	
+	public Vector3f abs()
+	{
+		return setX((float) Math.abs(this.x)).setY((float) Math.abs(this.y)).setZ((float) Math.abs(this.z));
+	}
+	
+	public Vector3f floor()
+	{
+		return setX((float) Math.floor(this.x)).setY((float) Math.floor(this.y)).setZ((float) Math.floor(this.z));
+	}
+	
+	public Vector3f ceil()
+	{
+		return setX((float) Math.ceil(this.x)).setY((float) Math.ceil(this.y)).setZ((float) Math.ceil(this.z));
+	}
+	
+	public Vector3f round()
+	{
+		return setX((float) Math.round(this.x)).setY((float) Math.round(this.y)).setZ((float) Math.round(this.z));
+	}
+	
+	
 	public Vector3f absN() { return clone().abs(); }
-	
-	public Vector3f absN(boolean x, boolean y, boolean z) { return clone().round(x, y, z); }
-	
-	public Vector3f absXN() { return clone().absX(); }
-	
-	public Vector3f absYN() { return clone().absY(); }
-	
-	public Vector3f absZN() { return clone().absZ(); }
 	
 	public Vector3f floorN() { return clone().floor(); }
 	
-	public Vector3f floorN(boolean x, boolean y, boolean z) { return clone().round(x, y, z); }
-	
-	public Vector3f floorXN() { return clone().floorX(); }
-	
-	public Vector3f floorYN() { return clone().floorY(); }
-	
-	public Vector3f floorZN() { return clone().floorZ(); }
-	
 	public Vector3f ceilN() { return clone().ceil(); }
-	
-	public Vector3f ceilN(boolean x, boolean y, boolean z) { return clone().ceil(x, y, z); }
-	
-	public Vector3f ceilXN() { return clone().ceilX(); }
-	
-	public Vector3f ceilYN() { return clone().ceilY(); }
-	
-	public Vector3f ceilZN() { return clone().ceilZ(); }
 
 	public Vector3f roundN() { return clone().round(); }
 	
-	public Vector3f roundN(boolean x, boolean y, boolean z) { return clone().round(x, y, z); }
 	
-	public Vector3f roundXN() { return clone().roundX(); }
-	
-	public Vector3f roundYN() { return clone().roundY(); }
-	
-	public Vector3f roundZN() { return clone().roundZ(); }
 	
 	public double angleRad(Vector3f v)
 	{
@@ -600,7 +377,7 @@ public class Vector3f implements DataHolder
 	
 	public boolean equals(Vector3f v) { return this.x == v.x && this.y == v.y & this.z == v.z; }
 	
-	public String toString() { return "vec3f(" + this.x + "f, " + this.y + "f, " + this.z + "f)"; }
+	public String toString() { return "vector3f(" + this.x + "f, " + this.y + "f, " + this.z + "f)"; }
 	
 
 	

@@ -47,7 +47,7 @@ public class Quaternion implements DataHolder
 	
 	
 	
-	public static Quaternion getFromAxis(Vector3f axis, float angle) { return getFromAxis(axis.getX(), axis.getY(), axis.getZ(), angle); }
+	public static Quaternion getFromAxis(Vector3f axis, float angle) { return getFromAxis(axis.x, axis.y, axis.z, angle); }
 	
 	public static Quaternion getFromAxis(float ax, float ay, float az, float angle)
 	{
@@ -63,7 +63,7 @@ public class Quaternion implements DataHolder
 		return new Quaternion(rW, rX, rY, rZ).normalize();
 	}
 	
-	public static Quaternion getFromAxis(Vector3f axis, double angle) { return getFromAxis(axis.getX(), axis.getY(), axis.getZ(), angle); }
+	public static Quaternion getFromAxis(Vector3f axis, double angle) { return getFromAxis(axis.x, axis.y, axis.z, angle); }
 	
 	public static Quaternion getFromAxis(float ax, float ay, float az, double angle)
 	{
@@ -119,14 +119,14 @@ public class Quaternion implements DataHolder
 	
 	public double getZ() { return this.z; }
 
-	public Quaternion rotate(Vector3f axis, float angle) { return rotate(axis.getX(), axis.getY(), axis.getZ(), angle); }
+	public Quaternion rotate(Vector3f axis, float angle) { return rotate(axis.x, axis.y, axis.z, angle); }
 	
 	public Quaternion rotate(float ax, float ay, float az, float angle)
 	{
 		return set(getFromAxis(ax, ay, az, angle).mul(this));
 		}
 	
-	public Quaternion rotate(Vector3f axis, double angle) { return rotate(axis.getX(), axis.getY(), axis.getZ(), angle); }
+	public Quaternion rotate(Vector3f axis, double angle) { return rotate(axis.x, axis.y, axis.z, angle); }
 	
 	public Quaternion rotate(float ax, float ay, float az, double angle)
 	{
@@ -160,7 +160,7 @@ public class Quaternion implements DataHolder
 			Vector3f a = getForwardf();
 			Vector3f b = a.clone().setY(0);
 			
-			int i = a.getY() > 0 ? -1 : 1;
+			int i = a.y > 0 ? -1 : 1;
 			
 			this.ePitch = i * b.angleDeg(a);
 			

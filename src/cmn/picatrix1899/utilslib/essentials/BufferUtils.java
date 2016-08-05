@@ -123,9 +123,9 @@ public final class BufferUtils
 		
 		for(int i = 0; i < v.length; i++)
 		{
-			f[i + 0] = v[i].getX();
-			f[i + 1] = v[i].getY();
-			f[i + 2] = v[i].getZ();
+			f[i + 0] = v[i].x;
+			f[i + 1] = v[i].x;
+			f[i + 2] = v[i].x;
 		}
 		
 		return wrapFloatBuffer(f);
@@ -137,10 +137,10 @@ public final class BufferUtils
 		
 		for(int i = 0; i < v.length; i++)
 		{
-			f[i + 0] = v[i].getX();
-			f[i + 1] = v[i].getY();
-			f[i + 2] = v[i].getZ();
-			f[i + 3] = v[i].getW();
+			f[i + 0] = v[i].x;
+			f[i + 1] = v[i].y;
+			f[i + 2] = v[i].z;
+			f[i + 3] = v[i].a;
 		}
 		
 		return wrapFloatBuffer(f);
