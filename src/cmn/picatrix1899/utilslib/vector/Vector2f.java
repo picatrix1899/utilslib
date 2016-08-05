@@ -701,7 +701,8 @@ public class Vector2f implements DataHolder
 	public Vector2f clone() { return new Vector2f(this); }
 	
 	public String toString() { return "vec2f(" + getX() + "f, " + getY() + "f)"; }
-
+	
+	public boolean equals(Vector2f v) { return false; }
 	
 	/*
 	 * ===========================

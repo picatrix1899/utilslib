@@ -8,6 +8,8 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.Serializable;
+import java.util.Iterator;
 
 import cmn.picatrix1899.utilslib.dmap.DMap4;
 import cmn.picatrix1899.utilslib.essentials.Maths;
@@ -21,14 +23,16 @@ import cmn.picatrix1899.utilslib.interfaces.DataHolder;
  *
  * @author picatrix1899
  */
-public class Color3f implements DataHolder
+public class Color3f implements DataHolder, Serializable, Iterable<Float>
 {
 
-	public static final Color3f WHITE =		new Color3f(1.0f, 1.0f, 1.0f);
-	public static final Color3f BLACK =		new Color3f(0.0f, 0.0f, 0.0f);
-	public static final Color3f RED =		new Color3f(1.0f, 0.0f, 0.0f);
-	public static final Color3f GREEN =		new Color3f(0.0f, 1.0f, 0.0f);
-	public static final Color3f BLUE =		new Color3f(0.0f, 0.0f, 1.0f);
+	private static final long serialVersionUID = 1L;
+	
+	public static final PersistentColor3f WHITE =		new PersistentColor3f(1.0f, 1.0f, 1.0f);
+	public static final PersistentColor3f BLACK =		new PersistentColor3f(0.0f, 0.0f, 0.0f);
+	public static final PersistentColor3f RED =			new PersistentColor3f(1.0f, 0.0f, 0.0f);
+	public static final PersistentColor3f GREEN =		new PersistentColor3f(0.0f, 1.0f, 0.0f);
+	public static final PersistentColor3f BLUE =		new PersistentColor3f(0.0f, 0.0f, 1.0f);
 	
 	
 	
@@ -73,7 +77,13 @@ public class Color3f implements DataHolder
 	 */
 	public Color3f(Color3f color) { this.r = color.getR(); this.g = color.getG(); this.b = color.getB(); }
 	
+	public Color3f(PersistentColor3f color) { this.r = color.r; this.g = color.g; this.b = color.b; }
 	
+	public Color3f set(Color3f color) { this.r = color.r; this.g = color.g; this.b = color.b; return this; }
+	
+	public Color3f set(PersistentColor3f color) { this.r = color.r; this.g = color.g; this.b = color.b; return this; }
+	
+	public Color3f set(float r, float g, float b) { return setR(r).setG(g).setB(b); }
 	
 	/**
 	 * Sets the red component
@@ -245,5 +255,45 @@ public class Color3f implements DataHolder
 		
 		out.writeInt(format);
 		out.writeInt(colorcode);
+	}
+	
+	public Iterator<Float> iterator()
+	{
+		
+		final float fr = this.r;
+		final float fg = this.g;
+		final float fb = this.b;
+		
+		return new Iterator<Float>()
+		{
+
+			private int i = 0;
+			
+			private int max = Color3f.DIMENSIONS;
+			
+			public boolean hasNext()
+			{
+				return i < max - 1;
+			}
+
+			public Float next()
+			{
+				
+				Float f = null;
+				
+				if(i == 0)
+					f = fr;
+				else if(i == 1)
+					f = fg;
+				else if(i == 2)
+					f = fb;
+				
+				if(f != null && i < max) i++;
+				
+				return f;
+				
+			}
+			
+		};
 	}
 }

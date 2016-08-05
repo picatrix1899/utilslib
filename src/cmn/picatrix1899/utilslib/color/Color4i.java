@@ -24,11 +24,11 @@ import cmn.picatrix1899.utilslib.interfaces.DataHolder;
 public class Color4i implements DataHolder
 {
 	
-	public static final Color4i WHITE =		new Color4i(255, 255, 255, 255);
-	public static final Color4i BLACK =		new Color4i(000, 000, 000, 255);
-	public static final Color4i RED =		new Color4i(255, 000, 000, 255);
-	public static final Color4i GREEN = 	new Color4i(000, 255, 000, 255);
-	public static final Color4i BLUE =		new Color4i(000, 000, 255, 255);
+	public static final PersistentColor4i WHITE =		new PersistentColor4i(255, 255, 255, 255);
+	public static final PersistentColor4i BLACK =		new PersistentColor4i(000, 000, 000, 255);
+	public static final PersistentColor4i RED =			new PersistentColor4i(255, 000, 000, 255);
+	public static final PersistentColor4i GREEN = 		new PersistentColor4i(000, 255, 000, 255);
+	public static final PersistentColor4i BLUE =		new PersistentColor4i(000, 000, 255, 255);
 	
 	
 	
@@ -74,7 +74,14 @@ public class Color4i implements DataHolder
 	 */
 	public Color4i(Color4i color) { this.r = color.getR(); this.g = color.getG(); this.b = color.getB(); this.a = color.getA(); }
 	
+	public Color4i(PersistentColor4i color) { this.r = color.getR(); this.g = color.getG(); this.b = color.getB(); this.a = color.getA(); }
 	
+	
+	public Color4i set(Color4i color) { this.r = color.r; this.g = color.g; this.b = color.b; this.a = color.a; return this; }
+	
+	public Color4i set(PersistentColor4i color) { this.r = color.r; this.g = color.g; this.b = color.b; this.a = color.a; return this; }
+	
+	public Color4i set(int r, int g, int b, int a) { return setR(r).setG(g).setB(b).setA(a); }
 	
 	/**
 	 * Sets the red component

@@ -24,11 +24,11 @@ import cmn.picatrix1899.utilslib.interfaces.DataHolder;
 public class Color4f implements DataHolder
 {
 
-	public static final Color4f WHITE =		new Color4f(1.0f, 1.0f, 1.0f, 1.0f);
-	public static final Color4f BLACK =		new Color4f(0.0f, 0.0f, 0.0f, 1.0f);
-	public static final Color4f RED =		new Color4f(1.0f, 0.0f, 0.0f, 1.0f);
-	public static final Color4f GREEN =		new Color4f(0.0f, 1.0f, 0.0f, 1.0f);
-	public static final Color4f BLUE =		new Color4f(0.0f, 0.0f, 1.0f, 1.0f);
+	public static final PersistentColor4f WHITE =		new PersistentColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+	public static final PersistentColor4f BLACK =		new PersistentColor4f(0.0f, 0.0f, 0.0f, 1.0f);
+	public static final PersistentColor4f RED =			new PersistentColor4f(1.0f, 0.0f, 0.0f, 1.0f);
+	public static final PersistentColor4f GREEN =		new PersistentColor4f(0.0f, 1.0f, 0.0f, 1.0f);
+	public static final PersistentColor4f BLUE =		new PersistentColor4f(0.0f, 0.0f, 1.0f, 1.0f);
 	
 	
 	
@@ -75,6 +75,15 @@ public class Color4f implements DataHolder
 	 */
 	public Color4f(Color4f color) { this.r = color.getR(); this.g = color.getG(); this.b = color.getB(); this.a = color.getA(); }
 	
+	public Color4f(PersistentColor4f color) { this.r = color.r; this.g = color.g; this.b = color.b; this.a = color.a; }
+	
+	
+	
+	public Color4f set(Color4f color) { this.r = color.r; this.g = color.g; this.b = color.b; return this; }
+	
+	public Color4f set(PersistentColor4f color) { this.r = color.r; this.g= color.g; this.b = color.b; this.a = color.a; return this; }
+	
+	public Color4f set(float r, float g, float b, float a) { return setR(r).setG(g).setB(b).setA(a); }
 	/**
 	 * Sets the red component
 	 * 
