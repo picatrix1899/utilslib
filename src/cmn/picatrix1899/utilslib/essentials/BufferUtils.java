@@ -9,11 +9,8 @@ import java.nio.IntBuffer;
 import java.nio.LongBuffer;
 import java.nio.ShortBuffer;
 
-import cmn.picatrix1899.utilslib.vector.Vector2d;
 import cmn.picatrix1899.utilslib.vector.Vector2f;
-import cmn.picatrix1899.utilslib.vector.Vector3d;
 import cmn.picatrix1899.utilslib.vector.Vector3f;
-import cmn.picatrix1899.utilslib.vector.Vector4d;
 import cmn.picatrix1899.utilslib.vector.Vector4f;
 
 /**
@@ -153,49 +150,6 @@ public final class BufferUtils
 		buffer.put(b);
 		
 		return buffer;
-	}
-
-	
-	public final static DoubleBuffer wrapVector2DBuffer(Vector2d... v)
-	{
-		double[] d = new double[v.length * Vector2d.DIMENSIONS];
-		
-		for(int i = 0; i < v.length; i++)
-		{
-			d[i + 0] = v[i].getX();
-			d[i + 1] = v[i].getY();
-		}
-		
-		return wrapDoubleBuffer(d);
-	}
-	
-	public final static DoubleBuffer wrapVector3DBuffer(Vector3d... v)
-	{
-		double[] d = new double[v.length * Vector3d.DIMENSIONS];
-		
-		for(int i = 0; i < v.length; i++)
-		{
-			d[i + 0] = v[i].getX();
-			d[i + 1] = v[i].getY();
-			d[i + 2] = v[i].getZ();
-		}
-		
-		return wrapDoubleBuffer(d);
-	}
-	
-	public final static DoubleBuffer wrapVector4DBuffer(Vector4d... v)
-	{
-		double[] d = new double[v.length * Vector4d.DIMENSIONS];
-		
-		for(int i = 0; i < v.length; i++)
-		{
-			d[i + 0] = v[i].getX();
-			d[i + 1] = v[i].getY();
-			d[i + 2] = v[i].getZ();
-			d[i + 3] = v[i].getW();
-		}
-		
-		return wrapDoubleBuffer(d);
 	}
 	
 	public final static byte[] unwrapIntBuffer(ByteBuffer buffer)

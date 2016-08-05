@@ -79,8 +79,6 @@ public class Quaternion implements DataHolder
 		return new Quaternion(rW, rX, rY, rZ).normalize();
 	}
 	
-	public static Quaternion getFromAxis(Vector3d axis, float angle){ return getFromAxis(axis.getX(), axis.getY(), axis.getZ(), angle); }
-	
 	public static Quaternion getFromAxis(double ax, double ay, double az, float angle)
 	{
 		double halfAngle = angle * 0.5d * Maths.DEG_TO_RAD;
@@ -94,8 +92,6 @@ public class Quaternion implements DataHolder
 		
 		return new Quaternion(rW, rX, rY, rZ).normalize();
 	}
-	
-	public static Quaternion getFromAxis(Vector3d axis, double angle){ return getFromAxis(axis.getX(), axis.getY(), axis.getZ(), angle); }
 	
 	public static Quaternion getFromAxis(double ax, double ay, double az, double angle)
 	{
@@ -124,23 +120,19 @@ public class Quaternion implements DataHolder
 	public Quaternion rotate(float ax, float ay, float az, float angle)
 	{
 		return set(getFromAxis(ax, ay, az, angle).mul(this));
-		}
+	}
 	
 	public Quaternion rotate(Vector3f axis, double angle) { return rotate(axis.x, axis.y, axis.z, angle); }
 	
 	public Quaternion rotate(float ax, float ay, float az, double angle)
 	{
 		return set(getFromAxis(ax, ay, az, angle).mul(this));
-		}
-	
-	public Quaternion rotate(Vector3d axis, float angle) { return rotate(axis.getX(), axis.getY(), axis.getZ(), angle); }
+	}
 	
 	public Quaternion rotate(double ax, double ay, double az, float angle)
 	{
 		return set(getFromAxis(ax, ay, az, angle).mul(this));
-		}
-	
-	public Quaternion rotate(Vector3d axis, double angle) { return rotate(axis.getX(), axis.getY(), axis.getZ(), angle); }
+	}
 	
 	public Quaternion rotate(double ax, double ay, double az, double angle)
 	{
@@ -157,7 +149,7 @@ public class Quaternion implements DataHolder
 		if(!this.uPitch)
 		{
 
-			Vector3f a = getForwardf();
+			Vector3f a = getForward();
 			Vector3f b = a.clone().setY(0);
 			
 			int i = a.y > 0 ? -1 : 1;
@@ -279,52 +271,25 @@ public class Quaternion implements DataHolder
 		
 	}
 	
-	public Quaternion mul(Vector3d v)
-	{
-		double w_ = -this.x * v.x - this.y * v.y - this.z * v.z; // - v * v'
-		double x_ =  this.w * v.x + this.y * v.z - this.z * v.y; // s * v'.x ...
-		double y_ =  this.w * v.y + this.z * v.x - this.x * v.z; // s * v'.y ...
-		double z_ =  this.w * v.z + this.x * v.y - this.y * v.x; // s * v*.z ...
-		
-		set(w_, x_, y_, z_);
-		
-		return this;
-		
-	}
-	
 	public Quaternion addN(Quaternion q) { return this.clone().add(q); }
 	
 	public Quaternion mulN(Quaternion q) { return this.clone().mul(q); }
 	
 	public Quaternion mulN(Vector3f v) { return this.clone().mul(v); }
 	
-	public Quaternion mulN(Vector3d v) { return this.clone().mul(v); }
 	
 	
+	public Vector3f getForward() { return new Vector3f(0.0f, 0.0f, 1.0f).rot(this).normalize(); }
 	
-	public Vector3f getForwardf() { return new Vector3f(0.0f, 0.0f, 1.0f).rot(this).normalize(); }
+	public Vector3f getBack() { return new Vector3f(0.0f, 0.0f, -1.0f).rot(this).normalize(); }
 	
-	public Vector3f getBackf() { return new Vector3f(0.0f, 0.0f, -1.0f).rot(this).normalize(); }
+	public Vector3f getUp() { return new Vector3f(0.0f, 1.0f, 0.0f).rot(this).normalize(); }
 	
-	public Vector3f getUpf() { return new Vector3f(0.0f, 1.0f, 0.0f).rot(this).normalize(); }
+	public Vector3f getDown() { return new Vector3f(0.0f, -1.0f, 0.0f).rot(this).normalize(); }
 	
-	public Vector3f getDownf() { return new Vector3f(0.0f, -1.0f, 0.0f).rot(this).normalize(); }
+	public Vector3f getRight() { return new Vector3f(-1.0f, 0.0f, 0.0f).rot(this).normalize(); }
 	
-	public Vector3f getRightf() { return new Vector3f(-1.0f, 0.0f, 0.0f).rot(this).normalize(); }
-	
-	public Vector3f getLeftf() { return new Vector3f(1.0f, 0.0f, 0.0f).rot(this).normalize(); }
-	
-	public Vector3d getForwardd() { return new Vector3d(0.0d, 0.0d, 1.0d).rot(this).normalize(); }
-	
-	public Vector3d getBackd() { return new Vector3d(0.0d, 0.0d, -1.0d).rot(this).normalize(); }
-	
-	public Vector3d getUpd() { return new Vector3d(0.0d, 1.0d, 0.0d).rot(this).normalize(); }
-	
-	public Vector3d getDownd() { return new Vector3d(0.0d, -1.0d, 0.0d).rot(this).normalize(); }
-	
-	public Vector3d getRightd() { return new Vector3d(-1.0d, 0.0d, 0.0d).rot(this).normalize(); }
-	
-	public Vector3d getLeftd() { return new Vector3d(1.0d, 0.0d, 0.0d).rot(this).normalize(); }
+	public Vector3f getLeft() { return new Vector3f(1.0f, 0.0f, 0.0f).rot(this).normalize(); }
 	
 
 	

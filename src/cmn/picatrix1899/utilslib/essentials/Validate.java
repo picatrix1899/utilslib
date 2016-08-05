@@ -3,9 +3,7 @@ package cmn.picatrix1899.utilslib.essentials;
 import java.util.List;
 
 import cmn.picatrix1899.utilslib.exceptions.Exceptions;
-import cmn.picatrix1899.utilslib.vector.Vector2d;
 import cmn.picatrix1899.utilslib.vector.Vector2f;
-import cmn.picatrix1899.utilslib.vector.Vector3d;
 import cmn.picatrix1899.utilslib.vector.Vector3f;
 
 /**
@@ -694,12 +692,8 @@ public abstract class Validate
 		
 		public static boolean isNull(Vector2f v) { return v == null || (isNull(v.getX()) && isNull(v.getY())); }
 		
-		public static boolean isNull(Vector2d v) { return v == null || (isNull(v.getX()) && isNull(v.getY())); }
-		
 		public static boolean isNull(Vector3f v) { return v == null || (isNull(v.x) && isNull(v.y) && isNull(v.z)); }
-		
-		public static boolean isNull(Vector3d v) { return v == null || (isNull(v.getX()) && isNull(v.getY()) && isNull(v.getZ())); }
-		
+
 		public static boolean isNull(byte b) { return b == 0; }
 		
 		public static boolean isNull(short s) { return s == 0; }	
@@ -729,15 +723,7 @@ public abstract class Validate
 			
 			return true;
 		}
-		
-		public static boolean isNull(Vector2d... v) 
-		{
-			for(Vector2d val : v)
-				if(Check.notNull(val)) return false;
-			
-			return true;
-		}
-		
+
 		public static boolean isNull(Vector3f... v) 
 		{
 			for(Vector3f val : v)
@@ -745,15 +731,7 @@ public abstract class Validate
 			
 			return true;
 		}
-		
-		public static boolean isNull(Vector3d... v) 
-		{
-			for(Vector3d val : v)
-				if(Check.notNull(val)) return false;
-			
-			return true;
-		}
-		
+
 		public static boolean isNull(byte... b) 
 		{
 			for(byte val : b)
@@ -819,15 +797,7 @@ public abstract class Validate
 			
 			return false;
 		}
-		
-		public static boolean isNullOOO(Vector2d... v) 
-		{
-			for(Vector2d val : v)
-				if(Check.isNull(val)) return true;
-			
-			return false;
-		}
-		
+
 		public static boolean isNullOOO(Vector3f... v) 
 		{
 			for(Vector3f val : v)
@@ -835,15 +805,7 @@ public abstract class Validate
 			
 			return false;
 		}
-		
-		public static boolean isNullOOO(Vector3d... v) 
-		{
-			for(Vector3d val : v)
-				if(Check.isNull(val)) return true;
-			
-			return false;
-		}
-		
+
 		public static boolean isNullOOO(byte... b) 
 		{
 			for(byte val : b)
@@ -972,12 +934,8 @@ public abstract class Validate
 		public static boolean notNull(String str) { return !isNull(str); }
 		
 		public static boolean notNull(Vector2f v) { return !isNull(v); }
-		
-		public static boolean notNull(Vector2d v) { return !isNull(v); }
-		
+
 		public static boolean notNull(Vector3f v) { return !isNull(v); }
-		
-		public static boolean notNull(Vector3d v) { return !isNull(v); }
 
 		public static boolean notNull(byte b) { return !isNull(b); }
 
@@ -1008,15 +966,7 @@ public abstract class Validate
 			
 			return true;
 		}
-		
-		public static boolean notNull(Vector2d... v)
-		{
-			for(Vector2d val : v)
-				if(Check.isNull(val)) return false;
-			
-			return true;
-		}
-		
+
 		public static boolean notNull(Vector3f... v)
 		{
 			for(Vector3f val : v)
@@ -1024,15 +974,7 @@ public abstract class Validate
 			
 			return true;
 		}
-		
-		public static boolean notNull(Vector3d... v)
-		{
-			for(Vector3d val : v)
-				if(Check.isNull(val)) return false;
-			
-			return true;
-		}
-		
+
 		public static boolean notNull(byte... b)
 		{
 			for(byte val : b)
@@ -1096,15 +1038,7 @@ public abstract class Validate
 			
 			return false;
 		}
-		
-		public static boolean notNullOOO(Vector2d... v)
-		{
-			for(Vector2d val : v)
-				if(Check.notNull(val)) return true;
-			
-			return false;
-		}
-		
+
 		public static boolean notNullOOO(Vector3f... v)
 		{
 			for(Vector3f val : v)
@@ -1112,15 +1046,7 @@ public abstract class Validate
 			
 			return false;
 		}
-		
-		public static boolean notNullOOO(Vector3d... v)
-		{
-			for(Vector3d val : v)
-				if(Check.notNull(val)) return true;
-			
-			return false;
-		}
-		
+
 		public static boolean notNullOOO(byte... b)
 		{
 			for(byte val : b)
