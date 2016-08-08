@@ -347,9 +347,9 @@ public class Matrix4f
 			dest = new Vector3f();
 		}
 		
-		float x = l.m00 * r.x + l.m01 * r.y + l.m02 * r.z + l.m03 * 1.0f;
-		float y = l.m10 * r.x + l.m11 * r.y + l.m12 * r.z + l.m13 * 1.0f;
-		float z = l.m20 * r.x + l.m21 * r.y + l.m22 * r.z + l.m23 * 1.0f;
+		float x = l.m0.x * r.x + l.m0.y * r.y + l.m0.z * r.z + l.m0.a * 1.0f;
+		float y = l.m1.x * r.x + l.m1.y * r.y + l.m1.z * r.z + l.m1.a * 1.0f;
+		float z = l.m2.x * r.x + l.m2.y * r.y + l.m2.z * r.z + l.m2.a * 1.0f;
 
 		dest.setX(x).setY(y).setZ(z);
 		
@@ -363,10 +363,10 @@ public class Matrix4f
 			dest = new Vector4f();
 		}
 		
-		float x = l.m00 * r.x + l.m01 * r.y + l.m02 * r.z + l.m03 * r.a;
-		float y = l.m10 * r.x + l.m11 * r.y + l.m12 * r.z + l.m13 * r.a;
-		float z = l.m20 * r.x + l.m21 * r.y + l.m22 * r.z + l.m23 * r.a;
-		float a = l.m30 * r.x + l.m31 * r.y + l.m32 * r.z + l.m33 * r.a;
+		float x = l.m0.x * r.x + l.m0.y * r.y + l.m0.z * r.z + l.m0.a * r.a;
+		float y = l.m1.x * r.x + l.m1.y * r.y + l.m1.z * r.z + l.m1.a * r.a;
+		float z = l.m2.x * r.x + l.m2.y * r.y + l.m2.z * r.z + l.m2.a * r.a;
+		float a = l.m3.x * r.x + l.m3.y * r.y + l.m3.z * r.z + l.m3.a * r.a;
 
 		dest.setX(x).setY(y).setZ(z).setA(a);
 		
@@ -377,10 +377,10 @@ public class Matrix4f
 	{
 		float[] out = new float[Matrix4f.ENTS];
 		
-		out[ 0] = this.m00;	out[ 1] = this.m01;	out[ 2] = this.m02;	out[ 3] = this.m03;
-		out[ 4] = this.m10;	out[ 5] = this.m11;	out[ 6] = this.m12;	out[ 7] = this.m13;
-		out[ 8] = this.m20;	out[ 9] = this.m21;	out[10] = this.m22;	out[11] = this.m23;
-		out[12] = this.m30;	out[13] = this.m31;	out[14] = this.m32;	out[15] = this.m33;
+		out[ 0] = this.m0.x;	out[ 1] = this.m0.y;	out[ 2] = this.m0.z;	out[ 3] = this.m0.a;
+		out[ 4] = this.m1.x;	out[ 5] = this.m1.y;	out[ 6] = this.m1.z;	out[ 7] = this.m1.a;
+		out[ 8] = this.m2.x;	out[ 9] = this.m2.y;	out[10] = this.m2.z;	out[11] = this.m2.a;
+		out[12] = this.m3.x;	out[13] = this.m3.y;	out[14] = this.m3.z;	out[15] = this.m3.a;
 		
 		return out;
 	}
@@ -394,10 +394,10 @@ public class Matrix4f
 	{
 		float[] out = new float[Matrix4f.ENTS];
 		
-		out[ 0] = this.m00;	out[ 1] = this.m10;	out[ 2] = this.m20;	out[ 3] = this.m30;
-		out[ 4] = this.m01;	out[ 5] = this.m11;	out[ 6] = this.m21;	out[ 7] = this.m31;
-		out[ 8] = this.m02;	out[ 9] = this.m12;	out[10] = this.m22;	out[11] = this.m32;
-		out[12] = this.m03;	out[13] = this.m13;	out[14] = this.m23;	out[15] = this.m33;
+		out[ 0] = this.m0.x;	out[ 1] = this.m1.x;	out[ 2] = this.m2.x;	out[ 3] = this.m3.x;
+		out[ 4] = this.m0.y;	out[ 5] = this.m1.y;	out[ 6] = this.m2.y;	out[ 7] = this.m3.y;
+		out[ 8] = this.m0.z;	out[ 9] = this.m1.z;	out[10] = this.m2.z;	out[11] = this.m3.z;
+		out[12] = this.m0.a;	out[13] = this.m1.a;	out[14] = this.m2.a;	out[15] = this.m3.a;
 		
 		return out;
 	}
@@ -409,45 +409,45 @@ public class Matrix4f
 	
 	public Matrix4f transpose()
 	{
-		float m00_ = this.m00;
-		float m01_ = this.m10;
-		float m02_ = this.m20;
-		float m03_ = this.m30;
+		float m00_ = this.m0.x;
+		float m01_ = this.m1.x;
+		float m02_ = this.m2.x;
+		float m03_ = this.m3.x;
 		
-		float m10_ = this.m01;
-		float m11_ = this.m11;
-		float m12_ = this.m21;
-		float m13_ = this.m31;
+		float m10_ = this.m0.y;
+		float m11_ = this.m1.y;
+		float m12_ = this.m2.y;
+		float m13_ = this.m3.y;
 		
-		float m20_ = this.m02;
-		float m21_ = this.m12;
-		float m22_ = this.m22;
-		float m23_ = this.m32;
+		float m20_ = this.m0.z;
+		float m21_ = this.m1.z;
+		float m22_ = this.m2.z;
+		float m23_ = this.m3.z;
 		
-		float m30_ = this.m03;
-		float m31_ = this.m13;
-		float m32_ = this.m23;
-		float m33_ = this.m33;
+		float m30_ = this.m0.a;
+		float m31_ = this.m1.a;
+		float m32_ = this.m2.a;
+		float m33_ = this.m3.a;
 		
-		this.m00 = m00_;
-		this.m01 = m01_;
-		this.m02 = m02_;
-		this.m03 = m03_;
+		this.m0.x = m00_;
+		this.m0.y = m01_;
+		this.m0.z = m02_;
+		this.m0.a = m03_;
 		
-		this.m10 = m10_;
-		this.m11 = m11_;
-		this.m12 = m12_;
-		this.m13 = m13_;
+		this.m1.x = m10_;
+		this.m1.y = m11_;
+		this.m1.z = m12_;
+		this.m1.a = m13_;
 		
-		this.m20 = m20_;
-		this.m21 = m21_;
-		this.m22 = m22_;
-		this.m23 = m23_;
+		this.m2.x = m20_;
+		this.m2.y = m21_;
+		this.m2.z = m22_;
+		this.m2.a = m23_;
 		
-		this.m30 = m30_;
-		this.m31 = m31_;
-		this.m32 = m32_;
-		this.m33 = m33_;
+		this.m3.x = m30_;
+		this.m3.y = m31_;
+		this.m3.z = m32_;
+		this.m3.a = m33_;
 		
 		return this;
 	}
@@ -501,10 +501,10 @@ public class Matrix4f
 		
 		if(D != 0)
 		{
-			m.m00 /=D; m.m01 /=D; m.m02 /=D; m.m03 /=D;
-			m.m10 /=D; m.m11 /=D; m.m12 /=D; m.m13 /=D;
-			m.m20 /=D; m.m21 /=D; m.m22 /=D; m.m23 /=D;
-			m.m30 /=D; m.m31 /=D; m.m32 /=D; m.m33 /=D;
+			m.m0.x /=D; m.m0.y /=D; m.m0.z /=D; m.m0.a /=D;
+			m.m1.x /=D; m.m1.y /=D; m.m1.z /=D; m.m1.a /=D;
+			m.m2.x /=D; m.m2.y /=D; m.m2.z /=D; m.m2.a /=D;
+			m.m3.x /=D; m.m3.y /=D; m.m3.z /=D; m.m3.a /=D;
 		}
 		
 		return m;
@@ -512,40 +512,7 @@ public class Matrix4f
 	
 	public Matrix4f invert()
 	{
-		
-		Matrix4f m = new Matrix4f();
-		
-		m.m00 =      m11*m22*m33 - m11*m32*m23 - m12*m21*m33 + m12*m31*m23 + m13*m21*m32 - m13*m31*m22;
-		m.m10 =    - m10*m22*m33 + m10*m32*m23 + m12*m20*m33 - m12*m30*m23 - m13*m20*m32 + m13*m30*m22;
-		m.m20 =      m10*m21*m33 - m10*m31*m23 - m11*m20*m33 + m11*m30*m23 + m13*m20*m31 - m13*m30*m21;
-		m.m30 =    - m10*m21*m32 + m10*m31*m22 + m11*m20*m32 - m11*m30*m22 - m12*m20*m31 + m12*m30*m21;
-		
-		m.m01 =    - m01*m22*m33 + m01*m32*m23 + m02*m21*m33 - m02*m31*m23 - m03*m21*m32 + m03*m31*m22;
-		m.m11 =      m00*m22*m33 - m00*m32*m23 - m02*m20*m33 + m02*m30*m23 + m03*m20*m32 - m03*m30*m22;
-		m.m21 =    - m00*m21*m33 + m00*m31*m23 + m01*m20*m33 - m01*m30*m23 - m03*m20*m31 + m03*m30*m21;
-		m.m31 =      m00*m21*m32 - m00*m31*m22 - m01*m20*m32 + m01*m30*m22 + m02*m20*m31 - m02*m30*m21;
-		
-		m.m02 =      m01*m12*m33 - m01*m32*m13 - m02*m11*m33 + m02*m31*m13 + m03*m11*m32 - m03*m31*m12;
-		m.m12 =    - m00*m12*m33 + m00*m32*m13 + m02*m10*m33 - m02*m30*m13 - m03*m10*m32 + m03*m30*m12;
-		m.m22 =      m00*m11*m33 - m00*m31*m13 - m01*m10*m33 + m01*m30*m13 + m03*m10*m31 - m03*m30*m11;
-		m.m32 =    - m00*m11*m32 + m00*m31*m12 + m01*m10*m32 - m01*m30*m12 - m02*m10*m31 + m02*m30*m11;
-		
-		m.m03 =    - m01*m12*m23 + m01*m22*m13 + m02*m11*m23 - m02*m21*m13 - m03*m11*m22 + m03*m21*m12;
-		m.m13 =      m00*m12*m23 - m00*m22*m13 - m02*m10*m23 + m02*m20*m13 + m03*m10*m22 - m03*m20*m12;
-		m.m23 =    - m00*m11*m23 + m00*m21*m13 + m01*m10*m23 - m01*m20*m13 - m03*m10*m21 + m03*m20*m11;
-		m.m33 =      m00*m11*m22 - m00*m21*m12 - m01*m10*m22 + m01*m20*m12 + m02*m10*m21 - m02*m20*m11;
-		
-		double D = m00*m.m00 + m01*m.m10 +  m02*m.m20 + m03*m.m30;
-		
-		if(D != 0)
-		{
-			m.m00 /=D; m.m10 /=D; m.m20 /=D; m.m30 /=D;
-			m.m01 /=D; m.m11 /=D; m.m21 /=D; m.m31 /=D;
-			m.m02 /=D; m.m12 /=D; m.m22 /=D; m.m32 /=D;
-			m.m03 /=D; m.m13 /=D; m.m23 /=D; m.m33 /=D;
-		}
-		
-		return set(m);
+		return set(inverted());
 	}
 	
 }
