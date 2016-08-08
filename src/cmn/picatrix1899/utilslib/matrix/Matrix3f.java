@@ -7,7 +7,7 @@ import cmn.picatrix1899.utilslib.vector.Quaternion;
 import cmn.picatrix1899.utilslib.vector.Vector3f;
 
 /**
- * A 4 by 4 float matrix 
+ * A 3 by 3 float Row Major Matrix 
  * 
  * @author picatrix1899
  *

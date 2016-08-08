@@ -5,6 +5,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.Serializable;
 
 import cmn.picatrix1899.utilslib.interfaces.DataHolder;
 
@@ -14,103 +15,95 @@ import cmn.picatrix1899.utilslib.interfaces.DataHolder;
  * @author picatrix1899
  *
  */
-public class Vector4f implements DataHolder
+public class Vector4f implements DataHolder, Serializable
 {
-	public static final int DIMENSIONS = 4;
+	private static final long serialVersionUID = 1L;
+
+	public static transient final int DIMENSIONS = 4;
 	
 	public float x = 0.0f;
 	public float y = 0.0f;
 	public float z = 0.0f;
 	public float a = 0.0f;
 	
-	public Vector4f()
-	{
-		setZero();
-	}
+	public Vector4f() { setZero(); }
 	
-	private Vector4f(Vector4f v)
-	{
-		set(v);
-	}	
+	private Vector4f(Vector4f v) { set(v); }	
 	
-	public Vector4f(float scalar)
-	{
-		set(scalar);
-	}
+	public Vector4f(float scalar) { set(scalar); }
 	
-	public Vector4f(float x, float y, float z, float a)
-	{
-		set(x, y, z, a);
-	}
+	public Vector4f(float x, float y, float z, float a) { set(x, y, z, a); }
+	
 	
 	public Vector4f setZero() { return set(0.0f); }
-	
-	public Vector4f set(float scalar) { return set(scalar, scalar, scalar, scalar); }
-	
+
 	public Vector4f set(Vector4f v) { return set(v.x, v.y, v.z, v.a); }
 	
+	public Vector4f set(float scalar) { return set(scalar, scalar, scalar, scalar); }	
+	public Vector4f set(double scalar) { return set(scalar, scalar, scalar, scalar); }	
 	public Vector4f set(float x, float y, float z, float a) { return setX(x).setY(y).setZ(z).setA(a); }
-	
+	public Vector4f set(double x, double y, double z, double a) { return setX(x).setY(y).setZ(z).setA(a); }	
 	public Vector4f setX(float x) { this.x = x; return this; }
-	
+	public Vector4f setX(double x) { this.x = (float)x; return this; }	
 	public Vector4f setY(float y) { this.y = y; return this; }
-	
+	public Vector4f setY(double y) { this.y = (float)y; return this; }	
 	public Vector4f setZ(float z) { this.z = z; return this; }
-	
+	public Vector4f setZ(double z) { this.z = (float)z; return this; }	
 	public Vector4f setA(float a) { this.a = a; return this; }
+	public Vector4f setA(double a) { this.a = (float)a; return this; }	
 	
-	
+
 	
 	public Vector4f add(Vector4f v) { return add(v.x, v.y, v.z, v.a); }
-	
 	public Vector4f add(float scalar) { return add(scalar, scalar, scalar, scalar); }
-	
-	public Vector4f add(float x, float y, float z, float a) { return setX(this.x + x).setY(this.y + y).setZ(this.z + z).setA(this.a + a); }
+	public Vector4f add(double scalar) { return add(scalar, scalar, scalar, scalar); }
+	public Vector4f add(float x, float y, float z, float a) { return set(this.x + x, this.y + y, this.z + z, this.a + a); }
+	public Vector4f add(double x, double y, double z, double a) { return set(this.x + x, this.y + y, this.z + z, this.a + a); }
 
 	public Vector4f sub(Vector4f v) { return sub(v.x, v.y, v.z, v.a); }
-	
 	public Vector4f sub(float scalar) { return sub(scalar, scalar, scalar, scalar); }
-	
-	public Vector4f sub(float x, float y, float z, float a) { return setX(this.x - x).setY(this.y - y).setZ(this.z - z).setA(this.a - a); }
+	public Vector4f sub(double scalar) { return sub(scalar, scalar, scalar, scalar); }	
+	public Vector4f sub(float x, float y, float z, float a) { return set(this.x - x, this.y - y, this.z - z, this.a - a); }
+	public Vector4f sub(double x, double y, double z, double a) { return set(this.x - x, this.y - y, this.z - z, this.a - a); }
 	
 	public Vector4f mul(Vector4f v) { return mul(v.x, v.y, v.z, v.a); }
-	
 	public Vector4f mul(float scalar) { return mul(scalar, scalar, scalar, scalar); }
-	
-	public Vector4f mul(float x, float y, float z, float a) { return setX(this.x * x).setY(this.y * y).setZ(this.z * z).setA(this.a * a); }
+	public Vector4f mul(double scalar) { return mul(scalar, scalar, scalar, scalar); }	
+	public Vector4f mul(float x, float y, float z, float a) { return set(this.x * x, this.y * y, this.z * z, this.a * a); }
+	public Vector4f mul(double x, double y, double z, double a) { return set(this.x * x, this.y * y, this.z * z, this.a * a); }
 	
 	public Vector4f div(Vector4f v) { return div(v.x, v.y, v.z, v.a); }
-	
 	public Vector4f div(float scalar) { return div(scalar, scalar, scalar, scalar); }
-	
-	public Vector4f div(float x, float y, float z, float a) { return setX(this.x / x).setY(this.y / y).setZ(this.z / z).setA(this.a / a); }
+	public Vector4f div(double scalar) { return div(scalar, scalar, scalar, scalar); }	
+	public Vector4f div(float x, float y, float z, float a) { return set(this.x / x, this.y / y, this.z / z, this.a / a); }
+	public Vector4f div(double x, double y, double z, double a) { return set(this.x / x, this.y / y, this.z / z, this.a / a); }
 	
 	
 	
 	
 	public Vector4f addN(Vector4f v) { return addN(v.x, v.y, v.z, v.a); }
-	
 	public Vector4f addN(float scalar) { return addN(scalar, scalar, scalar, scalar); }
-	
-	public Vector4f addN(float x, float y, float z, float w) { return clone().add(x, y, z, w); }
+	public Vector4f addN(double scalar) { return addN(scalar, scalar, scalar, scalar); }	
+	public Vector4f addN(float x, float y, float z, float a) { return clone().add(x, y, z, a); }
+	public Vector4f addN(double x, double y, double z, double a) { return clone().add(x, y, z, a); }
 	
 	public Vector4f subN(Vector4f v) { return subN(v.x, v.y, v.z, v.a); }
-	
 	public Vector4f subN(float scalar) { return subN(scalar, scalar, scalar, scalar); }
-	
-	public Vector4f subN(float x, float y, float z, float w) { return clone().sub(x, y, z, w); }
+	public Vector4f subN(double scalar) { return subN(scalar, scalar, scalar, scalar); }	
+	public Vector4f subN(float x, float y, float z, float a) { return clone().sub(x, y, z, a); }
+	public Vector4f subN(double x, double y, double z, double a) { return clone().sub(x, y, z, a); }
 	
 	public Vector4f mulN(Vector4f v) { return mulN(v.x, v.y, v.z, v.a); }
-	
 	public Vector4f mulN(float scalar) { return mulN(scalar, scalar, scalar, scalar); }
-	
-	public Vector4f mulN(float x, float y, float z, float w) { return clone().mul(x, y, z, w); }
+	public Vector4f mulN(double scalar) { return mulN(scalar, scalar, scalar, scalar); }	
+	public Vector4f mulN(float x, float y, float z, float a) { return clone().mul(x, y, z, a); }
+	public Vector4f mulN(double x, double y, double z, double a) { return clone().mul(x, y, z, a); }
 	
 	public Vector4f divN(Vector4f v) { return divN(v.x, v.y, v.z, v.a); }
-	
 	public Vector4f divN(float scalar) { return divN(scalar, scalar, scalar, scalar); }
-	
-	public Vector4f divN(float x, float y, float z, float w) { return clone().div(x, y, z, w); }
+	public Vector4f divN(double scalar) { return divN(scalar, scalar, scalar, scalar); }	
+	public Vector4f divN(float x, float y, float z, float a) { return clone().div(x, y, z, a); }
+	public Vector4f divN(double x, double y, double z, double a) { return clone().div(x, y, z, a); }
 	
 	
 	

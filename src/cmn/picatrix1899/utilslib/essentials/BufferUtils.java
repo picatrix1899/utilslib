@@ -107,8 +107,8 @@ public final class BufferUtils
 		
 		for(int i = 0; i < v.length; i++)
 		{
-			f[i + 0] = v[i].getX();
-			f[i + 1] = v[i].getY();
+			f[i + 0] = v[i].x;
+			f[i + 1] = v[i].y;
 		}
 		
 		return wrapFloatBuffer(f);
