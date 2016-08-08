@@ -14,7 +14,8 @@ public class Maths
 	public static final double HALF_PI = 1.570796326795d;
 	public static final double DEG_TO_RAD = 0.017453292519944444d;
 	public static final double RAD_TO_DEG = 57.29577951307855d;
-	public static final double UNIT_TRESHOLD = 0.00000001d;
+	public static final double INV_SQRT2 = 0.7071067811865475d; // 1 / sqrt(2); these are used for precalculated normalized vectors like vec3(1.0, 1.0, 0.0)
+	public static final double INV_SQRT3 = 0.5773502691896258d; // 1 / sqrt(3); these are used for precalculated normalized vectors like vec3(1.0, 1.0, 1.0)
 	
 	public static double clampMin(double in, double min)
 	{
