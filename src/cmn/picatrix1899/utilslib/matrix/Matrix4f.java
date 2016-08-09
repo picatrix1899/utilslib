@@ -25,10 +25,10 @@ public class Matrix4f
 //	public float m20, m21, m22, m23;
 //	public float m30, m31, m32, m33;
 	
-	public Vector4f m0;
-	public Vector4f m1;
-	public Vector4f m2;
-	public Vector4f m3;
+	public Vector4f m0 = new Vector4f();
+	public Vector4f m1 = new Vector4f();
+	public Vector4f m2 = new Vector4f();
+	public Vector4f m3 = new Vector4f();
 	
 	public Matrix4f()
 	{
@@ -220,8 +220,8 @@ public class Matrix4f
 		if(scale == null) scale = new Vector3f(1.0f, 1.0f, 1.0f);
 		
 		initIdendity();
-		translate(pos);
 		rotate(rot);
+		translate(pos);
 		scale(scale);
 		
 		return this;

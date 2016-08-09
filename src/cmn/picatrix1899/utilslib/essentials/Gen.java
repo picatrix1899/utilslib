@@ -59,7 +59,7 @@ public class Gen
 	
 	public static class Lindenmayer
 	{
-		public static final double DEFAULT_ROT = 90.0d;
+		public static final double DEFAULT_ROT = 27.1d;
 		public static final int DEFAULT_DEPTH = 6;
 		public static final int DEFAULT_STEPLENGTH = 3;
 		public static final double DEFAULT_START_DIR = -85.0d;
@@ -68,7 +68,7 @@ public class Gen
 		public static final String DEFAULT_AXIOM = "F";
 		
 		public static double rot = DEFAULT_ROT;
-		public static int intiDepth = DEFAULT_DEPTH;
+		public static int initDepth = DEFAULT_DEPTH;
 		public static int stepLength = DEFAULT_STEPLENGTH;
 		public static double initDir = DEFAULT_START_DIR;
 		
@@ -81,7 +81,11 @@ public class Gen
 		{
 			points = new ArrayList<Vector2f>();
 			Vector2f[] out;
-	
+
+			depth = initDepth;
+			dir = initDir;
+			
+			a = new Vector2f();
 			
 			calcPoint(axiom, way);
 			
@@ -151,10 +155,7 @@ public class Gen
 		}
 		
 	}
-	
-	
 
-	
 	
 	
 	
