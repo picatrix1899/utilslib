@@ -1,8 +1,14 @@
 package cmn.picatrix1899.utilslib.matrix;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.Serializable;
 import java.nio.FloatBuffer;
 
 import cmn.picatrix1899.utilslib.essentials.BufferUtils;
+import cmn.picatrix1899.utilslib.geometry.Point3f;
+import cmn.picatrix1899.utilslib.interfaces.DataHolder;
 import cmn.picatrix1899.utilslib.vector.Quaternion;
 import cmn.picatrix1899.utilslib.vector.Vector3f;
 
@@ -12,8 +18,10 @@ import cmn.picatrix1899.utilslib.vector.Vector3f;
  * @author picatrix1899
  *
  */
-public class Matrix3f
+public class Matrix3f implements DataHolder, Serializable
 {
+
+	private static final long serialVersionUID = 1L;
 	
 	public static final int ROWS = 3;
 	public static final int COLS = 3;
@@ -73,17 +81,17 @@ public class Matrix3f
 	
 	public Matrix3f initRotation(Quaternion q)
 	{
-		this.m0.x = (float)(1.0d - 2.0d	* (q.getY() * q.getY() + q.getZ() * q.getZ()));
-		this.m0.y = (float)(2.0d		* (q.getX() * q.getY() - q.getW() * q.getZ()));
-		this.m0.z = (float)(2.0d		* (q.getX() * q.getZ() + q.getW() * q.getY()));
+		this.m0.setX(1.0d - 2.0d	*	(q.getY() * q.getY() + q.getZ() * q.getZ()));
+		this.m0.setY(2.0d			*	(q.getX() * q.getY() - q.getW() * q.getZ()));
+		this.m0.setZ(2.0d			*	(q.getX() * q.getZ() + q.getW() * q.getY()));
 		
-		this.m1.x = (float)(2.0d		* (q.getX() * q.getY() + q.getW() * q.getZ()));
-		this.m1.y = (float)(1.0d - 2.0d	* (q.getX() * q.getX() + q.getZ() * q.getZ()));
-		this.m1.z = (float)(2.0d		* (q.getY() * q.getZ() - q.getW() * q.getX()));
+		this.m1.setX(2.0d			*	(q.getX() * q.getY() + q.getW() * q.getZ()));
+		this.m1.setY(1.0d - 2.0d	*	(q.getX() * q.getX() + q.getZ() * q.getZ()));
+		this.m1.setZ(2.0d			*	(q.getY() * q.getZ() - q.getW() * q.getX()));
 		
-		this.m2.x = (float)(2.0d		* (q.getX() * q.getZ() - q.getW() * q.getY()));
-		this.m2.y = (float)(2.0d		* (q.getY() * q.getZ() + q.getW() * q.getX()));
-		this.m2.z = (float)(1.0d - 2.0d	* (q.getX() * q.getX() + q.getY() * q.getY()));
+		this.m2.setX(2.0d			*	(q.getX() * q.getZ() - q.getW() * q.getY()));
+		this.m2.setY(2.0d			*	(q.getY() * q.getZ() + q.getW() * q.getX()));
+		this.m2.setZ(1.0d - 2.0d	*	(q.getX() * q.getX() + q.getY() * q.getY()));
 		
 		return this;
 	}
@@ -105,17 +113,9 @@ public class Matrix3f
 		float sy = s * axis.y;
 		float sz = s * axis.z;
 		
-		this.m0.x = axis.x	* axis.x	* omc + c;
-		this.m0.y = xy					* omc - sz;
-		this.m0.z = xz					* omc + sy;
-		
-		this.m1.x = xy					* omc + sz;
-		this.m1.y = axis.y * axis.y		* omc + c;
-		this.m1.z = yz					* omc - sx;
-		
-		this.m2.x = xz					* omc - sy; 
-		this.m2.y = yz					* omc + sx;
-		this.m2.z = axis.z * axis.z		* omc + c;
+		this.m0.set(	axis.x * axis.x * omc + c	,	xy * omc - sz				,	xz * omc + sy				);
+		this.m1.set(	xy * omc + sz				,	axis.y * axis.y * omc + c	,	yz * omc - sx				);
+		this.m2.set(	xz * omc - sy				,	yz * omc + sx				,	axis.z * axis.z * omc + c	);
 		
 		return this;
 	}
@@ -168,11 +168,32 @@ public class Matrix3f
 		return dest;
 	}
 	
+	public Vector3f transformN(Vector3f v) { return transform(this, v, null); }
+	
+	public Vector3f transform(Vector3f v) { return transform(this, v, v); }
+	
 	public static Vector3f transform(Matrix3f l, Vector3f r, Vector3f dest)
 	{
 		if (dest == null) dest = new Vector3f();
 
 		return dest.set(l.m0.dot(r), l.m1.dot(r), l.m2.dot(r));
+	}
+	
+	public Point3f transformN(Point3f p) { return transform(this, p, null); }
+	
+	public Point3f transform(Point3f p) { return transform(this, p, p); }
+	
+	public static Point3f transform(Matrix3f l, Point3f r, Point3f dest)
+	{
+		if (dest == null) dest = new Point3f();
+
+		float x_ = l.m0.x * r.x + l.m0.y * r.y + l.m0.z * r.z;
+		float y_ = l.m1.x * r.x + l.m1.y * r.y + l.m1.z * r.z;
+		float z_ = l.m2.x * r.x + l.m2.y * r.y + l.m2.z * r.z;
+
+		dest.set(x_, y_, z_);
+		
+		return dest;
 	}
 	
 	public float[] getRowMajor()
@@ -181,7 +202,7 @@ public class Matrix3f
 		
 		out[ 0] = this.m0.x;	out[ 1] = this.m0.y;	out[ 2] = this.m0.z;
 		out[ 3] = this.m1.x;	out[ 4] = this.m1.y;	out[ 5] = this.m1.z;
-		out[ 6] = this.m2.y;	out[ 7] = this.m2.y;	out[ 8] = this.m2.z;
+		out[ 6] = this.m2.x;	out[ 7] = this.m2.y;	out[ 8] = this.m2.z;
 		
 		return out;
 	}
@@ -191,21 +212,20 @@ public class Matrix3f
 		return (FloatBuffer) BufferUtils.wrapFloatBuffer(getRowMajor()).flip();
 	}
 	
+	public FloatBuffer getColMajorBuffer() { return (FloatBuffer) BufferUtils.wrapFloatBuffer(getColMajor()).flip(); }	
+	
 	public float[] getColMajor()
 	{
 		float[] out = new float[Matrix3f.ENTS];
 		
-		out[ 0] = this.m0.x;	out[ 1] = this.m1.x;	out[ 2] = this.m2.x;
-		out[ 3] = this.m0.y;	out[ 4] = this.m1.y;	out[ 5] = this.m2.y;
-		out[ 6] = this.m0.z;	out[ 7] = this.m1.z;	out[ 8] = this.m2.z;
+		out[ 0] = this.m0.x;	out[ 3] = this.m0.y;	out[ 6] = this.m0.z;
+		out[ 1] = this.m1.x;	out[ 4] = this.m1.y;	out[ 7] = this.m1.z;
+		out[ 2] = this.m2.x;	out[ 5] = this.m2.y;	out[ 8] = this.m2.z;
 		
 		return out;
 	}
 	
-	public FloatBuffer getColMajorBuffer()
-	{
-		return (FloatBuffer) BufferUtils.wrapFloatBuffer(getColMajor()).flip();
-	}
+
 	
 	public Matrix3f transpose()
 	{
@@ -228,14 +248,13 @@ public class Matrix3f
 		return this;
 	}
 
-	public static float det2x2(float m0x, float m0y, float m1x, float m1y)
-	{
-		return m0x*m1y - m0y*m1x;
-	}
+
 	
 	public static float det3x3(float m0x, float m0y, float m0z, float m1x, float m1y, float m1z, float m2x, float m2y, float m2z)
 	{
-		return m0x*+det2x2(m1y, m1z, m2y, m2z) + m0y*-det2x2(m1x, m1z, m2x, m2z) + m0z*+det2x2(m1x, m1y, m2x, m2y);
+		return	m0x * +Matrix2f.det2x2(m1y, m1z, m2y, m2z) +
+				m0y * -Matrix2f.det2x2(m1x, m1z, m2x, m2z) +
+				m0z * +Matrix2f.det2x2(m1x, m1y, m2x, m2y);
 	}
 	
 	public float determinant()
@@ -243,22 +262,22 @@ public class Matrix3f
 		return Matrix3f.det3x3(m0.x, m0.y, m0.z, m1.x, m1.y, m1.z, m2.x, m2.y, m2.z);
 	}
 	
-	public Matrix3f inverted()
+	public Matrix3f inversed()
 	{
 		
 		Matrix3f m = new Matrix3f();
 		
-		m.m0.x = +	det2x2(this.m1.y, this.m1.z, this.m2.y, this.m2.z);
-		m.m0.y = -	det2x2(this.m1.x, this.m1.z, this.m2.x, this.m2.z);
-		m.m0.z = +	det2x2(this.m1.x, this.m1.y, this.m2.x, this.m2.y);
+		m.m0.x = +Matrix2f.det2x2(this.m1.y, this.m1.z, this.m2.y, this.m2.z);
+		m.m0.y = -Matrix2f.det2x2(this.m1.x, this.m1.z, this.m2.x, this.m2.z);
+		m.m0.z = +Matrix2f.det2x2(this.m1.x, this.m1.y, this.m2.x, this.m2.y);
 
-		m.m1.x = -	det2x2(this.m0.y, this.m0.z, this.m2.y, this.m2.z);
-		m.m1.y = +	det2x2(this.m0.x, this.m0.z, this.m2.x, this.m2.z);
-		m.m1.z = -	det2x2(this.m0.x, this.m0.y, this.m2.x, this.m2.y);
+		m.m1.x = -Matrix2f.det2x2(this.m0.y, this.m0.z, this.m2.y, this.m2.z);
+		m.m1.y = +Matrix2f.det2x2(this.m0.x, this.m0.z, this.m2.x, this.m2.z);
+		m.m1.z = -Matrix2f.det2x2(this.m0.x, this.m0.y, this.m2.x, this.m2.y);
 		
-		m.m2.x = +	det2x2(this.m0.y, this.m0.z, this.m1.y, this.m1.z);
-		m.m2.y = -	det2x2(this.m0.x, this.m0.z, this.m1.x, this.m1.z);
-		m.m2.z = +	det2x2(this.m0.x, this.m0.y, this.m1.x, this.m1.y);
+		m.m2.x = +Matrix2f.det2x2(this.m0.y, this.m0.z, this.m1.y, this.m1.z);
+		m.m2.y = -Matrix2f.det2x2(this.m0.x, this.m0.z, this.m1.x, this.m1.z);
+		m.m2.z = +Matrix2f.det2x2(this.m0.x, this.m0.y, this.m1.x, this.m1.y);
 
 		double D = determinant();
 		
@@ -272,36 +291,19 @@ public class Matrix3f
 		return m;
 	}
 	
-	public Matrix3f invert()
+	public Matrix3f invert() { return set(inversed()); }
+
+	public void readData(InputStream stream) throws IOException
 	{
-		
-		Matrix3f m = new Matrix3f();
-		
-		m.m0.x = +	det2x2(this.m1.y, this.m1.z, this.m2.y, this.m2.z);
-		m.m0.y = -	det2x2(this.m1.x, this.m1.z, this.m2.x, this.m2.z);
-		m.m0.z = +	det2x2(this.m1.x, this.m1.y, this.m2.x, this.m2.y);
-
-		m.m1.x = -	det2x2(this.m0.y, this.m0.z, this.m2.y, this.m2.z);
-		m.m1.y = +	det2x2(this.m0.x, this.m0.z, this.m2.x, this.m2.z);
-		m.m1.z = -	det2x2(this.m0.x, this.m0.y, this.m2.x, this.m2.y);
-		
-		m.m2.x = +	det2x2(this.m0.y, this.m0.z, this.m1.y, this.m1.z);
-		m.m2.y = -	det2x2(this.m0.x, this.m0.z, this.m1.x, this.m1.z);
-		m.m2.z = +	det2x2(this.m0.x, this.m0.y, this.m1.x, this.m1.y);
-
-		double D = determinant();
-		
-		if(D != 0)
-		{
-			m0.div((float)D);
-			m1.div((float)D);
-			m2.div((float)D);	
-		}
-		
-		return set(m);
+		this.m0.readData(stream);
+		this.m1.readData(stream);
+		this.m2.readData(stream);
 	}
-	
-	public Matrix3f inverse() { return invert(); }
-	
-	public Matrix3f inversed() { return inverted(); }
+
+	public void writeData(OutputStream stream) throws IOException
+	{
+		this.m0.writeData(stream);
+		this.m1.writeData(stream);
+		this.m2.writeData(stream);
+	}
 }

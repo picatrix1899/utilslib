@@ -3,6 +3,7 @@ package cmn.picatrix1899.utilslib.matrix;
 import java.nio.FloatBuffer;
 
 import cmn.picatrix1899.utilslib.essentials.BufferUtils;
+import cmn.picatrix1899.utilslib.geometry.Point3f;
 import cmn.picatrix1899.utilslib.vector.Quaternion;
 import cmn.picatrix1899.utilslib.vector.Vector3f;
 import cmn.picatrix1899.utilslib.vector.Vector4f;
@@ -20,33 +21,22 @@ public class Matrix4f
 	public static final int COLS = 4;
 	public static final int ENTS = 16;
 	
-//	public float m00, m01, m02, m03;
-//	public float m10, m11, m12, m13;
-//	public float m20, m21, m22, m23;
-//	public float m30, m31, m32, m33;
-	
 	public Vector4f m0 = new Vector4f();
 	public Vector4f m1 = new Vector4f();
 	public Vector4f m2 = new Vector4f();
 	public Vector4f m3 = new Vector4f();
 	
-	public Matrix4f()
-	{
-		initZero();
-	}
+	public Matrix4f() { initZero(); }
 	
-	private Matrix4f(Matrix4f m)
-	{
-		set(m);
-	}
+	private Matrix4f(Matrix4f m) { set(m); }
 	
 	public Matrix4f set(Matrix4f m)
 	{
 		
-		this.m0 = m.m0;
-		this.m1 = m.m1;
-		this.m2 = m.m2;
-		this.m3 = m.m3;
+		this.m0.set(m.m0);
+		this.m1.set(m.m1);
+		this.m2.set(m.m2);
+		this.m3.set(m.m3);
 		
 		return this;
 	}
@@ -61,11 +51,6 @@ public class Matrix4f
 		this.m3.setZero();
 		
 		return this;
-	}
-	
-	public Matrix4f clone()
-	{
-		return new Matrix4f(this);
 	}
 	
 	public static Matrix4f iIdentity() { return new Matrix4f().initIdendity(); }
@@ -85,19 +70,19 @@ public class Matrix4f
 	public Matrix4f initRotation(Quaternion q)
 	{
 		
-		this.m0.setX(1.0d - 2.0d * (q.getY() * q.getY() + q.getZ() * q.getZ()));
-		this.m0.setY(2.0d * (q.getX() * q.getY() - q.getW() * q.getZ()));
-		this.m0.setZ(2.0d * (q.getX() * q.getZ() + q.getW() * q.getY()));
+		this.m0.setX(1.0d - 2.0d	*	(q.getY() * q.getY() + q.getZ() * q.getZ()));
+		this.m0.setY(2.0d			*	(q.getX() * q.getY() - q.getW() * q.getZ()));
+		this.m0.setZ(2.0d			*	(q.getX() * q.getZ() + q.getW() * q.getY()));
 		this.m0.setA(0.0d);
 		
-		this.m1.setX(2.0d * (q.getX() * q.getY() + q.getW() * q.getZ()));
-		this.m1.setY(1.0d - 2.0d * (q.getX() * q.getX() + q.getZ() * q.getZ()));
-		this.m1.setZ(2.0d * (q.getY() * q.getZ() - q.getW() * q.getX()));
+		this.m1.setX(2.0d			*	(q.getX() * q.getY() + q.getW() * q.getZ()));
+		this.m1.setY(1.0d - 2.0d	*	(q.getX() * q.getX() + q.getZ() * q.getZ()));
+		this.m1.setZ(2.0d			*	(q.getY() * q.getZ() - q.getW() * q.getX()));
 		this.m1.setA(0.0d);
 		
-		this.m2.setX(2.0d * (q.getX() * q.getZ() - q.getW() * q.getY()));
-		this.m2.setY(2.0d * (q.getY() * q.getZ() + q.getW() * q.getX()));
-		this.m2.setZ(1.0d - 2.0d * (q.getX() * q.getX() + q.getY() * q.getY()));
+		this.m2.setX(2.0d			*	(q.getX() * q.getZ() - q.getW() * q.getY()));
+		this.m2.setY(2.0d			*	(q.getY() * q.getZ() + q.getW() * q.getX()));
+		this.m2.setZ(1.0d - 2.0d	*	(q.getX() * q.getX() + q.getY() * q.getY()));
 		this.m2.setA(0.0d);
 		
 		this.m3.set(0.0d, 0.0d, 0.0d, 1.0d);
@@ -123,92 +108,43 @@ public class Matrix4f
 		float sy = s * axis.y;
 		float sz = s * axis.z;
 		
-		this.m0.x = axis.x * axis.x * omc + c;
-		this.m0.y = xy * omc - sz;
-		this.m0.z = xz * omc + sy;
-		this.m0.a = 0.0f;
-		
-		this.m1.x = xy * omc + sz;
-		this.m1.y = axis.y * axis.y * omc + c;
-		this.m1.z = yz * omc - sx;
-		this.m1.a = 0.0f;
-		
-		this.m2.x = xz * omc - sy; 
-		this.m2.y = yz * omc + sx;
-		this.m2.z = axis.z * axis.z * omc + c;
-		this.m2.a = 0.0f;
-		
-		this.m3.x = 0.0f;
-		this.m3.y = 0.0f;
-		this.m3.z = 0.0f;
-		this.m3.a = 1.0f;
-		
+		this.m0.set(	axis.x * axis.x * omc + c	,	xy * omc - sz				,	xz * omc + sy				,	0.0f	);
+		this.m1.set(	xy * omc + sz				,	axis.y * axis.y * omc + c	,	yz * omc - sx				,	0.0f	);
+		this.m2.set(	xz * omc - sy				,	yz * omc + sx				,	axis.z * axis.z * omc + c	,	0.0f	);
+		this.m3.set(	0.0							,	0.0f						,	0.0f						,	1.0f	);
+
 		return this;
 	}
 	
 	public static Matrix4f iTranslation(Vector3f v) { return new Matrix4f().initTranslation(v); }
 	
-	public Matrix4f initTranslation(Vector3f v) { return initTranslation(v.x, v.y, v.z); }
-	
 	public static Matrix4f iTranslation(float tx, float ty, float tz) { return new Matrix4f().initTranslation(tx, ty, tz); }
+	
+	public Matrix4f initTranslation(Vector3f v) { return initTranslation(v.x, v.y, v.z); }	
 	
 	public Matrix4f initTranslation(float tx, float ty, float tz)
 	{
-		
-		this.m0.x = 1.0f;
-		this.m0.y = 0.0f;
-		this.m0.z = 0.0f;
-		this.m0.a = tx;
-		
-		this.m1.x = 0.0f;
-		this.m1.y = 1.0f;
-		this.m1.z = 0.0f;
-		this.m1.a = ty;
-		
-		this.m2.x = 0.0f; 
-		this.m2.y = 0.0f;
-		this.m2.z = 1.0f;
-		this.m2.a = tz;
-		
-		this.m3.x = 0.0f;
-		this.m3.y = 0.0f;
-		this.m3.z = 0.0f;
-		this.m3.a = 1.0f;
+		this.m0.set(	1.0f	,	0.0f	,	0.0f	,	tx		);
+		this.m1.set(	0.0f	,	1.0f	,	0.0f	,	ty		);
+		this.m2.set(	0.0f	,	0.0f	,	1.0f	,	tz		);
+		this.m3.set(	0.0f	,	0.0f	,	0.0f	,	1.0f	);
 		
 		return this;
 	}
 	
 	public static Matrix4f iScaling(Vector3f v) { return new Matrix4f().initScaling(v); }
 	
-	public Matrix4f initScaling(Vector3f v)
-	{
-		return initScaling(v.x, v.y, v.z);
-	}
-	
 	public static Matrix4f iScaling(float sx, float sy, float sz) { return new Matrix4f().initScaling(sx, sy, sz); }
+	
+	public Matrix4f initScaling(Vector3f v) { return initScaling(v.x, v.y, v.z); }
 	
 	public Matrix4f initScaling(float sx, float sy, float sz)
 	{
 		
-		this.m0.x = sx;
-		this.m0.y = 0.0f;
-		this.m0.z = 0.0f;
-		this.m0.a = 0.0f;
-		
-		this.m1.x = 0.0f;
-		this.m1.y = sy;
-		this.m1.z = 0.0f;
-		this.m1.a = 0.0f;
-		
-		this.m2.x = 0.0f; 
-		this.m2.y = 0.0f;
-		this.m2.z = sz;
-		this.m2.a = 0.0f;
-		
-		this.m3.x = 0.0f;
-		this.m3.y = 0.0f;
-		this.m3.z = 0.0f;
-		this.m3.a = 1.0f;
+		this.m0.set(	sx		,	0.0		,	0.0f	,	0.0f	);
+		this.m1.set(	0.0f	,	sy		,	0.0f	,	0.0f	);
+		this.m2.set(	0.0f	,	0.0f	,	sz		,	0.0f	);
+		this.m3.set(	0.0f	,	0.0f	,	0.0f	,	1.0f	);
 		
 		return this;
 	}
@@ -238,7 +174,6 @@ public class Matrix4f
 		
 		return this;
 	}
-	
 	
 	public Matrix4f translate(Vector3f v){ return translate(v, this); }
 	
@@ -284,94 +219,93 @@ public class Matrix4f
 	
 	
 	
-	public Matrix4f mul(Matrix4f m)
-	{
-		return Matrix4f.mul(this, m, null);		
-	}
+	public Matrix4f mul(Matrix4f m) { return Matrix4f.mul(this, m, null); }
 	
 	public static Matrix4f mul(Matrix4f l, Matrix4f r, Matrix4f dest)
 	{
-		if (dest == null)
-		{
-			dest = new Matrix4f();
-		}
+		if (dest == null) dest = new Matrix4f();
 		
-		float m00_ = l.m0.x * r.m0.x + l.m0.y * r.m1.x + l.m0.z * r.m2.x + l.m0.a * r.m3.x;
-		float m01_ = l.m0.x * r.m0.y + l.m0.y * r.m1.y + l.m0.z * r.m2.y + l.m0.a * r.m3.y;
-		float m02_ = l.m0.x * r.m0.z + l.m0.y * r.m1.z + l.m0.z * r.m2.z + l.m0.a * r.m3.z;
-		float m03_ = l.m0.x * r.m0.a + l.m0.y * r.m1.a + l.m0.z * r.m2.a + l.m0.a * r.m3.a;
+		float m0x_ = l.m0.x * r.m0.x + l.m0.y * r.m1.x + l.m0.z * r.m2.x + l.m0.a * r.m3.x;
+		float m0y_ = l.m0.x * r.m0.y + l.m0.y * r.m1.y + l.m0.z * r.m2.y + l.m0.a * r.m3.y;
+		float m0z_ = l.m0.x * r.m0.z + l.m0.y * r.m1.z + l.m0.z * r.m2.z + l.m0.a * r.m3.z;
+		float m0a_ = l.m0.x * r.m0.a + l.m0.y * r.m1.a + l.m0.z * r.m2.a + l.m0.a * r.m3.a;
 		
-		float m10_ = l.m1.x * r.m0.x + l.m1.y * r.m1.x + l.m1.z * r.m2.x + l.m1.a * r.m3.x;
-		float m11_ = l.m1.x * r.m0.y + l.m1.y * r.m1.y + l.m1.z * r.m2.y + l.m1.a * r.m3.y;
-		float m12_ = l.m1.x * r.m0.z + l.m1.y * r.m1.z + l.m1.z * r.m2.z + l.m1.a * r.m3.z;
-		float m13_ = l.m1.x * r.m0.a + l.m1.y * r.m1.a + l.m1.z * r.m2.a + l.m1.a * r.m3.a;
+		float m1x_ = l.m1.x * r.m0.x + l.m1.y * r.m1.x + l.m1.z * r.m2.x + l.m1.a * r.m3.x;
+		float m1y_ = l.m1.x * r.m0.y + l.m1.y * r.m1.y + l.m1.z * r.m2.y + l.m1.a * r.m3.y;
+		float m1z_ = l.m1.x * r.m0.z + l.m1.y * r.m1.z + l.m1.z * r.m2.z + l.m1.a * r.m3.z;
+		float m1a_ = l.m1.x * r.m0.a + l.m1.y * r.m1.a + l.m1.z * r.m2.a + l.m1.a * r.m3.a;
 		
-		float m20_ = l.m2.x * r.m0.x + l.m2.y * r.m1.x + l.m2.z * r.m2.x + l.m2.a * r.m3.x;
-		float m21_ = l.m2.x * r.m0.y + l.m2.y * r.m1.y + l.m2.z * r.m2.y + l.m2.a * r.m3.y;
-		float m22_ = l.m2.x * r.m0.z + l.m2.y * r.m1.z + l.m2.z * r.m2.z + l.m2.a * r.m3.z;
-		float m23_ = l.m2.x * r.m0.a + l.m2.y * r.m1.a + l.m2.z * r.m2.a + l.m2.a * r.m3.a;
+		float m2x_ = l.m2.x * r.m0.x + l.m2.y * r.m1.x + l.m2.z * r.m2.x + l.m2.a * r.m3.x;
+		float m2y_ = l.m2.x * r.m0.y + l.m2.y * r.m1.y + l.m2.z * r.m2.y + l.m2.a * r.m3.y;
+		float m2z_ = l.m2.x * r.m0.z + l.m2.y * r.m1.z + l.m2.z * r.m2.z + l.m2.a * r.m3.z;
+		float m2a_ = l.m2.x * r.m0.a + l.m2.y * r.m1.a + l.m2.z * r.m2.a + l.m2.a * r.m3.a;
 		
-		float m30_ = l.m3.x * r.m0.x + l.m3.y * r.m1.x + l.m3.z * r.m2.x + l.m3.a * r.m3.x;
-		float m31_ = l.m3.x * r.m0.y + l.m3.y * r.m1.y + l.m3.z * r.m2.y + l.m3.a * r.m3.y;
-		float m32_ = l.m3.x * r.m0.z + l.m3.y * r.m1.z + l.m3.z * r.m2.z + l.m3.a * r.m3.z;
-		float m33_ = l.m3.x * r.m0.a + l.m3.y * r.m1.a + l.m3.z * r.m2.a + l.m3.a * r.m3.a;
-
-		dest.m0.x = m00_;
-		dest.m0.y = m01_;
-		dest.m0.z = m02_;
-		dest.m0.a = m03_;
+		float m3x_ = l.m3.x * r.m0.x + l.m3.y * r.m1.x + l.m3.z * r.m2.x + l.m3.a * r.m3.x;
+		float m3y_ = l.m3.x * r.m0.y + l.m3.y * r.m1.y + l.m3.z * r.m2.y + l.m3.a * r.m3.y;
+		float m3z_ = l.m3.x * r.m0.z + l.m3.y * r.m1.z + l.m3.z * r.m2.z + l.m3.a * r.m3.z;
+		float m3a_ = l.m3.x * r.m0.a + l.m3.y * r.m1.a + l.m3.z * r.m2.a + l.m3.a * r.m3.a;
 		
-		dest.m1.x = m10_;
-		dest.m1.y = m11_;
-		dest.m1.z = m12_;
-		dest.m1.a = m13_;
-		
-		dest.m2.x = m20_;
-		dest.m2.y = m21_;
-		dest.m2.z = m22_;
-		dest.m2.a = m23_;
-		
-		dest.m3.x = m30_;
-		dest.m3.y = m31_;
-		dest.m3.z = m32_;
-		dest.m3.a = m33_;
-		
+		dest.m0.set(m0x_, m0y_, m0z_, m0a_);
+		dest.m1.set(m1x_, m1y_, m1z_, m1a_);
+		dest.m2.set(m2x_, m2y_, m2z_, m2a_);
+		dest.m3.set(m3x_, m3y_, m3z_, m3a_);
 		
 		return dest;
 	}
+	
+	public Vector3f transformN(Vector3f r) { return Matrix4f.transform(this, r, null); }
+	
+	public Vector3f transform(Vector3f r) { return Matrix4f.transform(this, r, r); }
 	
 	public static Vector3f transform(Matrix4f l, Vector3f r, Vector3f dest)
 	{
-		if (dest == null)
-		{
-			dest = new Vector3f();
-		}
-		
-		float x = l.m0.x * r.x + l.m0.y * r.y + l.m0.z * r.z + l.m0.a * 1.0f;
-		float y = l.m1.x * r.x + l.m1.y * r.y + l.m1.z * r.z + l.m1.a * 1.0f;
-		float z = l.m2.x * r.x + l.m2.y * r.y + l.m2.z * r.z + l.m2.a * 1.0f;
+		if (dest == null) dest = new Vector3f();
 
-		dest.setX(x).setY(y).setZ(z);
+		float x_ = l.m0.x * r.x + l.m0.y * r.y + l.m0.z * r.z + l.m0.a * 1.0f;
+		float y_ = l.m1.x * r.x + l.m1.y * r.y + l.m1.z * r.z + l.m1.a * 1.0f;
+		float z_ = l.m2.x * r.x + l.m2.y * r.y + l.m2.z * r.z + l.m2.a * 1.0f;
+
+		dest.set(x_, y_, z_);
 		
 		return dest;
 	}
 	
-	public static Vector4f transform(Matrix4f l, Vector4f r, Vector4f dest)
+	public Point3f transformN(Point3f r) { return Matrix4f.transform(this, r, null); }
+	
+	public Point3f transform(Point3f r) { return Matrix4f.transform(this, r, r); }
+	
+	public static Point3f transform(Matrix4f l, Point3f r, Point3f dest)
 	{
-		if (dest == null)
-		{
-			dest = new Vector4f();
-		}
-		
-		float x = l.m0.x * r.x + l.m0.y * r.y + l.m0.z * r.z + l.m0.a * r.a;
-		float y = l.m1.x * r.x + l.m1.y * r.y + l.m1.z * r.z + l.m1.a * r.a;
-		float z = l.m2.x * r.x + l.m2.y * r.y + l.m2.z * r.z + l.m2.a * r.a;
-		float a = l.m3.x * r.x + l.m3.y * r.y + l.m3.z * r.z + l.m3.a * r.a;
+		if (dest == null) dest = new Point3f();
 
-		dest.setX(x).setY(y).setZ(z).setA(a);
+		float x_ = l.m0.x * r.x + l.m0.y * r.y + l.m0.z * r.z + l.m0.a * 1.0f;
+		float y_ = l.m1.x * r.x + l.m1.y * r.y + l.m1.z * r.z + l.m1.a * 1.0f;
+		float z_ = l.m2.x * r.x + l.m2.y * r.y + l.m2.z * r.z + l.m2.a * 1.0f;
+
+		dest.set(x_, y_, z_);
 		
 		return dest;
 	}
+	
+	public Vector4f transformN(Vector4f r) { return Matrix4f.transform(this, r, null); }
+	
+	public Vector4f transform(Vector4f r) { return Matrix4f.transform(this, r, r); }
+	
+	public static Vector4f transform(Matrix4f l, Vector4f r, Vector4f dest)
+	{
+		if (dest == null) dest = new Vector4f();
+		
+		float x_ = l.m0.dot(r);
+		float y_ = l.m1.dot(r);
+		float z_ = l.m2.dot(r);
+		float a_ = l.m3.dot(r);
+
+		dest.set(x_, y_, z_, a_);
+		
+		return dest;
+	}
+	
+	public FloatBuffer getRowMajorBuffer() { return (FloatBuffer) BufferUtils.wrapFloatBuffer(getRowMajor()).flip(); }	
 	
 	public float[] getRowMajor()
 	{
@@ -385,86 +319,65 @@ public class Matrix4f
 		return out;
 	}
 	
-	public FloatBuffer getRowMajorBuffer()
-	{
-		return (FloatBuffer) BufferUtils.wrapFloatBuffer(getRowMajor()).flip();
-	}
-	
+	public FloatBuffer getColMajorBuffer() { return (FloatBuffer) BufferUtils.wrapFloatBuffer(getColMajor()).flip(); }
+
 	public float[] getColMajor()
 	{
 		float[] out = new float[Matrix4f.ENTS];
 		
-		out[ 0] = this.m0.x;	out[ 1] = this.m1.x;	out[ 2] = this.m2.x;	out[ 3] = this.m3.x;
-		out[ 4] = this.m0.y;	out[ 5] = this.m1.y;	out[ 6] = this.m2.y;	out[ 7] = this.m3.y;
-		out[ 8] = this.m0.z;	out[ 9] = this.m1.z;	out[10] = this.m2.z;	out[11] = this.m3.z;
-		out[12] = this.m0.a;	out[13] = this.m1.a;	out[14] = this.m2.a;	out[15] = this.m3.a;
+		out[ 0] = this.m0.x;	out[ 4] = this.m0.y;	out[ 8] = this.m0.z;	out[12] = this.m0.a;
+		out[ 1] = this.m1.x;	out[ 5] = this.m1.y;	out[ 9] = this.m1.z;	out[13] = this.m1.a;
+		out[ 2] = this.m2.x;	out[ 6] = this.m2.y;	out[10] = this.m2.z;	out[14] = this.m2.a;
+		out[ 3] = this.m3.x;	out[ 7] = this.m3.y;	out[11] = this.m3.z;	out[15] = this.m3.a;
 		
 		return out;
 	}
 	
-	public FloatBuffer getColMajorBuffer()
-	{
-		return (FloatBuffer) BufferUtils.wrapFloatBuffer(getColMajor()).flip();
-	}
+	public Matrix4f transposed() { return clone().transpose(); }
 	
 	public Matrix4f transpose()
 	{
-		float m00_ = this.m0.x;
-		float m01_ = this.m1.x;
-		float m02_ = this.m2.x;
-		float m03_ = this.m3.x;
+		float m0x_ = this.m0.x;
+		float m0y_ = this.m1.x;
+		float m0z_ = this.m2.x;
+		float m0a_ = this.m3.x;
 		
-		float m10_ = this.m0.y;
-		float m11_ = this.m1.y;
-		float m12_ = this.m2.y;
-		float m13_ = this.m3.y;
+		float m1x_ = this.m0.y;
+		float m1y_ = this.m1.y;
+		float m1z_ = this.m2.y;
+		float m1a_ = this.m3.y;
 		
-		float m20_ = this.m0.z;
-		float m21_ = this.m1.z;
-		float m22_ = this.m2.z;
-		float m23_ = this.m3.z;
+		float m2x_ = this.m0.z;
+		float m2y_ = this.m1.z;
+		float m2z_ = this.m2.z;
+		float m2a_ = this.m3.z;
 		
-		float m30_ = this.m0.a;
-		float m31_ = this.m1.a;
-		float m32_ = this.m2.a;
-		float m33_ = this.m3.a;
+		float m3x_ = this.m0.a;
+		float m3y_ = this.m1.a;
+		float m3z_ = this.m2.a;
+		float m3a_ = this.m3.a;
 		
-		this.m0.x = m00_;
-		this.m0.y = m01_;
-		this.m0.z = m02_;
-		this.m0.a = m03_;
+		this.m0.x = m0x_;
+		this.m0.y = m0y_;
+		this.m0.z = m0z_;
+		this.m0.a = m0a_;
 		
-		this.m1.x = m10_;
-		this.m1.y = m11_;
-		this.m1.z = m12_;
-		this.m1.a = m13_;
+		this.m1.x = m1x_;
+		this.m1.y = m1y_;
+		this.m1.z = m1z_;
+		this.m1.a = m1a_;
 		
-		this.m2.x = m20_;
-		this.m2.y = m21_;
-		this.m2.z = m22_;
-		this.m2.a = m23_;
+		this.m2.x = m2x_;
+		this.m2.y = m2y_;
+		this.m2.z = m2z_;
+		this.m2.a = m2a_;
 		
-		this.m3.x = m30_;
-		this.m3.y = m31_;
-		this.m3.z = m32_;
-		this.m3.a = m33_;
+		this.m3.x = m3x_;
+		this.m3.y = m3y_;
+		this.m3.z = m3z_;
+		this.m3.a = m3a_;
 		
 		return this;
-	}
-
-	public static float det4x4(float m0x, float m0y, float m0z, float m0w,
-								float m1x, float m1y, float m1z, float m1w,
-								float m2x, float m2y, float m2z, float m2w,
-								float m3x, float m3y, float m3z, float m3w)
-	{
-		float out = 0;
-		
-		out += m0x*+Matrix3f.det3x3(m1y, m1z, m1w, m2y, m2z, m2w, m3y, m3z, m3w);
-		out += m0y*-Matrix3f.det3x3(m1x, m1z, m1w, m2x, m2z, m2w, m3x, m3z, m3w);
-		out += m0z*+Matrix3f.det3x3(m1x, m1y, m1w, m2x, m2y, m2w, m3x, m3y, m3w);
-		out += m0w*-Matrix3f.det3x3(m1x, m1y, m1z, m2x, m2y, m2z, m3x, m3y, m3z);
-		
-		return out;
 	}
 	
 	public float determinant()
@@ -472,47 +385,68 @@ public class Matrix4f
 		return det4x4(m0.x, m0.y, m0.z, m0.a, m1.x, m1.y, m1.z, m1.a, m2.x, m2.y, m2.z, m2.a, m3.x, m3.y, m3.z, m3.a);
 	}
 	
-	public Matrix4f inverted()
+	public Matrix4f inversed() { return clone().inverse(); }
+	
+	public Matrix4f inverse()
 	{
+		float m0x_ = +Matrix3f.det3x3(this.m1.y, this.m1.z, this.m1.a, this.m2.y, this.m2.z, this.m2.a, this.m3.y, this.m3.z, this.m3.a);
+		float m0y_ = -Matrix3f.det3x3(this.m1.x, this.m1.z, this.m1.a, this.m2.x, this.m2.z, this.m2.a, this.m3.x, this.m3.z, this.m3.a);
+		float m0z_ = +Matrix3f.det3x3(this.m1.x, this.m1.y, this.m1.a, this.m2.x, this.m2.y, this.m2.a, this.m3.x, this.m3.y, this.m3.a);
+		float m0a_ = -Matrix3f.det3x3(this.m1.x, this.m1.y, this.m1.z, this.m2.x, this.m2.y, this.m2.z, this.m3.x, this.m3.y, this.m3.z);
 		
-		Matrix4f m = new Matrix4f();
+		float m1x_ = -Matrix3f.det3x3(this.m0.y, this.m0.z, this.m0.a, this.m2.y, this.m2.z, this.m2.a, this.m3.y, this.m3.z, this.m3.a);
+		float m1y_ = +Matrix3f.det3x3(this.m0.x, this.m0.z, this.m0.a, this.m2.x, this.m2.z, this.m2.a, this.m3.x, this.m3.z, this.m3.a);
+		float m1z_ = -Matrix3f.det3x3(this.m0.x, this.m0.y, this.m0.a, this.m2.x, this.m2.y, this.m2.a, this.m3.x, this.m3.y, this.m3.a);
+		float m1a_ = +Matrix3f.det3x3(this.m0.x, this.m0.y, this.m0.z, this.m2.x, this.m2.y, this.m2.z, this.m3.x, this.m3.y, this.m3.z);
 		
-		m.m0.x = Matrix3f.det3x3(this.m1.y, this.m1.z, this.m1.a, this.m2.y, this.m2.z, this.m2.a, this.m3.y, this.m3.z, this.m3.a);
-		m.m0.x = Matrix3f.det3x3(this.m1.x, this.m1.z, this.m1.a, this.m2.x, this.m2.z, this.m2.a, this.m3.x, this.m3.z, this.m3.a);
-		m.m0.x = Matrix3f.det3x3(this.m1.x, this.m1.y, this.m1.a, this.m2.x, this.m2.y, this.m2.a, this.m3.x, this.m3.y, this.m3.a);
-		m.m0.x = Matrix3f.det3x3(this.m1.x, this.m1.y, this.m1.z, this.m2.x, this.m2.y, this.m2.z, this.m3.x, this.m3.y, this.m3.z);
+		float m2x_ = +Matrix3f.det3x3(this.m0.y, this.m0.z, this.m0.a, this.m1.y, this.m1.z, this.m1.a, this.m3.y, this.m3.z, this.m3.a);
+		float m2y_ = -Matrix3f.det3x3(this.m0.x, this.m0.z, this.m0.a, this.m1.x, this.m1.z, this.m1.a, this.m3.x, this.m3.z, this.m3.a);
+		float m2z_ = +Matrix3f.det3x3(this.m0.x, this.m0.y, this.m0.a, this.m1.x, this.m1.y, this.m1.a, this.m3.x, this.m3.y, this.m3.a);
+		float m2a_ = -Matrix3f.det3x3(this.m0.x, this.m0.y, this.m0.z, this.m1.x, this.m1.y, this.m1.z, this.m3.x, this.m3.y, this.m3.z);
 		
-		m.m0.x = Matrix3f.det3x3(this.m0.y, this.m0.z, this.m0.a, this.m2.y, this.m2.z, this.m2.a, this.m3.y, this.m3.z, this.m3.a);
-		m.m0.x = Matrix3f.det3x3(this.m0.x, this.m0.z, this.m0.a, this.m2.x, this.m2.z, this.m2.a, this.m3.x, this.m3.z, this.m3.a);
-		m.m0.x = Matrix3f.det3x3(this.m0.x, this.m0.y, this.m0.a, this.m2.x, this.m2.y, this.m2.a, this.m3.x, this.m3.y, this.m3.a);
-		m.m0.x = Matrix3f.det3x3(this.m0.x, this.m0.y, this.m0.z, this.m2.x, this.m2.y, this.m2.z, this.m3.x, this.m3.y, this.m3.z);
-		
-		m.m0.x = Matrix3f.det3x3(this.m0.y, this.m0.z, this.m0.a, this.m1.y, this.m1.z, this.m1.a, this.m3.y, this.m3.z, this.m3.a);
-		m.m0.x = Matrix3f.det3x3(this.m0.x, this.m0.z, this.m0.a, this.m1.x, this.m1.z, this.m1.a, this.m3.x, this.m3.z, this.m3.a);
-		m.m0.x = Matrix3f.det3x3(this.m0.x, this.m0.y, this.m0.a, this.m1.x, this.m1.y, this.m1.a, this.m3.x, this.m3.y, this.m3.a);
-		m.m0.x = Matrix3f.det3x3(this.m0.x, this.m0.y, this.m0.z, this.m1.x, this.m1.y, this.m1.z, this.m3.x, this.m3.y, this.m3.z);
-		
-		m.m0.x = Matrix3f.det3x3(this.m0.y, this.m0.z, this.m0.a, this.m1.y, this.m1.z, this.m1.a, this.m2.y, this.m2.z, this.m2.a);
-		m.m0.x = Matrix3f.det3x3(this.m0.x, this.m0.z, this.m0.a, this.m1.x, this.m1.z, this.m1.a, this.m2.x, this.m2.z, this.m2.a);
-		m.m0.x = Matrix3f.det3x3(this.m0.x, this.m0.y, this.m0.a, this.m1.x, this.m1.y, this.m1.a, this.m2.x, this.m2.y, this.m2.a);
-		m.m0.x = Matrix3f.det3x3(this.m0.x, this.m0.y, this.m0.z, this.m1.x, this.m1.y, this.m1.z, this.m2.x, this.m2.y, this.m2.z);
+		float m3x_ = -Matrix3f.det3x3(this.m0.y, this.m0.z, this.m0.a, this.m1.y, this.m1.z, this.m1.a, this.m2.y, this.m2.z, this.m2.a);
+		float m3y_ = +Matrix3f.det3x3(this.m0.x, this.m0.z, this.m0.a, this.m1.x, this.m1.z, this.m1.a, this.m2.x, this.m2.z, this.m2.a);
+		float m3z_ = -Matrix3f.det3x3(this.m0.x, this.m0.y, this.m0.a, this.m1.x, this.m1.y, this.m1.a, this.m2.x, this.m2.y, this.m2.a);
+		float m3a_ = +Matrix3f.det3x3(this.m0.x, this.m0.y, this.m0.z, this.m1.x, this.m1.y, this.m1.z, this.m2.x, this.m2.y, this.m2.z);
 		
 		double D = determinant();
 		
 		if(D != 0)
 		{
-			m.m0.x /=D; m.m0.y /=D; m.m0.z /=D; m.m0.a /=D;
-			m.m1.x /=D; m.m1.y /=D; m.m1.z /=D; m.m1.a /=D;
-			m.m2.x /=D; m.m2.y /=D; m.m2.z /=D; m.m2.a /=D;
-			m.m3.x /=D; m.m3.y /=D; m.m3.z /=D; m.m3.a /=D;
+			m0x_ /= D; m0y_ /= D; m0z_ /= D; m0a_ /= D;
+			m1x_ /= D; m1y_ /= D; m1z_ /= D; m1a_ /= D;
+			m2x_ /= D; m2y_ /= D; m2z_ /= D; m2a_ /= D;
+			m3x_ /= D; m3y_ /= D; m3z_ /= D; m3a_ /= D;
 		}
 		
-		return m;
+		this.m0.set(m0x_, m0y_, m0z_, m0a_);
+		this.m1.set(m1x_, m1y_, m1z_, m1a_);
+		this.m2.set(m2x_, m2y_, m2z_, m2a_);
+		this.m3.set(m3x_, m3y_, m3z_, m3a_);
+		
+		return this;
 	}
 	
-	public Matrix4f invert()
+	public static float det4x4(	float m0x, float m0y, float m0z, float m0w,
+								float m1x, float m1y, float m1z, float m1w,
+								float m2x, float m2y, float m2z, float m2w,
+								float m3x, float m3y, float m3z, float m3w)
 	{
-		return set(inverted());
+		return	m0x * +Matrix3f.det3x3(m1y, m1z, m1w, m2y, m2z, m2w, m3y, m3z, m3w) +
+				m0y * -Matrix3f.det3x3(m1x, m1z, m1w, m2x, m2z, m2w, m3x, m3z, m3w) +
+				m0z * +Matrix3f.det3x3(m1x, m1y, m1w, m2x, m2y, m2w, m3x, m3y, m3w) +
+				m0w * -Matrix3f.det3x3(m1x, m1y, m1z, m2x, m2y, m2z, m3x, m3y, m3z);
+	}
+	
+	public Matrix4f clone() { return new Matrix4f(this); }
+	
+	public String toString()
+	{
+		return
+				"matrix4f(	" + m0.x + "f	" + m0.y + "f	" + m0.z + "f	" + m0.a + "f	" + ")\n" + 
+				"        (	" + m1.x + "f	" + m1.y + "f	" + m1.z + "f	" + m1.a + "f	" + ")\n" +
+				"        (	" + m2.x + "f	" + m2.y + "f	" + m2.z + "f	" + m2.a + "f	" + ")\n" +
+				"        (	" + m3.x + "f	" + m3.y + "f	" + m3.z + "f	" + m3.a + "f	" + ")";
 	}
 	
 }
