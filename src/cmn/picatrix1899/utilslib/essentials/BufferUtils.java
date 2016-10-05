@@ -152,6 +152,110 @@ public final class BufferUtils
 		return buffer;
 	}
 	
+	
+	
+	
+	
+	public final static ByteBuffer wrapFlippedByteBuffer(byte... b)
+	{
+		ByteBuffer buffer = BufferUtils.createByteBuffer(b.length);
+		
+		buffer.put(b);
+		buffer.flip();
+		return buffer;
+	}
+	
+	public final static ShortBuffer wrapFlippedShortBuffer(short... b)
+	{
+		ShortBuffer buffer = BufferUtils.createShortBuffer(b.length);
+		
+		buffer.put(b);
+		buffer.flip();
+		return buffer;
+	}
+	
+	public final static IntBuffer wrapFlippedIntBuffer(int... b)
+	{
+		IntBuffer buffer = BufferUtils.createIntBuffer(b.length);
+		
+		buffer.put(b);
+		buffer.flip();
+		return buffer;
+	}	
+	
+	public final static LongBuffer wrapFlippedLongBuffer(long... b)
+	{
+		LongBuffer buffer = BufferUtils.createLongBuffer(b.length);
+		
+		buffer.put(b);
+		buffer.flip();
+		return buffer;
+	}	
+	
+	public final static FloatBuffer wrapFlippedFloatBuffer(float... b)
+	{
+		FloatBuffer buffer = BufferUtils.createFloatBuffer(b.length);
+		
+		buffer.put(b);
+		buffer.flip();
+		return buffer;
+	}
+	
+	public final static FloatBuffer wrapFlippedVector2FBuffer(Vector2f... v)
+	{
+		float[] f = new float[v.length * Vector2f.DIMENSIONS];
+		
+		for(int i = 0; i < v.length; i++)
+		{
+			f[i + 0] = v[i].x;
+			f[i + 1] = v[i].y;
+		}
+		
+		return wrapFloatBuffer(f);
+	}
+	
+	public final static FloatBuffer wrapFlippedVector3FBuffer(Vector3f... v)
+	{
+		float[] f = new float[v.length * Vector3f.DIMENSIONS];
+		
+		for(int i = 0; i < v.length; i++)
+		{
+			f[i + 0] = v[i].x;
+			f[i + 1] = v[i].x;
+			f[i + 2] = v[i].x;
+		}
+		
+		return wrapFloatBuffer(f);
+	}
+	
+	public final static FloatBuffer wrapFlippedVector4FBuffer(Vector4f... v)
+	{
+		float[] f = new float[v.length * Vector4f.DIMENSIONS];
+		
+		for(int i = 0; i < v.length; i++)
+		{
+			f[i + 0] = v[i].x;
+			f[i + 1] = v[i].y;
+			f[i + 2] = v[i].z;
+			f[i + 3] = v[i].a;
+		}
+		
+		return wrapFloatBuffer(f);
+	}
+	
+	public final static DoubleBuffer wrapFlippedDoubleBuffer(double... b)
+	{
+		DoubleBuffer buffer = BufferUtils.createDoubleBuffer(b.length);
+		
+		buffer.put(b);
+		buffer.flip();
+		return buffer;
+	}
+	
+	
+	
+	
+	
 	public final static byte[] unwrapIntBuffer(ByteBuffer buffer)
 	{
 		buffer.flip();

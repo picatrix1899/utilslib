@@ -27,12 +27,12 @@ public class Vector3f implements DataHolder, Serializable
 
 	public static transient final short DIMENSIONS = 3;
 	
-	public static final Vector3f aX = new Vector3f(1.0f, 0.0f, 0.0f);
-	public static final Vector3f aY = new Vector3f(0.0f, 1.0f, 0.0f);
-	public static final Vector3f aZ = new Vector3f(0.0f, 0.0f, 1.0f);
-	public static final Vector3f aNX = new Vector3f(-1.0f, 0.0f, 0.0f);
-	public static final Vector3f aNY = new Vector3f(0.0f, -1.0f, 0.0f);
-	public static final Vector3f aNZ = new Vector3f(0.0f, 0.0f, -1.0f);
+	public static final PersistentVector3f aX = PersistentVector3f.gen(1.0f, 0.0f, 0.0f);
+	public static final PersistentVector3f aY = PersistentVector3f.gen(0.0f, 1.0f, 0.0f);
+	public static final PersistentVector3f aZ = PersistentVector3f.gen(0.0f, 0.0f, 1.0f);
+	public static final PersistentVector3f aNX = PersistentVector3f.gen(-1.0f, 0.0f, 0.0f);
+	public static final PersistentVector3f aNY = PersistentVector3f.gen(0.0f, -1.0f, 0.0f);
+	public static final PersistentVector3f aNZ = PersistentVector3f.gen(0.0f, 0.0f, -1.0f);
 	
 	public float x = 0.0f;
 	public float y = 0.0f;
@@ -129,6 +129,10 @@ public class Vector3f implements DataHolder, Serializable
 	public Vector3f invert() { return mul(-1.0f); }
 	
 	public Vector3f inverted() { return clone().invert(); }
+	
+	public Vector3f inverse() { return new Vector3f(1.0f).div(this); }
+	
+	public Vector3f inversed() { return clone().inverse(); }
 	
 	public float dot(Vector3f v) { return this.x * v.x + this.y * v.y + this.z * v.z; }
 	

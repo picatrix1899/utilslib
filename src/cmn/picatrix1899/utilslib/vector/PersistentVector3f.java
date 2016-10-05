@@ -1,28 +1,26 @@
 package cmn.picatrix1899.utilslib.vector;
 
 
-public class PersistentVector3f
+public abstract class PersistentVector3f
 {
-	public final float x;
-	public final float y;
-	public final float z;
-
-	public PersistentVector3f(float x, float y, float z)
-	{
-		this.x = x;
-		this.y = y;
-		this.z = z;
-	}
+	protected abstract float getX();
+	protected abstract float getY();
+	protected abstract float getZ();
 	
-	public PersistentVector3f(Vector3f v)
-	{
-		this.x = v.x;
-		this.y = v.y;
-		this.z = v.z;
-	}
+	
 	
 	public Vector3f asVector()
 	{
-		return new Vector3f(this.x, this.y, this.z);
+		return new Vector3f(getX(),getY(),getZ());
+	}
+	
+	public static PersistentVector3f gen(final float x, final float y, final float z)
+	{
+		return new PersistentVector3f()
+		{
+			protected float getX() { return x; }
+			protected float getY() { return y; }
+			protected float getZ() { return z; }
+		};
 	}
 }
