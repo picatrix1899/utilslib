@@ -121,8 +121,8 @@ public final class BufferUtils
 		for(int i = 0; i < v.length; i++)
 		{
 			f[i + 0] = v[i].x;
-			f[i + 1] = v[i].x;
-			f[i + 2] = v[i].x;
+			f[i + 1] = v[i].y;
+			f[i + 2] = v[i].z;
 		}
 		
 		return wrapFloatBuffer(f);
@@ -207,11 +207,11 @@ public final class BufferUtils
 		
 		for(int i = 0; i < v.length; i++)
 		{
-			f[i + 0] = v[i].x;
-			f[i + 1] = v[i].y;
+			f[i * 2 + 0] = v[i].x;
+			f[i * 2 + 1] = v[i].y;
 		}
 		
-		return wrapFloatBuffer(f);
+		return wrapFlippedFloatBuffer(f);
 	}
 	
 	public final static FloatBuffer wrapFlippedVector3FBuffer(Vector3f... v)
@@ -220,12 +220,12 @@ public final class BufferUtils
 		
 		for(int i = 0; i < v.length; i++)
 		{
-			f[i + 0] = v[i].x;
-			f[i + 1] = v[i].x;
-			f[i + 2] = v[i].x;
+			f[i * 3 + 0] = v[i].x;
+			f[i * 3 + 1] = v[i].y;
+			f[i * 3+ 2] = v[i].z;
 		}
 		
-		return wrapFloatBuffer(f);
+		return wrapFlippedFloatBuffer(f);
 	}
 	
 	public final static FloatBuffer wrapFlippedVector4FBuffer(Vector4f... v)
@@ -234,13 +234,13 @@ public final class BufferUtils
 		
 		for(int i = 0; i < v.length; i++)
 		{
-			f[i + 0] = v[i].x;
-			f[i + 1] = v[i].y;
-			f[i + 2] = v[i].z;
-			f[i + 3] = v[i].a;
+			f[i * 4 + 0] = v[i].x;
+			f[i * 4 + 1] = v[i].y;
+			f[i * 4 + 2] = v[i].z;
+			f[i * 4 + 3] = v[i].a;
 		}
 		
-		return wrapFloatBuffer(f);
+		return wrapFlippedFloatBuffer(f);
 	}
 	
 	public final static DoubleBuffer wrapFlippedDoubleBuffer(double... b)
