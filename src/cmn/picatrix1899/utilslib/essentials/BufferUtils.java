@@ -222,7 +222,7 @@ public final class BufferUtils
 		{
 			f[i * 3 + 0] = v[i].x;
 			f[i * 3 + 1] = v[i].y;
-			f[i * 3+ 2] = v[i].z;
+			f[i * 3 + 2] = v[i].z;
 		}
 		
 		return wrapFlippedFloatBuffer(f);
