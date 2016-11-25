@@ -279,17 +279,17 @@ public class Quaternion implements DataHolder
 	
 	
 	
-	public Vector3f getForward() { return Vector3f.aZ.asVector().rot(this).normalize(); }
+	public Vector3f getForward() { return Vector3f.aZ.getVector().rot(this).normalize(); }
 	
-	public Vector3f getBack() { return Vector3f.aNZ.asVector().rot(this).normalize(); }
+	public Vector3f getBack() { return Vector3f.aNZ.getVector().rot(this).normalize(); }
 	
-	public Vector3f getUp() { return Vector3f.aY.asVector().rot(this).normalize(); }
+	public Vector3f getUp() { return Vector3f.aY.getVector().rot(this).normalize(); }
 	
-	public Vector3f getDown() { return Vector3f.aNY.asVector().rot(this).normalize(); }
+	public Vector3f getDown() { return Vector3f.aNY.getVector().rot(this).normalize(); }
 	
-	public Vector3f getRight() { return Vector3f.aNX.asVector().rot(this).normalize(); }
+	public Vector3f getRight() { return Vector3f.aNX.getVector().rot(this).normalize(); }
 	
-	public Vector3f getLeft() { return Vector3f.aX.asVector().rot(this).normalize(); }
+	public Vector3f getLeft() { return Vector3f.aX.getVector().rot(this).normalize(); }
 	
 
 	

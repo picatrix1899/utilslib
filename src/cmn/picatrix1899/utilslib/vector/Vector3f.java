@@ -30,6 +30,8 @@ public class Vector3f implements DataHolder, Serializable
 	
 	private static final Allocator<Vector3f> alloc = new Allocator<Vector3f>();
 	
+	public static final PersistentVector3f ZERO = PersistentVector3f.gen(0.0f, 0.0f, 0.0f);
+	public static final PersistentVector3f ONE = PersistentVector3f.gen(1.0f, 1.0f, 1.0f);
 	public static final PersistentVector3f aX = PersistentVector3f.gen(1.0f, 0.0f, 0.0f);
 	public static final PersistentVector3f aY = PersistentVector3f.gen(0.0f, 1.0f, 0.0f);
 	public static final PersistentVector3f aZ = PersistentVector3f.gen(0.0f, 0.0f, 1.0f);
@@ -155,8 +157,6 @@ public class Vector3f implements DataHolder, Serializable
 	public Vector3f divN(double scalar) { return divN(scalar, scalar, scalar); }	
 	public Vector3f divN(float x, float y, float z) { return clone().div(x, y, z); }
 	public Vector3f divN(double x, double y, double z) { return clone().div(x, y, z); }
-
-	
 	
 	
 	public float squaredLength() { return this.x * this.x + this.y * this.y + this.z * this.z; }
