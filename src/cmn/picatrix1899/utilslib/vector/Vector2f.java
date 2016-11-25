@@ -34,11 +34,11 @@ public class Vector2f implements DataHolder, Serializable
 	 * AXIS-NORMALS
 	 * ===============
 	 */
-	public static final Vector2f aX = new Vector2f(1.0f, 0.0f);
-	public static final Vector2f aY = new Vector2f(0.0f, 1.0f);
+	public static final PersistentVector2f aX = PersistentVector2f.gen(1.0f, 0.0f);
+	public static final PersistentVector2f aY = PersistentVector2f.gen(0.0f, 1.0f);
 	
-	public static final Vector2f aNX = new Vector2f(-1.0f, 0.0f);
-	public static final Vector2f aNY = new Vector2f(0.0f, -1.0f);
+	public static final PersistentVector2f aNX = PersistentVector2f.gen(-1.0f, 0.0f);
+	public static final PersistentVector2f aNY = PersistentVector2f.gen(0.0f, -1.0f);
 	
 	public static final short DIMENSIONS = 2;
 	

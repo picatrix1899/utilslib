@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
 
+import cmn.picatrix1899.utilslib.alloc.Allocator;
 import cmn.picatrix1899.utilslib.essentials.Maths;
 import cmn.picatrix1899.utilslib.essentials.Validate.Check;
 import cmn.picatrix1899.utilslib.interfaces.DataHolder;
@@ -27,6 +28,8 @@ public class Vector3f implements DataHolder, Serializable
 
 	public static transient final short DIMENSIONS = 3;
 	
+	private static final Allocator<Vector3f> alloc = new Allocator<Vector3f>();
+	
 	public static final PersistentVector3f aX = PersistentVector3f.gen(1.0f, 0.0f, 0.0f);
 	public static final PersistentVector3f aY = PersistentVector3f.gen(0.0f, 1.0f, 0.0f);
 	public static final PersistentVector3f aZ = PersistentVector3f.gen(0.0f, 0.0f, 1.0f);
@@ -42,12 +45,50 @@ public class Vector3f implements DataHolder, Serializable
 
 	public Vector3f() { setZero(); }
 	
-	private Vector3f(Vector3f v) { set(v); }
-	
 	public Vector3f(float scalar) { set(scalar); }
 	
 	public Vector3f(float x, float y, float z) { set(x, y, z); }
 	
+	public static Vector3f getNew()
+	{
+		Vector3f v = alloc.alloc(Vector3f.class);
+		
+		v.setZero();
+		
+		return v;
+	}
+	
+	private static Vector3f getNew(Vector3f vec)
+	{
+		Vector3f v = alloc.alloc(Vector3f.class);
+		
+		v.set(vec);
+		
+		return v;
+	}
+	
+	public static Vector3f getNew(float scalar)
+	{
+		Vector3f v = alloc.alloc(Vector3f.class);
+		
+		v.set(scalar);
+		
+		return v;
+	}
+	
+	public static Vector3f getNew(float x, float y, float z)
+	{
+		Vector3f v = alloc.alloc(Vector3f.class);
+		
+		v.set(x, y, z);
+		
+		return v;
+	}
+	
+	public void release()
+	{
+		Vector3f.alloc.release(this);
+	}
 	
 	public Vector3f setZero() { return set(0.0f); }
 	
@@ -177,6 +218,41 @@ public class Vector3f implements DataHolder, Serializable
 		return new Vector3f((float)w.getX(), (float)w.getY(), (float)w.getZ());
 	}
 	
+	public Vector3f reflect(Vector3f normal)
+	{
+		float angle = dot(normal) *  2;
+		
+		this.x -= (angle) * normal.x;
+		this.y -= (angle) * normal.y;
+		this.y -= (angle) * normal.z;
+		
+		return this;
+	}
+	
+	public Vector3f reflected(Vector3f normal)
+	{
+		Vector3f out = clone();
+		
+		out.reflect(normal);
+		
+		return out;
+	}
+	
+	public Vector3f lerp(Vector3f v, float f)
+	{
+		this.x += (v.x - this.x) * f;
+		this.y += (v.y - this.y) * f;
+		this.z += (v.z - this.z) * f;
+		
+		return this;
+	}
+	
+	public Vector3f lerped(Vector3f v, float f)
+	{
+		Vector3f out = clone();
+		out.lerp(v, f);
+		return out;
+	}
 	
 	public float max() { return Math.max(this.x, Math.max(this.y, this.z)); }
 	public float min() { return Math.min(this.x, Math.min(this.y, this.z)); }
@@ -215,7 +291,7 @@ public class Vector3f implements DataHolder, Serializable
 	
 	
 	
-	public Vector3f clone() { return new Vector3f(this); }
+	public Vector3f clone() { return getNew(this); }
 	
 	public boolean equals(Vector3f v) { return this.x == v.x && this.y == v.y & this.z == v.z; }
 	

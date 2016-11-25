@@ -28,11 +28,12 @@ public class Color3f implements DataHolder, Serializable, Iterable<Float>
 
 	private static final long serialVersionUID = 1L;
 	
-	public static final PersistentColor3f WHITE =		new PersistentColor3f(1.0f, 1.0f, 1.0f);
-	public static final PersistentColor3f BLACK =		new PersistentColor3f(0.0f, 0.0f, 0.0f);
-	public static final PersistentColor3f RED =			new PersistentColor3f(1.0f, 0.0f, 0.0f);
-	public static final PersistentColor3f GREEN =		new PersistentColor3f(0.0f, 1.0f, 0.0f);
-	public static final PersistentColor3f BLUE =		new PersistentColor3f(0.0f, 0.0f, 1.0f);
+	public static final PersistentColor3f WHITE =		PersistentColor3f.gen(1.0f, 1.0f, 1.0f);
+	public static final PersistentColor3f BLACK =		PersistentColor3f.gen(0.0f, 0.0f, 0.0f);
+	public static final PersistentColor3f RED =			PersistentColor3f.gen(1.0f, 0.0f, 0.0f);
+	public static final PersistentColor3f GREEN =		PersistentColor3f.gen(0.0f, 1.0f, 0.0f);
+	public static final PersistentColor3f BLUE =		PersistentColor3f.gen(0.0f, 0.0f, 1.0f);
+	public static final PersistentColor3f YELLOW =		PersistentColor3f.gen(1.0f, 1.0f, 0.0f);
 	
 	
 	
@@ -77,13 +78,15 @@ public class Color3f implements DataHolder, Serializable, Iterable<Float>
 	 */
 	public Color3f(Color3f color) { this.r = color.getR(); this.g = color.getG(); this.b = color.getB(); }
 	
-	public Color3f(PersistentColor3f color) { this.r = color.r; this.g = color.g; this.b = color.b; }
+	public Color3f(PersistentColor3f color) { this.r = color.getR(); this.g = color.getG(); this.b = color.getB(); }
 	
 	public Color3f set(Color3f color) { this.r = color.r; this.g = color.g; this.b = color.b; return this; }
 	
-	public Color3f set(PersistentColor3f color) { this.r = color.r; this.g = color.g; this.b = color.b; return this; }
+	public Color3f set(PersistentColor3f color) { this.r = color.getR(); this.g = color.getG(); this.b = color.getB(); return this; }
 	
 	public Color3f set(float r, float g, float b) { return setR(r).setG(g).setB(b); }
+	
+	public Color3f setInt(int r, int g, int b) { return setIntR(r).setIntG(g).setIntB(b); }
 	
 	/**
 	 * Sets the red component
@@ -198,6 +201,20 @@ public class Color3f implements DataHolder, Serializable, Iterable<Float>
 		return format.write((byte)getIntR(), (byte)getIntG(), (byte)getIntB(), (byte)255);
 	}	
 	
+	
+	public static Color3f get(float r, float g, float b)
+	{
+		return new Color3f(r,g,b);
+	}
+	
+	public static Color3f get(int r, int g, int b)
+	{
+		Color3f out = new Color3f();
+		
+		out.setIntR(r).setIntG(g).setIntB(b);
+		
+		return out;
+	}
 	
 	
 	@Override

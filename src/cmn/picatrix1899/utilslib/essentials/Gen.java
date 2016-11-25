@@ -1,11 +1,8 @@
 package cmn.picatrix1899.utilslib.essentials;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 import java.util.UUID;
-
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
 
 import cmn.picatrix1899.utilslib.vector.Vector2f;
 

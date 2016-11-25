@@ -61,4 +61,14 @@ public class Maths
 	{
 		return clampMax(clampMin(in, min), max);
 	}
+	
+	public static float img(float pos, float maxPos, float maxVal)
+	{
+		return pos / (maxPos / maxVal);
+	}
+	
+	public static float rimg(float val, float maxPos, float maxVal)
+	{
+		return val * (maxPos / maxVal);
+	}
 }
