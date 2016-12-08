@@ -1,5 +1,7 @@
 package cmn.picatrix1899.utilslib.essentials;
 
+import java.util.List;
+
 /**
  * 
 
@@ -46,7 +48,7 @@ public class Console
 	
 	
 
-		public static void println(Object... arg0)
+	public static void println(Object... arg0)
 	{
 		
 		for(int i = 0; i < arg0.length; i++)
@@ -65,24 +67,41 @@ public class Console
 		}
 	}
 		
-		public static void printlnf(String arg0, Object... arg1)
+	public static void printlnf(String arg0, Object... arg1)
+	{
+		
+		for(int i = 0; i < arg1.length; i++)
 		{
 			
-			for(int i = 0; i < arg1.length; i++)
+			if(!(i == arg1.length - 1))
 			{
-				
-				if(!(i == arg1.length - 1))
-				{
-					print(arg1[i]);				
-					print(arg0);						
-				}
-				else
-				{
-					println(arg1[i]);
-				}
-				
+				print(arg1[i]);				
+				print(arg0);						
 			}
+			else
+			{
+				println(arg1[i]);
+			}
+			
 		}
+	}
 
-	
+	public static void println(List<?> arg0)
+	{
+		
+		for(int i = 0; i < arg0.size(); i++)
+		{
+			
+			if(!(i == arg0.size() - 1))
+			{
+				print(arg0.get(i));				
+				print(" ");						
+			}
+			else
+			{
+				println(arg0.get(i));
+			}
+			
+		}
+	}
 }

@@ -107,6 +107,29 @@ public class Quaternion implements DataHolder
 		return new Quaternion(rW, rX, rY, rZ).normalize();
 	}
 	
+	public static Quaternion getFromVector(Vector3f v1)
+	{
+		Vector3f a = Vector3f.aZ.getNewVector();
+		Vector3f b = v1.clone().normalize();
+		Vector3f axis = a.cross(b);
+		float angle = 1 + a.dot(b);
+		
+		axis.normalize();
+		
+		return new Quaternion(angle, axis.x, axis.y, axis.z).normalize();
+	}
+	
+	public static Quaternion getFromVectors(Vector3f v1, Vector3f v2)
+	{
+		Vector3f a = v1.clone().normalize();
+		Vector3f b = v2.clone().normalize();
+		Vector3f axis = a.cross(b);
+		float angle = 1 + a.dot(b);
+		
+		axis.normalize();
+		return new Quaternion(angle, axis.x, axis.y, axis.z).normalize();
+	}
+	
 	public double getW() { return this.w; }
 	
 	public double getX() { return this.x; }
@@ -142,6 +165,28 @@ public class Quaternion implements DataHolder
 	public Quaternion rotate(Quaternion q)
 	{
 		return set(q.mul(this));
+	}
+	
+	public Quaternion rotateTo(Vector3f v)
+	{
+		Vector3f a = getForward().clone().normalize();
+		Vector3f b = v.clone().normalize();
+		
+		
+		Vector3f axis = a.cross(b);
+		float rot = a.dot(b);
+		
+		axis.normalize();
+		
+		setX(axis.x);
+		setY(axis.y);
+		setZ(axis.z);
+		setW(1.0 + rot);
+		
+		normalize();
+		
+		return this;
+		
 	}
 	
 	public double getEulerPitch()

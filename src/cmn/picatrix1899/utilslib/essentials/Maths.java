@@ -71,4 +71,15 @@ public class Maths
 	{
 		return val * (maxPos / maxVal);
 	}
+	
+	public static boolean equalsFPN(float a, float b, float epsilon)
+	{
+		return (a >= (b - epsilon) && (epsilon + b) >= a) || (b >= (a - epsilon) && (epsilon + a) >= b);
+	}
+	
+	public static boolean equalsDPN(double a, double b, double epsilon)
+	{
+		return (a >= (b - epsilon) && (epsilon + b) >= a) || (b >= (a - epsilon) && (epsilon + a) >= b);
+	}
+	
 }
