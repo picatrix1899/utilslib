@@ -2,7 +2,7 @@ package cmn.picatrix1899.utilslib.color;
 
 import cmn.picatrix1899.utilslib.essentials.Maths;
 
-public abstract class PersistentLDRColor4 implements Color3, Color4
+public abstract class PersistentLDRColor4 implements IColor3, IColor4
 {
 	
 	/**

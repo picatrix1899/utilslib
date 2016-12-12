@@ -1,7 +1,14 @@
 package cmn.picatrix1899.utilslib.color;
 
-
-public interface Color3
+/**
+ * Interface for Color representation with 3 components.
+ * 
+ * @category color
+ * 
+ * @author picatrix1899
+ *
+ */
+public interface IColor3
 {
 	
 	/**

@@ -1,6 +1,6 @@
 package cmn.picatrix1899.utilslib.color;
 
-public interface Color4 extends Color3
+public interface IColor4 extends IColor3
 {
 	
 	/**

@@ -22,7 +22,7 @@ import cmn.picatrix1899.utilslib.interfaces.DataHolder;
  *
  * @author picatrix1899
  */
-public class LDRColor4 implements DataHolder, Serializable, Color3, Color4
+public class LDRColor4 implements DataHolder, Serializable, IColor3, IColor4
 {
 
 	private static final long serialVersionUID = 1L;
@@ -87,11 +87,11 @@ public class LDRColor4 implements DataHolder, Serializable, Color3, Color4
 	 * 
 	 * @param color : The color to clone
 	 */
-	public LDRColor4(Color4 color) { set(color); }
+	public LDRColor4(IColor4 color) { set(color); }
 	
 	
 	
-	public LDRColor4 set(Color4 color) { return setR(color.getR()).setG(color.getG()).setB(color.getB()).setA(color.getA()); }
+	public LDRColor4 set(IColor4 color) { return setR(color.getR()).setG(color.getG()).setB(color.getB()).setA(color.getA()); }
 	
 	public LDRColor4 setUnity(float r, float g, float b, float a) { return setUnityR(r).setUnityG(g).setUnityB(b).setUnityA(a); }
 	
@@ -225,10 +225,10 @@ public class LDRColor4 implements DataHolder, Serializable, Color3, Color4
 	@Override
 	public boolean equals(Object o)
 	{
-		if(!(o instanceof Color4)) return false;
+		if(!(o instanceof IColor4)) return false;
 		if(!(o instanceof LDRColor4) || !(o instanceof PersistentLDRColor3)) return false;
 		
-		Color4 c = (Color4)o;
+		IColor4 c = (IColor4)o;
 		if(c.getR() != this.getR()) return false;
 		if(c.getG() != this.getG()) return false;
 		if(c.getB() != this.getB()) return false;
