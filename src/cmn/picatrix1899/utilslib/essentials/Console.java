@@ -50,21 +50,7 @@ public class Console
 
 	public static void println(Object... arg0)
 	{
-		
-		for(int i = 0; i < arg0.length; i++)
-		{
-			
-			if(!(i == arg0.length - 1))
-			{
-				print(arg0[i]);				
-				print(" ");						
-			}
-			else
-			{
-				println(arg0[i]);
-			}
-			
-		}
+		printlnf(" ", arg0);
 	}
 		
 	public static void printlnf(String arg0, Object... arg1)
