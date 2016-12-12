@@ -1,6 +1,10 @@
 package cmn.picatrix1899.utilslib.vector;
 
-
+/** 
+ * 
+ * @author picatrix1899
+ *
+ */
 public abstract class PersistentVector2f
 {
 	protected abstract float getX();

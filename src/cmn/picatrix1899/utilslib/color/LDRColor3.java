@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
-import java.util.Iterator;
 
 import cmn.picatrix1899.utilslib.dmap.DMap4;
 import cmn.picatrix1899.utilslib.essentials.Maths;
@@ -23,17 +22,17 @@ import cmn.picatrix1899.utilslib.interfaces.DataHolder;
  *
  * @author picatrix1899
  */
-public class Color3f implements DataHolder, Serializable, Iterable<Float>
+public class LDRColor3 implements DataHolder, Serializable, Color3
 {
 
 	private static final long serialVersionUID = 1L;
 	
-	public static final PersistentColor3f WHITE =		PersistentColor3f.gen(1.0f, 1.0f, 1.0f);
-	public static final PersistentColor3f BLACK =		PersistentColor3f.gen(0.0f, 0.0f, 0.0f);
-	public static final PersistentColor3f RED =			PersistentColor3f.gen(1.0f, 0.0f, 0.0f);
-	public static final PersistentColor3f GREEN =		PersistentColor3f.gen(0.0f, 1.0f, 0.0f);
-	public static final PersistentColor3f BLUE =		PersistentColor3f.gen(0.0f, 0.0f, 1.0f);
-	public static final PersistentColor3f YELLOW =		PersistentColor3f.gen(1.0f, 1.0f, 0.0f);
+	public static final PersistentLDRColor3 WHITE =		PersistentLDRColor3.gen(255, 255, 255);
+	public static final PersistentLDRColor3 BLACK =		PersistentLDRColor3.gen(000, 000, 000);
+	public static final PersistentLDRColor3 RED =		PersistentLDRColor3.gen(255, 000, 000);
+	public static final PersistentLDRColor3 GREEN =		PersistentLDRColor3.gen(000, 255, 000);
+	public static final PersistentLDRColor3 BLUE =		PersistentLDRColor3.gen(000, 000, 255);
+	public static final PersistentLDRColor3 YELLOW =	PersistentLDRColor3.gen(255, 255, 000);
 	
 	
 	
@@ -45,24 +44,24 @@ public class Color3f implements DataHolder, Serializable, Iterable<Float>
 	/**
 	 * the minimum value
 	 */
-	public static final float MIN = 0.0f;
+	public static final int MIN = 0;
 	/**
 	 * the maximum value
 	 */
-	public static final float MAX = 1.0f;
+	public static final int MAX = 255;
 	
 	
 	
-	private float r;
-	private float g;
-	private float b;
+	private int r;
+	private int g;
+	private int b;
 	
 	
 	
 	/**
 	 * Constructor with initial white color
 	 */
-	public Color3f() { this(Color3f.MAX, Color3f.MAX, Color3f.MAX); }
+	public LDRColor3() { this(LDRColor3.MAX, LDRColor3.MAX, LDRColor3.MAX); }
 	/**
 	 * Constructor with 3 initial components
 	 * 
@@ -70,23 +69,23 @@ public class Color3f implements DataHolder, Serializable, Iterable<Float>
 	 * @param g : The green component
 	 * @param b : The blue component
 	 */
-	public Color3f(float r, float g, float b) { setR(r).setG(g).setB(b); }
+	public LDRColor3(int r, int g, int b) { setR(r).setG(g).setB(b); }
+	
+	public LDRColor3(float r, float g, float b) { setUnityR(r).setUnityG(g).setUnityB(b); }
 	/**
 	 * Constructor for cloning
 	 * 
 	 * @param color : The color to clone
 	 */
-	public Color3f(Color3f color) { this.r = color.getR(); this.g = color.getG(); this.b = color.getB(); }
+	public LDRColor3(Color3 color) { set(color); }
 	
-	public Color3f(PersistentColor3f color) { this.r = color.getR(); this.g = color.getG(); this.b = color.getB(); }
 	
-	public Color3f set(Color3f color) { this.r = color.r; this.g = color.g; this.b = color.b; return this; }
 	
-	public Color3f set(PersistentColor3f color) { this.r = color.getR(); this.g = color.getG(); this.b = color.getB(); return this; }
+	public LDRColor3 set(Color3 color) { return setR(color.getR()).setG(color.getG()).setB(color.getB()); }
 	
-	public Color3f set(float r, float g, float b) { return setR(r).setG(g).setB(b); }
+	public LDRColor3 setUnity(float r, float g, float b) { return setUnityR(r).setUnityG(g).setUnityB(b); }
 	
-	public Color3f setInt(int r, int g, int b) { return setIntR(r).setIntG(g).setIntB(b); }
+	public LDRColor3 set(int r, int g, int b) { return setR(r).setG(g).setB(b); }
 	
 	/**
 	 * Sets the red component
@@ -94,21 +93,21 @@ public class Color3f implements DataHolder, Serializable, Iterable<Float>
 	 * @param r : The new red component
 	 * @return The current color
 	 */
-	public Color3f setR(float r) { this.r = Maths.clamp(r, Color3f.MIN, Color3f.MAX); return this; }
+	public LDRColor3 setR(int r) { this.r = Maths.clamp(r, LDRColor3.MIN, LDRColor3.MAX); return this; }
 	/**
 	 * Sets the green component
 	 * 
 	 * @param g : The new green component
 	 * @return The current color
 	 */
-	public Color3f setG(float g) { this.g = Maths.clamp(g, Color3f.MIN, Color3f.MAX); return this; }
+	public LDRColor3 setG(int g) { this.g = Maths.clamp(g, LDRColor3.MIN, LDRColor3.MAX); return this; }
 	/**
 	 * Sets the blue component
 	 * 
 	 * @param b : The new blue component
 	 * @return The current color
 	 */
-	public Color3f setB(float b) { this.b = Maths.clamp(b, Color3f.MIN, Color3f.MAX); return this; }
+	public LDRColor3 setB(int b) { this.b = Maths.clamp(b, LDRColor3.MIN, LDRColor3.MAX); return this; }
 	
 	/**
 	 * Sets the red component based on a integer component value(range from 0 to 255)
@@ -116,21 +115,21 @@ public class Color3f implements DataHolder, Serializable, Iterable<Float>
 	 * @param r : The new red component as integer component value(range from 0 to 255)
 	 * @return The current color
 	 */
-	public Color3f setIntR(int r) { setR(r / 255.0f); return this; }
+	public LDRColor3 setUnityR(float r) { setR(Math.round(r * 255.0f)); return this; }
 	/**
 	 * Sets the green component based on a integer component value(range from 0 to 255)
 	 * 
 	 * @param g : The new green component as integer component value(range from 0 to 255)
 	 * @return The current color
 	 */
-	public Color3f setIntG(int g) { setG(g / 255.0f); return this; }
+	public LDRColor3 setUnityG(float g) { setG(Math.round(g / 255.0f)); return this; }
 	/**
 	 * Sets the blue component based on a integer component value(range from 0 to 255)
 	 * 
 	 * @param b : The new blue component as integer component value(range from 0 to 255)
 	 * @return The current color
 	 */
-	public Color3f setIntB(int b) { setB(b / 255.0f); return this; }
+	public LDRColor3 setUnityB(float b) { setB(Math.round(b / 255.0f)); return this; }
 	
 	/**
 	 * Decompress a color code to 3 components
@@ -139,13 +138,13 @@ public class Color3f implements DataHolder, Serializable, Iterable<Float>
 	 * @param format : The format used to decompress
 	 * @return The decompressed color
 	 */
-	public Color3f initColorCode(int code, ColorFormat format)
+	public LDRColor3 initColorCode(int code, ColorFormat format)
 	{
 		DMap4<Byte,Byte,Byte,Byte> map = format.read(code);
 		
-		setIntR((int)map.getA() & 0xFF);
-		setIntG((int)map.getB() & 0xFF);
-		setIntB((int)map.getC() & 0xFF);
+		setR((int)map.getA() & 0xFF);
+		setG((int)map.getB() & 0xFF);
+		setB((int)map.getC() & 0xFF);
 		
 		return this;
 	}
@@ -157,38 +156,38 @@ public class Color3f implements DataHolder, Serializable, Iterable<Float>
 	 * 
 	 * @return The red component
 	 */
-	public float getR() { return this.r; }
+	public int getR() { return this.r; }
 	/**
 	 * Gets the green component
 	 * 
 	 * @return The green component
 	 */
-	public float getG() { return this.g; }
+	public int getG() { return this.g; }
 	/**
 	 * Gets the blue component
 	 * 
 	 * @return The blue component
 	 */
-	public float getB() { return this.b; }
+	public int getB() { return this.b; }
 	
 	/**
 	 * Gets the red component as interger component(range from 0 to 255) 
 	 * 
 	 * @return The red component as interger component value(range from 0 to 255)
 	 */
-	public int getIntR() { return (int)Math.round(getR() * 255); }
+	public float getUnityR() { return getR() / 255.0f; }
 	/**
 	 * Gets the green component as interger component(range from 0 to 255)
 	 * 
 	 * @return The green component as interger component value(range from 0 to 255)
 	 */
-	public int getIntG() { return (int)Math.round(getG() * 255); }
+	public float getUnityG() { return getG() / 255.0f; }
 	/**
 	 * Gets the blue component as interger component(range from 0 to 255)
 	 * 
 	 * @return The blue component as interger component value(range from 0 to 255)
 	 */
-	public int getIntB() { return (int)Math.round(getB() * 255); }
+	public float getUnityB() { return getB() / 255.0f; }
 	
 	/**
 	 * Compress the components into one single integer value known as color code
@@ -198,27 +197,25 @@ public class Color3f implements DataHolder, Serializable, Iterable<Float>
 	 */
 	public int getColorCode(ColorFormat format)
 	{
-		return format.write((byte)getIntR(), (byte)getIntG(), (byte)getIntB(), (byte)255);
+		return format.write((byte)getR(), (byte)getG(), (byte)getB(), (byte)255);
 	}	
 	
 	
-	public static Color3f get(float r, float g, float b)
+	public static LDRColor3 get(float r, float g, float b)
 	{
-		return new Color3f(r,g,b);
+		return new LDRColor3(r, g, b);
 	}
 	
-	public static Color3f get(int r, int g, int b)
+	public static LDRColor3 get(int r, int g, int b)
 	{
-		Color3f out = new Color3f();
-		
-		out.setIntR(r).setIntG(g).setIntB(b);
-		
-		return out;
+		LDRColor3 out = new LDRColor3();
+
+		return out.setR(r).setG(g).setB(b);
 	}
 	
 	
 	@Override
-	public Color3f clone() { return new Color3f(this); }
+	public LDRColor3 clone() { return new LDRColor3(this); }
 	
 	@Override
 	public String toString()
@@ -229,9 +226,10 @@ public class Color3f implements DataHolder, Serializable, Iterable<Float>
 	@Override
 	public boolean equals(Object o)
 	{
-		if(!(o instanceof Color3f)) return false;
+		if(!(o instanceof Color3)) return false;
+		if(!(o instanceof LDRColor3) || !(o instanceof PersistentLDRColor3)) return false;
 		
-		Color3f c = (Color3f)o;
+		Color3 c = (Color3)o;
 		if(c.getR() != this.getR()) return false;
 		if(c.getG() != this.getG()) return false;
 		if(c.getB() != this.getB()) return false;
@@ -273,44 +271,5 @@ public class Color3f implements DataHolder, Serializable, Iterable<Float>
 		out.writeInt(format);
 		out.writeInt(colorcode);
 	}
-	
-	public Iterator<Float> iterator()
-	{
-		
-		final float fr = this.r;
-		final float fg = this.g;
-		final float fb = this.b;
-		
-		return new Iterator<Float>()
-		{
 
-			private int i = 0;
-			
-			private int max = Color3f.DIMENSIONS;
-			
-			public boolean hasNext()
-			{
-				return i < max - 1;
-			}
-
-			public Float next()
-			{
-				
-				Float f = null;
-				
-				if(i == 0)
-					f = fr;
-				else if(i == 1)
-					f = fg;
-				else if(i == 2)
-					f = fb;
-				
-				if(f != null && i < max) i++;
-				
-				return f;
-				
-			}
-			
-		};
-	}
 }
