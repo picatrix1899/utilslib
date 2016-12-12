@@ -2,7 +2,7 @@ package cmn.picatrix1899.utilslib.color;
 
 import cmn.picatrix1899.utilslib.essentials.Maths;
 
-public abstract class PersistentLDRColor3 implements Color3
+public abstract class PersistentLDRColor4 implements Color3, Color4
 {
 	
 	/**
@@ -26,33 +26,44 @@ public abstract class PersistentLDRColor3 implements Color3
 	 */
 	public float getUnityB() { return (int)Math.round(getB() / 255.0f); }
 	
+	/**
+	 * Gets the blue component as interger component(range from 0 to 255)
+	 * 
+	 * @return The blue component as interger component value(range from 0 to 255)
+	 */
+	public float getUnityA() { return (int)Math.round(getA() / 255.0f); }
 	
-	
-	public static PersistentLDRColor3 genUnity(final float r, final float g, final float b)
+	public static PersistentLDRColor4 genUnity(final float r, final float g, final float b, final float a)
 	{
-		return gen(Math.round(r * 255.0f), Math.round(g * 255.0f), Math.round(b * 255.0f));
+		return gen(Math.round(r * 255.0f), Math.round(g * 255.0f), Math.round(b * 255.0f), Math.round(a * 255.0f));
 	}
 	
-	public static PersistentLDRColor3 gen(final int r, final int g, final int b)
+	public static PersistentLDRColor4 gen(final int r, final int g, final int b, final int a)
 	{
-		return new PersistentLDRColor3()
+		return new PersistentLDRColor4()
 		{
 			
 			public int getR()
 			{
 				return Maths.clamp(r, 0, 255);
-			}	
+			}			
 			
 			public int getG()
 			{
 				return Maths.clamp(g, 0, 255);
-			}			
+			}
+			
 			
 			public int getB()
 			{
 				return Maths.clamp(b, 0, 255);
 			}
-
+			
+			public int getA()
+			{
+				return Maths.clamp(a, 0, 255);
+			}
+			
 		};
 	}
 }
