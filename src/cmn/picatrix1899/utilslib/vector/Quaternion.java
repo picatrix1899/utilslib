@@ -8,6 +8,7 @@ import java.io.OutputStream;
 
 import cmn.picatrix1899.utilslib.essentials.Maths;
 import cmn.picatrix1899.utilslib.interfaces.DataHolder;
+import cmn.picatrix1899.utilslib.matrix.Matrix4f;
 
 /**
  * A Quaternion
@@ -45,6 +46,53 @@ public class Quaternion implements DataHolder
 		this(q.w, q.x, q.y, q.z);
 	}
 	
+	//From Ken Shoemake's "Quaternion Calculus and Fast Animation" article
+	public Quaternion(Matrix4f rot)
+	{
+		float trace = rot.m0.x + rot.m1.y + rot.m2.z;
+
+		if(trace > 0)
+		{
+			float s = 0.5f / (float)Math.sqrt(trace+ 1.0f);
+			w = 0.25f / s;
+			x = (rot.m1.z - rot.m2.y) * s;
+			y = (rot.m2.x - rot.m0.z) * s;
+			z = (rot.m0.y - rot.m1.x) * s;
+		}
+		else
+		{
+			if(rot.m0.x > rot.m1.y && rot.m0.x > rot.m2.z)
+			{
+				float s = 2.0f * (float)Math.sqrt(1.0f + rot.m0.x - rot.m1.y - rot.m2.z);
+				w = (rot.m1.z - rot.m2.y) / s;
+				x = 0.25f * s;
+				y = (rot.m1.x + rot.m0.y) / s;
+				z = (rot.m2.x + rot.m0.z) / s;
+			}
+			else if(rot.m1.y > rot.m2.z)
+			{
+				float s = 2.0f * (float)Math.sqrt(1.0f + rot.m1.y - rot.m0.x - rot.m2.z);
+				w = (rot.m2.x - rot.m0.z) / s;
+				x = (rot.m1.x + rot.m0.y) / s;
+				y = 0.25f * s;
+				z = (rot.m2.y + rot.m1.z) / s;
+			}
+			else
+			{
+				float s = 2.0f * (float)Math.sqrt(1.0f + rot.m2.z - rot.m0.x - rot.m1.y);
+				w = (rot.m0.y - rot.m1.x ) / s;
+				x = (rot.m2.x + rot.m0.z ) / s;
+				y = (rot.m1.z + rot.m2.y ) / s;
+				z = 0.25f * s;
+			}
+		}
+
+		float length = (float)Math.sqrt(x * x + y * y + z * z + w * w);
+		x /= length;
+		y /= length;
+		z /= length;
+		w /= length;
+	}
 	
 	
 	public static Quaternion getFromAxis(Vector3f axis, float angle) { return getFromAxis(axis.x, axis.y, axis.z, angle); }

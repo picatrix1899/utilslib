@@ -90,6 +90,41 @@ public class Matrix4f
 		return this;
 	}
 	
+	public Matrix4f initRotation(Vector3f forward, Vector3f up, Vector3f right)
+	{
+		this.m0.setX(right.x);
+		this.m0.setY(right.y);
+		this.m0.setZ(right.z);
+		this.m0.setA(0.0d);
+		
+		this.m1.setX(up.x);
+		this.m1.setY(up.y);
+		this.m1.setZ(up.z);
+		this.m1.setA(0.0d);
+		
+		this.m2.setX(forward.x);
+		this.m2.setY(forward.y);
+		this.m2.setZ(forward.z);
+		this.m2.setA(0.0d);
+		
+		this.m3.set(0.0d, 0.0d, 0.0d, 1.0d);
+		
+		return this;
+	}
+	
+	public Matrix4f initRotation(Vector3f forward, Vector3f up)
+	{
+		Vector3f f = forward.normalized();
+		Vector3f r = up.normalized();
+		r = r.cross(f);
+		
+		Vector3f u = f.cross(r);
+		
+		u.normalize();
+		
+		return initRotation(forward.normalized(), u, r);
+	}
+	
 	public static Matrix4f iRotation(Vector3f axis, float angle) { return new Matrix4f().initRotation(axis, angle); }
 	
 	public Matrix4f initRotation(Vector3f axis, float angle)
