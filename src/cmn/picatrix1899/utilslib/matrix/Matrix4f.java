@@ -112,6 +112,36 @@ public class Matrix4f
 		return this;
 	}
 	
+	public Matrix4f initOrtho(float left, float right, float bottom, float top, float near, float far)
+	{
+		float width = right - left;
+		
+		float height = top - bottom;
+		float depth = far - near;
+		
+		this.m0.setX(2.0f / width);
+		this.m0.setY(0.0f);
+		this.m0.setZ(0.0f);
+		this.m0.setA(-((right + left) / width));
+		
+		this.m1.setX(0.0f);
+		this.m1.setY(2.0f / height);
+		this.m1.setZ(0.0f);
+		this.m1.setA(-((top + bottom) / height));
+		
+		//this.m2.setX(0.0f);
+		//this.m2.setY(0.0f);
+		//this.m2.setZ(-2.0f / depth);
+		//this.m2.setA(-((far + near) / depth));
+		
+		this.m3.setX(0.0f);
+		this.m3.setY(0.0f);
+		this.m3.setZ(0.0f);
+		this.m3.setA(1.0f);
+		
+		return this;
+	}
+	
 	public Matrix4f initRotation(Vector3f forward, Vector3f up)
 	{
 		Vector3f f = forward.normalized();
