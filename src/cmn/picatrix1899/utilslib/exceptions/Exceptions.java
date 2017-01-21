@@ -1,7 +1,5 @@
 package cmn.picatrix1899.utilslib.exceptions;
 
-import java.lang.reflect.InvocationTargetException;
-
 /**
  * 
 
@@ -35,12 +33,7 @@ public enum Exceptions
 			{
 				throw (RuntimeException)c.getConstructor(String.class).newInstance(msg);
 			}
-			catch (InstantiationException |
-					IllegalAccessException|
-					IllegalArgumentException |
-					InvocationTargetException|
-					NoSuchMethodException |
-					SecurityException e)
+			catch (Exception e)
 			{
 				e.printStackTrace();
 			}			
@@ -58,12 +51,7 @@ public enum Exceptions
 		{
 			throw (RuntimeException)c.getConstructor().newInstance();
 		}
-		catch (InstantiationException |
-				IllegalAccessException|
-				IllegalArgumentException |
-				InvocationTargetException|
-				NoSuchMethodException |
-				SecurityException e)
+		catch (Exception e)
 		{
 			e.printStackTrace();
 		}	
