@@ -1,29 +1,12 @@
-
 package cmn.picatrix1899.utilslib.alloc;
 
-
-
 import java.lang.reflect.Constructor;
-
 import java.util.ArrayList;
 
-
-
-/**
- * @author picatrix1899
- */
 public class Allocator<T>
 {
-	
 	private final ArrayList<T> stack = new ArrayList<T>();
 	
-	
-	
-	/**
-	 * Allocates an instance of the given class
-	 * @param clazz
-	 * @return the allocated instance
-	 */
 	public T alloc(Class<? extends T> clazz)
 	{
 		try
@@ -39,6 +22,9 @@ public class Allocator<T>
 			
 			Constructor<? extends T> c;
 			
+			
+			
+			
 			c = clazz.getConstructor();
 				
 			return (T) c.newInstance();	
@@ -51,13 +37,8 @@ public class Allocator<T>
 		return null;
 	}
 	
-	/**
-	 * Stores the instance and keeps a strong reference on it to reuse it later
-	 * @param val
-	 */
 	public void release(T val)
 	{
 		stack.add(val);
 	}
-	
 }
