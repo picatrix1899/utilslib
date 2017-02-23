@@ -7,7 +7,7 @@ import cmn.utilslib.essentials.Auto;
 import cmn.utilslib.exceptions.IErrorHandler;
 import cmn.utilslib.exceptions.SimpleErrorHandler;
 
-public class ValidationException extends RuntimeException
+public class ValidationException extends IllegalArgumentException
 {
 	
 	private static final long serialVersionUID = 1L;
@@ -23,6 +23,11 @@ public class ValidationException extends RuntimeException
 	public static void setErrorHandler(IErrorHandler handler)
 	{
 		ValidationException.handler = handler;
+	}
+	
+	public static void resetErrorHandler()
+	{
+		ValidationException.handler = new SimpleErrorHandler();
 	}
 	
 	
