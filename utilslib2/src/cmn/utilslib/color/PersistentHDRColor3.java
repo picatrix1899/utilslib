@@ -2,17 +2,14 @@ package cmn.utilslib.color;
 
 
 /**
- * 
- * A immutable HDR*-Color3.
+ * An immutable HDR*-Color3.
  * <br>
  * <br>
  * *HDR = Hight Dynamic Range(-n to +n)
- * 
  * @author picatrix1899
- * 
- * @category color
+ * @category Color
  */
-public abstract class PersistentHDRColor3 implements IColor3
+public abstract class PersistentHDRColor3 implements IColor3Base
 {
 	/** {@inheritDoc} */
 	public float getUnityR() { return getR() / 255.0f; }

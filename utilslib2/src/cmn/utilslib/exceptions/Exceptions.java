@@ -21,11 +21,8 @@ public class Exceptions
 
 				try
 				{
-					StackTraceElement[] element = e.getStackTrace();
-					
-					element = Arrays.copyOfRange(element, 0 + stackreduction, element.length);
-					
-					e.setStackTrace(element);
+
+					trimStack(e, stackreduction);
 					
 					throw e;
 				}
@@ -42,11 +39,7 @@ public class Exceptions
 			{
 				RuntimeException ex = (RuntimeException)c.getConstructor(String.class).newInstance(msg);
 				
-				StackTraceElement[] element = ex.getStackTrace();
-				
-				element = Arrays.copyOfRange(element, 5 + stackreduction, element.length);
-				
-				ex.setStackTrace(element);
+				trimStack(ex, 5 + stackreduction);
 				
 				try
 				{
@@ -64,6 +57,15 @@ public class Exceptions
 		
 	}
 	
+	public static void trimStack(Exception e, int reduction)
+	{
+		StackTraceElement[] element = e.getStackTrace();
+		
+		element = Arrays.copyOfRange(element, reduction, element.length);
+		
+		e.setStackTrace(element);
+	}
+	
 	public static void handle(Class<? extends RuntimeException> c, String msg)
 	{
 
@@ -71,11 +73,7 @@ public class Exceptions
 			{
 				RuntimeException ex = (RuntimeException)c.getConstructor(String.class).newInstance(msg);
 				
-				StackTraceElement[] element = ex.getStackTrace();
-				
-				element = Arrays.copyOfRange(element, 5, element.length);
-				
-				ex.setStackTrace(element);
+				trimStack(ex, 5);
 					
 				try
 				{
@@ -102,11 +100,7 @@ public class Exceptions
 		{
 			RuntimeException ex = (RuntimeException)c.getConstructor().newInstance();
 			
-			StackTraceElement[] element = ex.getStackTrace();
-			
-			element = Arrays.copyOfRange(element, 5, element.length);
-			
-			ex.setStackTrace(element);
+			trimStack(ex, 5);
 				
 			try
 			{

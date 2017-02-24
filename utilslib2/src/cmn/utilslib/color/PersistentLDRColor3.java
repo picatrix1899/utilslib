@@ -3,17 +3,14 @@ package cmn.utilslib.color;
 import cmn.utilslib.essentials.Maths;
 
 /**
- * 
- * A immutable LDR*-Color3.
+ * An immutable LDR*-Color3.
  * <br>
  * <br>
  * *LDR = Low Dynamic Range(fixed to 0-255)
- * 
  * @author picatrix1899
- * 
- * @category color
+ * @category Color
  */
-public abstract class PersistentLDRColor3 implements IColor3
+public abstract class PersistentLDRColor3 implements IColor3Base
 {
 	
 	/** {@inheritDoc} */

@@ -2,17 +2,14 @@ package cmn.utilslib.color;
 
 
 /**
- * 
- * A immutable HDR*-Color4.
+ * An immutable HDR*-Color4.
  * <br>
  * <br>
  * *HDR = Hight Dynamic Range(-n to +n)
- * 
  * @author picatrix1899
- * 
- * @category color
+ * @category Color
  */
-public abstract class PersistentHDRColor4 implements IColor4
+public abstract class PersistentHDRColor4 implements IColor4Base
 {
 	
 

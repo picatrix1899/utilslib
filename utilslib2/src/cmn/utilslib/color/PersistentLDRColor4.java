@@ -4,17 +4,14 @@ import cmn.utilslib.essentials.Maths;
 
 
 /**
- * 
- * A immutable LDR*-Color4.
+ * An immutable LDR*-Color4.
  * <br>
  * <br>
  * *LDR = Low Dynamic Range(fixed to 0-255)
- * 
  * @author picatrix1899
- * 
- * @category color
+ * @category Color
  */
-public abstract class PersistentLDRColor4 implements IColor3, IColor4
+public abstract class PersistentLDRColor4 implements IColor4Base
 {
 	
 	/** {@inheritDoc} */

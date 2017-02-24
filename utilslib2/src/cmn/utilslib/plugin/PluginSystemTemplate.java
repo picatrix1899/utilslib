@@ -8,7 +8,7 @@ import cmn.utilslib.essentials.Auto;
 
 public class PluginSystemTemplate<T> implements IPluginSystemTemplate<T>
 {
-	private ArrayList<Class<? extends IPluginSystemPlugin<T>>> plugins = Auto.newArrayList();
+	private ArrayList<Class<? extends IPluginSystemPlugin<T>>> plugins = Auto.ArrayList();
 	
 	@Override
 	public void addPluginPreset(Class<? extends IPluginSystemPlugin<T>> plugin)

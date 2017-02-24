@@ -11,7 +11,7 @@ public class PluginSystemFactory<T>
 	
 	public IPluginSystem<T> instance(T t)
 	{
-		IPluginSystem<T> system = Auto.newPluginSystem(null);
+		IPluginSystem<T> system = Auto.PluginSystem(null);
 		
 		for(Class<? extends IPluginSystemPlugin<T>> c : template.getPlugins())
 		{

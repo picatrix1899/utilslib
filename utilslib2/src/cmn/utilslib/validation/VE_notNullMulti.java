@@ -17,7 +17,7 @@ public class VE_notNullMulti extends ValidationException
 	{
 		this();
 		
-		ArrayList<Integer> indices = Auto.newArrayList(); 
+		ArrayList<Integer> indices = Auto.ArrayList(); 
 		
 		for(int i = 0; i < values.length; i++)
 			if(Check.isNull(values[i]))

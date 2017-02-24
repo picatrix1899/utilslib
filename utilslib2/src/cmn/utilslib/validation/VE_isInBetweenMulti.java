@@ -16,8 +16,8 @@ public class VE_isInBetweenMulti extends ValidationException
 	{
 		this();
 		
-		ArrayList<Integer> indices = Auto.newArrayList(); 
-		ArrayList<Integer> vals = Auto.newArrayList();
+		ArrayList<Integer> indices = Auto.ArrayList(); 
+		ArrayList<Integer> vals = Auto.ArrayList();
 		
 		for(int i = 0; i < values.length; i++)
 			if(Check.notInBetween(min, max, values[i]))
@@ -50,8 +50,8 @@ public class VE_isInBetweenMulti extends ValidationException
 	{
 		this();
 		
-		ArrayList<Integer> indices = Auto.newArrayList(); 
-		ArrayList<Long> vals = Auto.newArrayList();
+		ArrayList<Integer> indices = Auto.ArrayList(); 
+		ArrayList<Long> vals = Auto.ArrayList();
 		
 		for(int i = 0; i < values.length; i++)
 			if(Check.notInBetween(min, max, values[i]))
@@ -84,8 +84,8 @@ public class VE_isInBetweenMulti extends ValidationException
 	{
 		this();
 		
-		ArrayList<Integer> indices = Auto.newArrayList(); 
-		ArrayList<Float> vals = Auto.newArrayList();
+		ArrayList<Integer> indices = Auto.ArrayList(); 
+		ArrayList<Float> vals = Auto.ArrayList();
 		
 		for(int i = 0; i < values.length; i++)
 			if(Check.notInBetween(min, max, values[i]))
@@ -118,8 +118,8 @@ public class VE_isInBetweenMulti extends ValidationException
 	{
 		this();
 		
-		ArrayList<Integer> indices = Auto.newArrayList(); 
-		ArrayList<Double> vals = Auto.newArrayList();
+		ArrayList<Integer> indices = Auto.ArrayList(); 
+		ArrayList<Double> vals = Auto.ArrayList();
 		
 		for(int i = 0; i < values.length; i++)
 			if(Check.notInBetween(min, max, values[i]))
