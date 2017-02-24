@@ -9,8 +9,8 @@ import cmn.utilslib.exceptions.IErrorHandler;
 public class CaptureErrorHandler implements IErrorHandler
 {
 	private int count;
-	private ArrayList<Class<? extends Exception>> types = Auto.newArrayList();
-	private ArrayList<Exception> exceptions = Auto.newArrayList();
+	private ArrayList<Class<? extends Exception>> types = Auto.ArrayList();
+	private ArrayList<Exception> exceptions = Auto.ArrayList();
 	
 	
 	public int getCount()

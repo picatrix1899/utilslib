@@ -21,7 +21,7 @@ public class ClassRef<T>
 	{
 		Method[] ms = this.c.getDeclaredMethods();
 		
-		ArrayList<Method> out = Auto.newArrayList();
+		ArrayList<Method> out = Auto.ArrayList();
 		
 		for(Method m : ms)
 		{

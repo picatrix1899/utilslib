@@ -5,7 +5,7 @@ import cmn.utilslib.essentials.Auto;
 
 public class PluginSystem<A> implements IPluginSystem<A>
 {
-	private HashMap<Class<? extends IPluginSystemPlugin<A>>, IPluginSystemPlugin<A>> plugins = Auto.newHashMap();
+	private HashMap<Class<? extends IPluginSystemPlugin<A>>, IPluginSystemPlugin<A>> plugins = Auto.HashMap();
 	
 	private A a;
 	

@@ -8,45 +8,80 @@ package cmn.utilslib.color;
  * @author picatrix1899
  * @category Color
  */
-public interface IColor3
+public interface IColor3<T extends IColor3<?>> extends IColor3Base
 {
 	
 	/**
-	 * Gets the red component as interger component(range from 0 to 255).
-	 * @return The red component as interger component value(range from 0 to 255).
+	 * Sets the color based on another color.
+	 * @param color : another color as base.
+	 * @return The current instance.
 	 */
-	public abstract int getR();
-	
-	/**
-	 * Gets the green component as interger component(range from 0 to 255).
-	 * @return The green component as interger component value(range from 0 to 255).
-	 */
-	public abstract int getG();
-	
-	/**
-	 * Gets the blue component as interger component(range from 0 to 255).
-	 * @return The blue component as interger component value(range from 0 to 255).
-	 */
-	public abstract int getB();
+	public abstract T set(IColor3Base color);
 	
 	
 	
 	/**
-	 * Gets the red component as unity component(range from 0 to 1).
-	 * @return The red component as unity component value(range from 0 to 1).
+	 * Sets the color based on 3 color-range values.
+	 * @param r : The red component as a color-range value.
+	 * @param g : The green component as a color-range value.
+	 * @param b : The blue component as a color-range value.
+	 * @return The current instance.
 	 */
-	public abstract float getUnityR();
+	public abstract T set(int r, int g, int b);
 	
 	/**
-	 * Gets the green component as unity component(range from 0 to 1).
-	 * @return The green component as unity component value(range from 0 to 1).
+	 * Sets the color based on 3 unity-range values.
+	 * @param r : The red component as an unity-range value.
+	 * @param g : The green component as an unity-range value.
+	 * @param b : The blue component as an unity-range value.
+	 * @return The current instance.
 	 */
-	public abstract float getUnityG();
+	public abstract T setUnity(float r, float g, float b);
+	
+	
 	
 	/**
-	 * Gets the blue component as unity component(range from 0 to 1).
-	 * @return The blue component as unity component value(range from 0 to 1).
+	 * Sets the red component based on a color-range value.
+	 * @param r : The red component as a color-range value.
+	 * @return The current instance.
 	 */
-	public abstract float getUnityB();
+	public abstract T setR(int r);
+	
+	/**
+	 * Sets the green component based on a color-range value.
+	 * @param g : The green component as a color-range value.
+	 * @return The current instance.
+	 */
+	public abstract T setG(int g);
+	
+	/**
+	 * Sets the blue component based on a color-range value.
+	 * @param b : The blue component as a color-range value.
+	 * @return The current instance.
+	 */
+	public abstract T setB(int b);
+	
+	
+	
+	/**
+	 * Sets the red component based on an unity-range value.
+	 * @param r : The red component as an unity-range value.
+	 * @return The current instance.
+	 */
+	public abstract T setUnityR(float r);
+	
+	/** 
+	 * Sets the green component based on an unity-range value.
+	 * @param g : The green component as an unity-range value.
+	 * @return The current instance.
+	 */
+	public abstract T setUnityG(float g);
+	
+	/**
+	 * Sets the blue component based on an unity-range value.
+	 * @param b : The blue component as an unity-range value.
+	 * @return The current instance.
+	 */
+	public abstract T setUnityB(float b);
 	
 }

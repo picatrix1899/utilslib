@@ -15,7 +15,7 @@ public class ValidationException extends IllegalArgumentException
 	
 	
 	
-	protected List<String> details = Auto.newArrayList();
+	protected List<String> details = Auto.ArrayList();
 	private String type = "";
 	
 	

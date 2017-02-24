@@ -2,6 +2,7 @@ package cmn.utilslib.reflection;
 
 import java.lang.reflect.Field;
 
+import cmn.utilslib.exceptions.Exceptions;
 import cmn.utilslib.exceptions.IErrorHandler;
 import cmn.utilslib.exceptions.SimpleErrorHandler;
 
@@ -14,7 +15,7 @@ public class ManagedFieldRef<T>
 	
 	private IErrorHandler handler;
 	
-	public ManagedFieldRef(String field, Class<?> clazz, Object object)
+	public <A> ManagedFieldRef(String field, Class<?> clazz, Object object)
 	{
 		this.handler = new SimpleErrorHandler();
 		
@@ -27,8 +28,10 @@ public class ManagedFieldRef<T>
 			this.f = this.clazz.getDeclaredField(this.field);
 			this.f.setAccessible(true);
 		}
-		catch(Exception e)
+		catch(NoSuchFieldException | SecurityException e)
 		{
+			Exceptions.trimStack(e, 2);
+			
 			this.handler.handle(e);
 		}
 		
@@ -47,8 +50,10 @@ public class ManagedFieldRef<T>
 		{
 			return (T) this.f.get(this.obj);	
 		}
-		catch(Exception e)
+		catch(IllegalArgumentException | IllegalAccessException e)
 		{
+			Exceptions.trimStack(e, 2);
+			
 			this.handler.handle(e);
 			
 			return null;
@@ -61,8 +66,10 @@ public class ManagedFieldRef<T>
 		{
 			this.f.set(this.obj, val);	
 		}
-		catch(Exception e)
+		catch(IllegalArgumentException | IllegalAccessException e)
 		{
+			Exceptions.trimStack(e, 2);
+			
 			this.handler.handle(e);
 		}
 		

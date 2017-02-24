@@ -16,7 +16,7 @@ public class VE_notEqualMulti extends ValidationException
 	{
 		this();
 		
-		ArrayList<Integer> indices = Auto.newArrayList(); 
+		ArrayList<Integer> indices = Auto.ArrayList(); 
 		
 		for(int i = 0; i < values.length; i++)
 			if(Check.isEqual(expected, values[i]))

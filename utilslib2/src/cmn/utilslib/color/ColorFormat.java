@@ -112,64 +112,64 @@ public enum ColorFormat
 		
 		public static ColorReader RGB_32 = new ColorReader()
 		{
-			public DMap4<Byte, Byte, Byte, Byte> read(int i) { return Auto.newDMap4((byte)_32Bit(i, 16), (byte)_32Bit(i, 8), (byte)_32Bit(i, 0), (byte)255); }
+			public DMap4<Byte, Byte, Byte, Byte> read(int i) { return Auto.DMap4((byte)_32Bit(i, 16), (byte)_32Bit(i, 8), (byte)_32Bit(i, 0), (byte)255); }
 		};
 		
 		public static ColorReader BGR_32 = new ColorReader()
 		{
-			public DMap4<Byte, Byte, Byte, Byte> read(int i) { return Auto.newDMap4((byte)_32Bit(i, 0), (byte)_32Bit(i, 8), (byte)_32Bit(i, 16), (byte)255); }
+			public DMap4<Byte, Byte, Byte, Byte> read(int i) { return Auto.DMap4((byte)_32Bit(i, 0), (byte)_32Bit(i, 8), (byte)_32Bit(i, 16), (byte)255); }
 		};
 		
 		public static ColorReader RGBA_32 = new ColorReader()
 		{
-			public DMap4<Byte, Byte, Byte, Byte> read(int i) { return Auto.newDMap4((byte)_32Bit(i, 24), (byte)_32Bit(i, 16), (byte)_32Bit(i, 8), (byte)_32Bit(i, 0)); }
+			public DMap4<Byte, Byte, Byte, Byte> read(int i) { return Auto.DMap4((byte)_32Bit(i, 24), (byte)_32Bit(i, 16), (byte)_32Bit(i, 8), (byte)_32Bit(i, 0)); }
 		};
 		
 		public static ColorReader BGRA_32 = new ColorReader()
 		{
-			public DMap4<Byte, Byte, Byte, Byte> read(int i) { return Auto.newDMap4((byte)_32Bit(i, 8), (byte)_32Bit(i, 16), (byte)_32Bit(i, 24), (byte)_32Bit(i, 0)); }
+			public DMap4<Byte, Byte, Byte, Byte> read(int i) { return Auto.DMap4((byte)_32Bit(i, 8), (byte)_32Bit(i, 16), (byte)_32Bit(i, 24), (byte)_32Bit(i, 0)); }
 		};
 		
 		public static ColorReader ARGB_32 = new ColorReader()
 		{
-			public DMap4<Byte, Byte, Byte, Byte> read(int i) { return Auto.newDMap4((byte)_32Bit(i, 16), (byte)_32Bit(i, 8), (byte)_32Bit(i, 0), (byte)_32Bit(i, 24)); }
+			public DMap4<Byte, Byte, Byte, Byte> read(int i) { return Auto.DMap4((byte)_32Bit(i, 16), (byte)_32Bit(i, 8), (byte)_32Bit(i, 0), (byte)_32Bit(i, 24)); }
 		};
 		
 		public static ColorReader ABGR_32 = new ColorReader()
 		{
-			public DMap4<Byte, Byte, Byte, Byte> read(int i) { return Auto.newDMap4((byte)_32Bit(i, 0), (byte)_32Bit(i, 8), (byte)_32Bit(i, 16), (byte)_32Bit(i, 24)); }
+			public DMap4<Byte, Byte, Byte, Byte> read(int i) { return Auto.DMap4((byte)_32Bit(i, 0), (byte)_32Bit(i, 8), (byte)_32Bit(i, 16), (byte)_32Bit(i, 24)); }
 		};
 		
 		
 		
 		public static ColorReader RGB_16 = new ColorReader()
 		{
-			public DMap4<Byte, Byte, Byte, Byte> read(int i) { return Auto.newDMap4((byte)_16Bit(i, 8), (byte)_16Bit(i, 4), (byte)_16Bit(i, 0), (byte)255); }
+			public DMap4<Byte, Byte, Byte, Byte> read(int i) { return Auto.DMap4((byte)_16Bit(i, 8), (byte)_16Bit(i, 4), (byte)_16Bit(i, 0), (byte)255); }
 		};
 		
 		public static ColorReader BGR_16 = new ColorReader()
 		{
-			public DMap4<Byte, Byte, Byte, Byte> read(int i) { return Auto.newDMap4((byte)_16Bit(i, 0), (byte)_16Bit(i, 4), (byte)_16Bit(i, 8), (byte)255); }
+			public DMap4<Byte, Byte, Byte, Byte> read(int i) { return Auto.DMap4((byte)_16Bit(i, 0), (byte)_16Bit(i, 4), (byte)_16Bit(i, 8), (byte)255); }
 		};
 		
 		public static ColorReader RGBA_16 = new ColorReader()
 		{
-			public DMap4<Byte, Byte, Byte, Byte> read(int i) { return Auto.newDMap4((byte)_16Bit(i, 12), (byte)_16Bit(i, 8), (byte)_16Bit(i, 4), (byte)_16Bit(i, 0)); }
+			public DMap4<Byte, Byte, Byte, Byte> read(int i) { return Auto.DMap4((byte)_16Bit(i, 12), (byte)_16Bit(i, 8), (byte)_16Bit(i, 4), (byte)_16Bit(i, 0)); }
 		};
 		
 		public static ColorReader BGRA_16 = new ColorReader()
 		{
-			public DMap4<Byte, Byte, Byte, Byte> read(int i) { return Auto.newDMap4((byte)_16Bit(i, 4), (byte)_16Bit(i, 8), (byte)_16Bit(i, 12), (byte)_16Bit(i, 0)); }
+			public DMap4<Byte, Byte, Byte, Byte> read(int i) { return Auto.DMap4((byte)_16Bit(i, 4), (byte)_16Bit(i, 8), (byte)_16Bit(i, 12), (byte)_16Bit(i, 0)); }
 		};
 		
 		public static ColorReader ARGB_16 = new ColorReader()
 		{
-			public DMap4<Byte, Byte, Byte, Byte> read(int i) { return Auto.newDMap4((byte)_16Bit(i, 8), (byte)_16Bit(i, 4), (byte)_16Bit(i, 0), (byte)_16Bit(i, 12)); }
+			public DMap4<Byte, Byte, Byte, Byte> read(int i) { return Auto.DMap4((byte)_16Bit(i, 8), (byte)_16Bit(i, 4), (byte)_16Bit(i, 0), (byte)_16Bit(i, 12)); }
 		};
 		
 		public static ColorReader ABGR_16 = new ColorReader()
 		{
-			public DMap4<Byte, Byte, Byte, Byte> read(int i) { return Auto.newDMap4((byte)_16Bit(i, 0), (byte)_16Bit(i, 4), (byte)_16Bit(i, 8), (byte)_16Bit(i, 12)); }
+			public DMap4<Byte, Byte, Byte, Byte> read(int i) { return Auto.DMap4((byte)_16Bit(i, 0), (byte)_16Bit(i, 4), (byte)_16Bit(i, 8), (byte)_16Bit(i, 12)); }
 		};
 		
 	}

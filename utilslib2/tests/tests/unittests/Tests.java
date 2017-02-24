@@ -1,4 +1,4 @@
-package tests;
+package tests.unittests;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -9,11 +9,6 @@ import cmn.utilslib.reflection.ClassRef;
 import cmn.utilslib.reflection.MethodRef;
 import tests.tools.IUnitTest;
 import tests.tools.TimingResult;
-import tests.unittests.TestValidateIsFalse;
-import tests.unittests.TestValidateIsTrue;
-import tests.unittests.TestValidateIsTrueMulti;
-import tests.unittests.TestValidateNotFalse;
-import tests.unittests.TestValidateNotTrue;
 
 public class Tests
 {
