@@ -1,6 +1,6 @@
-package tests.unittests;
+package cmn.utilslib.tests;
 
-import cmn.utilslib.validation.VE_isFalse;
+import cmn.utilslib.validation.VE_isTrue;
 import cmn.utilslib.validation.Validate;
 import cmn.utilslib.validation.ValidationException;
 import tests.tools.CaptureErrorHandler;
@@ -9,7 +9,7 @@ import tests.tools.IUnitTest;
 import tests.tools.StopWatch;
 import tests.tools.TimingResult;
 
-public class TestValidateNotFalse implements IUnitTest
+public class TestValidateNotTrue implements IUnitTest
 {
 	@IUnitTest.Test("FunctionalityTest")
 	public boolean test()
@@ -18,12 +18,12 @@ public class TestValidateNotFalse implements IUnitTest
 		
 		ValidationException.setErrorHandler(handler);
 		{
-			Validate.notFalse(false);
+			Validate.notTrue(true);
 		}
 		ValidationException.resetErrorHandler();
 		
 		if(handler.getCount() == 1)
-			if(handler.getType(0).equals(VE_isFalse.class))
+			if(handler.getType(0).equals(VE_isTrue.class))
 				return true;
 		
 		return false;
@@ -77,7 +77,7 @@ public class TestValidateNotFalse implements IUnitTest
 			{
 				for(int i = 0; i < 1000; i++)
 				{
-					Validate.notFalse(true);
+					Validate.notTrue(false);
 				}
 			}
 			watch.stop();
@@ -91,7 +91,7 @@ public class TestValidateNotFalse implements IUnitTest
 			{
 				for(int i = 0; i < 100000; i++)
 				{
-					Validate.notFalse(true);
+					Validate.notTrue(false);
 				}
 			}
 			watch.stop();
@@ -105,7 +105,7 @@ public class TestValidateNotFalse implements IUnitTest
 			{
 				for(int i = 0; i < 1000000; i++)
 				{
-					Validate.notFalse(true);
+					Validate.notTrue(false);
 				}
 			}
 			watch.stop();
@@ -168,7 +168,7 @@ public class TestValidateNotFalse implements IUnitTest
 			{
 				for(int i = 0; i < 1000; i++)
 				{
-					Validate.notFalse(false);
+					Validate.notTrue(true);
 				}
 			}
 			watch.stop();
@@ -182,7 +182,7 @@ public class TestValidateNotFalse implements IUnitTest
 			{
 				for(int i = 0; i < 100000; i++)
 				{
-					Validate.notFalse(false);
+					Validate.notTrue(true);
 				}
 			}
 			watch.stop();
@@ -196,7 +196,7 @@ public class TestValidateNotFalse implements IUnitTest
 			{
 				for(int i = 0; i < 1000000; i++)
 				{
-					Validate.notFalse(false);
+					Validate.notTrue(true);
 				}
 			}
 			watch.stop();

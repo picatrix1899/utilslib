@@ -1,4 +1,4 @@
-package tests.unittests;
+package cmn.utilslib.tests;
 
 import java.io.File;
 import java.io.FileOutputStream;

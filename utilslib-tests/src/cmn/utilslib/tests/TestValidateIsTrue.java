@@ -1,4 +1,4 @@
-package tests.unittests;
+package cmn.utilslib.tests;
 
 import cmn.utilslib.validation.VE_isTrue;
 import cmn.utilslib.validation.Validate;
@@ -9,7 +9,7 @@ import tests.tools.IUnitTest;
 import tests.tools.StopWatch;
 import tests.tools.TimingResult;
 
-public class TestValidateIsTrueMulti implements IUnitTest
+public class TestValidateIsTrue implements IUnitTest
 {
 	@IUnitTest.Test("FunctionalityTest")
 	public boolean test()
@@ -18,7 +18,7 @@ public class TestValidateIsTrueMulti implements IUnitTest
 		
 		ValidationException.setErrorHandler(handler);
 		{
-			Validate.isTrue(true, false, true, true, true, true, true, true, false, true);
+			Validate.isTrue(false);
 		}
 		ValidationException.resetErrorHandler();
 		
@@ -77,7 +77,7 @@ public class TestValidateIsTrueMulti implements IUnitTest
 			{
 				for(int i = 0; i < 1000; i++)
 				{
-					Validate.isTrue(true, true, true, true, true, true, true, true, true, true);
+					Validate.isTrue(true);
 				}
 			}
 			watch.stop();
@@ -91,7 +91,7 @@ public class TestValidateIsTrueMulti implements IUnitTest
 			{
 				for(int i = 0; i < 100000; i++)
 				{
-					Validate.isTrue(true, true, true, true, true, true, true, true, true, true);
+					Validate.isTrue(true);
 				}
 			}
 			watch.stop();
@@ -105,98 +105,7 @@ public class TestValidateIsTrueMulti implements IUnitTest
 			{
 				for(int i = 0; i < 1000000; i++)
 				{
-					Validate.isTrue(true, true, true, true, true, true, true, true, true, true);
-				}
-			}
-			watch.stop();
-					
-			result.micro_stress_c = watch.micro();
-			result.milli_stress_c = watch.milli();
-			
-			watch.reset();
-		}
-		ValidationException.resetErrorHandler();
-		
-		return result;
-	}
-	
-	@IUnitTest.StressTest("StressTest One Fail")
-	public TimingResult stressTestB()
-	{
-		EmptyErrorHandler handler = new EmptyErrorHandler();
-		StopWatch watch = new StopWatch();
-		TimingResult result = new TimingResult();
-		
-		ValidationException.setErrorHandler(handler);
-		{
-			watch.start();
-			{
-				for(int i = 0; i < 1000; i++) {  }
-			}
-			watch.stop();
-					
-			result.micro_empty_a = watch.micro();
-			result.milli_empty_a = watch.milli();
-			
-			watch.reset();
-			
-			watch.start();
-			{
-				for(int i = 0; i < 100000; i++) {  }
-			}
-			watch.stop();
-					
-			result.micro_empty_b = watch.micro();
-			result.milli_empty_b = watch.milli();
-			
-			watch.reset();
-			
-			watch.start();
-			{
-				for(int i = 0; i < 1000000; i++) {  }
-			}
-			watch.stop();
-					
-			result.micro_empty_c = watch.micro();
-			result.milli_empty_c = watch.milli();
-			
-			watch.reset();
-			
-			/* ============ */
-			
-			watch.start();
-			{
-				for(int i = 0; i < 1000; i++)
-				{
-					Validate.isTrue(true, true, true, true, false, true, true, true, true, true);
-				}
-			}
-			watch.stop();
-					
-			result.micro_stress_a = watch.micro();
-			result.milli_stress_a = watch.milli();
-			
-			watch.reset();
-			
-			watch.start();
-			{
-				for(int i = 0; i < 100000; i++)
-				{
-					Validate.isTrue(true, true, true, true, false, true, true, true, true, true);
-				}
-			}
-			watch.stop();
-					
-			result.micro_stress_b = watch.micro();
-			result.milli_stress_b = watch.milli();
-			
-			watch.reset();
-			
-			watch.start();
-			{
-				for(int i = 0; i < 1000000; i++)
-				{
-					Validate.isTrue(true, true, true, true, false, true, true, true, true, true);
+					Validate.isTrue(true);
 				}
 			}
 			watch.stop();
@@ -259,7 +168,7 @@ public class TestValidateIsTrueMulti implements IUnitTest
 			{
 				for(int i = 0; i < 1000; i++)
 				{
-					Validate.isTrue(false, false, false, false, false, false, false, false, false, false);
+					Validate.isTrue(false);
 				}
 			}
 			watch.stop();
@@ -273,7 +182,7 @@ public class TestValidateIsTrueMulti implements IUnitTest
 			{
 				for(int i = 0; i < 100000; i++)
 				{
-					Validate.isTrue(false, false, false, false, false, false, false, false, false, false);
+					Validate.isTrue(false);
 				}
 			}
 			watch.stop();
@@ -287,7 +196,7 @@ public class TestValidateIsTrueMulti implements IUnitTest
 			{
 				for(int i = 0; i < 1000000; i++)
 				{
-					Validate.isTrue(false, false, false, false, false, false, false, false, false, false);
+					Validate.isTrue(false);
 				}
 			}
 			watch.stop();

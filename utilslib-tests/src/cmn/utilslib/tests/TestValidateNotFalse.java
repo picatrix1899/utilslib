@@ -1,4 +1,4 @@
-package tests.unittests;
+package cmn.utilslib.tests;
 
 import cmn.utilslib.validation.VE_isFalse;
 import cmn.utilslib.validation.Validate;
@@ -9,7 +9,7 @@ import tests.tools.IUnitTest;
 import tests.tools.StopWatch;
 import tests.tools.TimingResult;
 
-public class TestValidateIsFalse implements IUnitTest
+public class TestValidateNotFalse implements IUnitTest
 {
 	@IUnitTest.Test("FunctionalityTest")
 	public boolean test()
@@ -18,7 +18,7 @@ public class TestValidateIsFalse implements IUnitTest
 		
 		ValidationException.setErrorHandler(handler);
 		{
-			Validate.isFalse(true);
+			Validate.notFalse(false);
 		}
 		ValidationException.resetErrorHandler();
 		
@@ -77,7 +77,7 @@ public class TestValidateIsFalse implements IUnitTest
 			{
 				for(int i = 0; i < 1000; i++)
 				{
-					Validate.isFalse(false);
+					Validate.notFalse(true);
 				}
 			}
 			watch.stop();
@@ -91,7 +91,7 @@ public class TestValidateIsFalse implements IUnitTest
 			{
 				for(int i = 0; i < 100000; i++)
 				{
-					Validate.isFalse(false);
+					Validate.notFalse(true);
 				}
 			}
 			watch.stop();
@@ -105,7 +105,7 @@ public class TestValidateIsFalse implements IUnitTest
 			{
 				for(int i = 0; i < 1000000; i++)
 				{
-					Validate.isFalse(false);
+					Validate.notFalse(true);
 				}
 			}
 			watch.stop();
@@ -168,7 +168,7 @@ public class TestValidateIsFalse implements IUnitTest
 			{
 				for(int i = 0; i < 1000; i++)
 				{
-					Validate.isFalse(true);
+					Validate.notFalse(false);
 				}
 			}
 			watch.stop();
@@ -182,7 +182,7 @@ public class TestValidateIsFalse implements IUnitTest
 			{
 				for(int i = 0; i < 100000; i++)
 				{
-					Validate.isFalse(true);
+					Validate.notFalse(false);
 				}
 			}
 			watch.stop();
@@ -196,7 +196,7 @@ public class TestValidateIsFalse implements IUnitTest
 			{
 				for(int i = 0; i < 1000000; i++)
 				{
-					Validate.isFalse(true);
+					Validate.notFalse(false);
 				}
 			}
 			watch.stop();

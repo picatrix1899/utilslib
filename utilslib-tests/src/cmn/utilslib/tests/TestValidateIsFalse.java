@@ -1,6 +1,6 @@
-package tests.unittests;
+package cmn.utilslib.tests;
 
-import cmn.utilslib.validation.VE_isTrue;
+import cmn.utilslib.validation.VE_isFalse;
 import cmn.utilslib.validation.Validate;
 import cmn.utilslib.validation.ValidationException;
 import tests.tools.CaptureErrorHandler;
@@ -9,7 +9,7 @@ import tests.tools.IUnitTest;
 import tests.tools.StopWatch;
 import tests.tools.TimingResult;
 
-public class TestValidateIsTrue implements IUnitTest
+public class TestValidateIsFalse implements IUnitTest
 {
 	@IUnitTest.Test("FunctionalityTest")
 	public boolean test()
@@ -18,12 +18,12 @@ public class TestValidateIsTrue implements IUnitTest
 		
 		ValidationException.setErrorHandler(handler);
 		{
-			Validate.isTrue(false);
+			Validate.isFalse(true);
 		}
 		ValidationException.resetErrorHandler();
 		
 		if(handler.getCount() == 1)
-			if(handler.getType(0).equals(VE_isTrue.class))
+			if(handler.getType(0).equals(VE_isFalse.class))
 				return true;
 		
 		return false;
@@ -77,7 +77,7 @@ public class TestValidateIsTrue implements IUnitTest
 			{
 				for(int i = 0; i < 1000; i++)
 				{
-					Validate.isTrue(true);
+					Validate.isFalse(false);
 				}
 			}
 			watch.stop();
@@ -91,7 +91,7 @@ public class TestValidateIsTrue implements IUnitTest
 			{
 				for(int i = 0; i < 100000; i++)
 				{
-					Validate.isTrue(true);
+					Validate.isFalse(false);
 				}
 			}
 			watch.stop();
@@ -105,7 +105,7 @@ public class TestValidateIsTrue implements IUnitTest
 			{
 				for(int i = 0; i < 1000000; i++)
 				{
-					Validate.isTrue(true);
+					Validate.isFalse(false);
 				}
 			}
 			watch.stop();
@@ -168,7 +168,7 @@ public class TestValidateIsTrue implements IUnitTest
 			{
 				for(int i = 0; i < 1000; i++)
 				{
-					Validate.isTrue(false);
+					Validate.isFalse(true);
 				}
 			}
 			watch.stop();
@@ -182,7 +182,7 @@ public class TestValidateIsTrue implements IUnitTest
 			{
 				for(int i = 0; i < 100000; i++)
 				{
-					Validate.isTrue(false);
+					Validate.isFalse(true);
 				}
 			}
 			watch.stop();
@@ -196,7 +196,7 @@ public class TestValidateIsTrue implements IUnitTest
 			{
 				for(int i = 0; i < 1000000; i++)
 				{
-					Validate.isTrue(false);
+					Validate.isFalse(true);
 				}
 			}
 			watch.stop();
