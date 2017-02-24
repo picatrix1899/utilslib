@@ -1,11 +1,23 @@
 package tests.tools;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 public interface IUnitTest
 {
-	public abstract boolean test();
+	@Retention(RetentionPolicy.RUNTIME)
+	@Target(ElementType.METHOD)
+	public static @interface StressTest
+	{
+		String value();
+	}
 	
-	public abstract TimingResult stressTestA();
-	public abstract TimingResult stressTestB();
-	public abstract TimingResult stressTestC();
+	@Retention(RetentionPolicy.RUNTIME)
+	@Target(ElementType.METHOD)
+	public static @interface Test
+	{
+		String value();
+	}
 }
