@@ -1,4 +1,7 @@
+
 package cmn.utilslib.color;
+
+
 
 public interface IColor4Base extends IColor3Base
 {
@@ -16,4 +19,5 @@ public interface IColor4Base extends IColor3Base
 	 * @return The alpha component as unity component value(range from 0 to 1)
 	 */
 	public abstract float getUnityA();
+	
 }

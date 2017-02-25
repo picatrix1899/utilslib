@@ -1,4 +1,7 @@
+
 package cmn.utilslib.color;
+
+
 
 public interface IColor4<T extends IColor4<?>> extends IColor4Base
 {

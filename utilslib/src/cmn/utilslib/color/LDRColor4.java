@@ -18,8 +18,7 @@ import cmn.utilslib.interfaces.IObjectable;
 
 
 /**
- * Represents a color with 4 components without alpha component.
- * the components are represented as float values with a range of 0.0f to 1.0f
+ * Represents a color with 4 components.
  * @author picatrix1899
  * @category Color
  */
@@ -71,20 +70,20 @@ public class LDRColor4 implements IColor4<LDRColor4>, IStreamable, Serializable,
 	public LDRColor4() { this(LDRColor4.MAX, LDRColor4.MAX, LDRColor4.MAX, LDRColor4.MAX); }
 	
 	/**
-	 * Constructor with 3 initial components
-	 * 
+	 * Constructor with 4 initial components
 	 * @param r : The red component
 	 * @param g : The green component
 	 * @param b : The blue component
+	 * @param a : THe alpha component
 	 */
 	public LDRColor4(int r, int g, int b, int a) { set(r, g, b, a); }
 	
 	/**
-	 * Constructor with 3 initial components
-	 * 
+	 * Constructor with 4 initial components
 	 * @param r : The red component
 	 * @param g : The green component
 	 * @param b : The blue component
+	 * @param a : The alpha component
 	 */
 	public LDRColor4(float r, float g, float b, float a) { setUnity(r, g, b, a); }
 	
@@ -92,7 +91,6 @@ public class LDRColor4 implements IColor4<LDRColor4>, IStreamable, Serializable,
 	
 	/**
 	 * Clone Constructor
-	 * 
 	 * @param color : The color to clone
 	 */
 	public LDRColor4(IColor4Base color) { set(color); }

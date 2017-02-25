@@ -18,8 +18,7 @@ import cmn.utilslib.interfaces.IObjectable;
 
 
 /**
- * Represents a color with 3 components without alpha component.
- * the components are represented as float values with a range of 0.0f to 1.0f
+ * Represents a color with 3 components.
  * @author picatrix1899
  * @category Color
  */
@@ -83,6 +82,8 @@ public class LDRColor3 implements IColor3<LDRColor3>, IStreamable, Serializable,
 	 * @param b : The blue component as an unity-range value.
 	 */
 	public LDRColor3(float r, float g, float b) { setUnityR(r).setUnityG(g).setUnityB(b); }
+	
+	
 	
 	/**
 	 * Clone Constructor.

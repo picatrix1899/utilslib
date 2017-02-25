@@ -1,4 +1,6 @@
+
 package cmn.utilslib.color;
+
 
 
 /**
@@ -11,6 +13,7 @@ package cmn.utilslib.color;
  */
 public abstract class PersistentHDRColor3 implements IColor3Base
 {
+	
 	/** {@inheritDoc} */
 	public float getUnityR() { return getR() / 255.0f; }
 	
@@ -21,14 +24,29 @@ public abstract class PersistentHDRColor3 implements IColor3Base
 	public float getUnityB() { return getB() / 255.0f; }
 
 	
-	
+	/**
+	 * Generates a new persistent Color3 based on 3 unity-range values.
+	 * @param r : The red component as a unity-range value.
+	 * @param g : The green component as a unity-range value.
+	 * @param b : The blue component as a unity-range value.
+	 * @return A persistent Color3.
+	 */
 	public static PersistentHDRColor3 genUnity(final float r, final float g, final float b)
 	{
 		return gen(Math.round(r * 255.0f), Math.round(g * 255.0f), Math.round(b * 255.0f));
 	}
 	
+	
+	/**
+	 * Generates a new persistent Color3 based on 3 color-range values.
+	 * @param r : The red component as a color-range value.
+	 * @param g : The green component as a color-range value.
+	 * @param b : The blue component as a color-range value.
+	 * @return A persistent Color3.
+	 */
 	public static PersistentHDRColor3 gen(final int r, final int g, final int b)
 	{
+		
 		return new PersistentHDRColor3()
 		{
 			/** {@inheritDoc} */
@@ -40,6 +58,7 @@ public abstract class PersistentHDRColor3 implements IColor3Base
 			/** {@inheritDoc} */
 			public int getB() { return b; }
 		};
+		
 	}
 	
 }

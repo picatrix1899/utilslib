@@ -1,6 +1,11 @@
+
 package cmn.utilslib.color;
 
+
+
 import cmn.utilslib.essentials.Maths;
+
+
 
 /**
  * An immutable LDR*-Color3.
@@ -24,16 +29,31 @@ public abstract class PersistentLDRColor3 implements IColor3Base
 
 	
 	
+	/**
+	 * Generates a new persistent Color3 based on 3 unity-range values.
+	 * @param r : The red component as a unity-range value.
+	 * @param g : The green component as a unity-range value.
+	 * @param b : The blue component as a unity-range value.
+	 * @return A persistent Color3.
+	 */
 	public static PersistentLDRColor3 genUnity(final float r, final float g, final float b)
 	{
 		return gen(Math.round(r * 255.0f), Math.round(g * 255.0f), Math.round(b * 255.0f));
 	}
 	
+	
+	/**
+	 * Generates a new persistent Color3 based on 3 color-range values.
+	 * @param r : The red component as a color-range value.
+	 * @param g : The green component as a color-range value.
+	 * @param b : The blue component as a color-range value.
+	 * @return A persistent Color3.
+	 */
 	public static PersistentLDRColor3 gen(final int r, final int g, final int b)
 	{
+		
 		return new PersistentLDRColor3()
 		{
-			
 			/** {@inheritDoc} */
 			public int getR()
 			{
@@ -51,8 +71,8 @@ public abstract class PersistentLDRColor3 implements IColor3Base
 			{
 				return Maths.clamp(b, 0, 255);
 			}
-
 		};
+		
 	}
 	
 }
