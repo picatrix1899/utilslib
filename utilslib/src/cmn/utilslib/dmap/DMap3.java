@@ -2,14 +2,13 @@
 package cmn.utilslib.dmap;
 
 import cmn.utilslib.interfaces.IObjectable;
-import cmn.utilslib.interfaces.IStringParser;
 
 /**
  * Packet system with 3 entries
  * 
  * @author picatrix1899
  */
-public class DMap3<A,B,C> implements IObjectable<DMap3<A,B,C>>
+public class DMap3<A,B,C>implements IDMap3<DMap3<A,B,C>,A,B,C>, IObjectable<DMap3<A,B,C>>
 {
 	
 	/** Number of entries */
@@ -75,23 +74,16 @@ public class DMap3<A,B,C> implements IObjectable<DMap3<A,B,C>>
 	
 	
 	
-	/**
-	 * Gets entry A
-	 * 
-	 * @return The value
-	 */
+	/** {@inheritDoc} */
+	@Override
 	public A getA() { return this.a; }
-	/**
-	 * Gets entry B
-	 * 
-	 * @return The value
-	 */
+	
+	/** {@inheritDoc} */
+	@Override
 	public B getB() { return this.b; }
-	/**
-	 * Gets entry C
-	 * 
-	 * @return The value
-	 */
+	
+	/** {@inheritDoc} */
+	@Override
 	public C getC() { return this.c; }
 	
 	
@@ -128,9 +120,5 @@ public class DMap3<A,B,C> implements IObjectable<DMap3<A,B,C>>
 				this.c.toString() + 
 				"\n)";
 	}
-	
-	/** {@inheritDoc} */
-	@Override
-	public String toString(IStringParser<DMap3<A,B,C>> parser) { return parser.parse(this); }
-	
+
 }

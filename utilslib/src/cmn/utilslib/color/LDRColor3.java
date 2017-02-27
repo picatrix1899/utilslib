@@ -12,7 +12,6 @@ import java.io.Serializable;
 
 import cmn.utilslib.essentials.Maths;
 import cmn.utilslib.interfaces.IStreamable;
-import cmn.utilslib.interfaces.IStringParser;
 import cmn.utilslib.interfaces.IObjectable;
 
 
@@ -175,10 +174,6 @@ public class LDRColor3 implements IColor3<LDRColor3>, IStreamable, Serializable,
 	{
 		return "color3(" + getR() + ", " + getG() + ", " + getB() + ")";
 	}
-	
-	/** {@inheritDoc} */
-	@Override
-	public String toString(IStringParser<LDRColor3> parser) { return parser.parse(this); }	
 	
 	/** {@inheritDoc} */
 	@Override

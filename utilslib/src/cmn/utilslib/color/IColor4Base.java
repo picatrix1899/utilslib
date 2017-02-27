@@ -3,20 +3,23 @@ package cmn.utilslib.color;
 
 
 
+/**
+ * Interface for ReadOnly Color representation with 4 components.
+ * @author picatrix1899
+ * @category Color
+ */
 public interface IColor4Base extends IColor3Base
 {
 	
 	/**
-	 * Gets the alpha component as interger component(range from 0 to 255) 
-	 * 
-	 * @return The alpha component as interger component value(range from 0 to 255)
+	 * Gets the alpha component as a color-range value. 
+	 * @return The alpha component as a color-range value.
 	 */
 	public abstract int getA();
 	
 	/**
-	 * Gets the alpha component as unity component(range from 0 to 1) 
-	 * 
-	 * @return The alpha component as unity component value(range from 0 to 1)
+	 * Gets the alpha component as a unity-range value.
+	 * @return The alpha component as a unity-range value.
 	 */
 	public abstract float getUnityA();
 	

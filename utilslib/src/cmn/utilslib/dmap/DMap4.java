@@ -2,14 +2,13 @@
 package cmn.utilslib.dmap;
 
 import cmn.utilslib.interfaces.IObjectable;
-import cmn.utilslib.interfaces.IStringParser;
 
 /**
  * Packet system with 3 entries
  * 
  * @author picatrix1899
  */
-public class DMap4<A,B,C,D> implements IObjectable<DMap4<A,B,C,D>>
+public class DMap4<A,B,C,D> implements IDMap4<DMap4<A,B,C,D>,A,B,C,D>, IObjectable<DMap4<A,B,C,D>>
 {
 	
 	/** Number of entries */
@@ -145,9 +144,5 @@ public class DMap4<A,B,C,D> implements IObjectable<DMap4<A,B,C,D>>
 				this.d.toString() + 
 				"\n)";
 	}
-	
-	/** {@inheritDoc} */
-	@Override
-	public String toString(IStringParser<DMap4<A,B,C,D>> parser) { return parser.parse(this); }
-	
+
 }

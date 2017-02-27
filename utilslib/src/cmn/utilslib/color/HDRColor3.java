@@ -11,7 +11,6 @@ import java.io.Serializable;
 
 import cmn.utilslib.interfaces.IObjectable;
 import cmn.utilslib.interfaces.IStreamable;
-import cmn.utilslib.interfaces.IStringParser;
 
 
 
@@ -170,10 +169,6 @@ public class HDRColor3 implements IColor3<HDRColor3>, IStreamable, Serializable,
 	/** {@inheritDoc} */
 	@Override
 	public String toString() { return "color3(" + getR() + ", " + getG() + ", " + getB() + ")"; }
-	
-	/** {@inheritDoc} */
-	@Override
-	public String toString(IStringParser<HDRColor3> parser) { return parser.parse(this); }
 	
 	/** {@inheritDoc} */
 	@Override

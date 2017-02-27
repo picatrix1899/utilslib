@@ -14,7 +14,6 @@ import cmn.utilslib.essentials.Maths;
 
 import cmn.utilslib.interfaces.IObjectable;
 import cmn.utilslib.interfaces.IStreamable;
-import cmn.utilslib.interfaces.IStringParser;
 
 
 /**
@@ -347,10 +346,6 @@ public class Vec3f implements IStreamable, Serializable, IObjectable<Vec3f>
 	/** {@inheritDoc} */
 	@Override
 	public String toString() { return "Vec3f(" + this.x + "f, " + this.y + "f, " + this.z + "f)"; }
-	
-	/** {@inheritDoc} */
-	@Override
-	public String toString(IStringParser<Vec3f> parser) { return parser.parse(this); }
 	
 	/*
 	 * ===========================

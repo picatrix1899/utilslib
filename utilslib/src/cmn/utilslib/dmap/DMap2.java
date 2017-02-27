@@ -1,15 +1,16 @@
 
 package cmn.utilslib.dmap;
 
+
+
 import cmn.utilslib.interfaces.IObjectable;
-import cmn.utilslib.interfaces.IStringParser;
 
 /**
  * Packet system with 2 entries
- * 
  * @author picatrix1899
+ * @category DMaps
  */
-public class DMap2<A,B> implements IObjectable<DMap2<A,B>>
+public class DMap2<A,B> implements IDMap2<DMap2<A,B>,A,B>, IObjectable<DMap2<A,B>>
 {
 	
 	/** Number of entries */
@@ -32,7 +33,6 @@ public class DMap2<A,B> implements IObjectable<DMap2<A,B>>
 	}
 	/**
 	 * Constructor with initial values
-	 * 
 	 *  @param a : Value a
 	 *  @param b : Value b
 	 */
@@ -43,7 +43,6 @@ public class DMap2<A,B> implements IObjectable<DMap2<A,B>>
 	}
 	/**
 	 * Constructor for cloning
-	 * 
 	 * @param dmap : The DMap for cloning
 	 */
 	public DMap2(DMap2<A,B> dmap)
@@ -55,14 +54,12 @@ public class DMap2<A,B> implements IObjectable<DMap2<A,B>>
 	
 	/**
 	 * Sets entry A
-	 * 
 	 * @param a : The new value
 	 * @return The current packet
 	 */
 	public DMap2<A,B> setA(A a) { this.a = a; return this; }
 	/**
 	 * Set entry B
-	 * 
 	 * @param b : The new value
 	 * @return The current packet
 	 */
@@ -70,17 +67,11 @@ public class DMap2<A,B> implements IObjectable<DMap2<A,B>>
 	
 	
 	
-	/**
-	 * Gets entry A
-	 * 
-	 * @return The value
-	 */
+	/** {@inheritDoc} */
+	@Override
 	public A getA() { return this.a; }
-	/**
-	 * Gets entry B
-	 * 
-	 * @return The value
-	 */
+	/** {@inheritDoc} */
+	@Override
 	public B getB() { return this.b; }
 	
 	
@@ -115,7 +106,4 @@ public class DMap2<A,B> implements IObjectable<DMap2<A,B>>
 				"\n)";
 	}
 	
-	/** {@inheritDoc} */
-	@Override
-	public String toString(IStringParser<DMap2<A,B>> parser) {return parser.parse(this); }
 }

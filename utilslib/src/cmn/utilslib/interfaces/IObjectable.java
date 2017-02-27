@@ -18,12 +18,6 @@ public interface IObjectable<T>
 	public String toString();
 	
 	/**
-	 * print the instance to String based on a parser
-	 * @return the instance as String
-	 */
-	public String toString(IStringParser<T> parser);
-	
-	/**
 	 * clones the current instance to a new instance
 	 * @return a new instance of the current instance
 	 */

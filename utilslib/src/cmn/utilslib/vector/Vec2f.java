@@ -17,7 +17,6 @@ import cmn.utilslib.essentials.Maths;
 
 import cmn.utilslib.interfaces.IObjectable;
 import cmn.utilslib.interfaces.IStreamable;
-import cmn.utilslib.interfaces.IStringParser;
 
 
 
@@ -500,10 +499,6 @@ public class Vec2f implements IStreamable, Serializable, IObjectable<Vec2f>, Ite
 	/** {@inheritDoc} */
 	@Override
 	public String toString() { return "Vec2f(" + this.x + "f, " + this.y + "f)"; }
-	
-	/** {@inheritDoc} */
-	@Override
-	public String toString(IStringParser<Vec2f> parser) { return parser.parse(this); }
 	
 	/** {@inheritDoc} */
 	@Override

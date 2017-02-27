@@ -9,7 +9,6 @@ import java.io.Serializable;
 
 import cmn.utilslib.interfaces.IObjectable;
 import cmn.utilslib.interfaces.IStreamable;
-import cmn.utilslib.interfaces.IStringParser;
 
 /**
  * A mathematical 4-dimensional vector of type float
@@ -230,10 +229,6 @@ public class Vec4f implements IStreamable, Serializable, IObjectable<Vec4f>
 	/** {@inheritDoc} */
 	@Override
 	public String toString() { return "Vec4f(" + this.x + "f, " + this.y + "f, " + this.z + "f, " + this.a + "f)"; }
-	
-	/** {@inheritDoc} */
-	@Override
-	public String toString(IStringParser<Vec4f> parser) { return parser.parse(this); }
 	
 	
 	
