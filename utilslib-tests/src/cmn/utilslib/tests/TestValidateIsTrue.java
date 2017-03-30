@@ -1,10 +1,10 @@
 package cmn.utilslib.tests;
 
+import cmn.utilslib.exceptions.ErrorHandlers;
 import cmn.utilslib.validation.VE_isTrue;
 import cmn.utilslib.validation.Validate;
 import cmn.utilslib.validation.ValidationException;
 import tests.tools.CaptureErrorHandler;
-import tests.tools.EmptyErrorHandler;
 import tests.tools.IUnitTest;
 import tests.tools.StopWatch;
 import tests.tools.TimingResult;
@@ -32,11 +32,10 @@ public class TestValidateIsTrue implements IUnitTest
 	@IUnitTest.StressTest("StressTest All Passed")
 	public TimingResult stressTestA()
 	{
-		EmptyErrorHandler handler = new EmptyErrorHandler();
 		StopWatch watch = new StopWatch();
 		TimingResult result = new TimingResult();
 		
-		ValidationException.setErrorHandler(handler);
+		ValidationException.setErrorHandler(ErrorHandlers.VOID);
 		{
 			watch.start();
 			{
@@ -123,11 +122,10 @@ public class TestValidateIsTrue implements IUnitTest
 	@IUnitTest.StressTest("StressTest All Fail")
 	public TimingResult stressTestC()
 	{
-		EmptyErrorHandler handler = new EmptyErrorHandler();
 		StopWatch watch = new StopWatch();
 		TimingResult result = new TimingResult();
 		
-		ValidationException.setErrorHandler(handler);
+		ValidationException.setErrorHandler(ErrorHandlers.VOID);
 		{
 			watch.start();
 			{

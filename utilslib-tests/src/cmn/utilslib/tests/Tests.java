@@ -30,6 +30,13 @@ public class Tests
 			System.out.println("completed");
 			printTest(TestValidateIsTrueMulti.class, new PrintStream(fos));
 			System.out.println("completed");
+			printTest(TestValidateIsFalseMulti.class, new PrintStream(fos));
+			System.out.println("completed");
+			printTest(TestValidateIsTrueOOO.class, new PrintStream(fos));
+			System.out.println("completed");
+			printTest(TestValidateIsFalseOOO.class, new PrintStream(fos));
+			System.out.println("completed");
+			
 			
 			fos.flush();
 			fos.close();

@@ -1,7 +1,7 @@
 package cmn.utilslib.tests;
 
 import cmn.utilslib.exceptions.ErrorHandlers;
-import cmn.utilslib.validation.VE_isFalse;
+import cmn.utilslib.validation.VE_isFalseOOO;
 import cmn.utilslib.validation.Validate;
 import cmn.utilslib.validation.ValidationException;
 import tests.tools.CaptureErrorHandler;
@@ -9,7 +9,7 @@ import tests.tools.IUnitTest;
 import tests.tools.StopWatch;
 import tests.tools.TimingResult;
 
-public class TestValidateNotFalse implements IUnitTest
+public class TestValidateIsFalseOOO implements IUnitTest
 {
 	@IUnitTest.Test("FunctionalityTest")
 	public boolean test()
@@ -18,18 +18,18 @@ public class TestValidateNotFalse implements IUnitTest
 		
 		ValidationException.setErrorHandler(handler);
 		{
-			Validate.notFalse(false);
+			Validate.isFalseOOO(true, true, true, true, true, true, true, true, true, true);
 		}
 		ValidationException.resetErrorHandler();
 		
 		if(handler.getCount() == 1)
-			if(handler.getType(0).equals(VE_isFalse.class))
+			if(handler.getType(0).equals(VE_isFalseOOO.class))
 				return true;
 		
 		return false;
 	}
 	
-	@IUnitTest.StressTest("StressTest All Passed")
+	@IUnitTest.StressTest("StressTest Passed")
 	public TimingResult stressTestA()
 	{
 		StopWatch watch = new StopWatch();
@@ -76,7 +76,7 @@ public class TestValidateNotFalse implements IUnitTest
 			{
 				for(int i = 0; i < 1000; i++)
 				{
-					Validate.notFalse(true);
+					Validate.isFalseOOO(true, true, true, true, false, true, true, true, true, true);
 				}
 			}
 			watch.stop();
@@ -90,7 +90,7 @@ public class TestValidateNotFalse implements IUnitTest
 			{
 				for(int i = 0; i < 100000; i++)
 				{
-					Validate.notFalse(true);
+					Validate.isFalseOOO(true, true, true, true, false, true, true, true, true, true);
 				}
 			}
 			watch.stop();
@@ -104,7 +104,7 @@ public class TestValidateNotFalse implements IUnitTest
 			{
 				for(int i = 0; i < 1000000; i++)
 				{
-					Validate.notFalse(true);
+					Validate.isFalseOOO(true, true, true, true, false, true, true, true, true, true);
 				}
 			}
 			watch.stop();
@@ -119,8 +119,8 @@ public class TestValidateNotFalse implements IUnitTest
 		return result;
 	}
 	
-	@IUnitTest.StressTest("StressTest All Fail")
-	public TimingResult stressTestC()
+	@IUnitTest.StressTest("StressTest Fail")
+	public TimingResult stressTestB()
 	{
 		StopWatch watch = new StopWatch();
 		TimingResult result = new TimingResult();
@@ -166,7 +166,7 @@ public class TestValidateNotFalse implements IUnitTest
 			{
 				for(int i = 0; i < 1000; i++)
 				{
-					Validate.notFalse(false);
+					Validate.isFalseOOO(true, true, true, true, true, true, true, true, true, true);
 				}
 			}
 			watch.stop();
@@ -180,7 +180,7 @@ public class TestValidateNotFalse implements IUnitTest
 			{
 				for(int i = 0; i < 100000; i++)
 				{
-					Validate.notFalse(false);
+					Validate.isFalseOOO(true, true, true, true, true, true, true, true, true, true);
 				}
 			}
 			watch.stop();
@@ -194,7 +194,7 @@ public class TestValidateNotFalse implements IUnitTest
 			{
 				for(int i = 0; i < 1000000; i++)
 				{
-					Validate.notFalse(false);
+					Validate.isFalseOOO(true, true, true, true, true, true, true, true, true, true);
 				}
 			}
 			watch.stop();
