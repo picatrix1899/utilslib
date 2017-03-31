@@ -1,8 +1,6 @@
 package cmn.utilslib.tests;
 
-import cmn.utilslib.essentials.Profiler;
 import cmn.utilslib.exceptions.CaptureErrorHandler;
-import cmn.utilslib.exceptions.ErrorHandlers;
 import cmn.utilslib.testing.IUnitTest;
 import cmn.utilslib.validation.VE_isFalseMulti;
 import cmn.utilslib.validation.Validate;
@@ -10,8 +8,8 @@ import cmn.utilslib.validation.ValidationException;
 
 public class TestValidateIsFalseMulti implements IUnitTest
 {
-	@IUnitTest.Test("FunctionalityTest")
-	public boolean test()
+	@IUnitTest.Test("FunctionalityTest -")
+	public boolean testNegative()
 	{
 		CaptureErrorHandler handler = new CaptureErrorHandler();
 		
@@ -28,133 +26,21 @@ public class TestValidateIsFalseMulti implements IUnitTest
 		return false;
 	}
 	
-	@IUnitTest.StressTest("StressTest All Passed")
-	public Profiler stressTestA()
+	@IUnitTest.Test("FunctionalityTest +")
+	public boolean testPositive()
 	{
-		Profiler profiler = new Profiler();
-	
-		ValidationException.setErrorHandler(ErrorHandlers.VOID);
+		CaptureErrorHandler handler = new CaptureErrorHandler();
+		
+		ValidationException.setErrorHandler(handler);
 		{
-			emptyRun(profiler);
-
-			profiler.start("stress_1k");
-			{
-				for(int i = 0; i < 1000; i++)
-					Validate.isFalse(false, false, false, false, false, false, false, false, false, false);
-			}
-			profiler.stop("stress_1k");
-
-			profiler.start("stress_100k");
-			{
-				for(int i = 0; i < 100000; i++)
-					Validate.isFalse(false, false, false, false, false, false, false, false, false, false);
-			}
-			profiler.stop("stress_100k");
-
-			profiler.start("stress_1m");
-			{
-				for(int i = 0; i < 1000000; i++)
-					Validate.isFalse(false, false, false, false, false, false, false, false, false, false);
-			}
-			profiler.stop("stress_1m");
+			Validate.isFalse(false,false, false, false, false, false, false, false, false, false);
 		}
 		ValidationException.resetErrorHandler();
 		
-		return profiler;
-	}
-	
-	@IUnitTest.StressTest("StressTest One Fail")
-	public Profiler stressTestB()
-	{
-		Profiler profiler = new Profiler();
+		if(handler.getCount() == 0)
+				return true;
 		
-		ValidationException.setErrorHandler(ErrorHandlers.VOID);
-		{
-			emptyRun(profiler);
-
-			profiler.start("stress_1k");
-			{
-				for(int i = 0; i < 1000; i++)
-					Validate.isFalse(false, false, false, false, true, false, false, false, false, false);
-			}
-			profiler.stop("stress_1k");
-
-			profiler.start("stress_100k");
-			{
-				for(int i = 0; i < 100000; i++)
-					Validate.isFalse(false, false, false, false, true, false, false, false, false, false);
-			}
-			profiler.stop("stress_100k");
-			
-			profiler.start("stress_1m");
-			{
-				for(int i = 0; i < 1000000; i++)
-					Validate.isFalse(false, false, false, false, true, false, false, false, false, false);
-			}
-			profiler.stop("stress_1m");
-		}
-		ValidationException.resetErrorHandler();
-		
-
-		
-		return profiler;
-	}
-	
-	@IUnitTest.StressTest("StressTest All Fail")
-	public Profiler stressTestC()
-	{
-		Profiler profiler = new Profiler();
-		
-		ValidationException.setErrorHandler(ErrorHandlers.VOID);
-		{
-			emptyRun(profiler);
-
-			profiler.start("stress_1k");
-			{
-				for(int i = 0; i < 1000; i++)
-					Validate.isFalse(true, true, true, true, true, true, true, true, true, true);
-			}
-			profiler.stop("stress_1k");
-					
-			
-			profiler.start("stress_100k");
-			{
-				for(int i = 0; i < 100000; i++)
-					Validate.isFalse(true, true, true, true, true, true, true, true, true, true);
-			}
-			profiler.stop("stress_100k");
-			
-			profiler.start("stress_1m");
-			{
-				for(int i = 0; i < 1000000; i++)
-					Validate.isFalse(true, true, true, true, true, true, true, true, true, true);
-			}
-			profiler.stop("stress_1m");
-		}
-		ValidationException.resetErrorHandler();
-		
-		return profiler;
+		return false;
 	}
 
-	private void emptyRun(Profiler profiler)
-	{
-		profiler.start("empty_1k");
-		{
-			for(int i = 0; i < 1000; i++) {  }
-		}
-		profiler.stop("empty_1k");
-
-		profiler.start("empty_100k");
-		{
-			for(int i = 0; i < 100000; i++) {  }
-		}
-		profiler.stop("empty_100k");
-
-		profiler.start("empty_1m");
-		{
-			for(int i = 0; i < 1000000; i++) {  }
-		}
-		profiler.stop("empty_1m");
-	}
-	
 }

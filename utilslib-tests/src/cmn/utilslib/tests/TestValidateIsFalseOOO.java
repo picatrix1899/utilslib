@@ -1,8 +1,6 @@
 package cmn.utilslib.tests;
 
-import cmn.utilslib.essentials.Profiler;
 import cmn.utilslib.exceptions.CaptureErrorHandler;
-import cmn.utilslib.exceptions.ErrorHandlers;
 import cmn.utilslib.testing.IUnitTest;
 import cmn.utilslib.validation.VE_isFalseOOO;
 import cmn.utilslib.validation.Validate;
@@ -10,8 +8,8 @@ import cmn.utilslib.validation.ValidationException;
 
 public class TestValidateIsFalseOOO implements IUnitTest
 {
-	@IUnitTest.Test("FunctionalityTest")
-	public boolean test()
+	@IUnitTest.Test("FunctionalityTest -")
+	public boolean testNegative()
 	{
 		CaptureErrorHandler handler = new CaptureErrorHandler();
 		
@@ -28,95 +26,21 @@ public class TestValidateIsFalseOOO implements IUnitTest
 		return false;
 	}
 	
-	@IUnitTest.StressTest("StressTest Passed")
-	public Profiler stressTestA()
+	@IUnitTest.Test("FunctionalityTest +")
+	public boolean testPositive()
 	{
-		Profiler profiler = new Profiler();
+		CaptureErrorHandler handler = new CaptureErrorHandler();
 		
-		ValidationException.setErrorHandler(ErrorHandlers.VOID);
+		ValidationException.setErrorHandler(handler);
 		{
-			emptyRun(profiler);
-
-			profiler.start("stress_1k");
-			{
-				for(int i = 0; i < 1000; i++)
-					Validate.isFalseOOO(true, true, true, true, false, true, true, true, true, true);
-			}
-			profiler.stop("stress_1k");
-			
-			profiler.start("stress_100k");
-			{
-				for(int i = 0; i < 100000; i++)
-					Validate.isFalseOOO(true, true, true, true, false, true, true, true, true, true);
-			}
-			profiler.stop("stress_100k");
-
-			profiler.start("stress_1m");
-			{
-				for(int i = 0; i < 1000000; i++)
-					Validate.isFalseOOO(true, true, true, true, false, true, true, true, true, true);
-			}
-			profiler.stop("stress_1m");
-		}
-		ValidationException.resetErrorHandler();
-
-		return profiler;
-	}
-	
-	@IUnitTest.StressTest("StressTest Fail")
-	public Profiler stressTestB()
-	{
-		Profiler profiler = new Profiler();
-		
-		ValidationException.setErrorHandler(ErrorHandlers.VOID);
-		{
-			emptyRun(profiler);
-
-			profiler.start("stress_1k");
-			{
-				for(int i = 0; i < 1000; i++)
-					Validate.isFalseOOO(true, true, true, true, true, true, true, true, true, true);
-			}
-			profiler.stop("stress_1k");
-
-			profiler.start("stress_100k");
-			{
-				for(int i = 0; i < 100000; i++)
-					Validate.isFalseOOO(true, true, true, true, true, true, true, true, true, true);
-			}
-			profiler.stop("stress_100k");
-
-			profiler.start("stress_1m");
-			{
-				for(int i = 0; i < 1000000; i++)
-					Validate.isFalseOOO(true, true, true, true, true, true, true, true, true, true);
-			}
-			profiler.stop("stress_1m");
+			Validate.isFalseOOO(false, true, true, true, true, true, true, true, true, true);
 		}
 		ValidationException.resetErrorHandler();
 		
-		return profiler;
-	}
-
-	private void emptyRun(Profiler profiler)
-	{
-		profiler.start("empty_1k");
-		{
-			for(int i = 0; i < 1000; i++) {  }
-		}
-		profiler.stop("empty_1k");
-
-		profiler.start("empty_100k");
-		{
-			for(int i = 0; i < 100000; i++) {  }
-		}
-		profiler.stop("empty_100k");
-
-		profiler.start("empty_1m");
-		{
-			for(int i = 0; i < 1000000; i++) {  }
-		}
-		profiler.stop("empty_1m");
+		if(handler.getCount() == 0)
+				return true;
+		
+		return false;
 	}
 
 }
