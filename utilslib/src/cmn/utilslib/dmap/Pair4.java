@@ -8,16 +8,17 @@ import cmn.utilslib.interfaces.IObjectable;
  * 
  * @author picatrix1899
  */
-public class DMap3<A,B,C>implements IDMap3<DMap3<A,B,C>,A,B,C>, IObjectable<DMap3<A,B,C>>
+public class Pair4<A,B,C,D> implements IPair4<Pair4<A,B,C,D>,A,B,C,D>, IObjectable<Pair4<A,B,C,D>>
 {
 	
 	/** Number of entries */
-	public static final int DIMENSIONS = 3;
+	public static final int DIMENSIONS = 4;
 
 	
 	private A a = null;
 	private B b = null;
 	private C c = null;
+	private D d = null;
 	
 	
 	
@@ -25,27 +26,28 @@ public class DMap3<A,B,C>implements IDMap3<DMap3<A,B,C>,A,B,C>, IObjectable<DMap
 	 * "Null" constructor <br>
 	 * initialize all entries with null
 	 */
-	public DMap3()
+	public Pair4()
 	{
-		this(null, null, null);
+		this(null, null, null, null);
 	}
 	/**
 	 * Constructor with initial values
 	 */
-	public DMap3(A a, B b, C c)
+	public Pair4(A a, B b, C c, D d)
 	{
 		this.a = a;
 		this.b = b;
 		this.c = c;
+		this.d = d;
 	}
 	/**
 	 * Constructor for cloning
 	 * 
 	 * @param dmap : The DMap for cloning
 	 */
-	public DMap3(DMap3<A,B,C> dmap)
+	public Pair4(Pair4<A,B,C,D> dmap)
 	{
-		this(dmap.getA(), dmap.getB(), dmap.getC());
+		this(dmap.getA(), dmap.getB(), dmap.getC(), dmap.getD());
 	}
 	
 	
@@ -56,50 +58,70 @@ public class DMap3<A,B,C>implements IDMap3<DMap3<A,B,C>,A,B,C>, IObjectable<DMap
 	 * @param a : The new value
 	 * @return The current packet
 	 */
-	public DMap3<A,B,C> setA(A a) { this.a = a; return this; }
+	public Pair4<A,B,C,D> setA(A a) { this.a = a; return this; }
 	/**
 	 * Set entry B
 	 * 
 	 * @param b : The new value
 	 * @return The current packet
 	 */
-	public DMap3<A,B,C> setB(B b) { this.b = b; return this; }
+	public Pair4<A,B,C,D> setB(B b) { this.b = b; return this; }
 	/**
 	 * Set entry C
 	 * 
 	 * @param c : The new value
 	 * @return The current packet
 	 */
-	public DMap3<A,B,C> setC(C c) { this.c = c; return this; }
+	public Pair4<A,B,C,D> setC(C c) { this.c = c; return this; }
+	/**
+	 * Set entry D
+	 * 
+	 * @param d : The new value
+	 * @return The current packet
+	 */
+	public Pair4<A,B,C,D> setD(D d) { this.d = d; return this; }
 	
 	
 	
-	/** {@inheritDoc} */
-	@Override
+	/**
+	 * Gets entry A
+	 * 
+	 * @return The value
+	 */
 	public A getA() { return this.a; }
-	
-	/** {@inheritDoc} */
-	@Override
+	/**
+	 * Gets entry B
+	 * 
+	 * @return The value
+	 */
 	public B getB() { return this.b; }
-	
-	/** {@inheritDoc} */
-	@Override
+	/**
+	 * Gets entry C
+	 * 
+	 * @return The value
+	 */
 	public C getC() { return this.c; }
+	/**
+	 * Gets entry D
+	 * 
+	 * @return The value
+	 */
+	public D getD() { return this.d; }
 	
 	
-	/** {@inheritDoc} */
+	/** {@inheritDoc}} */
 	@Override
-	public DMap3<A,B,C> clone()
+	public Pair4<A,B,C,D> clone()
 	{
-		return new DMap3<A,B,C>(this);
+		return new Pair4<A,B,C,D>(this);
 	}
 	
 	/** {@inheritDoc} */
 	@Override
 	public boolean equals(Object obj)
 	{
-		if(!(obj instanceof DMap3<?,?,?>)) return false;
-		DMap3<?,?,?> d = (DMap3<?,?,?>)obj;
+		if(!(obj instanceof Pair4<?,?,?,?>)) return false;
+		Pair4<?,?,?,?> d = (Pair4<?,?,?,?>)obj;
 		
 		if(!(d.a.equals(this.a))) return false;
 		if(!(d.b.equals(this.b))) return false;
@@ -118,6 +140,8 @@ public class DMap3<A,B,C>implements IDMap3<DMap3<A,B,C>,A,B,C>, IObjectable<DMap
 				this.b.toString() + 
 				"\n,\n" +
 				this.c.toString() + 
+				"\n,\n" +
+				this.d.toString() + 
 				"\n)";
 	}
 

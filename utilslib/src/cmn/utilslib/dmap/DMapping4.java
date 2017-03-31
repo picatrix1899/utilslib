@@ -6,6 +6,8 @@ package cmn.utilslib.dmap;
 import java.util.ArrayList;
 import java.util.List;
 
+import cmn.utilslib.essentials.Auto;
+import cmn.utilslib.essentials.Check;
 import cmn.utilslib.essentials.ListUtils;
 import cmn.utilslib.essentials.PrimeUtils;
 
@@ -22,16 +24,16 @@ public class DMapping4<A,B,C,D>
 
 	public static final short DIMENSIONS = 4;
 	
-	protected ArrayList<A> a = new ArrayList<A>();
-	protected ArrayList<B> b = new ArrayList<B>();
-	protected ArrayList<C> c = new ArrayList<C>();
-	protected ArrayList<D> d = new ArrayList<D>();
+	protected ArrayList<A> a = Auto.ArrayList();
+	protected ArrayList<B> b = Auto.ArrayList();
+	protected ArrayList<C> c = Auto.ArrayList();
+	protected ArrayList<D> d = Auto.ArrayList();
 	
 	protected int size = 0;
 	
 	
 	
-	public DMapping4<A,B,C,D> set(int index, DMap4<A,B,C,D> entry) { return set(index, entry.getA(), entry.getB(), entry.getC(), entry.getD()); }
+	public DMapping4<A,B,C,D> set(int index, Pair4<A,B,C,D> entry) { return set(index, entry.getA(), entry.getB(), entry.getC(), entry.getD()); }
 	
 	public DMapping4<A,B,C,D> set(int index, A a, B b,C c, D d) 
 	{
@@ -65,7 +67,7 @@ public class DMapping4<A,B,C,D>
 	
 	
 	
-	public DMap4<A,B,C,D> get(int index) { validate0(index); return new DMap4<A,B,C,D>(getA(index), getB(index), getC(index), getD(index)); }
+	public Pair4<A,B,C,D> get(int index) { validate0(index); return Auto.Pair4(getA(index), getB(index), getC(index), getD(index)); }
 	
 	
 	
@@ -79,35 +81,35 @@ public class DMapping4<A,B,C,D>
 	
 		
 	
-	public DMap4<A,B,C,D> getbyA(A a) { return (!containsA(a)) ? null : get(indexOfA(a)); }
+	public Pair4<A,B,C,D> getbyA(A a) { return (!containsA(a)) ? null : get(indexOfA(a)); }
 	
-	public DMap4<A,B,C,D> getbyB(B b) { return (!containsB(b)) ? null : get(indexOfB(b)); }
+	public Pair4<A,B,C,D> getbyB(B b) { return (!containsB(b)) ? null : get(indexOfB(b)); }
 	
-	public DMap4<A,B,C,D> getbyC(C c) { return (!containsC(c)) ? null : get(indexOfC(c)); }
-	
-	
-	
-	public DMap4<A,B,C,D> getbyAB(A a, B b) { return !containsAB(a, b) ? null : get0(indexOfAB(a, b)); }
-	
-	public DMap4<A,B,C,D> getbyAC(A a, C c) { return !containsAC(a, c) ? null : get0(indexOfAC(a, c)); }
-	
-	public DMap4<A,B,C,D> getbyAD(A a, D d) { return !containsAD(a, d) ? null : get0(indexOfAD(a, d)); }
-	
-	public DMap4<A,B,C,D> getbyBC(B b, C c) { return !containsBC(b, c) ? null :  get0(indexOfBC(b, c)); }
-	
-	public DMap4<A,B,C,D> getbyBD(B b, D d) { return !containsBD(b, d) ? null :  get0(indexOfBD(b, d)); }
-	
-	public DMap4<A,B,C,D> getbyCD(C c, D d) { return !containsCD(c, d) ? null :  get0(indexOfCD(c, d)); }
+	public Pair4<A,B,C,D> getbyC(C c) { return (!containsC(c)) ? null : get(indexOfC(c)); }
 	
 	
 	
-	public DMap4<A,B,C,D> getbyABC(A a, B b, C c) { return !containsABC(a, b, c) ? null :  get0(indexOfABC(a, b, c)); }
+	public Pair4<A,B,C,D> getbyAB(A a, B b) { return !containsAB(a, b) ? null : get0(indexOfAB(a, b)); }
 	
-	public DMap4<A,B,C,D> getbyABD(A a, B b, D d) { return !containsABD(a, b, d) ? null :  get0(indexOfABD(a, b, d)); }
+	public Pair4<A,B,C,D> getbyAC(A a, C c) { return !containsAC(a, c) ? null : get0(indexOfAC(a, c)); }
 	
-	public DMap4<A,B,C,D> getbyACD(A a, C c, D d) { return !containsACD(a, c, d) ? null :  get0(indexOfACD(a, c, d)); }
+	public Pair4<A,B,C,D> getbyAD(A a, D d) { return !containsAD(a, d) ? null : get0(indexOfAD(a, d)); }
 	
-	public DMap4<A,B,C,D> getbyBCD(B b, C c, D d) { return !containsBCD(b, c, d) ? null :  get0(indexOfBCD(b, c, d)); }
+	public Pair4<A,B,C,D> getbyBC(B b, C c) { return !containsBC(b, c) ? null :  get0(indexOfBC(b, c)); }
+	
+	public Pair4<A,B,C,D> getbyBD(B b, D d) { return !containsBD(b, d) ? null :  get0(indexOfBD(b, d)); }
+	
+	public Pair4<A,B,C,D> getbyCD(C c, D d) { return !containsCD(c, d) ? null :  get0(indexOfCD(c, d)); }
+	
+	
+	
+	public Pair4<A,B,C,D> getbyABC(A a, B b, C c) { return !containsABC(a, b, c) ? null :  get0(indexOfABC(a, b, c)); }
+	
+	public Pair4<A,B,C,D> getbyABD(A a, B b, D d) { return !containsABD(a, b, d) ? null :  get0(indexOfABD(a, b, d)); }
+	
+	public Pair4<A,B,C,D> getbyACD(A a, C c, D d) { return !containsACD(a, c, d) ? null :  get0(indexOfACD(a, c, d)); }
+	
+	public Pair4<A,B,C,D> getbyBCD(B b, C c, D d) { return !containsBCD(b, c, d) ? null :  get0(indexOfBCD(b, c, d)); }
 	
 	
 	
@@ -167,7 +169,7 @@ public class DMapping4<A,B,C,D>
 	
 	public ArrayList<A> getAListByB(B b)
 	{
-		ArrayList<A> out = new ArrayList<A>();
+		ArrayList<A> out = Auto.ArrayList();
 		
 		for(int index : indicesOfB(b))
 			out.add(getA0(index));
@@ -177,7 +179,7 @@ public class DMapping4<A,B,C,D>
 	
 	public ArrayList<A> getAListByC(C c)
 	{
-		ArrayList<A> out = new ArrayList<A>();
+		ArrayList<A> out = Auto.ArrayList();
 		
 		for(int index : indicesOfC(c))
 			out.add(getA0(index));
@@ -187,7 +189,7 @@ public class DMapping4<A,B,C,D>
 	
 	public ArrayList<A> getAListByD(D d)
 	{
-		ArrayList<A> out = new ArrayList<A>();
+		ArrayList<A> out = Auto.ArrayList();
 		
 		for(int index : indicesOfD(d))
 			out.add(getA0(index));
@@ -197,7 +199,7 @@ public class DMapping4<A,B,C,D>
 	
 	public ArrayList<B> getBListByA(A a)
 	{
-		ArrayList<B> out = new ArrayList<B>();
+		ArrayList<B> out = Auto.ArrayList();
 		
 		for(int index : indicesOfA(a))
 			out.add(getB0(index));
@@ -207,7 +209,7 @@ public class DMapping4<A,B,C,D>
 	
 	public ArrayList<B> getBListByC(C c)
 	{
-		ArrayList<B> out = new ArrayList<B>();
+		ArrayList<B> out = Auto.ArrayList();
 		
 		for(int index : indicesOfC(c))
 			out.add(getB0(index));
@@ -217,7 +219,7 @@ public class DMapping4<A,B,C,D>
 	
 	public ArrayList<B> getBListByD(D d)
 	{
-		ArrayList<B> out = new ArrayList<B>();
+		ArrayList<B> out = Auto.ArrayList();
 		
 		for(int index : indicesOfD(d))
 			out.add(getB0(index));
@@ -227,7 +229,7 @@ public class DMapping4<A,B,C,D>
 	
 	public ArrayList<C> getCListByA(A a)
 	{
-		ArrayList<C> out = new ArrayList<C>();
+		ArrayList<C> out = Auto.ArrayList();
 		
 		for(int index : indicesOfA(a))
 			out.add(getC0(index));
@@ -237,7 +239,7 @@ public class DMapping4<A,B,C,D>
 	
 	public ArrayList<C> getCListByB(B b)
 	{
-		ArrayList<C> out = new ArrayList<C>();
+		ArrayList<C> out = Auto.ArrayList();
 		
 		for(int index : indicesOfB(b))
 			out.add(getC0(index));
@@ -247,7 +249,7 @@ public class DMapping4<A,B,C,D>
 	
 	public ArrayList<C> getCListByD(D d)
 	{
-		ArrayList<C> out = new ArrayList<C>();
+		ArrayList<C> out = Auto.ArrayList();
 		
 		for(int index : indicesOfD(d))
 			out.add(getC0(index));
@@ -257,7 +259,7 @@ public class DMapping4<A,B,C,D>
 	
 	public ArrayList<D> getDListByA(A a)
 	{
-		ArrayList<D> out = new ArrayList<D>();
+		ArrayList<D> out = Auto.ArrayList();
 		
 		for(int index : indicesOfA(a))
 			out.add(getD0(index));
@@ -267,7 +269,7 @@ public class DMapping4<A,B,C,D>
 	
 	public ArrayList<D> getDListByB(B b)
 	{
-		ArrayList<D> out = new ArrayList<D>();
+		ArrayList<D> out = Auto.ArrayList();
 		
 		for(int index : indicesOfB(b))
 			out.add(getD0(index));
@@ -277,7 +279,7 @@ public class DMapping4<A,B,C,D>
 	
 	public ArrayList<D> getDListByC(C c)
 	{
-		ArrayList<D> out = new ArrayList<D>();
+		ArrayList<D> out = Auto.ArrayList();
 		
 		for(int index : indicesOfC(c))
 			out.add(getD0(index));
@@ -287,9 +289,9 @@ public class DMapping4<A,B,C,D>
 	
 	
 	
-	public ArrayList<DMap4<A,B,C,D>> getListByA(A a)
+	public ArrayList<Pair4<A,B,C,D>> getListByA(A a)
 	{
-		ArrayList<DMap4<A,B,C,D>> out = new ArrayList<DMap4<A,B,C,D>>();
+		ArrayList<Pair4<A,B,C,D>> out = Auto.ArrayList();
 		
 		for(int index : indicesOfA(a))
 			out.add(get0(index));
@@ -297,9 +299,9 @@ public class DMapping4<A,B,C,D>
 		return out;
 	}
 	
-	public ArrayList<DMap4<A,B,C,D>> getListByB(B b)
+	public ArrayList<Pair4<A,B,C,D>> getListByB(B b)
 	{
-		ArrayList<DMap4<A,B,C,D>> out = new ArrayList<DMap4<A,B,C,D>>();
+		ArrayList<Pair4<A,B,C,D>> out = Auto.ArrayList();
 		
 		for(int index : indicesOfB(b))
 			out.add(get0(index));
@@ -307,9 +309,9 @@ public class DMapping4<A,B,C,D>
 		return out;
 	}
 	
-	public ArrayList<DMap4<A,B,C,D>> getListByC(C c)
+	public ArrayList<Pair4<A,B,C,D>> getListByC(C c)
 	{
-		ArrayList<DMap4<A,B,C,D>> out = new ArrayList<DMap4<A,B,C,D>>();
+		ArrayList<Pair4<A,B,C,D>> out = Auto.ArrayList();
 		
 		for(int index : indicesOfC(c))
 			out.add(get0(index));
@@ -317,9 +319,9 @@ public class DMapping4<A,B,C,D>
 		return out;
 	}
 	
-	public ArrayList<DMap4<A,B,C,D>> getListByD(D d)
+	public ArrayList<Pair4<A,B,C,D>> getListByD(D d)
 	{
-		ArrayList<DMap4<A,B,C,D>> out = new ArrayList<DMap4<A,B,C,D>>();
+		ArrayList<Pair4<A,B,C,D>> out = Auto.ArrayList();
 		
 		for(int index : indicesOfD(d))
 			out.add(get0(index));
@@ -331,7 +333,7 @@ public class DMapping4<A,B,C,D>
 	
 	public ArrayList<A> getAListByBC(B b, C c)
 	{
-		ArrayList<A> out = new ArrayList<A>();
+		ArrayList<A> out = Auto.ArrayList();
 		
 		for(int index : indicesOfBC(b, c))
 			out.add(getA0(index));
@@ -341,7 +343,7 @@ public class DMapping4<A,B,C,D>
 	
 	public ArrayList<A> getAListByBD(B b, D d)
 	{
-		ArrayList<A> out = new ArrayList<A>();
+		ArrayList<A> out = Auto.ArrayList();
 		
 		for(int index : indicesOfBD(b, d))
 			out.add(getA0(index));
@@ -351,7 +353,7 @@ public class DMapping4<A,B,C,D>
 	
 	public ArrayList<B> getBListByAC(A a, C c)
 	{
-		ArrayList<B> out = new ArrayList<B>();
+		ArrayList<B> out = Auto.ArrayList();
 		
 		for(int index : indicesOfAC(a, c))
 			out.add(getB0(index));
@@ -361,7 +363,7 @@ public class DMapping4<A,B,C,D>
 	
 	public ArrayList<B> getBListByAD(A a, D d)
 	{
-		ArrayList<B> out = new ArrayList<B>();
+		ArrayList<B> out = Auto.ArrayList();
 		
 		for(int index : indicesOfAD(a, d))
 			out.add(getB0(index));
@@ -371,7 +373,7 @@ public class DMapping4<A,B,C,D>
 	
 	public ArrayList<C> getCListByAB(A a, B b)
 	{
-		ArrayList<C> out = new ArrayList<C>();
+		ArrayList<C> out = Auto.ArrayList();
 		
 		for(int index : indicesOfAB(a, b))
 			out.add(getC0(index));
@@ -381,7 +383,7 @@ public class DMapping4<A,B,C,D>
 	
 	public ArrayList<C> getCListByAD(A a, D d)
 	{
-		ArrayList<C> out = new ArrayList<C>();
+		ArrayList<C> out = Auto.ArrayList();
 		
 		for(int index : indicesOfAD(a, d))
 			out.add(getC0(index));
@@ -391,7 +393,7 @@ public class DMapping4<A,B,C,D>
 	
 	public ArrayList<D> getDListByAB(A a, B b)
 	{
-		ArrayList<D> out = new ArrayList<D>();
+		ArrayList<D> out = Auto.ArrayList();
 		
 		for(int index : indicesOfAB(a, b))
 			out.add(getD0(index));
@@ -401,9 +403,9 @@ public class DMapping4<A,B,C,D>
 
 	
 	
-	public ArrayList<DMap4<A,B,C,D>> getListByAB(A a, B b)
+	public ArrayList<Pair4<A,B,C,D>> getListByAB(A a, B b)
 	{
-		ArrayList<DMap4<A,B,C,D>> out = new ArrayList<DMap4<A,B,C,D>>();
+		ArrayList<Pair4<A,B,C,D>> out = Auto.ArrayList();
 		
 		for(int index : indicesOfAB(a, b))
 			out.add(get0(index));
@@ -411,9 +413,9 @@ public class DMapping4<A,B,C,D>
 		return out;
 	}
 	
-	public ArrayList<DMap4<A,B,C,D>> getListByAC(A a, C c)
+	public ArrayList<Pair4<A,B,C,D>> getListByAC(A a, C c)
 	{
-		ArrayList<DMap4<A,B,C,D>> out = new ArrayList<DMap4<A,B,C,D>>();
+		ArrayList<Pair4<A,B,C,D>> out = Auto.ArrayList();
 		
 		for(int index : indicesOfAC(a, c))
 			out.add(get0(index));
@@ -421,9 +423,9 @@ public class DMapping4<A,B,C,D>
 		return out;
 	}
 	
-	public ArrayList<DMap4<A,B,C,D>> getListByAD(A a, D d)
+	public ArrayList<Pair4<A,B,C,D>> getListByAD(A a, D d)
 	{
-		ArrayList<DMap4<A,B,C,D>> out = new ArrayList<DMap4<A,B,C,D>>();
+		ArrayList<Pair4<A,B,C,D>> out = Auto.ArrayList();
 		
 		for(int index : indicesOfAD(a, d))
 			out.add(get0(index));
@@ -431,9 +433,9 @@ public class DMapping4<A,B,C,D>
 		return out;
 	}
 	
-	public ArrayList<DMap4<A,B,C,D>> getListByBC(B b, C c)
+	public ArrayList<Pair4<A,B,C,D>> getListByBC(B b, C c)
 	{
-		ArrayList<DMap4<A,B,C,D>> out = new ArrayList<DMap4<A,B,C,D>>();
+		ArrayList<Pair4<A,B,C,D>> out = Auto.ArrayList();
 		
 		for(int index : indicesOfBC(b, c))
 			out.add(get0(index));
@@ -441,9 +443,9 @@ public class DMapping4<A,B,C,D>
 		return out;
 	}
 	
-	public ArrayList<DMap4<A,B,C,D>> getListByBD(B b, D d)
+	public ArrayList<Pair4<A,B,C,D>> getListByBD(B b, D d)
 	{
-		ArrayList<DMap4<A,B,C,D>> out = new ArrayList<DMap4<A,B,C,D>>();
+		ArrayList<Pair4<A,B,C,D>> out = Auto.ArrayList();
 		
 		for(int index : indicesOfBD(b, d))
 			out.add(get0(index));
@@ -455,7 +457,7 @@ public class DMapping4<A,B,C,D>
 	
 	public ArrayList<A> getAListByBCD(B b, C c, D d)
 	{
-		ArrayList<A> out = new ArrayList<A>();
+		ArrayList<A> out = Auto.ArrayList();
 		
 		for(int index : indicesOfBCD(b, c, d))
 			out.add(getA0(index));
@@ -465,7 +467,7 @@ public class DMapping4<A,B,C,D>
 	
 	public ArrayList<B> getBListByACD(A a, C c, D d)
 	{
-		ArrayList<B> out = new ArrayList<B>();
+		ArrayList<B> out = Auto.ArrayList();
 		
 		for(int index : indicesOfACD(a, c, d))
 			out.add(getB0(index));
@@ -475,7 +477,7 @@ public class DMapping4<A,B,C,D>
 	
 	public ArrayList<C> getCListByABD(A a, B b, D d)
 	{
-		ArrayList<C> out = new ArrayList<C>();
+		ArrayList<C> out = Auto.ArrayList();
 		
 		for(int index : indicesOfABD(a, b, d))
 			out.add(getC0(index));
@@ -485,7 +487,7 @@ public class DMapping4<A,B,C,D>
 	
 	public ArrayList<D> getDListByABC(A a, B b, C c)
 	{
-		ArrayList<D> out = new ArrayList<D>();
+		ArrayList<D> out = Auto.ArrayList();
 		
 		for(int index : indicesOfABC(a, b, c))
 			out.add(getD0(index));
@@ -495,9 +497,9 @@ public class DMapping4<A,B,C,D>
 	
 	
 	
-	public ArrayList<DMap4<A,B,C,D>> getListByABC(A a, B b, C c)
+	public ArrayList<Pair4<A,B,C,D>> getListByABC(A a, B b, C c)
 	{
-		ArrayList<DMap4<A,B,C,D>> out = new ArrayList<DMap4<A,B,C,D>>();
+		ArrayList<Pair4<A,B,C,D>> out = Auto.ArrayList();
 		
 		for(int index : indicesOfABC(a, b, c))
 			out.add(get0(index));
@@ -505,9 +507,9 @@ public class DMapping4<A,B,C,D>
 		return out;
 	}
 	
-	public ArrayList<DMap4<A,B,C,D>> getListByABD(A a, B b, D d)
+	public ArrayList<Pair4<A,B,C,D>> getListByABD(A a, B b, D d)
 	{
-		ArrayList<DMap4<A,B,C,D>> out = new ArrayList<DMap4<A,B,C,D>>();
+		ArrayList<Pair4<A,B,C,D>> out = Auto.ArrayList();
 		
 		for(int index : indicesOfABD(a, b, d))
 			out.add(get0(index));
@@ -515,9 +517,9 @@ public class DMapping4<A,B,C,D>
 		return out;
 	}
 	
-	public ArrayList<DMap4<A,B,C,D>> getListByACD(A a, C c, D d)
+	public ArrayList<Pair4<A,B,C,D>> getListByACD(A a, C c, D d)
 	{
-		ArrayList<DMap4<A,B,C,D>> out = new ArrayList<DMap4<A,B,C,D>>();
+		ArrayList<Pair4<A,B,C,D>> out = Auto.ArrayList();
 		
 		for(int index : indicesOfACD(a, c, d))
 			out.add(get0(index));
@@ -525,9 +527,9 @@ public class DMapping4<A,B,C,D>
 		return out;
 	}
 	
-	public ArrayList<DMap4<A,B,C,D>>getListByBCD(B b, C c, D d)
+	public ArrayList<Pair4<A,B,C,D>>getListByBCD(B b, C c, D d)
 	{
-		ArrayList<DMap4<A,B,C,D>> out = new ArrayList<DMap4<A,B,C,D>>();
+		ArrayList<Pair4<A,B,C,D>> out = Auto.ArrayList();
 		
 		for(int index : indicesOfBCD(b, c, d))
 			out.add(get0(index));
@@ -551,7 +553,7 @@ public class DMapping4<A,B,C,D>
 	
 	
 	
-	public DMapping4<A,B,C,D> add(DMap4<A,B,C,D> entry) { return add(entry.getA(), entry.getB(), entry.getC(), entry.getD()); }
+	public DMapping4<A,B,C,D> add(Pair4<A,B,C,D> entry) { return add(entry.getA(), entry.getB(), entry.getC(), entry.getD()); }
 	
 	public DMapping4<A,B,C,D> add(A a, B b,C c, D d)
 	{
@@ -568,8 +570,6 @@ public class DMapping4<A,B,C,D>
 	
 	public DMapping4<A,B,C,D> remove(int index)
 	{
-		validate0(index);
-		
 		this.a.remove(index);
 		this.b.remove(index);
 		this.c.remove(index);
@@ -603,13 +603,13 @@ public class DMapping4<A,B,C,D>
 	
 	public int[] indicesOfAB(A a, B b)
 	{
-		if(!containsA(a) || !containsB(b)) return null;
-		if(indicesOfA(a) == null) return null;
+		if(Check.notTrueOOO(containsA(a), containsB(b))) return null;
+		if(Check.isNull(indicesOfA(a))) return null;
 	
-		ArrayList<Integer> out = new ArrayList<Integer>();
+		ArrayList<Integer> out = Auto.ArrayList();
 		
 		for(int x : indicesOfA(a))
-			if(getB0(x).equals(b) || getB0(x) == b) out.add(x);
+			if(Check.isEqual(b, getB0(x))) out.add(x);
 		
 		if(out.size() == 0) return null;
 		
@@ -618,13 +618,13 @@ public class DMapping4<A,B,C,D>
 	
 	public int[] indicesOfAC(A a, C c)
 	{
-		if(!containsA(a) || !containsC(c)) return null;
-		if(indicesOfA(a) == null) return null;
+		if(Check.notTrueOOO(containsA(a), containsC(c))) return null;
+		if(Check.isNull(indicesOfA(a))) return null;
 		
-		ArrayList<Integer> out = new ArrayList<Integer>();
+		ArrayList<Integer> out = Auto.ArrayList();
 		
 		for(int x : indicesOfA(a))
-			if(getC0(x).equals(c) || getC0(x) == c) out.add(x);
+			if(Check.isEqual(c, getC0(x))) out.add(x);
 		
 		if(out.size() == 0) return null;
 		
@@ -633,13 +633,13 @@ public class DMapping4<A,B,C,D>
 	
 	public int[] indicesOfAD(A a, D d)
 	{
-		if(!containsA(a) || !containsD(d)) return null;
-		if(indicesOfA(a) == null) return null;
+		if(Check.notTrueOOO(containsA(a), containsD(d))) return null;
+		if(Check.isNull(indicesOfA(a))) return null;
 		
-		ArrayList<Integer> out = new ArrayList<Integer>();
+		ArrayList<Integer> out = Auto.ArrayList();
 		
 		for(int x : indicesOfA(a))
-			if(getD0(x).equals(d) || getD0(x) == d) out.add(x);
+			if(Check.isEqual(d, getD0(x))) out.add(x);
 		
 		if(out.size() == 0) return null;
 		
@@ -648,13 +648,13 @@ public class DMapping4<A,B,C,D>
 	
 	public int[] indicesOfBC(B b, C c)
 	{
-		if(!containsB(b) || !containsC(c)) return null;
-		if(indicesOfB(b) == null) return null;
+		if(Check.notTrueOOO(containsB(b), containsC(c))) return null;
+		if(Check.isNull(indicesOfB(b))) return null;
 		
-		ArrayList<Integer> out = new ArrayList<Integer>();
+		ArrayList<Integer> out = Auto.ArrayList();
 		
 		for(int x : indicesOfB(b))
-			if(getC0(x).equals(c) || getC0(x) == c) out.add(x);
+			if(Check.isEqual(c, getC0(x))) out.add(x);
 		
 		if(out.size() == 0) return null;
 		
@@ -663,13 +663,13 @@ public class DMapping4<A,B,C,D>
 	
 	public int[] indicesOfBD(B b, D d)
 	{
-		if(!containsB(b) || !containsD(d)) return null;
-		if(indicesOfB(b) == null) return null;
+		if(Check.notTrueOOO(containsB(b), containsD(d))) return null;
+		if(Check.isNull(indicesOfB(b))) return null;
 		
-		ArrayList<Integer> out = new ArrayList<Integer>();
+		ArrayList<Integer> out = Auto.ArrayList();
 		
 		for(int x : indicesOfB(b))
-			if(getD0(x).equals(d) || getD0(x) == d) out.add(x);
+			if(Check.isEqual(d, getD0(x))) out.add(x);
 		
 		if(out.size() == 0) return null;
 		
@@ -678,13 +678,13 @@ public class DMapping4<A,B,C,D>
 	
 	public int[] indicesOfCD(C c, D d)
 	{
-		if(!containsC(c) || !containsD(d)) return null;
-		if(indicesOfC(c) == null) return null;
+		if(Check.notTrueOOO(containsC(c), containsD(d))) return null;
+		if(Check.isNull(indicesOfC(c))) return null;
 		
-		ArrayList<Integer> out = new ArrayList<Integer>();
+		ArrayList<Integer> out = Auto.ArrayList();
 		
 		for(int x : indicesOfC(c))
-			if(getD0(x).equals(d) || getD0(x) == d) out.add(x);
+			if(Check.isEqual(d, getD0(x))) out.add(x);
 		
 		if(out.size() == 0) return null;
 		
@@ -695,14 +695,13 @@ public class DMapping4<A,B,C,D>
 	
 	public int[] indicesOfABC(A a, B b, C c)
 	{
-		if(!containsA(a) || !containsB(b) || !containsC(c)) return null;
-		if(indicesOfA(a) == null) return null;
+		if(Check.notTrueOOO(containsA(a), containsB(b), containsC(c))) return null;
+		if(Check.isNull(indicesOfA(a))) return null;
 		
-		ArrayList<Integer> out = new ArrayList<Integer>();
+		ArrayList<Integer> out = Auto.ArrayList();
 		
 		for(int x : indicesOfA(a))
-			if(getB0(x).equals(b) || getB0(x) == b)
-				if(getC0(x).equals(c) || getC(x) == c) out.add(x);
+			if(Check.isTrue(Check.isEqual(b, getB0(x)), Check.isEqual(c, getC0(x)))) out.add(x);
 		
 		if(out.size() == 0) return null;
 		
@@ -711,14 +710,13 @@ public class DMapping4<A,B,C,D>
 	
 	public int[] indicesOfACD(A a, C c, D d)
 	{
-		if(!containsA(a) || !containsC(c) || !containsD(d)) return null;
-		if(indicesOfA(a) == null) return null;
+		if(Check.notTrueOOO(containsA(a), containsC(c), containsD(d))) return null;
+		if(Check.isNull(indicesOfA(a))) return null;
 		
-		ArrayList<Integer> out = new ArrayList<Integer>();
+		ArrayList<Integer> out = Auto.ArrayList();
 		
 		for(int x : indicesOfA(a))
-			if(getC0(x).equals(c) || getC0(x) == c)
-				if(getD0(x).equals(d) || getD0(x) == d) out.add(x);
+			if(Check.isTrue(Check.isEqual(c, getC0(x)), Check.isEqual(d, getD0(x)))) out.add(x);
 		
 		if(out.size() == 0) return null;
 		
@@ -727,14 +725,13 @@ public class DMapping4<A,B,C,D>
 	
 	public int[] indicesOfABD(A a, B b, D d)
 	{
-		if(!containsA(a) || !containsB(b) || !containsD(d)) return null;
-		if(indicesOfA(a) == null) return null;
+		if(Check.notTrueOOO(containsA(a), containsB(b), containsD(d))) return null;
+		if(Check.isNull(indicesOfA(a))) return null;
 		
-		ArrayList<Integer> out = new ArrayList<Integer>();
+		ArrayList<Integer> out = Auto.ArrayList();
 		
 		for(int x : indicesOfA(a))
-			if(getB0(x).equals(b) || getB0(x) == b)
-				if(getD0(x).equals(d) || getD0(x) == d) out.add(x);
+			if(Check.isTrue(Check.isEqual(b, getB0(x)), Check.isEqual(d, getD0(x)))) out.add(x);
 		
 		if(out.size() == 0) return null;
 		
@@ -743,14 +740,13 @@ public class DMapping4<A,B,C,D>
 	
 	public int[] indicesOfBCD(B b, C c, D d)
 	{
-		if(!containsB(b) || !containsC(c) || !containsD(d)) return null;
-		if(indicesOfB(b) == null) return null;
+		if (Check.notTrueOOO(containsB(b), containsC(c), containsD(d))) return null;
+		if(Check.isNull(indicesOfB(b))) return null;
 		
-		ArrayList<Integer> out = new ArrayList<Integer>();
+		ArrayList<Integer> out = Auto.ArrayList();
 		
 		for(int x : indicesOfB(b))
-			if(getC0(x).equals(c) || getC0(x) == c)
-				if(getD0(x).equals(d) || getD(x) == d) out.add(x);
+			if(Check.isTrue(Check.isEqual(c, getC0(x)), Check.isEqual(d, getD(x)))) out.add(x);
 		
 		if(out.size() == 0) return null;
 		
@@ -783,15 +779,15 @@ public class DMapping4<A,B,C,D>
 	
 	
 
-	public int indexOf(DMap4<A,B,C,D> m) { return indexOf(m.getA(), m.getB(), m.getC(), m.getD()); }
+	public int indexOf(Pair4<A,B,C,D> m) { return indexOf(m.getA(), m.getB(), m.getC(), m.getD()); }
 	
 	public int indexOf(A a, B b, C c, D d)
 	{
-		if(!containsA(a) || !containsB(b) || !containsC(c) || !containsD(d)) return -1;
+		if(Check.notTrueOOO(containsA(a), containsB(b), containsC(c), containsD(d))) return -1;
 		
 		for(int i : indicesOfAB(a,b))
-			if(getC0(i).equals(c) || getC0(i) == c)
-				if(getD0(i).equals(d) || getD0(i) == d)return i;
+			if(Check.isEqual(c, getC0(i)))
+				if(Check.isEqual(d, getD0(i))) return i;
 		
 		return -1;
 	}
@@ -810,7 +806,7 @@ public class DMapping4<A,B,C,D>
 	
 	public boolean contains(A a,B b,C c, D d) { return indexOf(a, b, c, d) == -1 ? false : true; }
 	
-	public boolean contains(DMap4<A,B,C,D> m) { return contains(m.getA(), m.getB(), m.getC(), m.getD()); }
+	public boolean contains(Pair4<A,B,C,D> m) { return contains(m.getA(), m.getB(), m.getC(), m.getD()); }
 	
 	
 	
@@ -845,7 +841,7 @@ public class DMapping4<A,B,C,D>
 	
 
 	
-	private DMap4<A,B,C,D> get0(int index) { return index == -1 ? null : get(index); }	
+	private Pair4<A,B,C,D> get0(int index) { return index == -1 ? null : get(index); }	
 	
 	
 	

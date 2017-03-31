@@ -1,11 +1,13 @@
 package cmn.utilslib.essentials;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Map;
 
-import cmn.utilslib.dmap.DMap2;
-import cmn.utilslib.dmap.DMap3;
-import cmn.utilslib.dmap.DMap4;
+import cmn.utilslib.dmap.Pair2;
+import cmn.utilslib.dmap.Pair3;
+import cmn.utilslib.dmap.Pair4;
 import cmn.utilslib.dmap.DMapping2;
 import cmn.utilslib.dmap.DMapping3;
 import cmn.utilslib.dmap.DMapping4;
@@ -18,34 +20,34 @@ import cmn.utilslib.reflection.ManagedFieldRef;
 
 public class Auto
 {
-	public static <A,B> DMap2<A,B> DMap2()
+	public static <A,B> Pair2<A,B> Pair2()
 	{
-		return new DMap2<A,B>();
+		return new Pair2<A,B>();
 	}
 	
-	public static <A,B> DMap2<A,B> DMap2(A a, B b)
+	public static <A,B> Pair2<A,B> Pair2(A a, B b)
 	{
-		return new DMap2<A,B>(a, b);
+		return new Pair2<A,B>(a, b);
 	}
 	
-	public static <A,B,C> DMap3<A,B,C> DMap3()
+	public static <A,B,C> Pair3<A,B,C> Pair3()
 	{
-		return new DMap3<A,B,C>();
+		return new Pair3<A,B,C>();
 	}
 	
-	public static <A,B,C> DMap3<A,B,C> DMap3(A a, B b, C c)
+	public static <A,B,C> Pair3<A,B,C> Pair3(A a, B b, C c)
 	{
-		return new DMap3<A,B,C>(a, b, c);
+		return new Pair3<A,B,C>(a, b, c);
 	}
 	
-	public static <A,B,C,D> DMap4<A,B,C,D> DMap4()
+	public static <A,B,C,D> Pair4<A,B,C,D> Pair4()
 	{
-		return new DMap4<A,B,C,D>();
+		return new Pair4<A,B,C,D>();
 	}
 	
-	public static <A,B,C,D> DMap4<A,B,C,D> DMap4(A a, B b, C c, D d)
+	public static <A,B,C,D> Pair4<A,B,C,D> Pair4(A a, B b, C c, D d)
 	{
-		return new DMap4<A,B,C,D>(a, b, c, d);
+		return new Pair4<A,B,C,D>(a, b, c, d);
 	}
 	
 	
@@ -72,6 +74,10 @@ public class Auto
 		return new HashMap<K,V>();
 	}
 	
+	public static <K,V> HashMap<K,V> HashMap(Map<? extends K, ? extends V> m)
+	{
+		return new HashMap<K,V>(m);
+	}
 	
 	
 	public static <V> ArrayList<V> ArrayList()
@@ -79,6 +85,11 @@ public class Auto
 		return new ArrayList<V>();
 	}
 	
+	
+	public static <V> ArrayList<V> ArrayList(Collection<? extends V> c)
+	{
+		return new ArrayList<V>(c);
+	}
 	
 	
 	public static <A> IPluginSystem<A> PluginSystem(A a)

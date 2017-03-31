@@ -6,6 +6,8 @@ package cmn.utilslib.dmap;
 import java.util.ArrayList;
 import java.util.List;
 
+import cmn.utilslib.essentials.Auto;
+import cmn.utilslib.essentials.Check;
 import cmn.utilslib.essentials.ListUtils;
 import cmn.utilslib.essentials.PrimeUtils;
 
@@ -22,15 +24,15 @@ public class DMapping3<A,B,C>
 
 	public static final short DIMENSIONS = 3;
 	
-	protected ArrayList<A> a = new ArrayList<A>();
-	protected ArrayList<B> b = new ArrayList<B>();
-	protected ArrayList<C> c = new ArrayList<C>();
+	protected ArrayList<A> a = Auto.ArrayList();
+	protected ArrayList<B> b = Auto.ArrayList();
+	protected ArrayList<C> c = Auto.ArrayList();
 	
 	protected int size = 0;	
 	
 	
 	
-	public DMapping3<A,B,C> set(int index, DMap3<A,B,C> entry) { return set(index, entry.getA(), entry.getB(), entry.getC()); }
+	public DMapping3<A,B,C> set(int index, Pair3<A,B,C> entry) { return set(index, entry.getA(), entry.getB(), entry.getC()); }
 	
 	public DMapping3<A,B,C> set(int index, A a, B b,C c) 
 	{
@@ -59,7 +61,7 @@ public class DMapping3<A,B,C>
 		
 	
 	
-	public DMap3<A,B,C> get(int index) { validate0(index); return new DMap3<A,B,C>(getA(index), getB(index), getC(index)); }
+	public Pair3<A,B,C> get(int index) { validate0(index); return Auto.Pair3(getA(index), getB(index), getC(index)); }
 	
 	
 	public A getA(int index) { validate0(index); return this.a.get(index); }
@@ -70,18 +72,18 @@ public class DMapping3<A,B,C>
 	
 	
 	
-	public DMap3<A,B,C> getbyA(A a) { return (!containsA(a)) ? null : get(indexOfA(a)); }
+	public Pair3<A,B,C> getbyA(A a) { return (!containsA(a)) ? null : get(indexOfA(a)); }
 	
-	public DMap3<A,B,C> getbyB(B b) { return (!containsB(b)) ? null : get(indexOfB(b)); }
+	public Pair3<A,B,C> getbyB(B b) { return (!containsB(b)) ? null : get(indexOfB(b)); }
 	
-	public DMap3<A,B,C> getbyC(C c) { return (!containsC(c)) ? null : get(indexOfC(c)); }
+	public Pair3<A,B,C> getbyC(C c) { return (!containsC(c)) ? null : get(indexOfC(c)); }
 	
 	
-	public DMap3<A,B,C> getbyAB(A a, B b) { return ((!containsA(a)) || (!containsB(b) || (!containsAB(a, b)))) ? null : get0(indexOfAB(a, b)); }
+	public Pair3<A,B,C> getbyAB(A a, B b) { return ((!containsA(a)) || (!containsB(b) || (!containsAB(a, b)))) ? null : get0(indexOfAB(a, b)); }
 	
-	public DMap3<A,B,C> getbyAC(A a, C c) { return ((!containsA(a)) || (!containsC(c) || (!containsAC(a, c)))) ? null : get0(indexOfAC(a, c)); }
+	public Pair3<A,B,C> getbyAC(A a, C c) { return ((!containsA(a)) || (!containsC(c) || (!containsAC(a, c)))) ? null : get0(indexOfAC(a, c)); }
 	
-	public DMap3<A,B,C> getbyBC(B b, C c) { return ((!containsB(b)) || (!containsC(c) || (!containsBC(b, c)))) ? null :  get0(indexOfBC(b, c)); }
+	public Pair3<A,B,C> getbyBC(B b, C c) { return ((!containsB(b)) || (!containsC(c) || (!containsBC(b, c)))) ? null :  get0(indexOfBC(b, c)); }
 	
 	
 	
@@ -109,7 +111,7 @@ public class DMapping3<A,B,C>
 	
 	public ArrayList<A> getAListByB(B b)
 	{
-		ArrayList<A> out = new ArrayList<A>();
+		ArrayList<A> out = Auto.ArrayList();
 		
 		for(int index : indicesOfB(b))
 			out.add(getA0(index));
@@ -119,7 +121,7 @@ public class DMapping3<A,B,C>
 	
 	public ArrayList<A> getAListByC(C c)
 	{
-		ArrayList<A> out = new ArrayList<A>();
+		ArrayList<A> out = Auto.ArrayList();
 		
 		for(int index : indicesOfC(c))
 			out.add(getA0(index));
@@ -131,7 +133,7 @@ public class DMapping3<A,B,C>
 	
 	public ArrayList<B> getBListByA(A a)
 	{
-		ArrayList<B> out = new ArrayList<B>();
+		ArrayList<B> out = Auto.ArrayList();
 		
 		for(int index : indicesOfA(a))
 			out.add(getB0(index));
@@ -141,7 +143,7 @@ public class DMapping3<A,B,C>
 	
 	public ArrayList<B> getBListByC(C c)
 	{
-		ArrayList<B> out = new ArrayList<B>();
+		ArrayList<B> out = Auto.ArrayList();
 		
 		for(int index : indicesOfC(c))
 			out.add(getB0(index));
@@ -151,7 +153,7 @@ public class DMapping3<A,B,C>
 	
 	public ArrayList<C> getCListByA(A a)
 	{
-		ArrayList<C> out = new ArrayList<C>();
+		ArrayList<C> out = Auto.ArrayList();
 		
 		for(int index : indicesOfA(a))
 			out.add(getC0(index));
@@ -161,7 +163,7 @@ public class DMapping3<A,B,C>
 	
 	public ArrayList<C> getCListByB(B b)
 	{
-		ArrayList<C> out = new ArrayList<C>();
+		ArrayList<C> out = Auto.ArrayList();
 		
 		for(int index : indicesOfB(b))
 			out.add(getC0(index));
@@ -171,9 +173,9 @@ public class DMapping3<A,B,C>
 	
 	
 	
-	public ArrayList<DMap3<A,B,C>> getListByA(A a)
+	public ArrayList<Pair3<A,B,C>> getListByA(A a)
 	{
-		ArrayList<DMap3<A,B,C>> out = new ArrayList<DMap3<A,B,C>>();
+		ArrayList<Pair3<A,B,C>> out = Auto.ArrayList();
 		
 		for(int index : indicesOfA(a))
 			out.add(get0(index));
@@ -181,9 +183,9 @@ public class DMapping3<A,B,C>
 		return out;
 	}
 	
-	public ArrayList<DMap3<A,B,C>> getListByB(B b)
+	public ArrayList<Pair3<A,B,C>> getListByB(B b)
 	{
-		ArrayList<DMap3<A,B,C>> out = new ArrayList<DMap3<A,B,C>>();
+		ArrayList<Pair3<A,B,C>> out = Auto.ArrayList();
 		
 		for(int index : indicesOfB(b))
 			out.add(get0(index));
@@ -191,9 +193,9 @@ public class DMapping3<A,B,C>
 		return out;
 	}
 	
-	public ArrayList<DMap3<A,B,C>> getListByC(C c)
+	public ArrayList<Pair3<A,B,C>> getListByC(C c)
 	{
-		ArrayList<DMap3<A,B,C>> out = new ArrayList<DMap3<A,B,C>>();
+		ArrayList<Pair3<A,B,C>> out = Auto.ArrayList();
 		
 		for(int index : indicesOfC(c))
 			out.add(get0(index));
@@ -205,7 +207,7 @@ public class DMapping3<A,B,C>
 	
 	public ArrayList<A> getAListByBC(B b, C c)
 	{
-		ArrayList<A> out = new ArrayList<A>();
+		ArrayList<A> out = Auto.ArrayList();
 		
 		for(int index : indicesOfBC(b, c))
 			out.add(getA0(index));
@@ -215,7 +217,7 @@ public class DMapping3<A,B,C>
 	
 	public ArrayList<B> getBListByAC(A a, C c)
 	{
-		ArrayList<B> out = new ArrayList<B>();
+		ArrayList<B> out = Auto.ArrayList();
 		
 		for(int index : indicesOfAC(a, c))
 			out.add(getB0(index));
@@ -225,7 +227,7 @@ public class DMapping3<A,B,C>
 	
 	public ArrayList<C> getCListByAB(A a, B b)
 	{
-		ArrayList<C> out = new ArrayList<C>();
+		ArrayList<C> out = Auto.ArrayList();
 		
 		for(int index : indicesOfAB(a, b))
 			out.add(getC0(index));
@@ -235,9 +237,9 @@ public class DMapping3<A,B,C>
 	
 	
 	
-	public ArrayList<DMap3<A,B,C>> getListByAB(A a, B b)
+	public ArrayList<Pair3<A,B,C>> getListByAB(A a, B b)
 	{
-		ArrayList<DMap3<A,B,C>> out = new ArrayList<DMap3<A,B,C>>();
+		ArrayList<Pair3<A,B,C>> out = Auto.ArrayList();
 		
 		for(int index : indicesOfAB(a, b))
 			out.add(get0(index));
@@ -245,9 +247,9 @@ public class DMapping3<A,B,C>
 		return out;
 	}
 	
-	public ArrayList<DMap3<A,B,C>> getListByAC(A a, C c)
+	public ArrayList<Pair3<A,B,C>> getListByAC(A a, C c)
 	{
-		ArrayList<DMap3<A,B,C>> out = new ArrayList<DMap3<A,B,C>>();
+		ArrayList<Pair3<A,B,C>> out = Auto.ArrayList();
 		
 		for(int index : indicesOfAC(a, c))
 			out.add(get0(index));
@@ -255,9 +257,9 @@ public class DMapping3<A,B,C>
 		return out;
 	}
 	
-	public ArrayList<DMap3<A,B,C>> getListByBC(B b, C c)
+	public ArrayList<Pair3<A,B,C>> getListByBC(B b, C c)
 	{
-		ArrayList<DMap3<A,B,C>> out = new ArrayList<DMap3<A,B,C>>();
+		ArrayList<Pair3<A,B,C>> out = Auto.ArrayList();
 		
 		for(int index : indicesOfBC(b, c))
 			out.add(get0(index));
@@ -279,7 +281,7 @@ public class DMapping3<A,B,C>
 	
 	
 	
-	public DMapping3<A,B,C> add(DMap3<A,B,C> entry) { return add(entry.getA(), entry.getB(), entry.getC()); }
+	public DMapping3<A,B,C> add(Pair3<A,B,C> entry) { return add(entry.getA(), entry.getB(), entry.getC()); }
 	
 	public DMapping3<A,B,C> add(A a, B b,C c)
 	{
@@ -295,8 +297,6 @@ public class DMapping3<A,B,C>
 
 	public DMapping3<A,B,C> remove(int index)
 	{
-		validate0(index);
-		
 		this.a.remove(index);
 		this.b.remove(index);
 		this.c.remove(index);
@@ -325,13 +325,13 @@ public class DMapping3<A,B,C>
 	
 	public int[] indicesOfAB(A a, B b)
 	{
-		if(!containsA(a) || !containsB(b)) return null;
-		if(indicesOfA(a) == null) return null;		
+		if(Check.notTrueOOO(containsA(a), containsB(b))) return null;
+		if(Check.isNull(indicesOfA(a))) return null;	
 	
-		ArrayList<Integer> out = new ArrayList<Integer>();
+		ArrayList<Integer> out = Auto.ArrayList();
 		
 		for(int x : indicesOfA(a))
-			if(getB0(x).equals(b) || getB0(x) == b) out.add(x);
+			if(Check.isEqual(b, getB0(x))) out.add(x);
 		
 		if(out.size() == 0) return null;
 		
@@ -340,13 +340,13 @@ public class DMapping3<A,B,C>
 	
 	public int[] indicesOfAC(A a, C c)
 	{
-		if(!containsA(a) || !containsC(c)) return null;
-		if(indicesOfA(a) == null) return null;		
+		if(Check.notTrueOOO(containsA(a), containsC(c))) return null;
+		if(Check.isNull(indicesOfA(a))) return null;		
 		
-		ArrayList<Integer> out = new ArrayList<Integer>();
+		ArrayList<Integer> out = Auto.ArrayList();
 		
 		for(int x : indicesOfA(a))
-			if(getC0(x).equals(c) || getC0(x) == c) out.add(x);
+			if(Check.isEqual(c, getC0(x))) out.add(x);
 		
 		if(out.size() == 0) return null;
 		
@@ -355,13 +355,13 @@ public class DMapping3<A,B,C>
 	
 	public int[] indicesOfBC(B b, C c)
 	{
-		if(!containsB(b) || !containsC(c)) return null;
-		if(indicesOfB(b) == null) return null;		
+		if(Check.notTrueOOO(containsB(b), containsC(c))) return null;
+		if(Check.isNull(indicesOfB(b))) return null;		
 		
-		ArrayList<Integer> out = new ArrayList<Integer>();
+		ArrayList<Integer> out = Auto.ArrayList();
 		
 		for(int x : indicesOfB(b))
-			if(getC0(x).equals(c) || getC0(x) == c) out.add(x);
+			if(Check.isEqual(c, getC0(x))) out.add(x);
 		
 		if(out.size() == 0) return null;
 		
@@ -378,14 +378,14 @@ public class DMapping3<A,B,C>
 	
 	
 
-	public int indexOf(DMap3<A,B,C> m) { return indexOf(m.getA(), m.getB(), m.getC()); }
+	public int indexOf(Pair3<A,B,C> m) { return indexOf(m.getA(), m.getB(), m.getC()); }
 	
 	public int indexOf(A a, B b, C c)
 	{
-		if(!containsA(a) || !containsB(b) || !containsC(c)) return -1;
+		if(Check.notTrueOOO(containsA(a), containsB(b), containsC(c))) return -1;
 		
 		for(int i : indicesOfAB(a,b))
-			if(getC0(i).equals(c) || getC0(i) == c) return i;
+			if(Check.isEqual(c, getC0(i))) return i;
 		
 		return -1;
 	}
@@ -402,7 +402,7 @@ public class DMapping3<A,B,C>
 	
 	public boolean contains(A a,B b,C c) { return indexOf(a, b, c) == -1 ? false : true; }
 	
-	public boolean contains(DMap3<A,B,C> m) { return contains(m.getA(), m.getB(), m.getC()); }
+	public boolean contains(Pair3<A,B,C> m) { return contains(m.getA(), m.getB(), m.getC()); }
 	
 	
 	
@@ -421,7 +421,7 @@ public class DMapping3<A,B,C>
 	
 	
 	
-	private DMap3<A,B,C> get0(int index) { return index == -1 ? null : get(index); }
+	private Pair3<A,B,C> get0(int index) { return index == -1 ? null : get(index); }
 	
 	
 	

@@ -60,7 +60,7 @@ public class Check
 	public static boolean isEqual(double expected, double value) { return value == expected; }
 	
 	public static boolean isEqual(String expected, String value) { return value.equals(expected); }		
-	public static <A> boolean isEqual(A expected, A value) { return value.equals(expected); }
+	public static <A> boolean isEqual(A expected, A value) { return value.equals(expected) || value == expected; }
 	
 
 	

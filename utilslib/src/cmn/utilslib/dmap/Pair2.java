@@ -10,7 +10,7 @@ import cmn.utilslib.interfaces.IObjectable;
  * @author picatrix1899
  * @category DMaps
  */
-public class DMap2<A,B> implements IDMap2<DMap2<A,B>,A,B>, IObjectable<DMap2<A,B>>
+public class Pair2<A,B> implements IPair2<Pair2<A,B>,A,B>, IObjectable<Pair2<A,B>>
 {
 	
 	/** Number of entries */
@@ -27,7 +27,7 @@ public class DMap2<A,B> implements IDMap2<DMap2<A,B>,A,B>, IObjectable<DMap2<A,B
 	 * "Null" constructor <br>
 	 * initialize all entries with null
 	 */
-	public DMap2()
+	public Pair2()
 	{
 		this(null, null);
 	}
@@ -36,7 +36,7 @@ public class DMap2<A,B> implements IDMap2<DMap2<A,B>,A,B>, IObjectable<DMap2<A,B
 	 *  @param a : Value a
 	 *  @param b : Value b
 	 */
-	public DMap2(A a, B b)
+	public Pair2(A a, B b)
 	{
 		this.a = a;
 		this.b = b;
@@ -45,7 +45,7 @@ public class DMap2<A,B> implements IDMap2<DMap2<A,B>,A,B>, IObjectable<DMap2<A,B
 	 * Constructor for cloning
 	 * @param dmap : The DMap for cloning
 	 */
-	public DMap2(DMap2<A,B> dmap)
+	public Pair2(Pair2<A,B> dmap)
 	{
 		this(dmap.getA(), dmap.getB());
 	}
@@ -57,13 +57,13 @@ public class DMap2<A,B> implements IDMap2<DMap2<A,B>,A,B>, IObjectable<DMap2<A,B
 	 * @param a : The new value
 	 * @return The current packet
 	 */
-	public DMap2<A,B> setA(A a) { this.a = a; return this; }
+	public Pair2<A,B> setA(A a) { this.a = a; return this; }
 	/**
 	 * Set entry B
 	 * @param b : The new value
 	 * @return The current packet
 	 */
-	public DMap2<A,B> setB(B b) { this.b = b; return this; }
+	public Pair2<A,B> setB(B b) { this.b = b; return this; }
 	
 	
 	
@@ -77,17 +77,17 @@ public class DMap2<A,B> implements IDMap2<DMap2<A,B>,A,B>, IObjectable<DMap2<A,B
 	
 	/** {@inheritDoc} */
 	@Override
-	public DMap2<A,B> clone()
+	public Pair2<A,B> clone()
 	{		
-		return new DMap2<A,B>(this);
+		return new Pair2<A,B>(this);
 	}
 	
 	/** {@inheritDoc} */
 	@Override
 	public boolean equals(Object obj)
 	{
-		if(!(obj instanceof DMap2<?,?>)) return false;
-		DMap2<?,?> d = (DMap2<?,?>)obj;
+		if(!(obj instanceof Pair2<?,?>)) return false;
+		Pair2<?,?> d = (Pair2<?,?>)obj;
 		
 		if(!(d.a.equals(this.a))) return false;
 		if(!(d.b.equals(this.b))) return false;
