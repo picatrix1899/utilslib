@@ -1,13 +1,12 @@
 package cmn.utilslib.tests;
 
+import cmn.utilslib.essentials.Profiler;
+import cmn.utilslib.exceptions.CaptureErrorHandler;
 import cmn.utilslib.exceptions.ErrorHandlers;
+import cmn.utilslib.testing.IUnitTest;
 import cmn.utilslib.validation.VE_isTrue;
 import cmn.utilslib.validation.Validate;
 import cmn.utilslib.validation.ValidationException;
-import tests.tools.CaptureErrorHandler;
-import tests.tools.IUnitTest;
-import tests.tools.StopWatch;
-import tests.tools.TimingResult;
 
 public class TestValidateNotTrue implements IUnitTest
 {
@@ -30,184 +29,94 @@ public class TestValidateNotTrue implements IUnitTest
 	}
 	
 	@IUnitTest.StressTest("StressTest All Passed")
-	public TimingResult stressTestA()
+	public Profiler stressTestA()
 	{
-		StopWatch watch = new StopWatch();
-		TimingResult result = new TimingResult();
+		Profiler profiler = new Profiler();
 		
 		ValidationException.setErrorHandler(ErrorHandlers.VOID);
 		{
-			watch.start();
-			{
-				for(int i = 0; i < 1000; i++) {  }
-			}
-			watch.stop();
-					
-			result.micro_empty_a = watch.micro();
-			result.milli_empty_a = watch.milli();
-			
-			watch.reset();
-			
-			watch.start();
-			{
-				for(int i = 0; i < 100000; i++) {  }
-			}
-			watch.stop();
-					
-			result.micro_empty_b = watch.micro();
-			result.milli_empty_b = watch.milli();
-			
-			watch.reset();
-			
-			watch.start();
-			{
-				for(int i = 0; i < 1000000; i++) {  }
-			}
-			watch.stop();
-					
-			result.micro_empty_c = watch.micro();
-			result.milli_empty_c = watch.milli();
-			
-			watch.reset();
-			
-			/* ============ */
-			
-			watch.start();
+			emptyRun(profiler);
+
+			profiler.start("stress_1k");
 			{
 				for(int i = 0; i < 1000; i++)
-				{
 					Validate.notTrue(false);
-				}
 			}
-			watch.stop();
-					
-			result.micro_stress_a = watch.micro();
-			result.milli_stress_a = watch.milli();
-			
-			watch.reset();
-			
-			watch.start();
+			profiler.stop("stress_1k");
+
+			profiler.start("stress_100k");
 			{
 				for(int i = 0; i < 100000; i++)
-				{
 					Validate.notTrue(false);
-				}
 			}
-			watch.stop();
-					
-			result.micro_stress_b = watch.micro();
-			result.milli_stress_b = watch.milli();
-			
-			watch.reset();
-			
-			watch.start();
+			profiler.stop("stress_100k");
+
+			profiler.start("stress_1m");
 			{
 				for(int i = 0; i < 1000000; i++)
-				{
 					Validate.notTrue(false);
-				}
 			}
-			watch.stop();
-					
-			result.micro_stress_c = watch.micro();
-			result.milli_stress_c = watch.milli();
-			
-			watch.reset();
+			profiler.stop("stress_1m");
 		}
 		ValidationException.resetErrorHandler();
 		
-		return result;
+		return profiler;
 	}
 	
 	@IUnitTest.StressTest("StressTest All Fail")
-	public TimingResult stressTestC()
+	public Profiler stressTestC()
 	{
-		StopWatch watch = new StopWatch();
-		TimingResult result = new TimingResult();
+		Profiler profiler = new Profiler();
 		
 		ValidationException.setErrorHandler(ErrorHandlers.VOID);
 		{
-			watch.start();
-			{
-				for(int i = 0; i < 1000; i++) {  }
-			}
-			watch.stop();
-					
-			result.micro_empty_a = watch.micro();
-			result.milli_empty_a = watch.milli();
-			
-			watch.reset();
-			
-			watch.start();
-			{
-				for(int i = 0; i < 100000; i++) {  }
-			}
-			watch.stop();
-					
-			result.micro_empty_b = watch.micro();
-			result.milli_empty_b = watch.milli();
-			
-			watch.reset();
-			
-			watch.start();
-			{
-				for(int i = 0; i < 1000000; i++) {  }
-			}
-			watch.stop();
-					
-			result.micro_empty_c = watch.micro();
-			result.milli_empty_c = watch.milli();
-			
-			watch.reset();
-			
-			/* ============ */
-			
-			watch.start();
+			emptyRun(profiler);
+
+			profiler.start("stress_1k");
 			{
 				for(int i = 0; i < 1000; i++)
-				{
 					Validate.notTrue(true);
-				}
 			}
-			watch.stop();
-					
-			result.micro_stress_a = watch.micro();
-			result.milli_stress_a = watch.milli();
-			
-			watch.reset();
-			
-			watch.start();
+			profiler.stop("stress_1k");
+	
+			profiler.start("stress_100k");
 			{
 				for(int i = 0; i < 100000; i++)
-				{
 					Validate.notTrue(true);
-				}
 			}
-			watch.stop();
-					
-			result.micro_stress_b = watch.micro();
-			result.milli_stress_b = watch.milli();
-			
-			watch.reset();
-			
-			watch.start();
+			profiler.stop("stress_100k");
+
+			profiler.start("stress_1m");
 			{
 				for(int i = 0; i < 1000000; i++)
-				{
 					Validate.notTrue(true);
-				}
 			}
-			watch.stop();
-					
-			result.micro_stress_c = watch.micro();
-			result.milli_stress_c = watch.milli();
-			
-			watch.reset();
+			profiler.stop("stress_1m");
 		}
 		ValidationException.resetErrorHandler();
-		
-		return result;
+
+		return profiler;
 	}
 
+	private void emptyRun(Profiler profiler)
+	{
+		profiler.start("empty_1k");
+		{
+			for(int i = 0; i < 1000; i++) {  }
+		}
+		profiler.stop("empty_1k");
+
+		profiler.start("empty_100k");
+		{
+			for(int i = 0; i < 100000; i++) {  }
+		}
+		profiler.stop("empty_100k");
+
+		profiler.start("empty_1m");
+		{
+			for(int i = 0; i < 1000000; i++) {  }
+		}
+		profiler.stop("empty_1m");
+	}
 
 }

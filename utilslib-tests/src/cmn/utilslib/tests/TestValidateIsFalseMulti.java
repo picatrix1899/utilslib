@@ -1,14 +1,12 @@
 package cmn.utilslib.tests;
 
 import cmn.utilslib.essentials.Profiler;
+import cmn.utilslib.exceptions.CaptureErrorHandler;
 import cmn.utilslib.exceptions.ErrorHandlers;
+import cmn.utilslib.testing.IUnitTest;
 import cmn.utilslib.validation.VE_isFalseMulti;
 import cmn.utilslib.validation.Validate;
 import cmn.utilslib.validation.ValidationException;
-import tests.tools.CaptureErrorHandler;
-import tests.tools.IUnitTest;
-import tests.tools.StopWatch;
-import tests.tools.TimingResult;
 
 public class TestValidateIsFalseMulti implements IUnitTest
 {
@@ -31,33 +29,14 @@ public class TestValidateIsFalseMulti implements IUnitTest
 	}
 	
 	@IUnitTest.StressTest("StressTest All Passed")
-	public TimingResult stressTestA()
+	public Profiler stressTestA()
 	{
 		Profiler profiler = new Profiler();
-		TimingResult result = new TimingResult();
-		
+	
 		ValidationException.setErrorHandler(ErrorHandlers.VOID);
 		{
-			profiler.start("empty_1k");
-			{
-				for(int i = 0; i < 1000; i++) {  }
-			}
-			profiler.stop("empty_1k");
+			emptyRun(profiler);
 
-			profiler.start("empty_100k");
-			{
-				for(int i = 0; i < 100000; i++) {  }
-			}
-			profiler.stop("empty_100k");
-
-			profiler.start("empty_1m");
-			{
-				for(int i = 0; i < 1000000; i++) {  }
-			}
-			profiler.stop("empty_1m");
-
-			/* ============ */
-			
 			profiler.start("stress_1k");
 			{
 				for(int i = 0; i < 1000; i++)
@@ -81,56 +60,18 @@ public class TestValidateIsFalseMulti implements IUnitTest
 		}
 		ValidationException.resetErrorHandler();
 		
-		result.micro_empty_a = profiler.micro("empty_1k");
-		result.milli_empty_a = profiler.milli("empty_1k");
-		
-		result.micro_empty_b = profiler.micro("empty_100k");
-		result.milli_empty_b = profiler.milli("empty_100k");
-		
-		result.micro_empty_c = profiler.micro("empty_1m");
-		result.milli_empty_c = profiler.milli("empty_1m");
-		
-		result.micro_stress_a = profiler.micro("stress_1k");
-		result.milli_stress_a = profiler.milli("stress_1k");
-		
-		result.micro_stress_b = profiler.micro("stress_100k");
-		result.milli_stress_b = profiler.milli("stress_100k");
-		
-		result.micro_stress_c = profiler.micro("stress_1m");
-		result.milli_stress_c = profiler.milli("stress_1m");
-		
-		return result;
+		return profiler;
 	}
 	
 	@IUnitTest.StressTest("StressTest One Fail")
-	public TimingResult stressTestB()
+	public Profiler stressTestB()
 	{
 		Profiler profiler = new Profiler();
-		StopWatch watch = new StopWatch();
-		TimingResult result = new TimingResult();
 		
 		ValidationException.setErrorHandler(ErrorHandlers.VOID);
 		{
-			profiler.start("empty_1k");
-			{
-				for(int i = 0; i < 1000; i++) {  }
-			}
-			profiler.stop("empty_1k");
+			emptyRun(profiler);
 
-			profiler.start("empty_100k");
-			{
-				for(int i = 0; i < 100000; i++) {  }
-			}
-			profiler.stop("empty_100k");
-
-			profiler.start("empty_1m");
-			{
-				for(int i = 0; i < 1000000; i++) {  }
-			}
-			profiler.stop("empty_1m");
-
-			/* ============ */
-			
 			profiler.start("stress_1k");
 			{
 				for(int i = 0; i < 1000; i++)
@@ -154,116 +95,66 @@ public class TestValidateIsFalseMulti implements IUnitTest
 		}
 		ValidationException.resetErrorHandler();
 		
-		result.micro_empty_a = profiler.micro("empty_1k");
-		result.milli_empty_a = profiler.milli("empty_1k");
+
 		
-		result.micro_empty_b = profiler.micro("empty_100k");
-		result.milli_empty_b = profiler.milli("empty_100k");
-		
-		result.micro_empty_c = profiler.micro("empty_1m");
-		result.milli_empty_c = profiler.milli("empty_1m");
-		
-		result.micro_stress_a = profiler.micro("stress_1k");
-		result.milli_stress_a = profiler.milli("stress_1k");
-		
-		result.micro_stress_b = profiler.micro("stress_100k");
-		result.milli_stress_b = profiler.milli("stress_100k");
-		
-		result.micro_stress_c = profiler.micro("stress_1m");
-		result.milli_stress_c = profiler.milli("stress_1m");
-		
-		return result;
+		return profiler;
 	}
 	
 	@IUnitTest.StressTest("StressTest All Fail")
-	public TimingResult stressTestC()
+	public Profiler stressTestC()
 	{
-		StopWatch watch = new StopWatch();
-		TimingResult result = new TimingResult();
+		Profiler profiler = new Profiler();
 		
 		ValidationException.setErrorHandler(ErrorHandlers.VOID);
 		{
-			watch.start();
-			{
-				for(int i = 0; i < 1000; i++) {  }
-			}
-			watch.stop();
-					
-			result.micro_empty_a = watch.micro();
-			result.milli_empty_a = watch.milli();
-			
-			watch.reset();
-			
-			watch.start();
-			{
-				for(int i = 0; i < 100000; i++) {  }
-			}
-			watch.stop();
-					
-			result.micro_empty_b = watch.micro();
-			result.milli_empty_b = watch.milli();
-			
-			watch.reset();
-			
-			watch.start();
-			{
-				for(int i = 0; i < 1000000; i++) {  }
-			}
-			watch.stop();
-					
-			result.micro_empty_c = watch.micro();
-			result.milli_empty_c = watch.milli();
-			
-			watch.reset();
-			
-			/* ============ */
-			
-			watch.start();
+			emptyRun(profiler);
+
+			profiler.start("stress_1k");
 			{
 				for(int i = 0; i < 1000; i++)
-				{
 					Validate.isFalse(true, true, true, true, true, true, true, true, true, true);
-				}
 			}
-			watch.stop();
+			profiler.stop("stress_1k");
 					
-			result.micro_stress_a = watch.micro();
-			result.milli_stress_a = watch.milli();
 			
-			watch.reset();
-			
-			watch.start();
+			profiler.start("stress_100k");
 			{
 				for(int i = 0; i < 100000; i++)
-				{
 					Validate.isFalse(true, true, true, true, true, true, true, true, true, true);
-				}
 			}
-			watch.stop();
-					
-			result.micro_stress_b = watch.micro();
-			result.milli_stress_b = watch.milli();
+			profiler.stop("stress_100k");
 			
-			watch.reset();
-			
-			watch.start();
+			profiler.start("stress_1m");
 			{
 				for(int i = 0; i < 1000000; i++)
-				{
 					Validate.isFalse(true, true, true, true, true, true, true, true, true, true);
-				}
 			}
-			watch.stop();
-					
-			result.micro_stress_c = watch.micro();
-			result.milli_stress_c = watch.milli();
-			
-			watch.reset();
+			profiler.stop("stress_1m");
 		}
 		ValidationException.resetErrorHandler();
 		
-		return result;
+		return profiler;
 	}
 
+	private void emptyRun(Profiler profiler)
+	{
+		profiler.start("empty_1k");
+		{
+			for(int i = 0; i < 1000; i++) {  }
+		}
+		profiler.stop("empty_1k");
 
+		profiler.start("empty_100k");
+		{
+			for(int i = 0; i < 100000; i++) {  }
+		}
+		profiler.stop("empty_100k");
+
+		profiler.start("empty_1m");
+		{
+			for(int i = 0; i < 1000000; i++) {  }
+		}
+		profiler.stop("empty_1m");
+	}
+	
 }

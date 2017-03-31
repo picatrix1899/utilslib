@@ -1,4 +1,4 @@
-package tests.tools;
+package cmn.utilslib.testing;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

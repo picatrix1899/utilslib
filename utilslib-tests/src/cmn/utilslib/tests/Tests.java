@@ -5,10 +5,10 @@ import java.io.FileOutputStream;
 import java.io.PrintStream;
 import java.lang.reflect.Method;
 
+import cmn.utilslib.essentials.Profiler;
 import cmn.utilslib.reflection.ClassRef;
 import cmn.utilslib.reflection.MethodRef;
-import tests.tools.IUnitTest;
-import tests.tools.TimingResult;
+import cmn.utilslib.testing.IUnitTest;
 
 public class Tests
 {
@@ -66,21 +66,21 @@ public class Tests
 			
 			stream.println();
 			
-			TimingResult r;
+			Profiler p;
 			
 			for(Method m : ref.getMethodsByAnnotation(IUnitTest.StressTest.class))
 			{
-				r = new MethodRef<TimingResult>(m, t).invoke();
+				p = new MethodRef<Profiler>(m, t).invoke();
 				stream.println(m.getDeclaredAnnotation(IUnitTest.StressTest.class).value() + " :");
 				stream.println(				 "| type | cycles  | microseconds         | milliseconds         |");
 				stream.println(				 "+------+---------+----------------------+----------------------+");
-				stream.println(String.format("| E    |    1000 | %1$20s | %2$20s |", r.micro_empty_a, r.milli_empty_a));
-				stream.println(String.format("| E    |  100000 | %1$20s | %2$20s |", r.micro_empty_b, r.milli_empty_b));
-				stream.println(String.format("| E    | 1000000 | %1$20s | %2$20s |", r.micro_empty_c, r.milli_empty_c));
+				stream.println(String.format("| E    |    1000 | %1$20s | %2$20s |", p.micro("empty_1k"), p.milli("empty_1k")));
+				stream.println(String.format("| E    |  100000 | %1$20s | %2$20s |", p.micro("empty_100k"), p.milli("empty_100k")));
+				stream.println(String.format("| E    | 1000000 | %1$20s | %2$20s |", p.micro("empty_1m"), p.milli("empty_1m")));
 				stream.println(				 "+------+---------+----------------------+----------------------+");
-				stream.println(String.format("| L    |    1000 | %1$20s | %2$20s |", r.micro_stress_a, r.milli_stress_a));
-				stream.println(String.format("| L    |  100000 | %1$20s | %2$20s |", r.micro_stress_b, r.milli_stress_b));
-				stream.println(String.format("| L    | 1000000 | %1$20s | %2$20s |", r.micro_stress_c, r.milli_stress_c));
+				stream.println(String.format("| L    |    1000 | %1$20s | %2$20s |", p.micro("stress_1k"), p.milli("stress_1k")));
+				stream.println(String.format("| L    |  100000 | %1$20s | %2$20s |", p.micro("stress_100k"), p.milli("stress_100k")));
+				stream.println(String.format("| L    | 1000000 | %1$20s | %2$20s |", p.micro("stress_1m"), p.milli("stress_1m")));
 				stream.println(				 "+------+---------+----------------------+----------------------+");
 				stream.println("");
 			}
