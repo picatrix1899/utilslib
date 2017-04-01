@@ -18,24 +18,18 @@ public class Tests
 		{
 			new File("test.txt").createNewFile();
 			FileOutputStream fos = new FileOutputStream(new File("test.txt"));
+			PrintStream ps = new PrintStream(fos);
 			
-			printTest(TestValidateIsTrue.class, new PrintStream(fos));
-			System.out.println("completed");
-			printTest(TestValidateIsFalse.class, new PrintStream(fos));
-			System.out.println("completed");
-			printTest(TestValidateNotTrue.class, new PrintStream(fos));
-			System.out.println("completed");
-			printTest(TestValidateNotFalse.class, new PrintStream(fos));
-			System.out.println("completed");
-			printTest(TestValidateIsTrueMulti.class, new PrintStream(fos));
-			System.out.println("completed");
-			printTest(TestValidateIsFalseMulti.class, new PrintStream(fos));
-			System.out.println("completed");
-			printTest(TestValidateIsTrueOOO.class, new PrintStream(fos));
-			System.out.println("completed");
-			printTest(TestValidateIsFalseOOO.class, new PrintStream(fos));
-			System.out.println("completed");
 			
+			printTest(TestValidateIsTrue.class, ps);
+			printTest(TestValidateIsFalse.class, ps);
+			printTest(TestValidateNotTrue.class, ps);
+			printTest(TestValidateNotFalse.class, ps);
+			printTest(TestValidateIsTrueMulti.class, ps);
+			printTest(TestValidateIsFalseMulti.class, ps);
+			printTest(TestValidateIsTrueOOO.class, ps);
+			printTest(TestValidateIsFalseOOO.class, ps);
+			printTest(TestValidateIsAbove.class, ps);
 			
 			fos.flush();
 			fos.close();

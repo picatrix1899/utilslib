@@ -2,7 +2,7 @@ package cmn.utilslib.tests;
 
 import cmn.utilslib.exceptions.CaptureErrorHandler;
 import cmn.utilslib.testing.IUnitTest;
-import cmn.utilslib.validation.VE_isFalse;
+import cmn.utilslib.validation.VE_isAbove;
 import cmn.utilslib.validation.Validate;
 import cmn.utilslib.validation.ValidationException;
 
@@ -20,7 +20,7 @@ public class TestValidateIsAbove implements IUnitTest
 		ValidationException.resetErrorHandler();
 		
 		if(handler.getCount() == 1)
-			if(handler.getType(0).equals(VE_isFalse.class))
+			if(handler.getType(0).equals(VE_isAbove.class))
 				return true;
 		
 		return false;
@@ -38,7 +38,7 @@ public class TestValidateIsAbove implements IUnitTest
 		ValidationException.resetErrorHandler();
 		
 		if(handler.getCount() == 1)
-			if(handler.getType(0).equals(VE_isFalse.class))
+			if(handler.getType(0).equals(VE_isAbove.class))
 				return true;
 		
 		return false;
@@ -56,7 +56,7 @@ public class TestValidateIsAbove implements IUnitTest
 		ValidationException.resetErrorHandler();
 		
 		if(handler.getCount() == 1)
-			if(handler.getType(0).equals(VE_isFalse.class))
+			if(handler.getType(0).equals(VE_isAbove.class))
 				return true;
 		
 		return false;
