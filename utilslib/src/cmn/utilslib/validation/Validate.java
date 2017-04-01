@@ -56,6 +56,11 @@ public abstract class Validate
 	public static void isInBetween(float min, float max, float... values) { new VE_isInBetweenMulti(1, min, max, values); }
 	public static void isInBetween(double min, double max, double... values) { new VE_isInBetweenMulti(1, min, max, values); }
 	
+	public static void isInBetweenOOO(int min, int max, int... values) { new VE_isInBetweenOOO(1, min, max, values); }
+	public static void isInBetweenOOO(long min, long max, long... values) { new VE_isInBetweenOOO(1, min, max, values); }
+	public static void isInBetweenOOO(float min, float max, float... values) { new VE_isInBetweenOOO(1, min, max, values); }
+	public static void isInBetweenOOO(double min, double max, double... values) { new VE_isInBetweenOOO(1, min, max, values); }
+	
 	
 	
 	public static void isInRange(int min, int max, int value) { new VE_isInRange(1, min, max, value);  }
@@ -68,19 +73,44 @@ public abstract class Validate
 	public static void isInRange(float min, float max, float... values) { new VE_isInRangeMulti(1, min, max, values); }
 	public static void isInRange(double min, double max, double... values) { new VE_isInRangeMulti(1, min, max, values); }
 	
+	public static void isInRangeOOO(int min, int max, int... values) { new VE_isInRangeOOO(1, min, max, values); }
+	public static void isInRangeOOO(long min, long max, long... values) { new VE_isInRangeOOO(1, min, max, values); }
+	public static void isInRangeOOO(float min, float max, float... values) { new VE_isInRangeOOO(1, min, max, values); }
+	public static void isInRangeOOO(double min, double max, double... values) { new VE_isInRangeOOO(1, min, max, values); }
 	
 	
-	public static void isBelow(int threshold, int value) { new VE_isBelow(1, threshold, value);  }
-	public static void isBelow(long threshold, long value) { new VE_isBelow(1, threshold, value); }
-	public static void isBelow(float threshold, float value) { new VE_isBelow(1, threshold, value); }
-	public static void isBelow(double threshold, double value) { new VE_isBelow(1, threshold, value); }
+	
+	public static void isBelow(int min, int value) { new VE_isBelow(1, min, value);  }
+	public static void isBelow(long min, long value) { new VE_isBelow(1, min, value); }
+	public static void isBelow(float min, float value) { new VE_isBelow(1, min, value); }
+	public static void isBelow(double min, double value) { new VE_isBelow(1, min, value); }
+	
+	public static void isBelow(int min, int... values) { new VE_isBelowMulti(1, min, values);  }
+	public static void isBelow(long min, long... values) { new VE_isBelowMulti(1, min, values); }
+	public static void isBelow(float min, float... values) { new VE_isBelowMulti(1, min, values); }
+	public static void isBelow(double min, double... values) { new VE_isBelowMulti(1, min, values); }
+	
+	public static void isBelowOOO(int min, int... values) { new VE_isBelowOOO(1, min, values);  }
+	public static void isBelowOOO(long min, long... values) { new VE_isBelowOOO(1, min, values); }
+	public static void isBelowOOO(float min, float... values) { new VE_isBelowOOO(1, min, values); }
+	public static void isBelowOOO(double min, double... values) { new VE_isBelowOOO(1, min, values); }
 
 
 	
-	public static void isAbove(int threshold, int value) { new VE_isAbove(1, threshold, value); }
-	public static void isAbove(long threshold, long value) { new VE_isAbove(1, threshold, value);  }
-	public static void isAbove(float threshold, float value) { new VE_isAbove(1, threshold, value); }
-	public static void isAbove(double threshold, double value) { new VE_isAbove(1, threshold, value); }
+	public static void isAbove(int max, int value) { new VE_isAbove(1, max, value); }
+	public static void isAbove(long max, long value) { new VE_isAbove(1, max, value);  }
+	public static void isAbove(float max, float value) { new VE_isAbove(1, max, value); }
+	public static void isAbove(double max, double value) { new VE_isAbove(1, max, value); }
+	
+	public static void isAbove(int max, int... values) { new VE_isAboveMulti(1, max, values); }
+	public static void isAbove(long max, long... values) { new VE_isAboveMulti(1, max, values);  }
+	public static void isAbove(float max, float... values) { new VE_isAboveMulti(1, max, values); }
+	public static void isAbove(double max, double... values) { new VE_isAboveMulti(1, max, values); }
+	
+	public static void isAboveOOO(int max, int... values) { new VE_isAboveOOO(1, max, values); }
+	public static void isAboveOOO(long max, long... values) { new VE_isAboveOOO(1, max, values);  }
+	public static void isAboveOOO(float max, float... values) { new VE_isAboveOOO(1, max, values); }
+	public static void isAboveOOO(double max, double... values) { new VE_isAboveOOO(1, max, values); }
 	
 	
 	
@@ -143,6 +173,11 @@ public abstract class Validate
 	public static void notInBetween(float min, float max, float... values) { new VE_notInBetweenMulti(1, min, max, values); }
 	public static void notInBetween(double min, double max, double... values) { new VE_notInBetweenMulti(1, min, max, values); }
 	
+	public static void notInBetweenOOO(int min, int max, int... values) { new VE_notInBetweenOOO(1, min, max, values); }
+	public static void notInBetweenOOO(long min, long max, long... values) { new VE_notInBetweenOOO(1, min, max, values); }
+	public static void notInBetweenOOO(float min, float max, float... values) { new VE_notInBetweenOOO(1, min, max, values); }
+	public static void notInBetweenOOO(double min, double max, double... values) { new VE_notInBetweenOOO(1, min, max, values); }
+	
 
 	
 	public static void notInRange(int min, int max, int value) { new VE_notInRange(1, min, max, value); }
@@ -154,21 +189,46 @@ public abstract class Validate
 	public static void notInRange(long min, long max, long... values) { new VE_notInRangeMulti(1, min, max, values); }
 	public static void notInRange(float min, float max, float... values) { new VE_notInRangeMulti(1, min, max, values); }
 	public static void notInRange(double min, double max, double... values) { new VE_notInRangeMulti(1, min, max, values); }
+	
+	public static void notInRangeOOO(int min, int max, int... values) { new VE_notInRangeOOO(1, min, max, values); }
+	public static void notInRangeOOO(long min, long max, long... values) { new VE_notInRangeOOO(1, min, max, values); }
+	public static void notInRangeOOO(float min, float max, float... values) { new VE_notInRangeOOO(1, min, max, values); }
+	public static void notInRangeOOO(double min, double max, double... values) { new VE_notInRangeOOO(1, min, max, values); }
 
 	
 	
-	public static void notBelow(int threshold, int value) { new VE_notBelow(1, threshold, value); }
-	public static void notBelow(long threshold, long value) { new VE_notBelow(1, threshold, value); }
-	public static void notBelow(float threshold, float value) { new VE_notBelow(1, threshold, value); }
-	public static void notBelow(double threshold, double value) { new VE_notBelow(1, threshold, value); }
+	public static void notBelow(int min, int value) { new VE_notBelow(1, min, value); }
+	public static void notBelow(long min, long value) { new VE_notBelow(1, min, value); }
+	public static void notBelow(float min, float value) { new VE_notBelow(1, min, value); }
+	public static void notBelow(double min, double value) { new VE_notBelow(1, min, value); }
+	
+	public static void notBelow(int min, int... values) { new VE_notBelowMulti(1, min, values); }
+	public static void notBelow(long min, long... values) { new VE_notBelowMulti(1, min, values); }
+	public static void notBelow(float min, float... values) { new VE_notBelowMulti(1, min, values); }
+	public static void notBelow(double min, double... values) { new VE_notBelowMulti(1, min, values); }
+	
+	public static void notBelowOOO(int min, int... values) { new VE_notBelowOOO(1, min, values); }
+	public static void notBelowOOO(long min, long... values) { new VE_notBelowOOO(1, min, values); }
+	public static void notBelowOOO(float min, float... values) { new VE_notBelowOOO(1, min, values); }
+	public static void notBelowOOO(double min, double... values) { new VE_notBelowOOO(1, min, values); }
 
 
 	
-	public static void notAbove(int threshold, int value) { new VE_notAbove(1, threshold, value); }
-	public static void notAbove(long threshold, long value) { new VE_notAbove(1, threshold, value); }
-	public static void notAbove(float threshold, float value) { new VE_notAbove(1, threshold, value); }
-	public static void notAbove(double threshold, double value) { new VE_notAbove(1, threshold, value); }
+	public static void notAbove(int max, int value) { new VE_notAbove(1, max, value); }
+	public static void notAbove(long max, long value) { new VE_notAbove(1, max, value); }
+	public static void notAbove(float max, float value) { new VE_notAbove(1, max, value); }
+	public static void notAbove(double max, double value) { new VE_notAbove(1, max, value); }
+	
+	public static void notAbove(int max, int... values) { new VE_notAboveMulti(1, max, values); }
+	public static void notAbove(long max, long... values) { new VE_notAboveMulti(1, max, values); }
+	public static void notAbove(float max, float... values) { new VE_notAboveMulti(1, max, values); }
+	public static void notAbove(double max, double... values) { new VE_notAboveMulti(1, max, values); }
 
+	public static void notAboveOOO(int max, int... values) { new VE_notAboveOOO(1, max, values); }
+	public static void notAboveOOO(long max, long... values) { new VE_notAboveOOO(1, max, values); }
+	public static void notAboveOOO(float max, float... values) { new VE_notAboveOOO(1, max, values); }
+	public static void notAboveOOO(double max, double... values) { new VE_notAboveOOO(1, max, values); }
+	
 	
 	
 	public static void notEmpty(String str) { Validate.notEmpty(str, "Validate notEmpty: string is empty!"); }

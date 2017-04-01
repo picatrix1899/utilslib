@@ -9,56 +9,56 @@ public class VE_isAbove extends ValidationException
 
 	
 	
-	public VE_isAbove(int stackreduction, int threshold, int value)
+	public VE_isAbove(int stackreduction, int min, int value)
 	{
 		this();
 		
-		if(Check.notAbove(value, threshold))
+		if(Check.notAbove(min, value))
 		{
 			this.details.clear();
-			this.details.add("exclusive threshold: " + threshold);
+			this.details.add("exclusive minimum threshold: " + min);
 			this.details.add("value: " + value);
 			
 			super.handle(stackreduction);
 		}
 	}
 	
-	public VE_isAbove(int stackreduction, long threshold, long value)
+	public VE_isAbove(int stackreduction, long min, long value)
 	{
 		this();
 		
-		if(Check.notAbove(value, threshold))
+		if(Check.notAbove(min, value))
 		{
 			this.details.clear();
-			this.details.add("exclusive threshold: " + threshold + "L");
+			this.details.add("exclusive minimum threshold: " + min + "L");
 			this.details.add("value: " + value + "L");
 			
 			super.handle(stackreduction);
 		}
 	}
 	
-	public VE_isAbove(int stackreduction, float threshold, float value)
+	public VE_isAbove(int stackreduction, float min, float value)
 	{
 		this();
 		
-		if(Check.notAbove(value, threshold))
+		if(Check.notAbove(min, value))
 		{
 			this.details.clear();
-			this.details.add("exclusive threshold: " + threshold + "F");
+			this.details.add("exclusive minimum threshold: " + min + "F");
 			this.details.add("value: " + value + "F");
 			
 			super.handle(stackreduction);
 		}
 	}
 	
-	public VE_isAbove(int stackreduction, double threshold, double value)
+	public VE_isAbove(int stackreduction, double min, double value)
 	{
 		this();
 		
-		if(Check.notAbove(value, threshold))
+		if(Check.notAbove(min, value))
 		{
 			this.details.clear();
-			this.details.add("exclusive threshold: " + threshold + "D");
+			this.details.add("exclusive minimum threshold: " + min + "D");
 			this.details.add("value: " + value + "D");
 			
 			super.handle(stackreduction);

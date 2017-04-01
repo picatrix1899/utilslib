@@ -13,7 +13,7 @@ public class VE_notInBetween extends ValidationException
 	{
 		this();
 		
-		if(Check.isInBetween(value, min, max))
+		if(Check.isInBetween(min, max, value))
 		{
 			this.details.clear();
 			this.details.add("exclusive limits: [min: " + min + ", max: " + max + "]");
@@ -27,7 +27,7 @@ public class VE_notInBetween extends ValidationException
 	{
 		this();
 		
-		if(Check.isInBetween(value, min, max))
+		if(Check.isInBetween(min, max, value))
 		{
 			this.details.clear();
 			this.details.add("exclusive limits: [min: " + min + "L, max: " + max + "L]");
@@ -41,7 +41,7 @@ public class VE_notInBetween extends ValidationException
 	{
 		this();
 		
-		if(Check.isInBetween(value, min, max))
+		if(Check.isInBetween(min, max, value))
 		{
 			this.details.clear();
 			this.details.add("exclusive limits: [min: " + min + "F, max: " + max + "F]");
@@ -55,7 +55,7 @@ public class VE_notInBetween extends ValidationException
 	{
 		this();
 		
-		if(Check.isInBetween(value, min, max))
+		if(Check.isInBetween(min, max, value))
 		{
 			this.details.clear();
 			this.details.add("exclusive limits: [min: " + min + "D, max: " + max + "D]");

@@ -30,6 +30,9 @@ public class Tests
 			printTest(TestValidateIsTrueOOO.class, ps);
 			printTest(TestValidateIsFalseOOO.class, ps);
 			printTest(TestValidateIsAbove.class, ps);
+			printTest(TestValidateNotAbove.class, ps);
+			printTest(TestValidateIsBelow.class, ps);
+			printTest(TestValidateNotBelow.class, ps);
 			
 			fos.flush();
 			fos.close();

@@ -2,51 +2,53 @@ package cmn.utilslib.essentials;
 
 import java.util.List;
 
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 public class Check
 {
 	
-	public static boolean isTrue(boolean exp) { return exp; }
+	public static boolean isTrue(boolean expression) { return expression; }
 	
 	
 	
-	public static boolean isTrue(boolean... values)
+	public static boolean isTrue(boolean... expressions)
 	{
-		for(boolean val : values)
-			if(isFalse(val)) return false;
+		for(boolean expression : expressions)
+			if(isFalse(expression)) return false;
 		
 		return true;
 	}		
 	
 	
 	
-	public static boolean isTrueOOO(boolean... values)
+	public static boolean isTrueOOO(boolean... expressions)
 	{
-		for(boolean val : values)
-			if(isTrue(val)) return true;
+		for(boolean expression : expressions)
+			if(isTrue(expression)) return true;
 		
 		return false;
 	}		
 	
 	
 	
-	public static boolean isFalse(boolean exp) { return !exp; }
+	public static boolean isFalse(boolean expression) { return !expression; }
 	
 	
 
-	public static boolean isFalse(boolean... values)
+	public static boolean isFalse(boolean... expressions)
 	{
-		for(boolean val : values)
-			if(isTrue(val)) return false;
+		for(boolean expression : expressions)
+			if(isTrue(expression)) return false;
 		
 		return true;
 	}
 	
 
 	
-	public static boolean isFalseOOO(boolean... values)
+	public static boolean isFalseOOO(boolean... expressions)
 	{
-		for(boolean val : values)
-			if(isFalse(val)) return true;
+		for(boolean expression : expressions)
+			if(isFalse(expression)) return true;
 		
 		return false;
 	}
@@ -66,52 +68,52 @@ public class Check
 	
 	public static boolean isEqual(boolean expected, boolean... values)
 	{
-		for(boolean val : values)
-			if(Check.notEqual(expected, val)) return false;
+		for(boolean value : values)
+			if(Check.notEqual(expected, value)) return false;
 		
 		return true;
 	}
 	public static boolean isEqual(int expected, int... values)
 	{
-		for(int val : values)
-			if(Check.notEqual(expected, val)) return false;
+		for(int value : values)
+			if(Check.notEqual(expected, value)) return false;
 		
 		return true;
 	}
 	public static boolean isEqual(long expected, long... values)
 	{
-		for(long val : values)
-			if(Check.notEqual(expected, val)) return false;
+		for(long value : values)
+			if(Check.notEqual(expected, value)) return false;
 		
 		return true;
 	}
 	public static boolean isEqual(float expected, float...values)
 	{
-		for(float val : values)
-			if(Check.notEqual(expected, val)) return false;
+		for(float value : values)
+			if(Check.notEqual(expected, value)) return false;
 		
 		return true;
 	}
 	public static boolean isEqual(double expected, double... values)
 	{
-		for(double val : values)
-			if(Check.notEqual(expected, val)) return false;
+		for(double value : values)
+			if(Check.notEqual(expected, value)) return false;
 		
 		return true;
 	}
 	
 	public static boolean isEqual(String expected, String... values)
 	{
-		for(String val : values)
-			if(Check.notEqual(expected, val)) return false;
+		for(String value : values)
+			if(Check.notEqual(expected, value)) return false;
 		
 		return true;
 	}
 	@SafeVarargs
 	public static <A> boolean isEqual(A expected, A... values)
 	{
-		for(A val : values)
-			if(Check.notEqual(expected, val)) return false;
+		for(A value : values)
+			if(Check.notEqual(expected, value)) return false;
 		
 		return true;
 	}
@@ -120,68 +122,67 @@ public class Check
 	
 	public static boolean isEqualOOO(boolean expected, boolean... values)
 	{
-		for(boolean val : values)
-			if(Check.isEqual(expected, val)) return true;
+		for(boolean value : values)
+			if(Check.isEqual(expected, value)) return true;
 		
 		return false;
 	}
 	public static boolean isEqualOOO(int expected, int... values)
 	{
-		for(int val : values)
-			if(Check.isEqual(expected, val)) return true;
+		for(int value : values)
+			if(Check.isEqual(expected, value)) return true;
 		
 		return false;
 	}
 	public static boolean isEqualOOO(long expected, long... values)
 	{
-		for(long val : values)
-			if(Check.isEqual(expected, val)) return true;
+		for(long value : values)
+			if(Check.isEqual(expected, value)) return true;
 		
 		return false;
 	}
 	public static boolean isEqualOOO(float expected, float... values)
 	{
-		for(float val : values)
-			if(Check.isEqual(expected, val)) return true;
+		for(float value : values)
+			if(Check.isEqual(expected, value)) return true;
 		
 		return false;
 	}
 	public static boolean isEqualOOO(double expected, double... values)
 	{
-		for(double val : values)
-			if(Check.isEqual(expected, val)) return true;
+		for(double value : values)
+			if(Check.isEqual(expected, value)) return true;
 		
 		return false;
 	}
 	
 	public static boolean isEqualOOO(String expected, String... values)
 	{
-		for(String val : values)
-			if(Check.isEqual(expected, val)) return true;
+		for(String value : values)
+			if(Check.isEqual(expected, value)) return true;
 		
 		return false;
 	}
 	@SafeVarargs
 	public static <A> boolean isEqualOOO(A expected, A... values)
 	{
-		for(A val : values)
-			if(Check.isEqual(expected, val)) return true;
+		for(A value : values)
+			if(Check.isEqual(expected, value)) return true;
 		
 		return false;
 	}
 	
 	
 	
-	
-	public static <A> boolean isNull(A obj) { return obj == null; }
+	public static <A> boolean isNull(A object) { return object == null; }
 	
 	
 	
 	@SafeVarargs
-	public static <A> boolean isNull(A... values)
+	public static <A> boolean isNull(A... objects)
 	{
-		for(A val : values)
-			if(Check.notNull(val)) return false;
+		for(A object : objects)
+			if(Check.notNull(object)) return false;
 		
 		return true;
 	}
@@ -189,41 +190,217 @@ public class Check
 	
 	
 	@SafeVarargs
-	public static <A> boolean isNullOOO(A... values)
+	public static <A> boolean isNullOOO(A... objects)
 	{
-		for(A val : values)
-			if(Check.isNull(val)) return true;
+		for(A object : objects)
+			if(Check.isNull(object)) return true;
 		
 		return false;
 	}
 
 
 	
-	public static boolean isInBetween(int i, int min, int max) { return min < i && i < max; }
-	public static boolean isInBetween(long i, long min, long max) { return min < i && i < max; }
-	public static boolean isInBetween(float i, float min, float max) { return min < i && i < max; }	
-	public static boolean isInBetween(double i, double min, double max) { return min < i && i < max; }
+	public static boolean isInBetween(int min, int max, int value) { return min < value && value < max; }
+	public static boolean isInBetween(long min, long max, long value) { return min < value && value < max; }
+	public static boolean isInBetween(float min, float max, float value) { return min < value && value < max; }	
+	public static boolean isInBetween(double min, double max, double value) { return min < value && value < max; }
 	
 	
 	
-	public static boolean isInRange(int i, int min, int max) { return min <= i && i <= max; }
-	public static boolean isInRange(long i, long min, long max) { return min <= i && i <= max; }
-	public static boolean isInRange(float i, float min, float max) { return min <= i && i <= max; }	
-	public static boolean isInRange(double i, double min, double max) { return min <= i && i <= max; }
+	public static boolean isInBetween(int min, int max, int... values)
+	{
+		throw new NotImplementedException();
+	}
+	
+	public static boolean isInBetween(long min, long max, long... values)
+	{
+		throw new NotImplementedException();
+	}
+	
+	public static boolean isInBetween(float min, float max, float... values)
+	{
+		throw new NotImplementedException();
+	}
+	
+	public static boolean isInBetween(double min, double max, double... values)
+	{
+		throw new NotImplementedException();
+	}
 	
 	
 	
-	public static boolean isBelow(int i, int min) { return i < min; }
-	public static boolean isBelow(long i, long min) { return i < min; }
-	public static boolean isBelow(float i, float min) { return i < min;}
-	public static boolean isBelow(double i, double min) { return i < min; }
+	public static boolean isInBetweenOOO(int min, int max, int... values)
+	{
+		throw new NotImplementedException();
+	}
+	
+	public static boolean isInBetweenOOO(long min, long max, long... values)
+	{
+		throw new NotImplementedException();
+	}
+	
+	public static boolean isInBetweenOOO(float min, float max, float... values)
+	{
+		throw new NotImplementedException();
+	}
+	
+	public static boolean isInBetweenOOO(double min, double max, double... values)
+	{
+		throw new NotImplementedException();
+	}
 	
 	
 	
-	public static boolean isAbove(int i, int max) { return i > max; }
-	public static boolean isAbove(long i, long max) { return i >  max; }
-	public static boolean isAbove(float i, float max) { return i > max; }
-	public static boolean isAbove(double i, double max) { return i > max; }
+	public static boolean isInRange(int min, int max, int value) { return min <= value && value <= max; }
+	public static boolean isInRange(long min, long max, long value) { return min <= value && value <= max; }
+	public static boolean isInRange(float min, float max, float value) { return min <= value && value <= max; }	
+	public static boolean isInRange(double min, double max, double value) { return min <= value && value <= max; }
+	
+	
+	
+	public static boolean isInRange(int min, int max, int... values)
+	{
+		throw new NotImplementedException();
+	}
+	
+	public static boolean isInRange(long min, long max, long... values)
+	{
+		throw new NotImplementedException();
+	}
+	
+	public static boolean isInRange(float min, float max, float... values)
+	{
+		throw new NotImplementedException();
+	}
+	
+	public static boolean isInRange(double min, double max, double... values)
+	{
+		throw new NotImplementedException();
+	}
+	
+	
+	
+	public static boolean isInRangeOOO(int min, int max, int... values)
+	{
+		throw new NotImplementedException();
+	}
+	
+	public static boolean isInRangeOOO(long min, long max, long... values)
+	{
+		throw new NotImplementedException();
+	}
+	
+	public static boolean isInRangeOOO(float min, float max, float... values)
+	{
+		throw new NotImplementedException();
+	}
+	
+	public static boolean isInRangeOOO(double min, double max, double... values)
+	{
+		throw new NotImplementedException();
+	}
+	
+	
+	
+	public static boolean isBelow(int max, int value) { return value < max; }
+	public static boolean isBelow(long max, long value) { return value < max; }
+	public static boolean isBelow(float max, float value) { return value < max;}
+	public static boolean isBelow(double max, double value) { return value < max; }
+	
+	
+	
+	public static boolean isBelow(int max, int... values)
+	{
+		throw new NotImplementedException();
+	}
+	
+	public static boolean isBelow(long max, long... values)
+	{
+		throw new NotImplementedException();
+	}
+	
+	public static boolean isBelow(float max, float... values)
+	{
+		throw new NotImplementedException();
+	}
+	
+	public static boolean isBelow(double max, double... values)
+	{
+		throw new NotImplementedException();
+	}
+	
+	
+	
+	public static boolean isBelowOOO(int max, int... values)
+	{
+		throw new NotImplementedException();
+	}
+	
+	public static boolean isBelowOOO(long max, long... values)
+	{
+		throw new NotImplementedException();
+	}
+	
+	public static boolean isBelowOOO(float max, float... values)
+	{
+		throw new NotImplementedException();
+	}
+	
+	public static boolean isBelowOOO(double max, double... values)
+	{
+		throw new NotImplementedException();
+	}
+	
+	
+	
+	public static boolean isAbove(int min, int value) { return value > min; }
+	public static boolean isAbove(long min, long value) { return value >  min; }
+	public static boolean isAbove(float min, float value) { return value > min; }
+	public static boolean isAbove(double min, double value) { return value > min; }
+	
+	
+
+	public static boolean isAbove(int min, int... values)
+	{
+		throw new NotImplementedException();
+	}
+	
+	public static boolean isAbove(long min, long... values)
+	{
+		throw new NotImplementedException();
+	}
+	
+	public static boolean isAbove(float min, float... values)
+	{
+		throw new NotImplementedException();
+	}
+	
+	public static boolean isAbove(double min, double... values)
+	{
+		throw new NotImplementedException();
+	}
+	
+	
+	
+	public static boolean isAboveOOO(int min, int... values)
+	{
+		throw new NotImplementedException();
+	}
+	
+	public static boolean isAboveOOO(long min, long... values)
+	{
+		throw new NotImplementedException();
+	}
+	
+	public static boolean isAboveOOO(float min, float... values)
+	{
+		throw new NotImplementedException();
+	}
+	
+	public static boolean isAboveOOO(double min, double... values)
+	{
+		throw new NotImplementedException();
+	}
 	
 	
 
@@ -240,20 +417,20 @@ public class Check
 	
 	
 	
-	public static boolean notTrue(boolean... values)
+	public static boolean notTrue(boolean... expressions)
 	{
-		for(boolean val : values)
-			if(notFalse(val)) return false;
+		for(boolean expression : expressions)
+			if(notFalse(expression)) return false;
 		
 		return true;
 	}		
 	
 	
 	
-	public static boolean notTrueOOO(boolean... values)
+	public static boolean notTrueOOO(boolean... expressions)
 	{
-		for(boolean val : values)
-			if(notTrue(val)) return true;
+		for(boolean expression : expressions)
+			if(notTrue(expression)) return true;
 		
 		return false;
 	}	
@@ -264,20 +441,20 @@ public class Check
 	
 	
 	
-	public static boolean notFalse(boolean... values)
+	public static boolean notFalse(boolean... expressions)
 	{
-		for(boolean val : values)
-			if(notTrue(val)) return false;
+		for(boolean expression : expressions)
+			if(notTrue(expression)) return false;
 		
 		return true;
 	}
 	
 
 	
-	public static boolean notFalseOOO(boolean... values)
+	public static boolean notFalseOOO(boolean... expressions)
 	{
-		for(boolean val : values)
-			if(notFalse(val)) return true;
+		for(boolean expression : expressions)
+			if(notFalse(expression)) return true;
 		
 		return false;
 	}
@@ -297,52 +474,52 @@ public class Check
 	
 	public static boolean notEqual(boolean expected, boolean... values)
 	{
-		for(boolean val : values)
-			if(Check.isEqual(expected, val)) return false;
+		for(boolean value : values)
+			if(Check.isEqual(expected, value)) return false;
 		
 		return true;
 	}
 	public static boolean notEqual(int expected, int... values)
 	{
-		for(int val : values)
-			if(Check.isEqual(expected, val)) return false;
+		for(int value : values)
+			if(Check.isEqual(expected, value)) return false;
 		
 		return true;
 	}
 	public static boolean notEqual(long expected, long... values)
 	{
-		for(long val : values)
-			if(Check.isEqual(expected, val)) return false;
+		for(long value : values)
+			if(Check.isEqual(expected, value)) return false;
 		
 		return true;
 	}
 	public static boolean notEqual(float expected, float...values)
 	{
-		for(float val : values)
-			if(Check.isEqual(expected, val)) return false;
+		for(float value : values)
+			if(Check.isEqual(expected, value)) return false;
 		
 		return true;
 	}
 	public static boolean notEqual(double expected, double... values)
 	{
-		for(double val : values)
-			if(Check.isEqual(expected, val)) return false;
+		for(double value : values)
+			if(Check.isEqual(expected, value)) return false;
 		
 		return true;
 	}
 	
 	public static boolean notEqual(String expected, String... values)
 	{
-		for(String val : values)
-			if(Check.isEqual(expected, val)) return false;
+		for(String value : values)
+			if(Check.isEqual(expected, value)) return false;
 		
 		return true;
 	}
 	@SafeVarargs
 	public static <A> boolean notEqual(A expected, A... values)
 	{
-		for(A val : values)
-			if(Check.isEqual(expected, val)) return false;
+		for(A value : values)
+			if(Check.isEqual(expected, value)) return false;
 		
 		return true;
 	}
@@ -351,67 +528,67 @@ public class Check
 	
 	public static boolean notEqualOOO(boolean expected, boolean... values)
 	{
-		for(boolean val : values)
-			if(Check.notEqual(expected, val)) return true;
+		for(boolean value : values)
+			if(Check.notEqual(expected, value)) return true;
 		
 		return false;
 	}
 	public static boolean notEqualOOO(int expected, int... values)
 	{
-		for(int val : values)
-			if(Check.notEqual(expected, val)) return true;
+		for(int value : values)
+			if(Check.notEqual(expected, value)) return true;
 		
 		return false;
 	}
 	public static boolean notEqualOOO(long expected, long... values)
 	{
-		for(long val : values)
-			if(Check.notEqual(expected, val)) return true;
+		for(long value : values)
+			if(Check.notEqual(expected, value)) return true;
 		
 		return false;
 	}
 	public static boolean notEqualOOO(float expected, float... values)
 	{
-		for(float val : values)
-			if(Check.notEqual(expected, val)) return true;
+		for(float value : values)
+			if(Check.notEqual(expected, value)) return true;
 		
 		return false;
 	}
 	public static boolean notEqualOOO(double expected, double... values)
 	{
-		for(double val : values)
-			if(Check.notEqual(expected, val)) return true;
+		for(double value : values)
+			if(Check.notEqual(expected, value)) return true;
 		
 		return false;
 	}
 	
 	public static boolean notEqualOOO(String expected, String... values)
 	{
-		for(String val : values)
-			if(Check.notEqual(expected, val)) return true;
+		for(String value : values)
+			if(Check.notEqual(expected, value)) return true;
 		
 		return false;
 	}
 	@SafeVarargs
 	public static <A> boolean notEqualOOO(A expected, A... values)
 	{
-		for(A val : values)
-			if(Check.notEqual(expected, val)) return true;
+		for(A value : values)
+			if(Check.notEqual(expected, value)) return true;
 		
 		return false;
 	}
 	
 	
 	
-	public static <A> boolean notNull(A obj) { return !isNull(obj); }
+	public static <A> boolean notNull(A object) { return !isNull(object); }
 	
 	
 	
 	@SafeVarargs
-	public static <A> boolean notNull(A... values)
+	public static <A> boolean notNull(A... objects)
 	{
-		for(A val : values)
-			if(Check.isNull(val)) return false;
+		for(A object : objects)
+			if(Check.isNull(object)) return false;
 		
 		return true;
 	}
@@ -419,41 +596,217 @@ public class Check
 	
 	
 	@SafeVarargs
-	public static <A> boolean notNullOOO(A... values)
+	public static <A> boolean notNullOOO(A... objects)
 	{
-		for(A val : values)
-			if(Check.notNull(val)) return true;
+		for(A object : objects)
+			if(Check.notNull(object)) return true;
 		
 		return false;
 	}
 
 	
 
-	public static boolean notInBetween(int i, int min, int max) { return !isInBetween(i, min, max); }
-	public static boolean notInBetween(long l, long min, long max) { return !isInBetween(l, min, max); }
-	public static boolean notInBetween(float f, float min, float max) { return !isInBetween(f, min, max); }	
-	public static boolean notInBetween(double d, double min, double max) { return !isInBetween(d, min, max); }
+	public static boolean notInBetween(int min, int max, int value) { return !isInBetween(min, max, value); }
+	public static boolean notInBetween(long min, long max, long value) { return !isInBetween(min, max, value); }
+	public static boolean notInBetween(float min, float max, float value) { return !isInBetween(min, max, value); }	
+	public static boolean notInBetween(double min, double max, double value) { return !isInBetween(min, max, value); }
+	
+	
+	
+	public static boolean notInBetween(int min, int max, int... values)
+	{
+		throw new NotImplementedException();
+	}
+	
+	public static boolean notInBetween(long min, long max, long... values)
+	{
+		throw new NotImplementedException();
+	}
+	
+	public static boolean notInBetween(float min, float max, float... values)
+	{
+		throw new NotImplementedException();
+	}
+	
+	public static boolean notInBetween(double min, double max, double... values)
+	{
+		throw new NotImplementedException();
+	}
+	
+	
+	
+	public static boolean notInBetweenOOO(int min, int max, int... values)
+	{
+		throw new NotImplementedException();
+	}
+	
+	public static boolean notInBetweenOOO(long min, long max, long... values)
+	{
+		throw new NotImplementedException();
+	}
+	
+	public static boolean notInBetweenOOO(float min, float max, float... values)
+	{
+		throw new NotImplementedException();
+	}
+	
+	public static boolean notInBetweenOOO(double min, double max, double... values)
+	{
+		throw new NotImplementedException();
+	}
+
+	
+	
+	public static boolean notInRange(int min, int max, int value) { return !isInRange(min, max, value); }
+	public static boolean notInRange(long min, long max, long value) { return !isInRange(min, max, value); }
+	public static boolean notInRange(float min, float max, float value) { return !isInRange(min, max, value); }	
+	public static boolean notInRange(double min, double max, double value) { return !isInRange(min, max, value); }
 	
 
 	
-	public static boolean notInRange(int i, int min, int max) { return !isInRange(i, min, max); }
-	public static boolean notInRange(long l, long min, long max) { return !isInRange(l, min, max); }
-	public static boolean notInRange(float f, float min, float max) { return !isInRange(f, min, max); }	
-	public static boolean notInRange(double d, double min, double max) { return !isInRange(d, min, max); }
+	public static boolean notInRange(int min, int max, int... values)
+	{
+		throw new NotImplementedException();
+	}
+	
+	public static boolean notInRange(long min, long max, long... values)
+	{
+		throw new NotImplementedException();
+	}
+	
+	public static boolean notInRange(float min, float max, float... values)
+	{
+		throw new NotImplementedException();
+	}
+	
+	public static boolean notInRange(double min, double max, double... values)
+	{
+		throw new NotImplementedException();
+	}
+	
+	
+	
+	public static boolean notInRangeOOO(int min, int max, int... values)
+	{
+		throw new NotImplementedException();
+	}
+	
+	public static boolean notInRangeOOO(long min, long max, long... values)
+	{
+		throw new NotImplementedException();
+	}
+	
+	public static boolean notInRangeOOO(float min, float max, float... values)
+	{
+		throw new NotImplementedException();
+	}
+	
+	public static boolean notInRangeOOO(double min, double max, double... values)
+	{
+		throw new NotImplementedException();
+	}
+	
+	
+	
+	public static boolean notBelow(int max, int value) { return !isBelow(max, value); }
+	public static boolean notBelow(long max, long value) { return !isBelow(max, value); }
+	public static boolean notBelow(float max, float value) { return !isBelow(max, value); }
+	public static boolean notBelow(double max, double value) { return !isBelow(max, value); }
 	
 
 	
-	public static boolean notBelow(int i, int min) { return !isBelow(i, min); }
-	public static boolean notBelow(long l, long min) { return !isBelow(l, min); }
-	public static boolean notBelow(float f, float min) { return !isBelow(f, min); }
-	public static boolean notBelow(double d, double min) { return !isBelow(d, min); }
+	public static boolean notBelow(int max, int... values)
+	{
+		throw new NotImplementedException();
+	}
 	
-
+	public static boolean notBelow(long max, long... values)
+	{
+		throw new NotImplementedException();
+	}
 	
-	public static boolean notAbove(int i, int max) { return !isAbove(i, max); }
-	public static boolean notAbove(long l, long max) { return !isAbove(l, max); }
-	public static boolean notAbove(float f, float max) { return !isAbove(f, max); }
-	public static boolean notAbove(double d, double max) { return !isAbove(d, max); }
+	public static boolean notBelow(float max, float... values)
+	{
+		throw new NotImplementedException();
+	}
+	
+	public static boolean notBelow(double max, double... values)
+	{
+		throw new NotImplementedException();
+	}
+	
+	
+	
+	public static boolean notBelowOOO(int max, int... values)
+	{
+		throw new NotImplementedException();
+	}
+	
+	public static boolean notBelowOOO(long max, long... values)
+	{
+		throw new NotImplementedException();
+	}
+	
+	public static boolean notBelowOOO(float max, float... values)
+	{
+		throw new NotImplementedException();
+	}
+	
+	public static boolean notBelowOOO(double max, double... values)
+	{
+		throw new NotImplementedException();
+	}
+	
+	
+	
+	public static boolean notAbove(int min, int value) { return !isAbove(min, value); }
+	public static boolean notAbove(long min, long value) { return !isAbove(min, value); }
+	public static boolean notAbove(float min, float value) { return !isAbove(min, value); }
+	public static boolean notAbove(double min, double value) { return !isAbove(min, value); }
+	
+	
+	
+	public static boolean notAbove(int min, int... values)
+	{
+		throw new NotImplementedException();
+	}
+	
+	public static boolean notAbove(long min, long... values)
+	{
+		throw new NotImplementedException();
+	}
+	
+	public static boolean notAbove(float min, float... values)
+	{
+		throw new NotImplementedException();
+	}
+	
+	public static boolean notAbove(double min, double... values)
+	{
+		throw new NotImplementedException();
+	}
+	
+	
+	
+	public static boolean notAboveOOO(int min, int... values)
+	{
+		throw new NotImplementedException();
+	}
+	
+	public static boolean notAboveOOO(long min, long... values)
+	{
+		throw new NotImplementedException();
+	}
+	
+	public static boolean notAboveOOO(float min, float... values)
+	{
+		throw new NotImplementedException();
+	}
+	
+	public static boolean notAboveOOO(double min, double... values)
+	{
+		throw new NotImplementedException();
+	}
 	
 	
 
