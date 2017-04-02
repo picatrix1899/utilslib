@@ -10,11 +10,7 @@ import cmn.utilslib.interfaces.IObjectable;
  */
 public class Pair4<A,B,C,D> implements IPair4<Pair4<A,B,C,D>,A,B,C,D>, IObjectable<Pair4<A,B,C,D>>
 {
-	
-	/** Number of entries */
-	public static final int DIMENSIONS = 4;
 
-	
 	private A a = null;
 	private B b = null;
 	private C c = null;

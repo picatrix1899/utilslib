@@ -44,6 +44,24 @@ public class TestValidateNotAboveOOO implements IUnitTest
 		return false;
 	}
 	
+	@IUnitTest.Test("FunctionalityTest(Long) -")
+	public boolean testNegativeLong()
+	{
+		CaptureErrorHandler handler = new CaptureErrorHandler();
+		
+		ValidationException.setErrorHandler(handler);
+		{
+			Validate.notAboveOOO(1l, 2l, 2l, 2l, 2l, 2l, 2l, 2l, 2l, 2l);
+		}
+		ValidationException.resetErrorHandler();
+		
+		if(handler.getCount() == 1)
+			if(handler.getType(0).equals(VE_notAboveOOO.class))
+				return true;
+		
+		return false;
+	}
+	
 	@IUnitTest.Test("FunctionalityTest(Double) -")
 	public boolean testNegativeDouble()
 	{
@@ -87,6 +105,23 @@ public class TestValidateNotAboveOOO implements IUnitTest
 		ValidationException.setErrorHandler(handler);
 		{
 			Validate.isAboveOOO(1, -1, 2, 2, 2, 2, 2, 2, 2, 2);
+		}
+		ValidationException.resetErrorHandler();
+		
+		if(handler.getCount() == 0)
+				return true;
+		
+		return false;
+	}
+	
+	@IUnitTest.Test("FunctionalityTest(Long) +")
+	public boolean testPositiveLong()
+	{
+		CaptureErrorHandler handler = new CaptureErrorHandler();
+		
+		ValidationException.setErrorHandler(handler);
+		{
+			Validate.isAboveOOO(1l, -1l, 2l, 2l, 2l, 2l, 2l, 2l, 2l, 2l);
 		}
 		ValidationException.resetErrorHandler();
 		

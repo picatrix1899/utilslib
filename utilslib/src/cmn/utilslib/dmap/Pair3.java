@@ -8,12 +8,8 @@ import cmn.utilslib.interfaces.IObjectable;
  * 
  * @author picatrix1899
  */
-public class Pair3<A,B,C>implements IPair3<Pair3<A,B,C>,A,B,C>, IObjectable<Pair3<A,B,C>>
+public class Pair3<A,B,C> implements IPair3<Pair3<A,B,C>,A,B,C>, IObjectable<Pair3<A,B,C>>
 {
-	
-	/** Number of entries */
-	public static final int DIMENSIONS = 3;
-
 	
 	private A a = null;
 	private B b = null;

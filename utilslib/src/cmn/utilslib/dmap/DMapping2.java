@@ -6,6 +6,7 @@ package cmn.utilslib.dmap;
 import java.util.ArrayList;
 import java.util.List;
 
+import cmn.utilslib.dmap.IDMapping2Foundation.IDMapping2;
 import cmn.utilslib.essentials.Auto;
 import cmn.utilslib.essentials.Check;
 import cmn.utilslib.essentials.ListUtils;
@@ -17,21 +18,17 @@ import cmn.utilslib.essentials.ListUtils;
  * @author picatrix1899
  *
  */
-public class DMapping2<A,B>
+public class DMapping2<A,B> implements IDMapping2<DMapping2<A,B>,A,B>
 {
 	
-	public static final short DIMENSIONS = 2;
+	private ArrayList<A> a = Auto.ArrayList();
+	private ArrayList<B> b = Auto.ArrayList();
+	
+	private int size = 0;
 	
 	
 	
-	protected ArrayList<A> a = Auto.ArrayList();
-	protected ArrayList<B> b = Auto.ArrayList();
-	
-	protected int size = 0;
-	
-	
-	
-	public DMapping2<A,B> set(int index, Pair2<A,B> entry)  { return set(index, entry.getA(), entry.getB()); }
+	public DMapping2<A,B> set(int index, IPair2Base<A,B> entry)  { return set(index, entry.getA(), entry.getB()); }
 	
 	public DMapping2<A,B> set(int index, A a, B b) 
 	{
@@ -107,7 +104,7 @@ public class DMapping2<A,B>
 	
 	
 	
-	public DMapping2<A,B> add(Pair2<A,B> entry) { return add(entry.getA(), entry.getB()); }
+	public DMapping2<A,B> add(IPair2Base<A,B> entry) { return add(entry.getA(), entry.getB()); }
 	
 	public DMapping2<A,B> add(A a, B b)
 	{
@@ -135,7 +132,7 @@ public class DMapping2<A,B>
 	
 
 	
-	public int indexOf(Pair2<A,B> m) { return indexOf(m.getA(), m.getB()); }
+	public int indexOf(IPair2Base<A,B> m) { return indexOf(m.getA(), m.getB()); }
 	
 	public int indexOf(A a, B b)
 	{
@@ -164,7 +161,7 @@ public class DMapping2<A,B>
 	
 	public boolean contains(A a, B b) { return indexOf(a,b) == -1 ? false : true; }
 	
-	public boolean contains(Pair2<A,B> entry) { return contains(entry.getA(),entry.getB()); }	
+	public boolean contains(IPair2Base<A,B> entry) { return contains(entry.getA(),entry.getB()); }	
 	
 	
 	public boolean containsA(A a) { return this.a.contains(a); }

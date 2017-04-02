@@ -2,7 +2,7 @@ package cmn.utilslib.tests;
 
 import cmn.utilslib.exceptions.CaptureErrorHandler;
 import cmn.utilslib.testing.IUnitTest;
-import cmn.utilslib.validation.VE_notTrueMulti;
+import cmn.utilslib.validation.VE_notTrueOOO;
 import cmn.utilslib.validation.Validate;
 import cmn.utilslib.validation.ValidationException;
 
@@ -20,7 +20,7 @@ public class TestValidateNotTrueOOO implements IUnitTest
 		ValidationException.resetErrorHandler();
 		
 		if(handler.getCount() == 1)
-			if(handler.getType(0).equals(VE_notTrueMulti.class))
+			if(handler.getType(0).equals(VE_notTrueOOO.class))
 				return true;
 		
 		return false;

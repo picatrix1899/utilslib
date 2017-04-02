@@ -6,6 +6,7 @@ package cmn.utilslib.dmap;
 import java.util.ArrayList;
 import java.util.List;
 
+import cmn.utilslib.dmap.IDMapping4Foundation.IDMapping4;
 import cmn.utilslib.essentials.Auto;
 import cmn.utilslib.essentials.Check;
 import cmn.utilslib.essentials.ListUtils;
@@ -19,21 +20,19 @@ import cmn.utilslib.essentials.PrimeUtils;
  * @author picatrix1899
  *
  */
-public class DMapping4<A,B,C,D>
+public class DMapping4<A,B,C,D> implements IDMapping4<DMapping4<A,B,C,D>,A,B,C,D>
 {
 
-	public static final short DIMENSIONS = 4;
+	private ArrayList<A> a = Auto.ArrayList();
+	private ArrayList<B> b = Auto.ArrayList();
+	private ArrayList<C> c = Auto.ArrayList();
+	private ArrayList<D> d = Auto.ArrayList();
 	
-	protected ArrayList<A> a = Auto.ArrayList();
-	protected ArrayList<B> b = Auto.ArrayList();
-	protected ArrayList<C> c = Auto.ArrayList();
-	protected ArrayList<D> d = Auto.ArrayList();
-	
-	protected int size = 0;
+	private int size = 0;
 	
 	
 	
-	public DMapping4<A,B,C,D> set(int index, Pair4<A,B,C,D> entry) { return set(index, entry.getA(), entry.getB(), entry.getC(), entry.getD()); }
+	public DMapping4<A,B,C,D> set(int index, IPair4Base<A,B,C,D> entry) { return set(index, entry.getA(), entry.getB(), entry.getC(), entry.getD()); }
 	
 	public DMapping4<A,B,C,D> set(int index, A a, B b,C c, D d) 
 	{
@@ -86,6 +85,8 @@ public class DMapping4<A,B,C,D>
 	public Pair4<A,B,C,D> getbyB(B b) { return (!containsB(b)) ? null : get(indexOfB(b)); }
 	
 	public Pair4<A,B,C,D> getbyC(C c) { return (!containsC(c)) ? null : get(indexOfC(c)); }
+	
+	public Pair4<A,B,C,D> getbyD(D d) { return (!containsD(d)) ? null : get(indexOfD(d)); }
 	
 	
 	
@@ -553,7 +554,7 @@ public class DMapping4<A,B,C,D>
 	
 	
 	
-	public DMapping4<A,B,C,D> add(Pair4<A,B,C,D> entry) { return add(entry.getA(), entry.getB(), entry.getC(), entry.getD()); }
+	public DMapping4<A,B,C,D> add(IPair4Base<A,B,C,D> entry) { return add(entry.getA(), entry.getB(), entry.getC(), entry.getD()); }
 	
 	public DMapping4<A,B,C,D> add(A a, B b,C c, D d)
 	{
@@ -779,7 +780,7 @@ public class DMapping4<A,B,C,D>
 	
 	
 
-	public int indexOf(Pair4<A,B,C,D> m) { return indexOf(m.getA(), m.getB(), m.getC(), m.getD()); }
+	public int indexOf(IPair4Base<A,B,C,D> m) { return indexOf(m.getA(), m.getB(), m.getC(), m.getD()); }
 	
 	public int indexOf(A a, B b, C c, D d)
 	{
@@ -806,7 +807,7 @@ public class DMapping4<A,B,C,D>
 	
 	public boolean contains(A a,B b,C c, D d) { return indexOf(a, b, c, d) == -1 ? false : true; }
 	
-	public boolean contains(Pair4<A,B,C,D> m) { return contains(m.getA(), m.getB(), m.getC(), m.getD()); }
+	public boolean contains(IPair4Base<A,B,C,D> m) { return contains(m.getA(), m.getB(), m.getC(), m.getD()); }
 	
 	
 	

@@ -44,6 +44,24 @@ public class TestValidateIsBelow implements IUnitTest
 		return false;
 	}
 	
+	@IUnitTest.Test("FunctionalityTest(Long) -")
+	public boolean testNegativeLong()
+	{
+		CaptureErrorHandler handler = new CaptureErrorHandler();
+		
+		ValidationException.setErrorHandler(handler);
+		{
+			Validate.isBelow(1l, 2l);
+		}
+		ValidationException.resetErrorHandler();
+		
+		if(handler.getCount() == 1)
+			if(handler.getType(0).equals(VE_isBelow.class))
+				return true;
+		
+		return false;
+	}
+	
 	@IUnitTest.Test("FunctionalityTest(Double) -")
 	public boolean testNegativeDouble()
 	{
@@ -88,6 +106,23 @@ public class TestValidateIsBelow implements IUnitTest
 		ValidationException.setErrorHandler(handler);
 		{
 			Validate.isBelow(1, -1);
+		}
+		ValidationException.resetErrorHandler();
+		
+		if(handler.getCount() == 0)
+				return true;
+		
+		return false;
+	}
+	
+	@IUnitTest.Test("FunctionalityTest(Long) +")
+	public boolean testPositiveLong()
+	{
+		CaptureErrorHandler handler = new CaptureErrorHandler();
+		
+		ValidationException.setErrorHandler(handler);
+		{
+			Validate.isBelow(1l, -1l);
 		}
 		ValidationException.resetErrorHandler();
 		

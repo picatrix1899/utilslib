@@ -6,6 +6,7 @@ package cmn.utilslib.dmap;
 import java.util.ArrayList;
 import java.util.List;
 
+import cmn.utilslib.dmap.IDMapping3Foundation.IDMapping3;
 import cmn.utilslib.essentials.Auto;
 import cmn.utilslib.essentials.Check;
 import cmn.utilslib.essentials.ListUtils;
@@ -19,24 +20,21 @@ import cmn.utilslib.essentials.PrimeUtils;
  * @author picatrix1899
  *
  */
-public class DMapping3<A,B,C>
+public class DMapping3<A,B,C> implements IDMapping3<DMapping3<A,B,C>,A,B,C>
 {
 
-	public static final short DIMENSIONS = 3;
+	private ArrayList<A> a = Auto.ArrayList();
+	private ArrayList<B> b = Auto.ArrayList();
+	private ArrayList<C> c = Auto.ArrayList();
 	
-	protected ArrayList<A> a = Auto.ArrayList();
-	protected ArrayList<B> b = Auto.ArrayList();
-	protected ArrayList<C> c = Auto.ArrayList();
-	
-	protected int size = 0;	
+	private int size = 0;	
 	
 	
 	
-	public DMapping3<A,B,C> set(int index, Pair3<A,B,C> entry) { return set(index, entry.getA(), entry.getB(), entry.getC()); }
+	public DMapping3<A,B,C> set(int index, IPair3Base<A,B,C> entry) { return set(index, entry.getA(), entry.getB(), entry.getC()); }
 	
 	public DMapping3<A,B,C> set(int index, A a, B b,C c) 
 	{
-
 		
 		if(index == getSize())
 		{
@@ -281,7 +279,7 @@ public class DMapping3<A,B,C>
 	
 	
 	
-	public DMapping3<A,B,C> add(Pair3<A,B,C> entry) { return add(entry.getA(), entry.getB(), entry.getC()); }
+	public DMapping3<A,B,C> add(IPair3Base<A,B,C> entry) { return add(entry.getA(), entry.getB(), entry.getC()); }
 	
 	public DMapping3<A,B,C> add(A a, B b,C c)
 	{
@@ -378,7 +376,7 @@ public class DMapping3<A,B,C>
 	
 	
 
-	public int indexOf(Pair3<A,B,C> m) { return indexOf(m.getA(), m.getB(), m.getC()); }
+	public int indexOf(IPair3Base<A,B,C> m) { return indexOf(m.getA(), m.getB(), m.getC()); }
 	
 	public int indexOf(A a, B b, C c)
 	{
@@ -402,7 +400,7 @@ public class DMapping3<A,B,C>
 	
 	public boolean contains(A a,B b,C c) { return indexOf(a, b, c) == -1 ? false : true; }
 	
-	public boolean contains(Pair3<A,B,C> m) { return contains(m.getA(), m.getB(), m.getC()); }
+	public boolean contains(IPair3Base<A,B,C> m) { return contains(m.getA(), m.getB(), m.getC()); }
 	
 	
 	

@@ -13,11 +13,6 @@ import cmn.utilslib.interfaces.IObjectable;
 public class Pair2<A,B> implements IPair2<Pair2<A,B>,A,B>, IObjectable<Pair2<A,B>>
 {
 	
-	/** Number of entries */
-	public static final int DIMENSIONS = 2;
-
-	
-	
 	private A a = null;
 	private B b = null;
 	
