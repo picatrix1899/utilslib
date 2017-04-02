@@ -22,17 +22,40 @@ public class Tests
 			
 			
 			printTest(TestValidateIsTrue.class, ps);
-			printTest(TestValidateIsFalse.class, ps);
-			printTest(TestValidateNotTrue.class, ps);
-			printTest(TestValidateNotFalse.class, ps);
 			printTest(TestValidateIsTrueMulti.class, ps);
-			printTest(TestValidateIsFalseMulti.class, ps);
 			printTest(TestValidateIsTrueOOO.class, ps);
+			
+			printTest(TestValidateNotTrue.class, ps);
+			printTest(TestValidateNotTrueMulti.class, ps);
+			printTest(TestValidateNotTrueOOO.class, ps);
+			
+			printTest(TestValidateIsFalse.class, ps);
+			printTest(TestValidateIsFalseMulti.class, ps);
 			printTest(TestValidateIsFalseOOO.class, ps);
+			
+			printTest(TestValidateNotFalse.class, ps);
+			printTest(TestValidateNotFalseMulti.class, ps);
+			printTest(TestValidateNotFalseOOO.class, ps);
+			
 			printTest(TestValidateIsAbove.class, ps);
+			printTest(TestValidateIsAboveMulti.class, ps);
+			printTest(TestValidateIsAboveOOO.class, ps);
+			
 			printTest(TestValidateNotAbove.class, ps);
+			printTest(TestValidateNotAboveMulti.class, ps);
+			printTest(TestValidateNotAboveOOO.class, ps);
+			
 			printTest(TestValidateIsBelow.class, ps);
+			printTest(TestValidateIsBelowMulti.class, ps);
+			printTest(TestValidateIsBelowOOO.class, ps);
+			
 			printTest(TestValidateNotBelow.class, ps);
+			printTest(TestValidateNotBelowMulti.class, ps);
+			printTest(TestValidateNotBelowOOO.class, ps);
+
+			
+			
+			System.out.println("finished!");
 			
 			fos.flush();
 			fos.close();

@@ -122,7 +122,7 @@ public class VE_isBelowMulti extends ValidationException
 		ArrayList<Double> vals = Auto.ArrayList();
 		
 		for(int i = 0; i < values.length; i++)
-			if(Check.notAbove(max, values[i]))
+			if(Check.notBelow(max, values[i]))
 			{
 				indices.add(i);
 				vals.add(values[i]);

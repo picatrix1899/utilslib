@@ -52,7 +52,7 @@ public class VE_isBelowOOO extends ValidationException
 	{
 		this();
 		
-		if(Check.notBelow(max))
+		if(Check.notBelow(max, values))
 		{
 			this.details.clear();
 			this.details.add("exclusive maximum threshold: " + max + "D");
