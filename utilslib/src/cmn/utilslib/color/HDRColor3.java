@@ -19,10 +19,12 @@ import cmn.utilslib.interfaces.IStreamable;
  * @author picatrix1899
  * @category Color
  */
+/*<<LateGen|C|P|HDRColor3>>*/
 public class HDRColor3 implements IColor3<HDRColor3>, IStreamable, Serializable, IObjectable<HDRColor3>
 {
 	
 	/** Default white color. */
+	/*<<LateGen|SM|P;F|PersistentHDRColor3|WHITE>>*/
 	public static final PersistentHDRColor3 WHITE	=		PersistentHDRColor3.gen(255, 255, 255);
 	/** Default black color. */
 	public static final PersistentHDRColor3 BLACK	=		PersistentHDRColor3.gen(000, 000, 000);
@@ -46,7 +48,6 @@ public class HDRColor3 implements IColor3<HDRColor3>, IStreamable, Serializable,
 	public static final int DEFAULT_MIN = 0;
 	/** the maximum value. */
 	public static final int DEFAULT_MAX = 255;	
-	
 	
 	
 	private static final long serialVersionUID = 1L;
