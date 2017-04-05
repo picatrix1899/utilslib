@@ -10,7 +10,6 @@ extends IDMapping2FoundationBase<R,P,A,B>
 
 	public abstract List<C> c();
 	
-
 	public abstract C getC(int index);
 	
 	public abstract R getbyC(C c);
@@ -20,13 +19,9 @@ extends IDMapping2FoundationBase<R,P,A,B>
 	public abstract C getCbyA(A a);
 	public abstract C getCbyB(B b);
 
-	public abstract int indexOf(P m);
-	
 	public abstract int indexOfC(C c);
 	
 	public abstract int[] indicesOfC(C c);
-	
-	public abstract boolean contains(P m);
 	
 	public abstract boolean containsC(C c);
 	
@@ -42,7 +37,11 @@ extends IDMapping2FoundationBase<R,P,A,B>
 												   A,B,C>
 	extends IDMapping3FoundationBase<R,P,A,B,C>
 	{
-	
+		
+		public abstract int indexOf(A a, B b, C c);
+		
+		public abstract boolean contains(A a, B b ,C c);
+		
 	}
 
 	

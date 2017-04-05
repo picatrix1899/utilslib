@@ -65,7 +65,7 @@ public class ListUtils
 		out = list.<A>toArray(out);
 		
 		return out;
-		
+	
 	}
 	
 	public static int[] toIntArray(ArrayList<Integer> a)

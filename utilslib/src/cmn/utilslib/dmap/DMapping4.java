@@ -38,7 +38,7 @@ public class DMapping4<A,B,C,D> implements IDMapping4<DMapping4<A,B,C,D>,A,B,C,D
 	{
 
 		
-		if(index == getSize())
+		if(index == size())
 		{
 			add(a, b, c, d);
 		}
@@ -550,7 +550,7 @@ public class DMapping4<A,B,C,D> implements IDMapping4<DMapping4<A,B,C,D>,A,B,C,D
 	
 	
 	
-	public int getSize() { return this.size; }
+	public int size() { return this.size; }
 	
 	
 	

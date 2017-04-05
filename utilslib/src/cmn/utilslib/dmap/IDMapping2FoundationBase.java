@@ -22,6 +22,9 @@ public interface IDMapping2FoundationBase<R extends IPair2Base<A,B>,
 	
 	public abstract int indexOf(P m);
 	
+	public abstract int indexOfA(A a);
+	public abstract int indexOfB(B b);
+	
 	public abstract int[] indicesOfA(A a);
 	public abstract int[] indicesOfB(B b);
 	
@@ -30,7 +33,7 @@ public interface IDMapping2FoundationBase<R extends IPair2Base<A,B>,
 	public abstract boolean containsA(A a);
 	public abstract boolean containsB(B b);
 	
-	public abstract int getSize();
+	public abstract int size();
 	
 	public default int getDimensions() { return 2; }
 	
@@ -44,7 +47,11 @@ public interface IDMapping2FoundationBase<R extends IPair2Base<A,B>,
 		 										   A,B>
 	extends IDMapping2FoundationBase<R,P,A,B>
 	{
-	
+		
+		public abstract int indexOf(A a, B b);
+		
+		public abstract boolean contains(A a, B b);
+		
 	}
 		
 	

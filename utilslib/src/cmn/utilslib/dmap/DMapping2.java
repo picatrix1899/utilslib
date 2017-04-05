@@ -33,7 +33,7 @@ public class DMapping2<A,B> implements IDMapping2<DMapping2<A,B>,A,B>
 	public DMapping2<A,B> set(int index, A a, B b) 
 	{
 		
-		if(index == getSize())
+		if(index == size())
 		{
 			add(a, b);
 		}
@@ -100,7 +100,7 @@ public class DMapping2<A,B> implements IDMapping2<DMapping2<A,B>,A,B>
 	
 	
 	
-	public int getSize() { return this.size; }	
+	public int size() { return this.size; }	
 	
 	
 	
@@ -159,9 +159,9 @@ public class DMapping2<A,B> implements IDMapping2<DMapping2<A,B>,A,B>
 	
 	
 	
-	public boolean contains(A a, B b) { return indexOf(a,b) == -1 ? false : true; }
+	public boolean contains(IPair2Base<A,B> entry) { return contains(entry.getA(),entry.getB()); }		
 	
-	public boolean contains(IPair2Base<A,B> entry) { return contains(entry.getA(),entry.getB()); }	
+	public boolean contains(A a, B b) { return indexOf(a,b) == -1 ? false : true; }
 	
 	
 	public boolean containsA(A a) { return this.a.contains(a); }

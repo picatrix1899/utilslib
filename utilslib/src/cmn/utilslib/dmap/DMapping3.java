@@ -36,7 +36,7 @@ public class DMapping3<A,B,C> implements IDMapping3<DMapping3<A,B,C>,A,B,C>
 	public DMapping3<A,B,C> set(int index, A a, B b,C c) 
 	{
 		
-		if(index == getSize())
+		if(index == size())
 		{
 			add(a, b, c);
 		}
@@ -275,7 +275,7 @@ public class DMapping3<A,B,C> implements IDMapping3<DMapping3<A,B,C>,A,B,C>
 	
 	
 	
-	public int getSize() { return this.size; }
+	public int size() { return this.size; }
 	
 	
 	

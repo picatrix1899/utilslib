@@ -8,6 +8,7 @@ public interface IDMapping3Foundation<RI extends IDMapping3Foundation<?,?,?,A,B,
 extends IDMapping3FoundationBase<R,P,A,B,C>, IDMapping2Foundation<RI,R,P,A,B> 
 {
 
+	public abstract RI setC(int index, C c);
 	
 	
 	
