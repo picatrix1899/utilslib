@@ -2,8 +2,8 @@ package cmn.utilslib.dmap;
 
 import java.util.List;
 
-public interface IMapping2FoundationBase<R extends IPair2Base<A,B>,
-										 P extends IPair2Base<A,B>,
+public interface IMapping2FoundationBase<R extends IDMap2Base<A,B>,
+										 P extends IDMap2Base<A,B>,
 										 A,B>
 {
 
@@ -23,8 +23,12 @@ public interface IMapping2FoundationBase<R extends IPair2Base<A,B>,
 	public A getFirstAByB(B b);
 	public B getFirstBByA(A a);
 	
+	public List<R> getByA(A a);
+	public List<R> getByB(B b);
+	
 	public List<A> getAByB(B b);
 	public List<B> getBByA(A a);
+
 	
 	public int firstIndexOf(P entry);
 	public int firstIndexOfA(A a);
@@ -45,8 +49,8 @@ public interface IMapping2FoundationBase<R extends IPair2Base<A,B>,
 	
 	public int size();
 	
-	public static interface IMapping2ExtendedBase<R extends IPair2Base<A,B>,
-		 										  P extends IPair2Base<A,B>,
+	public static interface IMapping2ExtendedBase<R extends IDMap2Base<A,B>,
+		 										  P extends IDMap2Base<A,B>,
 		 										  A,B>
 	extends IMapping2FoundationBase<R,P,A,B>
 	{
@@ -66,7 +70,7 @@ public interface IMapping2FoundationBase<R extends IPair2Base<A,B>,
 	
 	
 	public interface IMapping2Base<A,B>
-	extends IMapping2ExtendedBase<IPair2Base<A,B>,IPair2Base<A,B>,A,B>
+	extends IMapping2ExtendedBase<IDMap2Base<A,B>,IDMap2Base<A,B>,A,B>
 	{ }
 	
 }

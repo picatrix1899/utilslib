@@ -1,6 +1,6 @@
 package cmn.utilslib.dmap;
 
-public interface IPair3Base<A,B,C> extends IPair2Base<A,B>
+public interface IDMap3Base<A,B,C> extends IDMap2Base<A,B>
 {
 	/**
 	 * Gets entry C

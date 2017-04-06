@@ -8,12 +8,13 @@ import cmn.utilslib.interfaces.IObjectable;
  * 
  * @author picatrix1899
  */
-public class Pair3<A,B,C> implements IPair3<Pair3<A,B,C>,A,B,C>, IObjectable<Pair3<A,B,C>>
+public class DMap4<A,B,C,D> implements IDMap4<DMap4<A,B,C,D>,A,B,C,D>, IObjectable<DMap4<A,B,C,D>>
 {
-	
+
 	private A a = null;
 	private B b = null;
 	private C c = null;
+	private D d = null;
 	
 	
 	
@@ -21,27 +22,28 @@ public class Pair3<A,B,C> implements IPair3<Pair3<A,B,C>,A,B,C>, IObjectable<Pai
 	 * "Null" constructor <br>
 	 * initialize all entries with null
 	 */
-	public Pair3()
+	public DMap4()
 	{
-		this(null, null, null);
+		this(null, null, null, null);
 	}
 	/**
 	 * Constructor with initial values
 	 */
-	public Pair3(A a, B b, C c)
+	public DMap4(A a, B b, C c, D d)
 	{
 		this.a = a;
 		this.b = b;
 		this.c = c;
+		this.d = d;
 	}
 	/**
 	 * Constructor for cloning
 	 * 
 	 * @param dmap : The DMap for cloning
 	 */
-	public Pair3(Pair3<A,B,C> dmap)
+	public DMap4(DMap4<A,B,C,D> dmap)
 	{
-		this(dmap.getA(), dmap.getB(), dmap.getC());
+		this(dmap.getA(), dmap.getB(), dmap.getC(), dmap.getD());
 	}
 	
 	
@@ -52,50 +54,70 @@ public class Pair3<A,B,C> implements IPair3<Pair3<A,B,C>,A,B,C>, IObjectable<Pai
 	 * @param a : The new value
 	 * @return The current packet
 	 */
-	public Pair3<A,B,C> setA(A a) { this.a = a; return this; }
+	public DMap4<A,B,C,D> setA(A a) { this.a = a; return this; }
 	/**
 	 * Set entry B
 	 * 
 	 * @param b : The new value
 	 * @return The current packet
 	 */
-	public Pair3<A,B,C> setB(B b) { this.b = b; return this; }
+	public DMap4<A,B,C,D> setB(B b) { this.b = b; return this; }
 	/**
 	 * Set entry C
 	 * 
 	 * @param c : The new value
 	 * @return The current packet
 	 */
-	public Pair3<A,B,C> setC(C c) { this.c = c; return this; }
+	public DMap4<A,B,C,D> setC(C c) { this.c = c; return this; }
+	/**
+	 * Set entry D
+	 * 
+	 * @param d : The new value
+	 * @return The current packet
+	 */
+	public DMap4<A,B,C,D> setD(D d) { this.d = d; return this; }
 	
 	
 	
-	/** {@inheritDoc} */
-	@Override
+	/**
+	 * Gets entry A
+	 * 
+	 * @return The value
+	 */
 	public A getA() { return this.a; }
-	
-	/** {@inheritDoc} */
-	@Override
+	/**
+	 * Gets entry B
+	 * 
+	 * @return The value
+	 */
 	public B getB() { return this.b; }
-	
-	/** {@inheritDoc} */
-	@Override
+	/**
+	 * Gets entry C
+	 * 
+	 * @return The value
+	 */
 	public C getC() { return this.c; }
+	/**
+	 * Gets entry D
+	 * 
+	 * @return The value
+	 */
+	public D getD() { return this.d; }
 	
 	
-	/** {@inheritDoc} */
+	/** {@inheritDoc}} */
 	@Override
-	public Pair3<A,B,C> clone()
+	public DMap4<A,B,C,D> clone()
 	{
-		return new Pair3<A,B,C>(this);
+		return new DMap4<A,B,C,D>(this);
 	}
 	
 	/** {@inheritDoc} */
 	@Override
 	public boolean equals(Object obj)
 	{
-		if(!(obj instanceof Pair3<?,?,?>)) return false;
-		Pair3<?,?,?> d = (Pair3<?,?,?>)obj;
+		if(!(obj instanceof DMap4<?,?,?,?>)) return false;
+		DMap4<?,?,?,?> d = (DMap4<?,?,?,?>)obj;
 		
 		if(!(d.a.equals(this.a))) return false;
 		if(!(d.b.equals(this.b))) return false;
@@ -114,6 +136,8 @@ public class Pair3<A,B,C> implements IPair3<Pair3<A,B,C>,A,B,C>, IObjectable<Pai
 				this.b.toString() + 
 				"\n,\n" +
 				this.c.toString() + 
+				"\n,\n" +
+				this.d.toString() + 
 				"\n)";
 	}
 

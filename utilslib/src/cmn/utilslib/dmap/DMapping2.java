@@ -28,7 +28,7 @@ public class DMapping2<A,B> implements IDMapping2<DMapping2<A,B>,A,B>
 	
 	
 	
-	public DMapping2<A,B> set(int index, IPair2Base<A,B> entry)  { return set(index, entry.getA(), entry.getB()); }
+	public DMapping2<A,B> set(int index, IDMap2Base<A,B> entry)  { return set(index, entry.getA(), entry.getB()); }
 	
 	public DMapping2<A,B> set(int index, A a, B b) 
 	{
@@ -61,10 +61,10 @@ public class DMapping2<A,B> implements IDMapping2<DMapping2<A,B>,A,B>
 	
 	
 	
-	public Pair2<A,B> get(int index)
+	public DMap2<A,B> get(int index)
 	{
 		
-		return Auto.Pair2(getA(index), getB(index));
+		return Auto.DMap2(getA(index), getB(index));
 	}	
 	
 	
@@ -82,9 +82,9 @@ public class DMapping2<A,B> implements IDMapping2<DMapping2<A,B>,A,B>
 	
 	
 	
-	public Pair2<A,B> getbyA(A a) { return (!containsA(a)) ? null : get(indexOfA(a)); }
+	public DMap2<A,B> getbyA(A a) { return (!containsA(a)) ? null : get(indexOfA(a)); }
 	
-	public Pair2<A,B> getbyB(B b) { return (!containsB(b)) ? null : get(indexOfB(b)); }
+	public DMap2<A,B> getbyB(B b) { return (!containsB(b)) ? null : get(indexOfB(b)); }
 	
 	
 	
@@ -104,7 +104,7 @@ public class DMapping2<A,B> implements IDMapping2<DMapping2<A,B>,A,B>
 	
 	
 	
-	public DMapping2<A,B> add(IPair2Base<A,B> entry) { return add(entry.getA(), entry.getB()); }
+	public DMapping2<A,B> add(IDMap2Base<A,B> entry) { return add(entry.getA(), entry.getB()); }
 	
 	public DMapping2<A,B> add(A a, B b)
 	{
@@ -132,7 +132,7 @@ public class DMapping2<A,B> implements IDMapping2<DMapping2<A,B>,A,B>
 	
 
 	
-	public int indexOf(IPair2Base<A,B> m) { return indexOf(m.getA(), m.getB()); }
+	public int indexOf(IDMap2Base<A,B> m) { return indexOf(m.getA(), m.getB()); }
 	
 	public int indexOf(A a, B b)
 	{
@@ -159,7 +159,7 @@ public class DMapping2<A,B> implements IDMapping2<DMapping2<A,B>,A,B>
 	
 	
 	
-	public boolean contains(IPair2Base<A,B> entry) { return contains(entry.getA(),entry.getB()); }		
+	public boolean contains(IDMap2Base<A,B> entry) { return contains(entry.getA(),entry.getB()); }		
 	
 	public boolean contains(A a, B b) { return indexOf(a,b) == -1 ? false : true; }
 	

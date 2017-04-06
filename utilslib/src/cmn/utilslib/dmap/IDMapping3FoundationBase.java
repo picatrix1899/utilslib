@@ -2,8 +2,8 @@ package cmn.utilslib.dmap;
 
 import java.util.List;
 
-public interface IDMapping3FoundationBase<R extends IPair3Base<A,B,C>,
-										  P extends IPair3Base<A,B,C>,
+public interface IDMapping3FoundationBase<R extends IDMap3Base<A,B,C>,
+										  P extends IDMap3Base<A,B,C>,
 										  A,B,C>
 extends IDMapping2FoundationBase<R,P,A,B>
 {
@@ -32,8 +32,8 @@ extends IDMapping2FoundationBase<R,P,A,B>
 	
 	
 	
-	public static interface IDMapping3ExtendedBase<R extends IPair3<?,A,B,C>,
-												   P extends IPair3Base<A,B,C>,
+	public static interface IDMapping3ExtendedBase<R extends IDMap3<?,A,B,C>,
+												   P extends IDMap3Base<A,B,C>,
 												   A,B,C>
 	extends IDMapping3FoundationBase<R,P,A,B,C>
 	{
@@ -50,7 +50,7 @@ extends IDMapping2FoundationBase<R,P,A,B>
 	
 	
 	public static interface IDMapping3Base<A,B,C>
-	extends IDMapping3ExtendedBase<Pair3<A,B,C>,IPair3Base<A,B,C>,A,B,C>
+	extends IDMapping3ExtendedBase<DMap3<A,B,C>,IDMap3Base<A,B,C>,A,B,C>
 	{ }
 	
 }

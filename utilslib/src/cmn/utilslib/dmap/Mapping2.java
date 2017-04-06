@@ -2,14 +2,18 @@ package cmn.utilslib.dmap;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 
 import cmn.utilslib.dmap.IMapping2Foundation.IMapping2;
 import cmn.utilslib.essentials.Auto;
-import cmn.utilslib.essentials.Check;
+import cmn.utilslib.essentials.ListUtils;
+import cmn.utilslib.essentials.MemoryIterable;
+import cmn.utilslib.essentials.MemoryIterator;
+import cmn.utilslib.validation.Validate;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-public class Mapping2<A,B> implements IMapping2<Mapping2<A,B>,A,B>
+public class Mapping2<A,B> implements IMapping2<Mapping2<A,B>,A,B>, MemoryIterable<IDMap2Base<A,B>>
 {
 
 	private ArrayList<A> a = Auto.ArrayList();
@@ -18,280 +22,366 @@ public class Mapping2<A,B> implements IMapping2<Mapping2<A,B>,A,B>
 	private int size = 0;
 	
 	
-
-	@Override
+	
 	public List<A> a() { return this.a; }
-	@Override
 	public List<B> b() { return this.b; }
 
 	
 	
-	private A getA0(int index) { return this.a.get(index); } 
-	private B getB0(int index) { return this.b.get(index); } 
-	
-	
-	@Override
-	public IPair2Base<A,B> get(int index)
+	public IDMap2Base<A,B> get(int index)
 	{
-		if(index < size()) return Auto.Pair2(getA(index), getB(index));
-		
-		return null;
+		Validate.isInRange(0, size() - 1, index);
+		return get0(index);
 	}
-	@Override
-	public A getA(int index) { return this.a.get(index); }
-	@Override
-	public B getB(int index) { return this.b.get(index); }
 
-	@Override
-	public IPair2Base<A,B> getFirstByA(A a)
+	public A getA(int index) { Validate.isInRange(0, size() - 1, index); return this.a.get(index); }
+	public B getB(int index) { Validate.isInRange(0, size() - 1, index); return this.b.get(index); }
+
+	
+	
+	public List<IDMap2Base<A,B>> get(int... indices)
+	{
+		Validate.isInRange(0, size() - 1, indices);
+		
+		return get0(indices);
+	}
+	
+	public List<A> getA(int... indices)
+	{
+		Validate.isInRange(0, size() - 1, indices);
+		
+		return getA0(indices);
+	}
+	public List<B> getB(int... indices)
+	{
+		Validate.isInRange(0, size() - 1, indices);
+		
+		return getB0(indices);
+	}
+	
+	
+	
+	public IDMap2Base<A,B> getFirstByA(A a)
 	{
 		int index = firstIndexOfA(a);
-		if(index != -1)
-		{
-			return get(index);
-		}
 		
-		return null;
+		return index != -1 ? get0(index) : null;
 	}
-
-	@Override
-	public IPair2Base<A,B> getFirstByB(B b)
+	public IDMap2Base<A,B> getFirstByB(B b)
 	{
 		int index = firstIndexOfB(b);
-		if(index != -1)
-		{
-			return get(index);
-		}
 		
-		return null;
+		return index != -1 ? get0(index) : null;
 	}
-
-	@Override
+	
+	
+	
 	public A getFirstAByB(B b)
 	{
 		int index = firstIndexOfB(b);
-		if(index != -1)
-		{
-			return getA(index);
-		}
 		
-		return null;
+		return index != -1 ? getA0(index) : null;
 	}
-
-	@Override
 	public B getFirstBByA(A a)
 	{
 		int index = firstIndexOfA(a);
-		if(index != -1)
-		{
-			return getB(index);
-		}
 		
-		return null;
+		return index != -1 ? getB0(index) : null;
 	}
 
-	@Override
+	
+	
+	public List<IDMap2Base<A,B>> getByA(A a)
+	{
+		int[] indices = indicesOfA(a);
+		
+		return get(indices);
+	}
+	public List<IDMap2Base<A,B>> getByB(B b)
+	{
+		int[] indices = indicesOfB(b);
+		
+		return get(indices);
+	}
+	
+
+	
 	public List<A> getAByB(B b)
 	{
 		int[] indices = indicesOfB(b);
 		
-		ArrayList<A> out = Auto.ArrayList();
-		
-		for(int index : indices)
-		{
-			out.add(getA(index));
-		}
-
-		return out;
-			
+		return getA(indices);
 	}
-
-	@Override
 	public List<B> getBByA(A a)
 	{
 		int[] indices = indicesOfA(a);
 		
-		ArrayList<B> out = Auto.ArrayList();
+		return getB(indices);
+	}
+	
+	
+	
+	public int firstIndexOf(A a, B b) { return firstIndexOf(Auto.DMap2(a, b)); }	
+	public int firstIndexOf(IDMap2Base<A,B> entry)
+	{
+		MemoryIterator<IDMap2Base<A,B>> i = iterator();
 		
-		for(int index : indices)
-		{
-			out.add(getB(index));
-		}
-
-		return out;
-	}
-	
-	
-	
-	
-	@Override
-	public Mapping2<A,B> clone()
-	{
-		throw new NotImplementedException();
-	}
-	
-	@Override
-	public boolean equals(Object o)
-	{
-		throw new NotImplementedException();
-	}
-
-	
-	@Override
-	public int firstIndexOf(A a, B b)
-	{
-		for(int i = 0; i < size(); i++)
-		{
-			if(Check.isTrue(getA0(i).equals(a), getB0(i).equals(b)))
-			{
-				return i;
-			}
-		}
+		while(i.hasNext()) if(i.next().equals(entry)) return i.index();
 		
 		return -1;
 	}
 
-	@Override
-	public int[] indicesOf(A a, B b)
-	{
-		throw new NotImplementedException();
-	}
-
-	@Override
-	public int occurrencesOf(A a, B b)
-	{
-		throw new NotImplementedException();
-	}
-
-	@Override
-	public boolean contains(A a, B b)
-	{
-		throw new NotImplementedException();
-	}
+	public int firstIndexOfA(A a) { return this.a.indexOf(a); }
+	public int firstIndexOfB(B b) { return this.a.indexOf(a); }
 	
 	
 	
+	public boolean contains(A a, B b) { return contains(Auto.DMap2(a,b)); }
+	public boolean contains(IDMap2Base<A,B> entry)
+	{
+		Iterator<IDMap2Base<A,B>> i = iterator();
+		
+		while(i.hasNext()) if(i.next().equals(entry)) return true;	
+		
+		return false;
+	}
+	
+	public boolean containsA(A a) { return this.a.contains(a); }
+	public boolean containsB(B b) { return this.b.contains(b); }
 	
 	
-
 	
-	
-
-
-
-
-	@Override
-	public int firstIndexOf(IPair2Base<A,B> entry)
+	public int[] indicesOf(A a, B b) { return indicesOf(Auto.DMap2(a, b)); }
+	public int[] indicesOf(IDMap2Base<A,B> entry)
 	{
-		throw new NotImplementedException();
+		ArrayList<Integer> out = Auto.ArrayList();
+		
+		MemoryIterator<IDMap2Base<A,B>> i = iterator();
+		
+		while(i.hasNext()) if(i.next().equals(entry)) out.add(i.index());
+		
+		return ListUtils.toIntArray(out);
 	}
 
-	@Override
-	public int firstIndexOfA(A a)
-	{
-		throw new NotImplementedException();
-	}
-
-	@Override
-	public int firstIndexOfB(B b)
-	{
-		throw new NotImplementedException();
-	}
-
-	@Override
-	public int[] indicesOf(IPair2Base<A,B> entry)
-	{
-		throw new NotImplementedException();
-	}
-
-	@Override
 	public int[] indicesOfA(A a)
 	{
-		throw new NotImplementedException();
+		ArrayList<Integer> out = Auto.ArrayList();
+		
+		MemoryIterator<A> i = iteratorA();
+		
+		while(i.hasNext()) if(i.next().equals(a)) out.add(i.index());
+		
+		return ListUtils.toIntArray(out);
 	}
-
-	@Override
 	public int[] indicesOfB(B b)
 	{
-		throw new NotImplementedException();
+		ArrayList<Integer> out = Auto.ArrayList();
+		
+		MemoryIterator<B> i = iteratorB();
+		
+		while(i.hasNext()) if(i.next().equals(b)) out.add(i.index());
+		
+		return ListUtils.toIntArray(out);
 	}
+	
+	
 
-	@Override
-	public int occurrencesOf(IPair2Base<A,B> entry)
+	public int occurrencesOf(A a, B b) { return occurrencesOf(Auto.DMap2(a, b)); }
+	public int occurrencesOf(IDMap2Base<A,B> entry)
 	{
-		throw new NotImplementedException();
+		int out = 0;
+		
+		Iterator<IDMap2Base<A,B>> i = iterator();
+		
+		while(i.hasNext()) if(i.next().equals(entry)) out++;
+		
+		return out;
 	}
 
-	@Override
 	public int occurrencesOfA(A a)
 	{
-		throw new NotImplementedException();
+		int out = 0;
+		
+		Iterator<A> i = iteratorA();
+		
+		while(i.hasNext()) if(i.next().equals(a)) out++;
+		
+		return out;
 	}
-
-	@Override
 	public int occurrencesOfB(B b)
 	{
-		throw new NotImplementedException();
+		int out = 0;
+		
+		Iterator<B> i = iteratorB();
+		
+		while(i.hasNext()) if(i.next().equals(b)) out++;
+		
+		return out;
 	}
 
-	@Override
-	public boolean containsA(A a)
+
+	
+	public int size() { return this.size; }
+
+	
+	
+	public MemoryIterator<IDMap2Base<A,B>> iterator()
 	{
-		throw new NotImplementedException();
+		return new MemoryIterator<IDMap2Base<A,B>>()
+		{
+			private int index = 0;
+			private IDMap2Base<A,B> c = null;
+			
+
+			
+			public boolean hasNext() { return this.index < size(); }
+		
+			public IDMap2Base<A,B> next() { return hasNext() ? this.c = get0(this.index++) : null; }
+
+			public IDMap2Base<A,B> current() { return this.c; }
+
+			public int index() { return this.index; }
+		};
 	}
 
-	@Override
-	public boolean containsB(B b)
+	public MemoryIterator<A> iteratorA()
 	{
-		throw new NotImplementedException();
-	}
+		return new MemoryIterator<A>()
+		{
+			private int index = 0;
+			private A c = null;
+			
 
-	@Override
-	public boolean contains(IPair2Base<A,B> entry)
+			
+			public boolean hasNext() { return this.index < size(); }
+
+			public A next() { return hasNext() ? this.c = getA0(this.index++) : null; }
+
+			public A current() { return this.c; }
+
+			public int index() { return this.index; }
+		};
+	}
+	public MemoryIterator<B> iteratorB()
 	{
-		throw new NotImplementedException();
+		return new MemoryIterator<B>()
+		{
+			private int index = 0;
+			private B c = null;
+			
+			
+
+			public boolean hasNext() { return this.index < size(); }
+
+			public B next() { return hasNext() ? this.c = getB0(this.index++) : null; }
+
+			public B current() { return this.c; }
+
+			public int index() { return this.index; }
+		};
 	}
 
-	@Override
-	public Mapping2<A,B> set(int index, IPair2Base<A,B> entry)
+	
+	public Mapping2<A,B> set(int index, A a, B b)
 	{
-		throw new NotImplementedException();
+		Validate.isInRange(0, size(), index);
+		
+		if(index < size())
+		{
+			setA0(index, a);
+			setB0(index, b);
+		}
+		else
+		{
+			add(a, b);
+		}
+		
+
+		
+		return this;
 	}
 
-	@Override
+	public Mapping2<A,B> set(int index, IDMap2Base<A,B> entry) { return set(index, entry.getA(), entry.getB()); }
+
+
 	public Mapping2<A,B> setA(int index, A a)
 	{
-		throw new NotImplementedException();
+		Validate.isInRange(0, size() -1, index);
+		
+		setA0(index, a);
+		
+		return this;
 	}
 
-	@Override
 	public Mapping2<A,B> setB(int index, B b)
 	{
-		throw new NotImplementedException();
+		Validate.isInRange(0, size() - 1, index);
+		setB0(index, b);
+		
+		return this;
 	}
 
-	@Override
-	public Mapping2<A,B> add(IPair2Base<A,B> entry)
+
+	public Mapping2<A,B> add(IDMap2Base<A,B> entry)
 	{
-		throw new NotImplementedException();
+		return add(entry.getA(), entry.getB());
 	}
 
+	
+	public Mapping2<A,B> add(A a, B b)
+	{
+		this.a.add(a);
+		this.b.add(b);
+		
+		this.size++;
+		
+		return this;
+	}
+
+	
 	@Override
 	public Mapping2<A,B> remove(int index)
 	{
-		throw new NotImplementedException();
+		Validate.isInRange(0, size() - 1, index);
+
+		this.a.remove(index);
+		this.b.remove(index);
+		
+		this.size--;
+		
+		return this;
 	}
 
 	@Override
-	public Mapping2<A,B> remove(IPair2Base<A,B> entry)
+	public Mapping2<A,B> remove(IDMap2Base<A,B> entry)
 	{
-		throw new NotImplementedException();
+		int index = -1;
+		
+		while(contains(entry))
+		{
+			index = firstIndexOf(entry);
+			
+			remove(index);
+		}
+			
+		return this;
+	}
+	
+	public Mapping2<A,B> removeFirst(IDMap2Base<A,B> entry)
+	{
+		int index = firstIndexOf(entry);
+		if(index != -1)
+		{
+			remove(index);
+		}
+		
+		return this;
 	}
 
 	@Override
 	public Mapping2<A,B> removeByA(A a)
 	{
-		throw new NotImplementedException();
+		int index = firstIndexOf()
 	}
 
 	@Override
@@ -330,18 +420,76 @@ public class Mapping2<A,B> implements IMapping2<Mapping2<A,B>,A,B>
 		throw new NotImplementedException();
 	}
 
+
+
+	@Override
+	public Mapping2<A,B> clone()
+	{
+		throw new NotImplementedException();
+	}
+	
+	
+	
+	@Override
+	public boolean equals(Object o)
+	{
+		throw new NotImplementedException();
+	}
+	
 	@Override
 	public boolean equals(Mapping2<A,B> subject)
 	{
 		throw new NotImplementedException();
 	}
-	@Override
-	public int size()
+	
+	
+	
+	private IDMap2Base<A,B> get0(int index) { return Auto.DMap2(getA0(index), getB0(index)); }
+	
+	private A getA0(int index) { return this.a.get(index); } 
+	private B getB0(int index) { return this.b.get(index); } 
+	
+	
+	
+	private List<IDMap2Base<A,B>> get0(int... indices)
 	{
-		return this.size;
+		ArrayList<IDMap2Base<A,B>> out = Auto.ArrayList();
+		
+		for(int i : indices)
+		{
+			out.add(get0(i));
+		}
+		
+		return out;
+	}
+	
+	private List<A> getA0(int... indices)
+	{
+		ArrayList<A> out = Auto.ArrayList();
+		
+		for(int i : indices)
+		{
+			out.add(getA0(i));
+		}
+		
+		return out;
+	}
+	private List<B> getB0(int... indices)
+	{
+		ArrayList<B> out = Auto.ArrayList();
+		
+		for(int i : indices)
+		{
+			out.add(getB0(i));
+		}
+		
+		return out;
 	}
 	
 	
 	
-	
+	private void setA0(int index, A a) { this.a.set(index, a); }
+	private void setB0(int index, B b) { this.b.set(index, b); }
+
 }
+

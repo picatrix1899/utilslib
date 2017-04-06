@@ -32,7 +32,7 @@ public class DMapping4<A,B,C,D> implements IDMapping4<DMapping4<A,B,C,D>,A,B,C,D
 	
 	
 	
-	public DMapping4<A,B,C,D> set(int index, IPair4Base<A,B,C,D> entry) { return set(index, entry.getA(), entry.getB(), entry.getC(), entry.getD()); }
+	public DMapping4<A,B,C,D> set(int index, IDMap4Base<A,B,C,D> entry) { return set(index, entry.getA(), entry.getB(), entry.getC(), entry.getD()); }
 	
 	public DMapping4<A,B,C,D> set(int index, A a, B b,C c, D d) 
 	{
@@ -66,7 +66,7 @@ public class DMapping4<A,B,C,D> implements IDMapping4<DMapping4<A,B,C,D>,A,B,C,D
 	
 	
 	
-	public Pair4<A,B,C,D> get(int index) { validate0(index); return Auto.Pair4(getA(index), getB(index), getC(index), getD(index)); }
+	public DMap4<A,B,C,D> get(int index) { validate0(index); return Auto.DMap4(getA(index), getB(index), getC(index), getD(index)); }
 	
 	
 	
@@ -80,37 +80,37 @@ public class DMapping4<A,B,C,D> implements IDMapping4<DMapping4<A,B,C,D>,A,B,C,D
 	
 		
 	
-	public Pair4<A,B,C,D> getbyA(A a) { return (!containsA(a)) ? null : get(indexOfA(a)); }
+	public DMap4<A,B,C,D> getbyA(A a) { return (!containsA(a)) ? null : get(indexOfA(a)); }
 	
-	public Pair4<A,B,C,D> getbyB(B b) { return (!containsB(b)) ? null : get(indexOfB(b)); }
+	public DMap4<A,B,C,D> getbyB(B b) { return (!containsB(b)) ? null : get(indexOfB(b)); }
 	
-	public Pair4<A,B,C,D> getbyC(C c) { return (!containsC(c)) ? null : get(indexOfC(c)); }
+	public DMap4<A,B,C,D> getbyC(C c) { return (!containsC(c)) ? null : get(indexOfC(c)); }
 	
-	public Pair4<A,B,C,D> getbyD(D d) { return (!containsD(d)) ? null : get(indexOfD(d)); }
-	
-	
-	
-	public Pair4<A,B,C,D> getbyAB(A a, B b) { return !containsAB(a, b) ? null : get0(indexOfAB(a, b)); }
-	
-	public Pair4<A,B,C,D> getbyAC(A a, C c) { return !containsAC(a, c) ? null : get0(indexOfAC(a, c)); }
-	
-	public Pair4<A,B,C,D> getbyAD(A a, D d) { return !containsAD(a, d) ? null : get0(indexOfAD(a, d)); }
-	
-	public Pair4<A,B,C,D> getbyBC(B b, C c) { return !containsBC(b, c) ? null :  get0(indexOfBC(b, c)); }
-	
-	public Pair4<A,B,C,D> getbyBD(B b, D d) { return !containsBD(b, d) ? null :  get0(indexOfBD(b, d)); }
-	
-	public Pair4<A,B,C,D> getbyCD(C c, D d) { return !containsCD(c, d) ? null :  get0(indexOfCD(c, d)); }
+	public DMap4<A,B,C,D> getbyD(D d) { return (!containsD(d)) ? null : get(indexOfD(d)); }
 	
 	
 	
-	public Pair4<A,B,C,D> getbyABC(A a, B b, C c) { return !containsABC(a, b, c) ? null :  get0(indexOfABC(a, b, c)); }
+	public DMap4<A,B,C,D> getbyAB(A a, B b) { return !containsAB(a, b) ? null : get0(indexOfAB(a, b)); }
 	
-	public Pair4<A,B,C,D> getbyABD(A a, B b, D d) { return !containsABD(a, b, d) ? null :  get0(indexOfABD(a, b, d)); }
+	public DMap4<A,B,C,D> getbyAC(A a, C c) { return !containsAC(a, c) ? null : get0(indexOfAC(a, c)); }
 	
-	public Pair4<A,B,C,D> getbyACD(A a, C c, D d) { return !containsACD(a, c, d) ? null :  get0(indexOfACD(a, c, d)); }
+	public DMap4<A,B,C,D> getbyAD(A a, D d) { return !containsAD(a, d) ? null : get0(indexOfAD(a, d)); }
 	
-	public Pair4<A,B,C,D> getbyBCD(B b, C c, D d) { return !containsBCD(b, c, d) ? null :  get0(indexOfBCD(b, c, d)); }
+	public DMap4<A,B,C,D> getbyBC(B b, C c) { return !containsBC(b, c) ? null :  get0(indexOfBC(b, c)); }
+	
+	public DMap4<A,B,C,D> getbyBD(B b, D d) { return !containsBD(b, d) ? null :  get0(indexOfBD(b, d)); }
+	
+	public DMap4<A,B,C,D> getbyCD(C c, D d) { return !containsCD(c, d) ? null :  get0(indexOfCD(c, d)); }
+	
+	
+	
+	public DMap4<A,B,C,D> getbyABC(A a, B b, C c) { return !containsABC(a, b, c) ? null :  get0(indexOfABC(a, b, c)); }
+	
+	public DMap4<A,B,C,D> getbyABD(A a, B b, D d) { return !containsABD(a, b, d) ? null :  get0(indexOfABD(a, b, d)); }
+	
+	public DMap4<A,B,C,D> getbyACD(A a, C c, D d) { return !containsACD(a, c, d) ? null :  get0(indexOfACD(a, c, d)); }
+	
+	public DMap4<A,B,C,D> getbyBCD(B b, C c, D d) { return !containsBCD(b, c, d) ? null :  get0(indexOfBCD(b, c, d)); }
 	
 	
 	
@@ -290,9 +290,9 @@ public class DMapping4<A,B,C,D> implements IDMapping4<DMapping4<A,B,C,D>,A,B,C,D
 	
 	
 	
-	public ArrayList<Pair4<A,B,C,D>> getListByA(A a)
+	public ArrayList<DMap4<A,B,C,D>> getListByA(A a)
 	{
-		ArrayList<Pair4<A,B,C,D>> out = Auto.ArrayList();
+		ArrayList<DMap4<A,B,C,D>> out = Auto.ArrayList();
 		
 		for(int index : indicesOfA(a))
 			out.add(get0(index));
@@ -300,9 +300,9 @@ public class DMapping4<A,B,C,D> implements IDMapping4<DMapping4<A,B,C,D>,A,B,C,D
 		return out;
 	}
 	
-	public ArrayList<Pair4<A,B,C,D>> getListByB(B b)
+	public ArrayList<DMap4<A,B,C,D>> getListByB(B b)
 	{
-		ArrayList<Pair4<A,B,C,D>> out = Auto.ArrayList();
+		ArrayList<DMap4<A,B,C,D>> out = Auto.ArrayList();
 		
 		for(int index : indicesOfB(b))
 			out.add(get0(index));
@@ -310,9 +310,9 @@ public class DMapping4<A,B,C,D> implements IDMapping4<DMapping4<A,B,C,D>,A,B,C,D
 		return out;
 	}
 	
-	public ArrayList<Pair4<A,B,C,D>> getListByC(C c)
+	public ArrayList<DMap4<A,B,C,D>> getListByC(C c)
 	{
-		ArrayList<Pair4<A,B,C,D>> out = Auto.ArrayList();
+		ArrayList<DMap4<A,B,C,D>> out = Auto.ArrayList();
 		
 		for(int index : indicesOfC(c))
 			out.add(get0(index));
@@ -320,9 +320,9 @@ public class DMapping4<A,B,C,D> implements IDMapping4<DMapping4<A,B,C,D>,A,B,C,D
 		return out;
 	}
 	
-	public ArrayList<Pair4<A,B,C,D>> getListByD(D d)
+	public ArrayList<DMap4<A,B,C,D>> getListByD(D d)
 	{
-		ArrayList<Pair4<A,B,C,D>> out = Auto.ArrayList();
+		ArrayList<DMap4<A,B,C,D>> out = Auto.ArrayList();
 		
 		for(int index : indicesOfD(d))
 			out.add(get0(index));
@@ -404,9 +404,9 @@ public class DMapping4<A,B,C,D> implements IDMapping4<DMapping4<A,B,C,D>,A,B,C,D
 
 	
 	
-	public ArrayList<Pair4<A,B,C,D>> getListByAB(A a, B b)
+	public ArrayList<DMap4<A,B,C,D>> getListByAB(A a, B b)
 	{
-		ArrayList<Pair4<A,B,C,D>> out = Auto.ArrayList();
+		ArrayList<DMap4<A,B,C,D>> out = Auto.ArrayList();
 		
 		for(int index : indicesOfAB(a, b))
 			out.add(get0(index));
@@ -414,9 +414,9 @@ public class DMapping4<A,B,C,D> implements IDMapping4<DMapping4<A,B,C,D>,A,B,C,D
 		return out;
 	}
 	
-	public ArrayList<Pair4<A,B,C,D>> getListByAC(A a, C c)
+	public ArrayList<DMap4<A,B,C,D>> getListByAC(A a, C c)
 	{
-		ArrayList<Pair4<A,B,C,D>> out = Auto.ArrayList();
+		ArrayList<DMap4<A,B,C,D>> out = Auto.ArrayList();
 		
 		for(int index : indicesOfAC(a, c))
 			out.add(get0(index));
@@ -424,9 +424,9 @@ public class DMapping4<A,B,C,D> implements IDMapping4<DMapping4<A,B,C,D>,A,B,C,D
 		return out;
 	}
 	
-	public ArrayList<Pair4<A,B,C,D>> getListByAD(A a, D d)
+	public ArrayList<DMap4<A,B,C,D>> getListByAD(A a, D d)
 	{
-		ArrayList<Pair4<A,B,C,D>> out = Auto.ArrayList();
+		ArrayList<DMap4<A,B,C,D>> out = Auto.ArrayList();
 		
 		for(int index : indicesOfAD(a, d))
 			out.add(get0(index));
@@ -434,9 +434,9 @@ public class DMapping4<A,B,C,D> implements IDMapping4<DMapping4<A,B,C,D>,A,B,C,D
 		return out;
 	}
 	
-	public ArrayList<Pair4<A,B,C,D>> getListByBC(B b, C c)
+	public ArrayList<DMap4<A,B,C,D>> getListByBC(B b, C c)
 	{
-		ArrayList<Pair4<A,B,C,D>> out = Auto.ArrayList();
+		ArrayList<DMap4<A,B,C,D>> out = Auto.ArrayList();
 		
 		for(int index : indicesOfBC(b, c))
 			out.add(get0(index));
@@ -444,9 +444,9 @@ public class DMapping4<A,B,C,D> implements IDMapping4<DMapping4<A,B,C,D>,A,B,C,D
 		return out;
 	}
 	
-	public ArrayList<Pair4<A,B,C,D>> getListByBD(B b, D d)
+	public ArrayList<DMap4<A,B,C,D>> getListByBD(B b, D d)
 	{
-		ArrayList<Pair4<A,B,C,D>> out = Auto.ArrayList();
+		ArrayList<DMap4<A,B,C,D>> out = Auto.ArrayList();
 		
 		for(int index : indicesOfBD(b, d))
 			out.add(get0(index));
@@ -498,9 +498,9 @@ public class DMapping4<A,B,C,D> implements IDMapping4<DMapping4<A,B,C,D>,A,B,C,D
 	
 	
 	
-	public ArrayList<Pair4<A,B,C,D>> getListByABC(A a, B b, C c)
+	public ArrayList<DMap4<A,B,C,D>> getListByABC(A a, B b, C c)
 	{
-		ArrayList<Pair4<A,B,C,D>> out = Auto.ArrayList();
+		ArrayList<DMap4<A,B,C,D>> out = Auto.ArrayList();
 		
 		for(int index : indicesOfABC(a, b, c))
 			out.add(get0(index));
@@ -508,9 +508,9 @@ public class DMapping4<A,B,C,D> implements IDMapping4<DMapping4<A,B,C,D>,A,B,C,D
 		return out;
 	}
 	
-	public ArrayList<Pair4<A,B,C,D>> getListByABD(A a, B b, D d)
+	public ArrayList<DMap4<A,B,C,D>> getListByABD(A a, B b, D d)
 	{
-		ArrayList<Pair4<A,B,C,D>> out = Auto.ArrayList();
+		ArrayList<DMap4<A,B,C,D>> out = Auto.ArrayList();
 		
 		for(int index : indicesOfABD(a, b, d))
 			out.add(get0(index));
@@ -518,9 +518,9 @@ public class DMapping4<A,B,C,D> implements IDMapping4<DMapping4<A,B,C,D>,A,B,C,D
 		return out;
 	}
 	
-	public ArrayList<Pair4<A,B,C,D>> getListByACD(A a, C c, D d)
+	public ArrayList<DMap4<A,B,C,D>> getListByACD(A a, C c, D d)
 	{
-		ArrayList<Pair4<A,B,C,D>> out = Auto.ArrayList();
+		ArrayList<DMap4<A,B,C,D>> out = Auto.ArrayList();
 		
 		for(int index : indicesOfACD(a, c, d))
 			out.add(get0(index));
@@ -528,9 +528,9 @@ public class DMapping4<A,B,C,D> implements IDMapping4<DMapping4<A,B,C,D>,A,B,C,D
 		return out;
 	}
 	
-	public ArrayList<Pair4<A,B,C,D>>getListByBCD(B b, C c, D d)
+	public ArrayList<DMap4<A,B,C,D>>getListByBCD(B b, C c, D d)
 	{
-		ArrayList<Pair4<A,B,C,D>> out = Auto.ArrayList();
+		ArrayList<DMap4<A,B,C,D>> out = Auto.ArrayList();
 		
 		for(int index : indicesOfBCD(b, c, d))
 			out.add(get0(index));
@@ -554,7 +554,7 @@ public class DMapping4<A,B,C,D> implements IDMapping4<DMapping4<A,B,C,D>,A,B,C,D
 	
 	
 	
-	public DMapping4<A,B,C,D> add(IPair4Base<A,B,C,D> entry) { return add(entry.getA(), entry.getB(), entry.getC(), entry.getD()); }
+	public DMapping4<A,B,C,D> add(IDMap4Base<A,B,C,D> entry) { return add(entry.getA(), entry.getB(), entry.getC(), entry.getD()); }
 	
 	public DMapping4<A,B,C,D> add(A a, B b,C c, D d)
 	{
@@ -780,7 +780,7 @@ public class DMapping4<A,B,C,D> implements IDMapping4<DMapping4<A,B,C,D>,A,B,C,D
 	
 	
 
-	public int indexOf(IPair4Base<A,B,C,D> m) { return indexOf(m.getA(), m.getB(), m.getC(), m.getD()); }
+	public int indexOf(IDMap4Base<A,B,C,D> m) { return indexOf(m.getA(), m.getB(), m.getC(), m.getD()); }
 	
 	public int indexOf(A a, B b, C c, D d)
 	{
@@ -807,7 +807,7 @@ public class DMapping4<A,B,C,D> implements IDMapping4<DMapping4<A,B,C,D>,A,B,C,D
 	
 	public boolean contains(A a,B b,C c, D d) { return indexOf(a, b, c, d) == -1 ? false : true; }
 	
-	public boolean contains(IPair4Base<A,B,C,D> m) { return contains(m.getA(), m.getB(), m.getC(), m.getD()); }
+	public boolean contains(IDMap4Base<A,B,C,D> m) { return contains(m.getA(), m.getB(), m.getC(), m.getD()); }
 	
 	
 	
@@ -842,7 +842,7 @@ public class DMapping4<A,B,C,D> implements IDMapping4<DMapping4<A,B,C,D>,A,B,C,D
 	
 
 	
-	private Pair4<A,B,C,D> get0(int index) { return index == -1 ? null : get(index); }	
+	private DMap4<A,B,C,D> get0(int index) { return index == -1 ? null : get(index); }	
 	
 	
 	

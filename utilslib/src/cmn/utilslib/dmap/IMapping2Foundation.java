@@ -3,8 +3,8 @@ package cmn.utilslib.dmap;
 import java.util.Comparator;
 
 public interface IMapping2Foundation<RI extends IMapping2Foundation<?,?,?,A,B>,
-									 R extends IPair2Base<A,B>,
-									 P extends IPair2Base<A,B>,
+									 R extends IDMap2Base<A,B>,
+									 P extends IDMap2Base<A,B>,
 									 A,B>
 extends IMapping2FoundationBase<R,P,A,B>
 {
@@ -37,8 +37,8 @@ extends IMapping2FoundationBase<R,P,A,B>
 	
 	
 	public static interface IMapping2Extended<RI extends IMapping2Extended<?,?,?,A,B>,
-											  R extends IPair2Base<A,B>,
-											  P extends IPair2Base<A,B>,
+											  R extends IDMap2Base<A,B>,
+											  P extends IDMap2Base<A,B>,
 											  A,B>
 	extends IMapping2ExtendedBase<R,P,A,B>, IMapping2Foundation<RI,R,P,A,B>
 	{
@@ -52,7 +52,7 @@ extends IMapping2FoundationBase<R,P,A,B>
 	
 	public static interface IMapping2<RI extends IMapping2<?,A,B>,
 									  A,B>
-	extends IMapping2Base<A,B>, IMapping2Extended<RI,IPair2Base<A,B>,IPair2Base<A,B>,A,B>
+	extends IMapping2Base<A,B>, IMapping2Extended<RI,IDMap2Base<A,B>,IDMap2Base<A,B>,A,B>
 	{ }
 
 }

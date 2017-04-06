@@ -1,6 +1,6 @@
 package cmn.utilslib.dmap;
 
-public interface IPair2Base<A,B>
+public interface IDMap2Base<A,B>
 {
 	/**
 	 * Gets entry A
