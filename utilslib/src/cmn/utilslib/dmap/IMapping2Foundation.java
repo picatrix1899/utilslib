@@ -22,11 +22,16 @@ extends IMapping2FoundationBase<R,P,A,B>
 	public RI remove(P entry);
 	public RI removeByA(A a);
 	public RI removeByB(B b);
+	
+	public RI removeFirst(P p);
 	public RI removeFirstByA(A a);
 	public RI removeFirstByB(B b);
 	
 	public RI sortByA(Comparator<? super A> comp);
 	public RI sortByB(Comparator<? super B> comp);
+	
+	public RI sortByLinkedA(Comparator<? super LinkedEntry<A,R>> comp);
+	public RI sortByLinkedB(Comparator<? super LinkedEntry<B,R>> comp);
 	
 	public RI clear();
 	
@@ -42,7 +47,9 @@ extends IMapping2FoundationBase<R,P,A,B>
 											  A,B>
 	extends IMapping2ExtendedBase<R,P,A,B>, IMapping2Foundation<RI,R,P,A,B>
 	{
-
+		public RI set(int index, A a, B b);
+		
+		public RI add(A a, B b);
 	}
 	
 	

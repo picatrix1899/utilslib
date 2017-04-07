@@ -11,6 +11,7 @@ import cmn.utilslib.dmap.DMap4;
 import cmn.utilslib.dmap.DMapping2;
 import cmn.utilslib.dmap.DMapping3;
 import cmn.utilslib.dmap.DMapping4;
+import cmn.utilslib.dmap.LinkedEntry;
 import cmn.utilslib.plugin.IPluginSystem;
 import cmn.utilslib.plugin.IPluginSystemTemplate;
 import cmn.utilslib.plugin.PluginSystem;
@@ -20,6 +21,11 @@ import cmn.utilslib.reflection.ManagedFieldRef;
 
 public class Auto
 {
+	public static <T,P> LinkedEntry<T,P> LinkedEntry(P p)
+	{
+		return new LinkedEntry<T,P>(p);
+	}
+	
 	public static <A,B> DMap2<A,B> DMap2()
 	{
 		return new DMap2<A,B>();

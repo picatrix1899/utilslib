@@ -2,6 +2,8 @@ package cmn.utilslib.dmap;
 
 import java.util.List;
 
+import cmn.utilslib.essentials.MemoryIterator;
+
 public interface IMapping2FoundationBase<R extends IDMap2Base<A,B>,
 										 P extends IDMap2Base<A,B>,
 										 A,B>
@@ -11,11 +13,20 @@ public interface IMapping2FoundationBase<R extends IDMap2Base<A,B>,
 	
 	public List<A> a();
 	public List<B> b();
+	public List<LinkedEntry<A,R>> linkedA();
+	public List<LinkedEntry<B,R>> linkedB();
+	public List<R> list();
 	
 	public A getA(int index);
 	public B getB(int index);
 	
 	public R get(int index);
+	
+	public List<A> getA(int... index);
+	public List<B> getB(int... index);
+	
+	public List<R> get(int... index);
+	
 	
 	public R getFirstByA(A a);
 	public R getFirstByB(B b);
@@ -48,6 +59,15 @@ public interface IMapping2FoundationBase<R extends IDMap2Base<A,B>,
 	public boolean contains(P entry);
 	
 	public int size();
+	
+	public MemoryIterator<R> iterator();
+	
+	public MemoryIterator<A> iteratorA();
+	public MemoryIterator<B> iteratorB();
+	
+	public MemoryIterator<LinkedEntry<A,R>> iteratorLinkedA();
+	public MemoryIterator<LinkedEntry<B,R>> iteratorLinkedB();
+	
 	
 	public static interface IMapping2ExtendedBase<R extends IDMap2Base<A,B>,
 		 										  P extends IDMap2Base<A,B>,
