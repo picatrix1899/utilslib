@@ -8,7 +8,7 @@ import cmn.utilslib.interfaces.IObjectable;
  * 
  * @author picatrix1899
  */
-public class DMap3<A,B,C> implements IDMap3<DMap3<A,B,C>,A,B,C>, IObjectable<DMap3<A,B,C>>
+public class DMap3<A,B,C> implements IDMap3<A,B,C>, IObjectable<DMap3<A,B,C>>
 {
 	
 	private A a = null;
@@ -23,6 +23,7 @@ public class DMap3<A,B,C> implements IDMap3<DMap3<A,B,C>,A,B,C>, IObjectable<DMa
 	 */
 	public DMap3()
 	{
+		
 		this(null, null, null);
 	}
 	/**
@@ -39,7 +40,7 @@ public class DMap3<A,B,C> implements IDMap3<DMap3<A,B,C>,A,B,C>, IObjectable<DMa
 	 * 
 	 * @param dmap : The DMap for cloning
 	 */
-	public DMap3(DMap3<A,B,C> dmap)
+	public DMap3(IDMap3Base<A,B,C> dmap)
 	{
 		this(dmap.getA(), dmap.getB(), dmap.getC());
 	}

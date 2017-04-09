@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Function;
 
 import cmn.utilslib.dmap.DMap2;
 import cmn.utilslib.dmap.DMap3;
@@ -11,7 +12,13 @@ import cmn.utilslib.dmap.DMap4;
 import cmn.utilslib.dmap.DMapping2;
 import cmn.utilslib.dmap.DMapping3;
 import cmn.utilslib.dmap.DMapping4;
-import cmn.utilslib.dmap.LinkedEntry;
+import cmn.utilslib.dmap.IDMap2Base;
+import cmn.utilslib.dmap.IDMap3Base;
+import cmn.utilslib.dmap.IDMap4Base;
+import cmn.utilslib.dmap.LinkedDMap2;
+import cmn.utilslib.dmap.LinkedDMap3;
+import cmn.utilslib.dmap.LinkedDMap4;
+import cmn.utilslib.dmap.LinkedValue;
 import cmn.utilslib.plugin.IPluginSystem;
 import cmn.utilslib.plugin.IPluginSystemTemplate;
 import cmn.utilslib.plugin.PluginSystem;
@@ -21,9 +28,70 @@ import cmn.utilslib.reflection.ManagedFieldRef;
 
 public class Auto
 {
-	public static <T,P> LinkedEntry<T,P> LinkedEntry(P p)
+	
+	
+	public static <T> SimpleMemoryIterator<T> SimpleMemoryIterator(Function<Void,Integer> f_size, Function<Integer,T> f_get)
 	{
-		return new LinkedEntry<T,P>(p);
+		return new SimpleMemoryIterator<T>(f_size, f_get);
+	}
+	
+
+	
+	public static <T,P> LinkedValue<T,P> LinkedValue(P p)
+	{
+		return new LinkedValue<T,P>(p);
+	}
+	
+		public static <T,P> LinkedValue<T,P> LinkedValue(P p, T t)
+	{
+		return new LinkedValue<T,P>(p);
+	}
+	
+
+	
+	public static <A,B> LinkedDMap2<A,B> LinkedDMap2()
+	{
+		return new LinkedDMap2<A,B>();
+	}
+	
+	public static <A,B> LinkedDMap2<A,B> LinkedDMap2(A a, B b)
+	{
+		return new LinkedDMap2<A,B>(a, b);
+	}
+	
+	public static <A,B> LinkedDMap2<A,B> LinkedDMap2(IDMap2Base<A,B> dmap)
+	{
+		return new LinkedDMap2<A,B>(dmap);
+	}
+	
+	public static <A,B,C> LinkedDMap3<A,B,C> LinkedDMap3()
+	{
+		return new LinkedDMap3<A,B,C>();
+	}
+	
+	public static <A,B,C> LinkedDMap3<A,B,C> LinkedDMap3(A a, B b, C c)
+	{
+		return new LinkedDMap3<A,B,C>(a, b, c);
+	}
+	
+	public static <A,B,C> LinkedDMap3<A,B,C> LinkedDMap3(IDMap3Base<A,B,C> dmap)
+	{
+		return new LinkedDMap3<A,B,C>(dmap);
+	}
+	
+	public static <A,B,C,D> LinkedDMap4<A,B,C,D> LinkedDMap4()
+	{
+		return new LinkedDMap4<A,B,C,D>();
+	}
+	
+	public static <A,B,C,D> LinkedDMap4<A,B,C,D> LinkedDMap4(A a, B b, C c, D d)
+	{
+		return new LinkedDMap4<A,B,C,D>(a, b, c, d);
+	}
+	
+	public static <A,B,C,D> LinkedDMap4<A,B,C,D> LinkedDMap4(IDMap4Base<A,B,C,D> dmap)
+	{
+		return new LinkedDMap4<A,B,C,D>(dmap);
 	}
 	
 	public static <A,B> DMap2<A,B> DMap2()
@@ -36,6 +104,11 @@ public class Auto
 		return new DMap2<A,B>(a, b);
 	}
 	
+	public static <A,B> DMap2<A,B> DMap2(IDMap2Base<A,B> dmap)
+	{
+		return new DMap2<A,B>(dmap);
+	}
+	
 	public static <A,B,C> DMap3<A,B,C> DMap3()
 	{
 		return new DMap3<A,B,C>();
@@ -46,6 +119,11 @@ public class Auto
 		return new DMap3<A,B,C>(a, b, c);
 	}
 	
+	public static <A,B,C> DMap3<A,B,C> DMap3(IDMap3Base<A,B,C> dmap)
+	{
+		return new DMap3<A,B,C>(dmap);
+	}
+	
 	public static <A,B,C,D> DMap4<A,B,C,D> DMap4()
 	{
 		return new DMap4<A,B,C,D>();
@@ -54,6 +132,11 @@ public class Auto
 	public static <A,B,C,D> DMap4<A,B,C,D> DMap4(A a, B b, C c, D d)
 	{
 		return new DMap4<A,B,C,D>(a, b, c, d);
+	}
+	
+	public static <A,B,C,D> DMap4<A,B,C,D> DMap4(IDMap4Base<A,B,C,D> dmap)
+	{
+		return new DMap4<A,B,C,D>(dmap);
 	}
 	
 	

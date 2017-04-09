@@ -8,7 +8,7 @@ import cmn.utilslib.interfaces.IObjectable;
  * 
  * @author picatrix1899
  */
-public class DMap4<A,B,C,D> implements IDMap4<DMap4<A,B,C,D>,A,B,C,D>, IObjectable<DMap4<A,B,C,D>>
+public class DMap4<A,B,C,D> implements IDMap4<A,B,C,D>, IObjectable<DMap4<A,B,C,D>>
 {
 
 	private A a = null;
@@ -41,7 +41,7 @@ public class DMap4<A,B,C,D> implements IDMap4<DMap4<A,B,C,D>,A,B,C,D>, IObjectab
 	 * 
 	 * @param dmap : The DMap for cloning
 	 */
-	public DMap4(DMap4<A,B,C,D> dmap)
+	public DMap4(IDMap4Base<A,B,C,D> dmap)
 	{
 		this(dmap.getA(), dmap.getB(), dmap.getC(), dmap.getD());
 	}

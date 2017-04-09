@@ -1,432 +1,666 @@
-
 package cmn.utilslib.dmap;
 
-
-
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 
-import cmn.utilslib.dmap.IDMapping3Foundation.IDMapping3;
 import cmn.utilslib.essentials.Auto;
-import cmn.utilslib.essentials.Check;
 import cmn.utilslib.essentials.ListUtils;
-import cmn.utilslib.essentials.PrimeUtils;
+import cmn.utilslib.interfaces.IteratorConverter;
+import cmn.utilslib.interfaces.MemoryIterator;
+import cmn.utilslib.validation.Validate;
 
-
-
-/**
- * 
-
- * @author picatrix1899
- *
- */
-public class DMapping3<A,B,C> implements IDMapping3<DMapping3<A,B,C>,A,B,C>
+public class DMapping3<A,B,C> implements IDMapping3<A,B,C>
 {
 
-	private ArrayList<A> a = Auto.ArrayList();
-	private ArrayList<B> b = Auto.ArrayList();
-	private ArrayList<C> c = Auto.ArrayList();
-	
-	private int size = 0;	
+	private ArrayList<LinkedDMap3<A,B,C>> content = Auto.ArrayList();
 	
 	
 	
-	public DMapping3<A,B,C> set(int index, IDMap3Base<A,B,C> entry) { return set(index, entry.getA(), entry.getB(), entry.getC()); }
+	private final IteratorConverter<A,IDMap3Base<A,B,C>> converter_ToA = i -> i.getA();
+	private final IteratorConverter<B,IDMap3Base<A,B,C>> converter_ToB = i -> i.getB();
+	private final IteratorConverter<C,IDMap3Base<A,B,C>> converter_ToC = i -> i.getC();
 	
-	public DMapping3<A,B,C> set(int index, A a, B b,C c) 
+	private final IteratorConverter<LinkedValue<A,IDMap3Base<A,B,C>>,IDMap3Base<A,B,C>> converter_ToLinkedA = i -> ((LinkedDMap3<A,B,C>) i).getLinkedA();
+	private final IteratorConverter<LinkedValue<B,IDMap3Base<A,B,C>>,IDMap3Base<A,B,C>> converter_ToLinkedB = i -> ((LinkedDMap3<A,B,C>) i).getLinkedB();
+	private final IteratorConverter<LinkedValue<C,IDMap3Base<A,B,C>>,IDMap3Base<A,B,C>> converter_ToLinkedC = i -> ((LinkedDMap3<A,B,C>) i).getLinkedC();
+	
+	
+	public List<A> a() { return converter_ToA.toList(iterator()); }
+	public List<B> b() { return converter_ToB.toList(iterator()); }
+	public List<C> c() { return converter_ToC.toList(iterator()); }
+	
+	
+	public List<LinkedValue<A,IDMap3Base<A,B,C>>> linkedA() { return converter_ToLinkedA.toList(iterator()); }
+	public List<LinkedValue<B,IDMap3Base<A,B,C>>> linkedB() { return converter_ToLinkedB.toList(iterator()); }
+	public List<LinkedValue<C,IDMap3Base<A,B,C>>> linkedC() { return converter_ToLinkedC.toList(iterator()); }
+	
+	
+	
+	public List<IDMap3Base<A,B,C>> list() { return Auto.ArrayList(this.content); }
+	
+	
+	
+	public IDMap3Base<A,B,C> get(int index)
 	{
-		
-		if(index == size())
-		{
-			add(a, b, c);
-		}
-		else
-		{
-			this.a.set(index, a);
-			this.b.set(index, b);
-			this.c.set(index, c);			
-		}
-		
-		return this;
+		Validate.isInRange(0, size() - 1, index);
+		return get0(index);
 	}
+	public A getA(int index) { Validate.isInRange(0, size() - 1, index); return getA0(index); }
+	public B getB(int index) { Validate.isInRange(0, size() - 1, index); return getB0(index); }
+	public C getC(int index) { Validate.isInRange(0, size() - 1, index); return getC0(index); }
+
 	
 	
-	public DMapping3<A,B,C> setA(int index, A a) { validate0(index); this.a.set(index, a); return this; }
-	
-	public DMapping3<A,B,C> setB(int index, B b) { validate0(index); this.b.set(index, b); return this; }
-	
-	public DMapping3<A,B,C> setC(int index, C c) {validate0(index); this.c.set(index, c); return this; }
-		
-	
-	
-	public DMap3<A,B,C> get(int index) { validate0(index); return Auto.DMap3(getA(index), getB(index), getC(index)); }
-	
-	
-	public A getA(int index) { validate0(index); return this.a.get(index); }
-	
-	public B getB(int index) { validate0(index); return this.b.get(index); }
-	
-	public C getC(int index) { validate0(index); return this.c.get(index); }
-	
-	
-	
-	public DMap3<A,B,C> getbyA(A a) { return (!containsA(a)) ? null : get(indexOfA(a)); }
-	
-	public DMap3<A,B,C> getbyB(B b) { return (!containsB(b)) ? null : get(indexOfB(b)); }
-	
-	public DMap3<A,B,C> getbyC(C c) { return (!containsC(c)) ? null : get(indexOfC(c)); }
-	
-	
-	public DMap3<A,B,C> getbyAB(A a, B b) { return ((!containsA(a)) || (!containsB(b) || (!containsAB(a, b)))) ? null : get0(indexOfAB(a, b)); }
-	
-	public DMap3<A,B,C> getbyAC(A a, C c) { return ((!containsA(a)) || (!containsC(c) || (!containsAC(a, c)))) ? null : get0(indexOfAC(a, c)); }
-	
-	public DMap3<A,B,C> getbyBC(B b, C c) { return ((!containsB(b)) || (!containsC(c) || (!containsBC(b, c)))) ? null :  get0(indexOfBC(b, c)); }
-	
-	
-	
-	public A getAbyB(B b) { return (!containsB(b)) ? null : getA0(indexOfB(b)); }
-	
-	public A getAbyC(C c) { return (!containsC(c)) ? null : getA0(indexOfC(c)); }
-	
-	public B getBbyA(A a) { return (!containsA(a)) ? null : getB0(indexOfA(a)); }
-	
-	public B getBbyC(C c) { return (!containsC(c)) ? null : getB0(indexOfC(c)); }
-	
-	public C getCbyA(A a) { return (!containsA(a)) ? null : getC0(indexOfA(a)); }
-	
-	public C getCbyB(B b) { return (!containsB(b)) ? null : getC0(indexOfB(b)); }
-	
-	
-	
-	public A getAbyBC(B b, C c) { return ((!containsB(b)) || (!containsC(c) || (!containsBC(b, c)))) ? null : getA0(indexOfBC(b, c)); }
-	
-	public B getBbyAC(A a, C c) { return ((!containsA(a)) || (!containsC(c) || (!containsAC(a, c)))) ? null : getB0(indexOfAC(a, c)); }
-	
-	public C getCbyAB(A a, B b) { return ((!containsA(a)) || (!containsB(b) || (!containsAB(a, b)))) ? null : getC0(indexOfAB(a, b)); }
-	
-	
-	
-	public ArrayList<A> getAListByB(B b)
+	public List<IDMap3Base<A,B,C>> get(int... indices)
 	{
-		ArrayList<A> out = Auto.ArrayList();
+		Validate.isInRange(0, size() - 1, indices);
 		
-		for(int index : indicesOfB(b))
-			out.add(getA0(index));
-		
-		return out;
+		return get0(indices);
 	}
-	
-	public ArrayList<A> getAListByC(C c)
+	public List<A> getA(int... indices)
 	{
-		ArrayList<A> out = Auto.ArrayList();
+		Validate.isInRange(0, size() - 1, indices);
 		
-		for(int index : indicesOfC(c))
-			out.add(getA0(index));
+		return getA0(indices);
+	}
+	public List<B> getB(int... indices)
+	{
+		Validate.isInRange(0, size() - 1, indices);
 		
-		return out;
+		return getB0(indices);
+	}
+	public List<C> getC(int... indices)
+	{
+		Validate.isInRange(0, size() - 1, indices);
+		
+		return getC0(indices);
 	}
 	
 	
 	
-	public ArrayList<B> getBListByA(A a)
+	public IDMap3Base<A,B,C> getFirstByA(A a)
 	{
-		ArrayList<B> out = Auto.ArrayList();
+		int index = firstIndexOfA(a);
 		
-		for(int index : indicesOfA(a))
-			out.add(getB0(index));
-	
-		return out;
+		return index != -1 ? get0(index) : null;
 	}
-	
-	public ArrayList<B> getBListByC(C c)
+	public IDMap3Base<A,B,C> getFirstByB(B b)
 	{
-		ArrayList<B> out = Auto.ArrayList();
+		int index = firstIndexOfB(b);
 		
-		for(int index : indicesOfC(c))
-			out.add(getB0(index));
-		
-		return out;
+		return index != -1 ? get0(index) : null;
 	}
-	
-	public ArrayList<C> getCListByA(A a)
+	public IDMap3Base<A,B,C> getFirstByC(C c)
 	{
-		ArrayList<C> out = Auto.ArrayList();
+		int index = firstIndexOfC(c);
 		
-		for(int index : indicesOfA(a))
-			out.add(getC0(index));
-		
-		return out;
-	}
-	
-	public ArrayList<C> getCListByB(B b)
-	{
-		ArrayList<C> out = Auto.ArrayList();
-		
-		for(int index : indicesOfB(b))
-			out.add(getC0(index));
-		
-		return out;
+		return index != -1 ? get0(index) : null;
 	}
 	
 	
 	
-	public ArrayList<DMap3<A,B,C>> getListByA(A a)
+	public A getFirstAByB(B b)
 	{
-		ArrayList<DMap3<A,B,C>> out = Auto.ArrayList();
+		int index = firstIndexOfB(b);
 		
-		for(int index : indicesOfA(a))
-			out.add(get0(index));
-		
-		return out;
+		return index != -1 ? getA0(index) : null;
 	}
-	
-	public ArrayList<DMap3<A,B,C>> getListByB(B b)
+	public A getFirstAByC(C c)
 	{
-		ArrayList<DMap3<A,B,C>> out = Auto.ArrayList();
+		int index = firstIndexOfC(c);
 		
-		for(int index : indicesOfB(b))
-			out.add(get0(index));
-		
-		return out;
+		return index != -1 ? getA0(index) : null;
 	}
-	
-	public ArrayList<DMap3<A,B,C>> getListByC(C c)
+	public B getFirstBByA(A a)
 	{
-		ArrayList<DMap3<A,B,C>> out = Auto.ArrayList();
+		int index = firstIndexOfA(a);
 		
-		for(int index : indicesOfC(c))
-			out.add(get0(index));
-		
-		return out;
+		return index != -1 ? getB0(index) : null;
 	}
-	
-	
-	
-	public ArrayList<A> getAListByBC(B b, C c)
+	public B getFirstBByC(C c)
 	{
-		ArrayList<A> out = Auto.ArrayList();
+		int index = firstIndexOfC(c);
 		
-		for(int index : indicesOfBC(b, c))
-			out.add(getA0(index));
-		
-		return out;
+		return index != -1 ? getB0(index) : null;
 	}
-	
-	public ArrayList<B> getBListByAC(A a, C c)
+	public C getFirstCByA(A a)
 	{
-		ArrayList<B> out = Auto.ArrayList();
+		int index = firstIndexOfA(a);
 		
-		for(int index : indicesOfAC(a, c))
-			out.add(getB0(index));
-		
-		return out;
+		return index != -1 ? getC0(index) : null;
 	}
-	
-	public ArrayList<C> getCListByAB(A a, B b)
+	public C getFirstCByB(B b)
 	{
-		ArrayList<C> out = Auto.ArrayList();
+		int index = firstIndexOfB(b);
 		
-		for(int index : indicesOfAB(a, b))
-			out.add(getC0(index));
-		
-		return out;
+		return index != -1 ? getC0(index) : null;
 	}
+
 	
 	
-	
-	public ArrayList<DMap3<A,B,C>> getListByAB(A a, B b)
+	public List<IDMap3Base<A,B,C>> getByA(A a)
 	{
-		ArrayList<DMap3<A,B,C>> out = Auto.ArrayList();
+		int[] indices = indicesOfA(a);
 		
-		for(int index : indicesOfAB(a, b))
-			out.add(get0(index));
-		
-		return out;
+		return get(indices);
 	}
-	
-	public ArrayList<DMap3<A,B,C>> getListByAC(A a, C c)
+	public List<IDMap3Base<A,B,C>> getByB(B b)
 	{
-		ArrayList<DMap3<A,B,C>> out = Auto.ArrayList();
+		int[] indices = indicesOfB(b);
 		
-		for(int index : indicesOfAC(a, c))
-			out.add(get0(index));
-		
-		return out;
+		return get(indices);
 	}
-	
-	public ArrayList<DMap3<A,B,C>> getListByBC(B b, C c)
+	public List<IDMap3Base<A,B,C>> getByC(C c)
 	{
-		ArrayList<DMap3<A,B,C>> out = Auto.ArrayList();
+		int[] indices = indicesOfC(c);
 		
-		for(int index : indicesOfBC(b, c))
-			out.add(get0(index));
-		
-		return out;
+		return get(indices);
 	}
-	
-	
-	
-	public List<A> a() { return this.a; }
-	
-	public List<B> b() { return this.b; }
-	
-	public List<C> c() { return this.c; }
-	
-	
-	
-	public int size() { return this.size; }
-	
-	
-	
-	public DMapping3<A,B,C> add(IDMap3Base<A,B,C> entry) { return add(entry.getA(), entry.getB(), entry.getC()); }
-	
-	public DMapping3<A,B,C> add(A a, B b,C c)
-	{
-		this.a.add(a);
-		this.b.add(b);
-		this.c.add(c);
-		this.size++;
-		
-		return this;
-	}
-	
 	
 
-	public DMapping3<A,B,C> remove(int index)
+	
+	public List<A> getAByB(B b)
 	{
-		this.a.remove(index);
-		this.b.remove(index);
-		this.c.remove(index);
-		this.size--;
+		int[] indices = indicesOfB(b);
 		
-		return this;
+		return getA0(indices);
+	}
+	public List<A> getAByC(C c)
+	{
+		int[] indices = indicesOfC(c);
+		
+		return getA0(indices);
+	}
+	public List<B> getBByA(A a)
+	{
+		int[] indices = indicesOfA(a);
+		
+		return getB0(indices);
+	}
+	public List<B> getBByC(C c)
+	{
+		int[] indices = indicesOfC(c);
+		
+		return getB0(indices);
+	}
+	public List<C> getCByA(A a)
+	{
+		int[] indices = indicesOfA(a);
+		
+		return getC0(indices);
+	}
+	public List<C> getCByB(B b)
+	{
+		int[] indices = indicesOfB(b);
+		
+		return getC0(indices);
 	}
 	
 	
 	
-	public int indexOfA(A a) { return this.a.indexOf(a); }
-	
-	public int indexOfB(B b) { return this.b.indexOf(b); }
-	
-	public int indexOfC(C c) { return this.c.indexOf(c); }
-	
-	
-	
-	public int[] indicesOfA(A a) { return ListUtils.<A>indicesOf(this.a, a); }
-	
-	public int[] indicesOfB(B b) { return ListUtils.<B>indicesOf(this.b, b); }
-	
-	public int[] indicesOfC(C c) { return ListUtils.<C>indicesOf(this.c, c); }
-	
-	
-	
-	public int[] indicesOfAB(A a, B b)
+	public int firstIndexOf(A a, B b, C c) { return firstIndexOf(Auto.DMap3(a, b, c)); }	
+	public int firstIndexOf(IDMap3Base<A,B,C> entry)
 	{
-		if(Check.notTrueOOO(containsA(a), containsB(b))) return null;
-		if(Check.isNull(indicesOfA(a))) return null;	
-	
-		ArrayList<Integer> out = Auto.ArrayList();
+		MemoryIterator<IDMap3Base<A,B,C>> i = iterator();
 		
-		for(int x : indicesOfA(a))
-			if(Check.isEqual(b, getB0(x))) out.add(x);
-		
-		if(out.size() == 0) return null;
-		
-		return PrimeUtils.toInt(ListUtils.<Integer>ListToArray(out, Integer.class));
-	}
-	
-	public int[] indicesOfAC(A a, C c)
-	{
-		if(Check.notTrueOOO(containsA(a), containsC(c))) return null;
-		if(Check.isNull(indicesOfA(a))) return null;		
-		
-		ArrayList<Integer> out = Auto.ArrayList();
-		
-		for(int x : indicesOfA(a))
-			if(Check.isEqual(c, getC0(x))) out.add(x);
-		
-		if(out.size() == 0) return null;
-		
-		return PrimeUtils.toInt(ListUtils.<Integer>ListToArray(out, Integer.class));
-	}	
-	
-	public int[] indicesOfBC(B b, C c)
-	{
-		if(Check.notTrueOOO(containsB(b), containsC(c))) return null;
-		if(Check.isNull(indicesOfB(b))) return null;		
-		
-		ArrayList<Integer> out = Auto.ArrayList();
-		
-		for(int x : indicesOfB(b))
-			if(Check.isEqual(c, getC0(x))) out.add(x);
-		
-		if(out.size() == 0) return null;
-		
-		return PrimeUtils.toInt(ListUtils.<Integer>ListToArray(out, Integer.class));
-	}
-	
-	
-	
-	public int indexOfAB(A a, B b) { return indicesOfAB(a, b) == null ? -1 : indicesOfAB(a, b)[0]; }
-	
-	public int indexOfAC(A a, C c) { return indicesOfAC(a, c) == null ? -1 : indicesOfAC(a, c)[0]; }
-	
-	public int indexOfBC(B b, C c) { return indicesOfBC(b, c) == null ? -1 : indicesOfBC(b, c)[0]; }
-	
-	
-
-	public int indexOf(IDMap3Base<A,B,C> m) { return indexOf(m.getA(), m.getB(), m.getC()); }
-	
-	public int indexOf(A a, B b, C c)
-	{
-		if(Check.notTrueOOO(containsA(a), containsB(b), containsC(c))) return -1;
-		
-		for(int i : indicesOfAB(a,b))
-			if(Check.isEqual(c, getC0(i))) return i;
+		while(i.hasNext()) if(i.next().equals(entry)) return i.index();
 		
 		return -1;
 	}
+	public int firstIndexOfA(A a) { return this.a().indexOf(a); }
+	public int firstIndexOfB(B b) { return this.b().indexOf(b); }
+	public int firstIndexOfC(C c) { return this.c().indexOf(c); }
 	
 	
 	
-	public boolean containsA(A a) { return this.a.contains(a); }
-	
-	public boolean containsB(B b) { return this.b.contains(b); }
-	
-	public boolean containsC(C c) { return this.c.contains(c); }
-	
-	
-	
-	public boolean contains(A a,B b,C c) { return indexOf(a, b, c) == -1 ? false : true; }
-	
-	public boolean contains(IDMap3Base<A,B,C> m) { return contains(m.getA(), m.getB(), m.getC()); }
-	
-	
-	
-	public boolean containsAB(A a , B b) { return indexOfAB(a, b) != -1; }
-	
-	public boolean containsAC(A a , C c) { return indexOfAC(a, c) != -1; }
-	
-	public boolean containsBC(B b , C c) { return indexOfBC(b, c) != -1; }
-	
-	
-
-	protected void validate0(int i)
+	public boolean contains(A a, B b, C c) { return contains(Auto.DMap3(a,b,c)); }
+	public boolean contains(IDMap3Base<A,B,C> entry)
 	{
+		Iterator<IDMap3Base<A,B,C>> i = iterator();
+		
+		while(i.hasNext()) if(i.next().equals(entry)) return true;	
+		
+		return false;
+	}
+	public boolean containsA(A a) { return converter_ToA.toList(iterator()).contains(a); }
+	public boolean containsB(B b) { return converter_ToB.toList(iterator()).contains(b); }
+	public boolean containsC(C c) { return converter_ToC.toList(iterator()).contains(c); }
+	
+	
+	
+	public int[] indicesOf(A a, B b, C c) { return indicesOf(Auto.DMap3(a, b, c)); }
+	public int[] indicesOf(IDMap3Base<A,B,C> entry)
+	{
+		ArrayList<Integer> out = Auto.ArrayList();
+		
+		MemoryIterator<IDMap3Base<A,B,C>> i = iterator();
+		
+		while(i.hasNext()) if(i.next().equals(entry)) out.add(i.index());
+		
+		return ListUtils.toIntArray(out);
+	}
+	public int[] indicesOfA(A a)
+	{
+		ArrayList<Integer> out = Auto.ArrayList();
+		
+		MemoryIterator<A> i = iteratorA();
+		
+		while(i.hasNext()) if(i.next().equals(a)) out.add(i.index());
+		
+		return ListUtils.toIntArray(out);
+	}
+	public int[] indicesOfB(B b)
+	{
+		ArrayList<Integer> out = Auto.ArrayList();
+		
+		MemoryIterator<B> i = iteratorB();
+		
+		while(i.hasNext()) if(i.next().equals(b)) out.add(i.index());
 
-	}	
+		return ListUtils.toIntArray(out);
+	}
+	public int[] indicesOfC(C c)
+	{
+		ArrayList<Integer> out = Auto.ArrayList();
+		
+		MemoryIterator<C> i = iteratorC();
+		
+		while(i.hasNext()) if(i.next().equals(c)) out.add(i.index());
+
+		return ListUtils.toIntArray(out);
+	}
+	
+	
+
+	public int occurrencesOf(A a, B b, C c) { return occurrencesOf(Auto.DMap3(a, b, c)); }
+	public int occurrencesOf(IDMap3Base<A,B,C> entry)
+	{
+		int out = 0;
+		
+		Iterator<IDMap3Base<A,B,C>> i = iterator();
+		
+		while(i.hasNext()) if(i.next().equals(entry)) out++;
+		
+		return out;
+	}
+	public int occurrencesOfA(A a)
+	{
+		int out = 0;
+		
+		Iterator<A> i = iteratorA();
+		
+		while(i.hasNext()) if(i.next().equals(a)) out++;
+		
+		return out;
+	}
+	public int occurrencesOfB(B b)
+	{
+		int out = 0;
+		
+		Iterator<B> i = iteratorB();
+		
+		while(i.hasNext()) if(i.next().equals(b)) out++;
+		
+		return out;
+	}
+	public int occurrencesOfC(C c)
+	{
+		int out = 0;
+		
+		Iterator<C> i = iteratorC();
+		
+		while(i.hasNext()) if(i.next().equals(c)) out++;
+		
+		return out;
+	}
+
+
+	
+	public int size() { return this.content.size(); }
+
+	
+	
+	public MemoryIterator<IDMap3Base<A,B,C>> iterator()
+	{
+		return Auto.SimpleMemoryIterator(v -> size(), i -> this.content.get(i));
+	}
+	public MemoryIterator<A> iteratorA()
+	{
+		return Auto.SimpleMemoryIterator(v -> size(), i -> this.content.get(i).getA());
+	}
+	public MemoryIterator<B> iteratorB()
+	{
+		return Auto.SimpleMemoryIterator(v -> size(), i -> this.content.get(i).getB());
+	}
+	public MemoryIterator<C> iteratorC()
+	{
+		return Auto.SimpleMemoryIterator(v -> size(), i -> this.content.get(i).getC());
+	}
+
+	
+	
+	public MemoryIterator<LinkedValue<A, IDMap3Base<A,B,C>>> iteratorLinkedA()
+	{
+		return Auto.SimpleMemoryIterator(v -> size(), i -> this.content.get(i).getLinkedA());
+	}
+	public MemoryIterator<LinkedValue<B, IDMap3Base<A,B,C>>> iteratorLinkedB()
+	{
+		return Auto.SimpleMemoryIterator(v -> size(), i -> this.content.get(i).getLinkedB());
+	}
+	public MemoryIterator<LinkedValue<C, IDMap3Base<A,B,C>>> iteratorLinkedC()
+	{
+		return Auto.SimpleMemoryIterator(v -> size(), i -> this.content.get(i).getLinkedC());
+	}
 	
 	
 	
-	private DMap3<A,B,C> get0(int index) { return index == -1 ? null : get(index); }
+	public DMapping3<A,B,C> set(int index, A a, B b, C c)
+	{
+		Validate.isInRange(0, size(), index);
+		
+		if(index < size())
+		{
+			setA0(index, a);
+			setB0(index, b);
+		}
+		else
+		{
+			this.content.add(Auto.LinkedDMap3(a, b, c));
+		}
+		
+		return this;
+	}
+	public DMapping3<A,B,C> set(int index, IDMap3Base<A,B,C> entry) { return set(index, entry.getA(), entry.getB(), entry.getC()); }
+	public DMapping3<A,B,C> setA(int index, A a)
+	{
+		Validate.isInRange(0, size() -1, index);
+		setA0(index, a);
+		
+		return this;
+	}
+	public DMapping3<A,B,C> setB(int index, B b)
+	{
+		Validate.isInRange(0, size() - 1, index);
+		setB0(index, b);
+		
+		return this;
+	}
+	public DMapping3<A,B,C> setC(int index, C c)
+	{
+		Validate.isInRange(0, size() - 1, index);
+		setC0(index, c);
+		
+		return this;
+	}
+
+
+	
+	public DMapping3<A,B,C> add(A a, B b, C c)
+	{
+		this.content.add(Auto.LinkedDMap3(a, b, c));
+		
+		return this;
+	}
+	public DMapping3<A,B,C> add(IDMap3Base<A,B,C> entry)
+	{
+		return add(entry.getA(), entry.getB(), entry.getC());
+	}
+
+	
+	
+	public DMapping3<A,B,C> remove(int index)
+	{
+		Validate.isInRange(0, size() - 1, index);
+
+		remove0(index);
+		
+		return this;
+	}
+	
+	public DMapping3<A,B,C> remove(A a, B b, C c) { return remove(Auto.DMap3(a, b, c)); }
+	public DMapping3<A,B,C> remove(IDMap3Base<A,B,C> entry)
+	{
+		int index = -1;
+		
+		while(contains(entry))
+		{
+			index = firstIndexOf(entry);
+			
+			remove0(index);
+		}
+		
+		return this;
+	}
+	public DMapping3<A,B,C> removeByA(A a)
+	{
+		int index = -1;
+		
+		while(containsA(a))
+		{
+			index = firstIndexOfA(a);
+			
+			remove0(index);
+		}
+		
+		return this;
+	}
+	public DMapping3<A,B,C> removeByB(B b)
+	{
+		int index = -1;
+		
+		while(containsB(b))
+		{
+			index = firstIndexOfB(b);
+			
+			remove0(index);
+		}
+		
+		return this;
+	}
+	public DMapping3<A,B,C> removeByC(C c)
+	{
+		int index = -1;
+		
+		while(containsC(c))
+		{
+			index = firstIndexOfC(c);
+			
+			remove0(index);
+		}
+		
+		return this;
+	}
 	
 	
 	
-	private A getA0(int index) { return index == -1 ? null : getA(index); }
+	public DMapping3<A,B,C> removeFirst(A a, B b, C c) { return removeFirst(Auto.DMap3(a, b, c)); }
+	public DMapping3<A,B,C> removeFirst(IDMap3Base<A,B,C> entry)
+	{
+		int index = firstIndexOf(entry);
+		if(index != -1)
+		{
+			remove0(index);
+		}
+		
+		return this;
+	}
+	public DMapping3<A,B,C> removeFirstByA(A a)
+	{
+		int index = firstIndexOfA(a);
+		if(index != -1)
+		{
+			remove0(index);
+		}
+		
+		return this;
+	}
+	public DMapping3<A,B,C> removeFirstByB(B b)
+	{
+		int index = firstIndexOfB(b);
+		if(index != -1)
+		{
+			remove0(index);
+		}
+		
+		return this;
+	}
+	public DMapping3<A,B,C> removeFirstByC(C c)
+	{
+		int index = firstIndexOfC(c);
+		if(index != -1)
+		{
+			remove0(index);
+		}
+		
+		return this;
+	}
 	
-	private B getB0(int index) { return index == -1 ? null : getB(index); }
 	
-	private C getC0(int index) { return index == -1 ? null : getC(index); }
+	
+	public DMapping3<A,B,C> sortByLinkedA(Comparator<? super LinkedValue<A,IDMap3Base<A,B,C>>> comp)
+	{
+		List<LinkedValue<A, IDMap3Base<A,B,C>>> e = linkedA();
+		
+		e.sort(comp);
+
+		Iterator<LinkedValue<A, IDMap3Base<A,B,C>>> i = e.iterator();
+		
+		clear();
+		
+		while(i.hasNext())
+		{
+			add(i.next().parent());
+		}
+		
+		return this;
+	}
+	public DMapping3<A,B,C> sortByLinkedB(Comparator<? super LinkedValue<B,IDMap3Base<A,B,C>>> comp)
+	{
+		List<LinkedValue<B, IDMap3Base<A,B,C>>> e = linkedB();
+		
+		e.sort(comp);
+		
+		Iterator<LinkedValue<B, IDMap3Base<A,B,C>>> i = e.iterator();
+		
+		clear();
+		
+		while(i.hasNext())
+		{
+			add(i.next().parent());
+		}
+		
+		return this;
+	}
+	public DMapping3<A,B,C> sortByLinkedC(Comparator<? super LinkedValue<C,IDMap3Base<A,B,C>>> comp)
+	{
+		List<LinkedValue<C, IDMap3Base<A,B,C>>> e = linkedC();
+		
+		e.sort(comp);
+		
+		Iterator<LinkedValue<C, IDMap3Base<A,B,C>>> i = e.iterator();
+		
+		clear();
+		
+		while(i.hasNext())
+		{
+			add(i.next().parent());
+		}
+		
+		return this;
+	}
+	
+	
+	
+	public DMapping3<A,B,C> sortByA(Comparator<? super A> comp)
+	{
+		return sortByLinkedA((a,b) -> comp.compare(a.value(), b.value()));
+	}
+	public DMapping3<A,B,C> sortByB(Comparator<? super B> comp)
+	{
+		return sortByLinkedB((a,b) -> comp.compare(a.value(), b.value()));
+	}
+	public DMapping3<A,B,C> sortByC(Comparator<? super C> comp)
+	{
+		return sortByLinkedC((a,b) -> comp.compare(a.value(), b.value()));
+	}
+
+	
+	
+	public DMapping3<A,B,C> clear()
+	{
+		this.content.clear();
+		
+		return this;
+	}
+
+	
+	
+	private IDMap3Base<A,B,C> get0(int index) { return this.content.get(index); }
+	private A getA0(int index) { return this.content.get(index).getA(); } 
+	private B getB0(int index) { return this.content.get(index).getB(); } 
+	private C getC0(int index) { return this.content.get(index).getC(); } 
+	
+	
+	
+	private List<IDMap3Base<A,B,C>> get0(int... indices)
+	{
+		ArrayList<IDMap3Base<A,B,C>> out = Auto.ArrayList();
+		
+		for(int i : indices)
+		{
+			out.add(get0(i));
+		}
+		
+		return out;
+	}
+	private List<A> getA0(int... indices)
+	{
+		ArrayList<A> out = Auto.ArrayList();
+		
+		for(int i : indices)
+		{
+			out.add(getA0(i));
+		}
+		
+		return out;
+	}
+	private List<B> getB0(int... indices)
+	{
+		ArrayList<B> out = Auto.ArrayList();
+		
+		for(int i : indices)
+		{
+			out.add(getB0(i));
+		}
+		
+		return out;
+	}
+	private List<C> getC0(int... indices)
+	{
+		ArrayList<C> out = Auto.ArrayList();
+		
+		for(int i : indices)
+		{
+			out.add(getC0(i));
+		}
+		
+		return out;
+	}
+	
+	
+	
+	private void setA0(int index, A a) { this.content.get(index).setA(a); }
+	private void setB0(int index, B b) { this.content.get(index).setB(b); }
+	private void setC0(int index, C c) { this.content.get(index).setC(c); }
+	
+	
+	
+	private void remove0(int index)
+	{
+		this.content.remove(index);
+	}
 
 }
+

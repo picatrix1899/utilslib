@@ -1,4 +1,4 @@
-package cmn.utilslib.essentials;
+package cmn.utilslib.interfaces;
 
 import java.util.Iterator;
 

@@ -11,7 +11,7 @@ public class ServerClientConnection
 	
 	public ServerClientConnection()
 	{
-		packetQueue.
+		
 	}
 	
 }

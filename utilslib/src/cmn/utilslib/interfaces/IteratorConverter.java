@@ -1,18 +1,17 @@
-package cmn.utilslib.essentials;
+package cmn.utilslib.interfaces;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public abstract class IteratorConverter<R,I>
+import cmn.utilslib.essentials.Auto;
+
+public interface IteratorConverter<R,I>
 {
 	
-	public R convert(I i)
-	{
-		return null;
-	}
+	public abstract R convert(I i);
 	
-	public List<R> toList(Iterator<I> i)
+	public default List<R> toList(Iterator<I> i)
 	{
 		ArrayList<R> out = Auto.ArrayList();
 		

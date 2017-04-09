@@ -10,11 +10,11 @@ import cmn.utilslib.interfaces.IObjectable;
  * @author picatrix1899
  * @category DMaps
  */
-public class DMap2<A,B> implements IDMap2<DMap2<A,B>,A,B>, IObjectable<DMap2<A,B>>
+public class DMap2<A,B> implements IDMap2<A,B>, IObjectable<DMap2<A,B>>
 {
 	
-	private A a = null;
-	private B b = null;
+	private volatile A a = null;
+	private volatile B b = null;
 	
 	
 	
@@ -40,7 +40,7 @@ public class DMap2<A,B> implements IDMap2<DMap2<A,B>,A,B>, IObjectable<DMap2<A,B
 	 * Constructor for cloning
 	 * @param dmap : The DMap for cloning
 	 */
-	public DMap2(DMap2<A,B> dmap)
+	public DMap2(IDMap2Base<A,B> dmap)
 	{
 		this(dmap.getA(), dmap.getB());
 	}

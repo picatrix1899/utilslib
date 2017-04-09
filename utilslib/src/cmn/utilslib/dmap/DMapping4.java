@@ -1,857 +1,857 @@
-
 package cmn.utilslib.dmap;
 
-
-
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 
-import cmn.utilslib.dmap.IDMapping4Foundation.IDMapping4;
 import cmn.utilslib.essentials.Auto;
-import cmn.utilslib.essentials.Check;
 import cmn.utilslib.essentials.ListUtils;
-import cmn.utilslib.essentials.PrimeUtils;
+import cmn.utilslib.interfaces.IteratorConverter;
+import cmn.utilslib.interfaces.MemoryIterator;
+import cmn.utilslib.validation.Validate;
 
-
-
-/**
- * 
-
- * @author picatrix1899
- *
- */
-public class DMapping4<A,B,C,D> implements IDMapping4<DMapping4<A,B,C,D>,A,B,C,D>
+public class DMapping4<A,B,C,D> implements IDMapping4<A,B,C,D>
 {
 
-	private ArrayList<A> a = Auto.ArrayList();
-	private ArrayList<B> b = Auto.ArrayList();
-	private ArrayList<C> c = Auto.ArrayList();
-	private ArrayList<D> d = Auto.ArrayList();
-	
-	private int size = 0;
+	private ArrayList<LinkedDMap4<A,B,C,D>> content = Auto.ArrayList();
 	
 	
 	
-	public DMapping4<A,B,C,D> set(int index, IDMap4Base<A,B,C,D> entry) { return set(index, entry.getA(), entry.getB(), entry.getC(), entry.getD()); }
+	private final IteratorConverter<A,IDMap4Base<A,B,C,D>> converter_ToA = i -> i.getA();
+	private final IteratorConverter<B,IDMap4Base<A,B,C,D>> converter_ToB = i -> i.getB();
+	private final IteratorConverter<C,IDMap4Base<A,B,C,D>> converter_ToC = i -> i.getC();
+	private final IteratorConverter<D,IDMap4Base<A,B,C,D>> converter_ToD = i -> i.getD();
 	
-	public DMapping4<A,B,C,D> set(int index, A a, B b,C c, D d) 
+	private final IteratorConverter<LinkedValue<A,IDMap4Base<A,B,C,D>>,IDMap4Base<A,B,C,D>> converter_ToLinkedA = i -> ((LinkedDMap4<A,B,C,D>) i).getLinkedA();
+	private final IteratorConverter<LinkedValue<B,IDMap4Base<A,B,C,D>>,IDMap4Base<A,B,C,D>> converter_ToLinkedB = i -> ((LinkedDMap4<A,B,C,D>) i).getLinkedB();
+	private final IteratorConverter<LinkedValue<C,IDMap4Base<A,B,C,D>>,IDMap4Base<A,B,C,D>> converter_ToLinkedC = i -> ((LinkedDMap4<A,B,C,D>) i).getLinkedC();
+	private final IteratorConverter<LinkedValue<D,IDMap4Base<A,B,C,D>>,IDMap4Base<A,B,C,D>> converter_ToLinkedD = i -> ((LinkedDMap4<A,B,C,D>) i).getLinkedD();
+	
+	
+	
+	public List<A> a() { return converter_ToA.toList(iterator()); }
+	public List<B> b() { return converter_ToB.toList(iterator()); }
+	public List<C> c() { return converter_ToC.toList(iterator()); }
+	public List<D> d() { return converter_ToD.toList(iterator()); }
+	
+	
+	
+	public List<LinkedValue<A,IDMap4Base<A,B,C,D>>> linkedA() { return converter_ToLinkedA.toList(iterator()); }
+	public List<LinkedValue<B,IDMap4Base<A,B,C,D>>> linkedB() { return converter_ToLinkedB.toList(iterator()); }
+	public List<LinkedValue<C,IDMap4Base<A,B,C,D>>> linkedC() { return converter_ToLinkedC.toList(iterator()); }
+	public List<LinkedValue<D,IDMap4Base<A,B,C,D>>> linkedD() { return converter_ToLinkedD.toList(iterator()); }
+	
+	
+	
+	public List<IDMap4Base<A,B,C,D>> list() { return Auto.ArrayList(this.content); }
+	
+	
+	
+	public IDMap4Base<A,B,C,D> get(int index)
 	{
+		Validate.isInRange(0, size() - 1, index);
+		return get0(index);
+	}
+	public A getA(int index) { Validate.isInRange(0, size() - 1, index); return getA0(index); }
+	public B getB(int index) { Validate.isInRange(0, size() - 1, index); return getB0(index); }
+	public C getC(int index) { Validate.isInRange(0, size() - 1, index); return getC0(index); }
+	public D getD(int index) { Validate.isInRange(0, size() - 1, index); return getD0(index); }
 
+	
+	
+	public List<IDMap4Base<A,B,C,D>> get(int... indices)
+	{
+		Validate.isInRange(0, size() - 1, indices);
 		
-		if(index == size())
+		return get0(indices);
+	}
+	public List<A> getA(int... indices)
+	{
+		Validate.isInRange(0, size() - 1, indices);
+		
+		return getA0(indices);
+	}
+	public List<B> getB(int... indices)
+	{
+		Validate.isInRange(0, size() - 1, indices);
+		
+		return getB0(indices);
+	}
+	public List<C> getC(int... indices)
+	{
+		Validate.isInRange(0, size() - 1, indices);
+		
+		return getC0(indices);
+	}
+	public List<D> getD(int... indices)
+	{
+		Validate.isInRange(0, size() - 1, indices);
+		
+		return getD0(indices);
+	}
+	
+	
+	
+	public IDMap4Base<A,B,C,D> getFirstByA(A a)
+	{
+		int index = firstIndexOfA(a);
+		
+		return index != -1 ? get0(index) : null;
+	}
+	public IDMap4Base<A,B,C,D> getFirstByB(B b)
+	{
+		int index = firstIndexOfB(b);
+		
+		return index != -1 ? get0(index) : null;
+	}
+	public IDMap4Base<A,B,C,D> getFirstByC(C c)
+	{
+		int index = firstIndexOfC(c);
+		
+		return index != -1 ? get0(index) : null;
+	}
+	public IDMap4Base<A,B,C,D> getFirstByD(D d)
+	{
+		int index = firstIndexOfD(d);
+		
+		return index != -1 ? get0(index) : null;
+	}
+	
+	
+	
+	public A getFirstAByB(B b)
+	{
+		int index = firstIndexOfB(b);
+		
+		return index != -1 ? getA0(index) : null;
+	}
+	public A getFirstAByC(C c)
+	{
+		int index = firstIndexOfC(c);
+		
+		return index != -1 ? getA0(index) : null;
+	}
+	public A getFirstAByD(D d)
+	{
+		int index = firstIndexOfD(d);
+		
+		return index != -1 ? getA0(index) : null;
+	}
+	public B getFirstBByA(A a)
+	{
+		int index = firstIndexOfA(a);
+		
+		return index != -1 ? getB0(index) : null;
+	}
+	public B getFirstBByC(C c)
+	{
+		int index = firstIndexOfC(c);
+		
+		return index != -1 ? getB0(index) : null;
+	}
+	public B getFirstBByD(D d)
+	{
+		int index = firstIndexOfD(d);
+		
+		return index != -1 ? getB0(index) : null;
+	}
+	public C getFirstCByA(A a)
+	{
+		int index = firstIndexOfA(a);
+		
+		return index != -1 ? getC0(index) : null;
+	}
+	public C getFirstCByB(B b)
+	{
+		int index = firstIndexOfB(b);
+		
+		return index != -1 ? getC0(index) : null;
+	}
+	public C getFirstCByD(D d)
+	{
+		int index = firstIndexOfD(d);
+		
+		return index != -1 ? getC0(index) : null;
+	}
+	public D getFirstDByA(A a)
+	{
+		int index = firstIndexOfA(a);
+		
+		return index != -1 ? getD0(index) : null;
+	}
+	public D getFirstDByB(B b)
+	{
+		int index = firstIndexOfB(b);
+		
+		return index != -1 ? getD0(index) : null;
+	}
+	public D getFirstDByC(C c)
+	{
+		int index = firstIndexOfC(c);
+		
+		return index != -1 ? getD0(index) : null;
+	}
+
+
+	
+	
+	public List<IDMap4Base<A,B,C,D>> getByA(A a)
+	{
+		int[] indices = indicesOfA(a);
+		
+		return get(indices);
+	}
+	public List<IDMap4Base<A,B,C,D>> getByB(B b)
+	{
+		int[] indices = indicesOfB(b);
+		
+		return get(indices);
+	}
+	public List<IDMap4Base<A,B,C,D>> getByC(C c)
+	{
+		int[] indices = indicesOfC(c);
+		
+		return get(indices);
+	}
+	public List<IDMap4Base<A,B,C,D>> getByD(D d)
+	{
+		int[] indices = indicesOfD(d);
+		
+		return get(indices);
+	}
+	
+
+	
+	public List<A> getAByB(B b)
+	{
+		int[] indices = indicesOfB(b);
+		
+		return getA0(indices);
+	}
+	public List<A> getAByC(C c)
+	{
+		int[] indices = indicesOfC(c);
+		
+		return getA0(indices);
+	}
+	public List<A> getAByD(D d)
+	{
+		int[] indices = indicesOfD(d);
+		
+		return getA0(indices);
+	}
+	public List<B> getBByA(A a)
+	{
+		int[] indices = indicesOfA(a);
+		
+		return getB0(indices);
+	}
+	public List<B> getBByC(C c)
+	{
+		int[] indices = indicesOfC(c);
+		
+		return getB0(indices);
+	}
+	public List<B> getBByD(D d)
+	{
+		int[] indices = indicesOfD(d);
+		
+		return getB0(indices);
+	}
+	public List<C> getCByA(A a)
+	{
+		int[] indices = indicesOfA(a);
+		
+		return getC0(indices);
+	}
+	public List<C> getCByB(B b)
+	{
+		int[] indices = indicesOfB(b);
+		
+		return getC0(indices);
+	}
+	public List<C> getCByD(D d)
+	{
+		int[] indices = indicesOfD(d);
+		
+		return getC0(indices);
+	}
+	public List<D> getDByA(A a)
+	{
+		int[] indices = indicesOfA(a);
+		
+		return getD0(indices);
+	}
+	public List<D> getDByB(B b)
+	{
+		int[] indices = indicesOfB(b);
+		
+		return getD0(indices);
+	}
+	public List<D> getDByC(C c)
+	{
+		int[] indices = indicesOfC(c);
+	
+		return getD0(indices);
+	}
+	
+	
+	
+	public int firstIndexOf(A a, B b, C c, D d) { return firstIndexOf(Auto.DMap4(a, b, c, d)); }	
+	public int firstIndexOf(IDMap4Base<A,B,C,D> entry)
+	{
+		MemoryIterator<IDMap4Base<A,B,C,D>> i = iterator();
+		
+		while(i.hasNext()) if(i.next().equals(entry)) return i.index();
+		
+		return -1;
+	}
+	public int firstIndexOfA(A a) { return this.a().indexOf(a); }
+	public int firstIndexOfB(B b) { return this.b().indexOf(b); }
+	public int firstIndexOfC(C c) { return this.c().indexOf(c); }
+	public int firstIndexOfD(D d) { return this.d().indexOf(d); }
+	
+	
+	
+	public boolean contains(A a, B b, C c, D d) { return contains(Auto.DMap4(a, b, c, d)); }
+	public boolean contains(IDMap4Base<A,B,C,D> entry)
+	{
+		Iterator<IDMap4Base<A,B,C,D>> i = iterator();
+		
+		while(i.hasNext()) if(i.next().equals(entry)) return true;	
+		
+		return false;
+	}
+	public boolean containsA(A a) { return converter_ToA.toList(iterator()).contains(a); }
+	public boolean containsB(B b) { return converter_ToB.toList(iterator()).contains(b); }
+	public boolean containsC(C c) { return converter_ToC.toList(iterator()).contains(c); }
+	public boolean containsD(D d) { return converter_ToD.toList(iterator()).contains(d); }
+	
+	
+	
+	public int[] indicesOf(A a, B b, C c, D d) { return indicesOf(Auto.DMap4(a, b, c, d)); }
+	public int[] indicesOf(IDMap4Base<A,B,C,D> entry)
+	{
+		ArrayList<Integer> out = Auto.ArrayList();
+		
+		MemoryIterator<IDMap4Base<A,B,C,D>> i = iterator();
+		
+		while(i.hasNext()) if(i.next().equals(entry)) out.add(i.index());
+		
+		return ListUtils.toIntArray(out);
+	}
+	public int[] indicesOfA(A a)
+	{
+		ArrayList<Integer> out = Auto.ArrayList();
+		
+		MemoryIterator<A> i = iteratorA();
+		
+		while(i.hasNext()) if(i.next().equals(a)) out.add(i.index());
+		
+		return ListUtils.toIntArray(out);
+	}
+	public int[] indicesOfB(B b)
+	{
+		ArrayList<Integer> out = Auto.ArrayList();
+		
+		MemoryIterator<B> i = iteratorB();
+		
+		while(i.hasNext()) if(i.next().equals(b)) out.add(i.index());
+
+		return ListUtils.toIntArray(out);
+	}
+	public int[] indicesOfC(C c)
+	{
+		ArrayList<Integer> out = Auto.ArrayList();
+		
+		MemoryIterator<C> i = iteratorC();
+		
+		while(i.hasNext()) if(i.next().equals(c)) out.add(i.index());
+
+		return ListUtils.toIntArray(out);
+	}
+	public int[] indicesOfD(D d)
+	{
+		ArrayList<Integer> out = Auto.ArrayList();
+		
+		MemoryIterator<D> i = iteratorD();
+		
+		while(i.hasNext()) if(i.next().equals(d)) out.add(i.index());
+
+		return ListUtils.toIntArray(out);
+	}
+	
+	
+
+	public int occurrencesOf(A a, B b, C c, D d) { return occurrencesOf(Auto.DMap4(a, b, c, d)); }
+	public int occurrencesOf(IDMap4Base<A,B,C,D> entry)
+	{
+		int out = 0;
+		
+		Iterator<IDMap4Base<A,B,C,D>> i = iterator();
+		
+		while(i.hasNext()) if(i.next().equals(entry)) out++;
+		
+		return out;
+	}
+	public int occurrencesOfA(A a)
+	{
+		int out = 0;
+		
+		Iterator<A> i = iteratorA();
+		
+		while(i.hasNext()) if(i.next().equals(a)) out++;
+		
+		return out;
+	}
+	public int occurrencesOfB(B b)
+	{
+		int out = 0;
+		
+		Iterator<B> i = iteratorB();
+		
+		while(i.hasNext()) if(i.next().equals(b)) out++;
+		
+		return out;
+	}
+	public int occurrencesOfC(C c)
+	{
+		int out = 0;
+		
+		Iterator<C> i = iteratorC();
+		
+		while(i.hasNext()) if(i.next().equals(c)) out++;
+		
+		return out;
+	}
+	public int occurrencesOfD(D d)
+	{
+		int out = 0;
+		
+		Iterator<D> i = iteratorD();
+		
+		while(i.hasNext()) if(i.next().equals(d)) out++;
+		
+		return out;
+	}
+
+	
+	public int size() { return this.content.size(); }
+
+	
+	
+	public MemoryIterator<IDMap4Base<A,B,C,D>> iterator()
+	{
+		return Auto.SimpleMemoryIterator(v -> size(), i -> this.content.get(i));
+	}
+	public MemoryIterator<A> iteratorA()
+	{
+		return Auto.SimpleMemoryIterator(v -> size(), i -> this.content.get(i).getA());
+	}
+	public MemoryIterator<B> iteratorB()
+	{
+		return Auto.SimpleMemoryIterator(v -> size(), i -> this.content.get(i).getB());
+	}
+	public MemoryIterator<C> iteratorC()
+	{
+		return Auto.SimpleMemoryIterator(v -> size(), i -> this.content.get(i).getC());
+	}
+	public MemoryIterator<D> iteratorD()
+	{
+		return Auto.SimpleMemoryIterator(v -> size(), i -> this.content.get(i).getD());
+	}
+
+	
+	
+	public MemoryIterator<LinkedValue<A, IDMap4Base<A,B,C,D>>> iteratorLinkedA()
+	{
+		return Auto.SimpleMemoryIterator(v -> size(), i -> this.content.get(i).getLinkedA());
+	}
+	public MemoryIterator<LinkedValue<B, IDMap4Base<A,B,C,D>>> iteratorLinkedB()
+	{
+		return Auto.SimpleMemoryIterator(v -> size(), i -> this.content.get(i).getLinkedB());
+	}
+	public MemoryIterator<LinkedValue<C, IDMap4Base<A,B,C,D>>> iteratorLinkedC()
+	{
+		return Auto.SimpleMemoryIterator(v -> size(), i -> this.content.get(i).getLinkedC());
+	}
+	public MemoryIterator<LinkedValue<D, IDMap4Base<A,B,C,D>>> iteratorLinkedD()
+	{
+		return Auto.SimpleMemoryIterator(v -> size(), i -> this.content.get(i).getLinkedD());
+	}
+	
+	
+	
+	public DMapping4<A,B,C,D> set(int index, A a, B b, C c, D d)
+	{
+		Validate.isInRange(0, size(), index);
+		
+		if(index < size())
 		{
-			add(a, b, c, d);
+			setA0(index, a);
+			setB0(index, b);
 		}
 		else
 		{
-			this.a.set(index, a);
-			this.b.set(index, b);
-			this.c.set(index, c);
-			this.d.set(index, d);
+			this.content.add(Auto.LinkedDMap4(a, b, c, d));
 		}
-
 		
 		return this;
 	}
-	
-	
-	
-	public DMapping4<A,B,C,D> setA(int index, A a) { validate0(index); this.a.set(index, a); return this; }
-	
-	public DMapping4<A,B,C,D> setB(int index, B b) { validate0(index); this.b.set(index, b); return this; }
-	
-	public DMapping4<A,B,C,D> setC(int index, C c) { validate0(index); this.c.set(index, c); return this; }
-	
-	public DMapping4<A,B,C,D> setD(int index, D d) { validate0(index); this.d.set(index, d); return this; }	
-	
-	
-	
-	public DMap4<A,B,C,D> get(int index) { validate0(index); return Auto.DMap4(getA(index), getB(index), getC(index), getD(index)); }
-	
-	
-	
-	public A getA(int index) { validate0(index); return this.a.get(index); }
-	
-	public B getB(int index) { validate0(index); return this.b.get(index); }
-	
-	public C getC(int index) { validate0(index); return this.c.get(index); }
-	
-	public D getD(int index) { validate0(index); return this.d.get(index); }
-	
-		
-	
-	public DMap4<A,B,C,D> getbyA(A a) { return (!containsA(a)) ? null : get(indexOfA(a)); }
-	
-	public DMap4<A,B,C,D> getbyB(B b) { return (!containsB(b)) ? null : get(indexOfB(b)); }
-	
-	public DMap4<A,B,C,D> getbyC(C c) { return (!containsC(c)) ? null : get(indexOfC(c)); }
-	
-	public DMap4<A,B,C,D> getbyD(D d) { return (!containsD(d)) ? null : get(indexOfD(d)); }
-	
-	
-	
-	public DMap4<A,B,C,D> getbyAB(A a, B b) { return !containsAB(a, b) ? null : get0(indexOfAB(a, b)); }
-	
-	public DMap4<A,B,C,D> getbyAC(A a, C c) { return !containsAC(a, c) ? null : get0(indexOfAC(a, c)); }
-	
-	public DMap4<A,B,C,D> getbyAD(A a, D d) { return !containsAD(a, d) ? null : get0(indexOfAD(a, d)); }
-	
-	public DMap4<A,B,C,D> getbyBC(B b, C c) { return !containsBC(b, c) ? null :  get0(indexOfBC(b, c)); }
-	
-	public DMap4<A,B,C,D> getbyBD(B b, D d) { return !containsBD(b, d) ? null :  get0(indexOfBD(b, d)); }
-	
-	public DMap4<A,B,C,D> getbyCD(C c, D d) { return !containsCD(c, d) ? null :  get0(indexOfCD(c, d)); }
-	
-	
-	
-	public DMap4<A,B,C,D> getbyABC(A a, B b, C c) { return !containsABC(a, b, c) ? null :  get0(indexOfABC(a, b, c)); }
-	
-	public DMap4<A,B,C,D> getbyABD(A a, B b, D d) { return !containsABD(a, b, d) ? null :  get0(indexOfABD(a, b, d)); }
-	
-	public DMap4<A,B,C,D> getbyACD(A a, C c, D d) { return !containsACD(a, c, d) ? null :  get0(indexOfACD(a, c, d)); }
-	
-	public DMap4<A,B,C,D> getbyBCD(B b, C c, D d) { return !containsBCD(b, c, d) ? null :  get0(indexOfBCD(b, c, d)); }
-	
-	
-	
-	public A getAbyB(B b) { return !containsB(b) ? null : getA0(indexOfB(b)); }
-	
-	public A getAbyC(C c) { return !containsC(c) ? null : getA0(indexOfC(c)); }
-	
-	public A getAbyD(D d) { return !containsD(d) ? null : getA0(indexOfD(d)); }
-	
-	public B getBbyA(A a) { return !containsA(a) ? null : getB0(indexOfA(a)); }
-	
-	public B getBbyC(C c) { return !containsC(c) ? null : getB0(indexOfC(c)); }
-	
-	public B getBbyD(D d) { return !containsD(d) ? null : getB0(indexOfD(d)); }
-	
-	public C getCbyA(A a) { return !containsA(a) ? null : getC0(indexOfA(a)); }
-	
-	public C getCbyB(B b) { return !containsB(b) ? null : getC0(indexOfB(b)); }
-	
-	public C getCbyD(D d) { return !containsD(d) ? null : getC0(indexOfD(d)); }
-	
-	public D getDbyA(A a) { return !containsA(a) ? null : getD0(indexOfA(a)); }
-	
-	public D getDbyB(B b) { return !containsB(b) ? null : getD0(indexOfB(b)); }
-	
-	public D getDbyC(C c) { return !containsC(c) ? null : getD0(indexOfC(c)); }
-	
-	
-	
-	public A getAbyBC(B b, C c) { return !containsBC(b, c) ? null : getA0(indexOfBC(b, c)); }
-	
-	public A getAbyBD(B b, D d) { return !containsBD(b, d) ? null : getA0(indexOfBD(b, d)); }
-	
-	public B getBbyAC(A a, C c) { return !containsAC(a, c) ? null : getB0(indexOfAC(a, c)); }
-	
-	public B getBbyAD(A a, D d) { return !containsAD(a, d) ? null : getB0(indexOfAD(a, d)); }
-	
-	public C getCbyAB(A a, B b) { return !containsAB(a, b) ? null : getC0(indexOfAB(a, b)); }
-	
-	public C getCbyAD(A a, D d) { return !containsAD(a, d) ? null : getC0(indexOfAD(a, d)); }
-	
-	public D getDbyAB(A a, B b) { return !containsAB(a, b) ? null : getD0(indexOfAB(a, b)); }
-	
-	public D getDbyAC(A a, C c) { return !containsAC(a, c) ? null : getD0(indexOfAC(a, c)); }
-	
-	
-	
-	public A getAbyBCD(B b, C c, D d) { return !containsBCD(b, c, d) ? null : getA0(indexOfBCD(b, c, d)); }
-	
-	public B getBbyACD(A a, C c, D d) { return !containsACD(a, c, d) ? null : getB0(indexOfACD(a, c, d)); }
-	
-	public C getCbyABD(A a, B b, D d) { return !containsABD(a, b, d) ? null : getC0(indexOfABD(a, b, d)); }
-	
-	public D getDbyABC(A a, B b, C c) { return !containsABC(a, b, c) ? null : getD0(indexOfABC(a, b, c)); }
-	
-	
-	
-	public ArrayList<A> getAListByB(B b)
+	public DMapping4<A,B,C,D> set(int index, IDMap4Base<A,B,C,D> entry) { return set(index, entry.getA(), entry.getB(), entry.getC(), entry.getD()); }
+	public DMapping4<A,B,C,D> setA(int index, A a)
 	{
-		ArrayList<A> out = Auto.ArrayList();
-		
-		for(int index : indicesOfB(b))
-			out.add(getA0(index));
-		
-		return out;
-	}
-	
-	public ArrayList<A> getAListByC(C c)
-	{
-		ArrayList<A> out = Auto.ArrayList();
-		
-		for(int index : indicesOfC(c))
-			out.add(getA0(index));
-		
-		return out;
-	}
-	
-	public ArrayList<A> getAListByD(D d)
-	{
-		ArrayList<A> out = Auto.ArrayList();
-		
-		for(int index : indicesOfD(d))
-			out.add(getA0(index));
-		
-		return out;
-	}
-	
-	public ArrayList<B> getBListByA(A a)
-	{
-		ArrayList<B> out = Auto.ArrayList();
-		
-		for(int index : indicesOfA(a))
-			out.add(getB0(index));
-	
-		return out;
-	}
-	
-	public ArrayList<B> getBListByC(C c)
-	{
-		ArrayList<B> out = Auto.ArrayList();
-		
-		for(int index : indicesOfC(c))
-			out.add(getB0(index));
-		
-		return out;
-	}
-	
-	public ArrayList<B> getBListByD(D d)
-	{
-		ArrayList<B> out = Auto.ArrayList();
-		
-		for(int index : indicesOfD(d))
-			out.add(getB0(index));
-		
-		return out;
-	}
-	
-	public ArrayList<C> getCListByA(A a)
-	{
-		ArrayList<C> out = Auto.ArrayList();
-		
-		for(int index : indicesOfA(a))
-			out.add(getC0(index));
-		
-		return out;
-	}
-	
-	public ArrayList<C> getCListByB(B b)
-	{
-		ArrayList<C> out = Auto.ArrayList();
-		
-		for(int index : indicesOfB(b))
-			out.add(getC0(index));
-		
-		return out;
-	}
-	
-	public ArrayList<C> getCListByD(D d)
-	{
-		ArrayList<C> out = Auto.ArrayList();
-		
-		for(int index : indicesOfD(d))
-			out.add(getC0(index));
-		
-		return out;
-	}
-	
-	public ArrayList<D> getDListByA(A a)
-	{
-		ArrayList<D> out = Auto.ArrayList();
-		
-		for(int index : indicesOfA(a))
-			out.add(getD0(index));
-		
-		return out;
-	}
-	
-	public ArrayList<D> getDListByB(B b)
-	{
-		ArrayList<D> out = Auto.ArrayList();
-		
-		for(int index : indicesOfB(b))
-			out.add(getD0(index));
-		
-		return out;
-	}
-	
-	public ArrayList<D> getDListByC(C c)
-	{
-		ArrayList<D> out = Auto.ArrayList();
-		
-		for(int index : indicesOfC(c))
-			out.add(getD0(index));
-		
-		return out;
-	}
-	
-	
-	
-	public ArrayList<DMap4<A,B,C,D>> getListByA(A a)
-	{
-		ArrayList<DMap4<A,B,C,D>> out = Auto.ArrayList();
-		
-		for(int index : indicesOfA(a))
-			out.add(get0(index));
-	
-		return out;
-	}
-	
-	public ArrayList<DMap4<A,B,C,D>> getListByB(B b)
-	{
-		ArrayList<DMap4<A,B,C,D>> out = Auto.ArrayList();
-		
-		for(int index : indicesOfB(b))
-			out.add(get0(index));
-		
-		return out;
-	}
-	
-	public ArrayList<DMap4<A,B,C,D>> getListByC(C c)
-	{
-		ArrayList<DMap4<A,B,C,D>> out = Auto.ArrayList();
-		
-		for(int index : indicesOfC(c))
-			out.add(get0(index));
-		
-		return out;
-	}
-	
-	public ArrayList<DMap4<A,B,C,D>> getListByD(D d)
-	{
-		ArrayList<DMap4<A,B,C,D>> out = Auto.ArrayList();
-		
-		for(int index : indicesOfD(d))
-			out.add(get0(index));
-		
-		return out;
-	}
-	
-	
-	
-	public ArrayList<A> getAListByBC(B b, C c)
-	{
-		ArrayList<A> out = Auto.ArrayList();
-		
-		for(int index : indicesOfBC(b, c))
-			out.add(getA0(index));
-		
-		return out;
-	}
-	
-	public ArrayList<A> getAListByBD(B b, D d)
-	{
-		ArrayList<A> out = Auto.ArrayList();
-		
-		for(int index : indicesOfBD(b, d))
-			out.add(getA0(index));
-		
-		return out;
-	}
-	
-	public ArrayList<B> getBListByAC(A a, C c)
-	{
-		ArrayList<B> out = Auto.ArrayList();
-		
-		for(int index : indicesOfAC(a, c))
-			out.add(getB0(index));
-		
-		return out;
-	}
-	
-	public ArrayList<B> getBListByAD(A a, D d)
-	{
-		ArrayList<B> out = Auto.ArrayList();
-		
-		for(int index : indicesOfAD(a, d))
-			out.add(getB0(index));
-		
-		return out;
-	}		
-	
-	public ArrayList<C> getCListByAB(A a, B b)
-	{
-		ArrayList<C> out = Auto.ArrayList();
-		
-		for(int index : indicesOfAB(a, b))
-			out.add(getC0(index));
-		
-		return out;
-	}
-	
-	public ArrayList<C> getCListByAD(A a, D d)
-	{
-		ArrayList<C> out = Auto.ArrayList();
-		
-		for(int index : indicesOfAD(a, d))
-			out.add(getC0(index));
-		
-		return out;
-	}
-	
-	public ArrayList<D> getDListByAB(A a, B b)
-	{
-		ArrayList<D> out = Auto.ArrayList();
-		
-		for(int index : indicesOfAB(a, b))
-			out.add(getD0(index));
-		
-		return out;
-	}
-
-	
-	
-	public ArrayList<DMap4<A,B,C,D>> getListByAB(A a, B b)
-	{
-		ArrayList<DMap4<A,B,C,D>> out = Auto.ArrayList();
-		
-		for(int index : indicesOfAB(a, b))
-			out.add(get0(index));
-		
-		return out;
-	}
-	
-	public ArrayList<DMap4<A,B,C,D>> getListByAC(A a, C c)
-	{
-		ArrayList<DMap4<A,B,C,D>> out = Auto.ArrayList();
-		
-		for(int index : indicesOfAC(a, c))
-			out.add(get0(index));
-		
-		return out;
-	}
-	
-	public ArrayList<DMap4<A,B,C,D>> getListByAD(A a, D d)
-	{
-		ArrayList<DMap4<A,B,C,D>> out = Auto.ArrayList();
-		
-		for(int index : indicesOfAD(a, d))
-			out.add(get0(index));
-		
-		return out;
-	}
-	
-	public ArrayList<DMap4<A,B,C,D>> getListByBC(B b, C c)
-	{
-		ArrayList<DMap4<A,B,C,D>> out = Auto.ArrayList();
-		
-		for(int index : indicesOfBC(b, c))
-			out.add(get0(index));
-		
-		return out;
-	}
-	
-	public ArrayList<DMap4<A,B,C,D>> getListByBD(B b, D d)
-	{
-		ArrayList<DMap4<A,B,C,D>> out = Auto.ArrayList();
-		
-		for(int index : indicesOfBD(b, d))
-			out.add(get0(index));
-		
-		return out;
-	}
-	
-	
-	
-	public ArrayList<A> getAListByBCD(B b, C c, D d)
-	{
-		ArrayList<A> out = Auto.ArrayList();
-		
-		for(int index : indicesOfBCD(b, c, d))
-			out.add(getA0(index));
-		
-		return out;
-	}
-	
-	public ArrayList<B> getBListByACD(A a, C c, D d)
-	{
-		ArrayList<B> out = Auto.ArrayList();
-		
-		for(int index : indicesOfACD(a, c, d))
-			out.add(getB0(index));
-		
-		return out;
-	}
-	
-	public ArrayList<C> getCListByABD(A a, B b, D d)
-	{
-		ArrayList<C> out = Auto.ArrayList();
-		
-		for(int index : indicesOfABD(a, b, d))
-			out.add(getC0(index));
-		
-		return out;
-	}
-	
-	public ArrayList<D> getDListByABC(A a, B b, C c)
-	{
-		ArrayList<D> out = Auto.ArrayList();
-		
-		for(int index : indicesOfABC(a, b, c))
-			out.add(getD0(index));
-		
-		return out;
-	}
-	
-	
-	
-	public ArrayList<DMap4<A,B,C,D>> getListByABC(A a, B b, C c)
-	{
-		ArrayList<DMap4<A,B,C,D>> out = Auto.ArrayList();
-		
-		for(int index : indicesOfABC(a, b, c))
-			out.add(get0(index));
-		
-		return out;
-	}
-	
-	public ArrayList<DMap4<A,B,C,D>> getListByABD(A a, B b, D d)
-	{
-		ArrayList<DMap4<A,B,C,D>> out = Auto.ArrayList();
-		
-		for(int index : indicesOfABD(a, b, d))
-			out.add(get0(index));
-		
-		return out;
-	}
-	
-	public ArrayList<DMap4<A,B,C,D>> getListByACD(A a, C c, D d)
-	{
-		ArrayList<DMap4<A,B,C,D>> out = Auto.ArrayList();
-		
-		for(int index : indicesOfACD(a, c, d))
-			out.add(get0(index));
-		
-		return out;
-	}
-	
-	public ArrayList<DMap4<A,B,C,D>>getListByBCD(B b, C c, D d)
-	{
-		ArrayList<DMap4<A,B,C,D>> out = Auto.ArrayList();
-		
-		for(int index : indicesOfBCD(b, c, d))
-			out.add(get0(index));
-		
-		return out;
-	}
-	
-	
-	
-	public List<A> a() { return this.a; }
-	
-	public List<B> b() { return this.b; }
-	
-	public List<C> c() { return this.c; }
-	
-	public List<D> d() { return this.d; }
-	
-	
-	
-	public int size() { return this.size; }
-	
-	
-	
-	public DMapping4<A,B,C,D> add(IDMap4Base<A,B,C,D> entry) { return add(entry.getA(), entry.getB(), entry.getC(), entry.getD()); }
-	
-	public DMapping4<A,B,C,D> add(A a, B b,C c, D d)
-	{
-		this.a.add(a);
-		this.b.add(b);
-		this.c.add(c);
-		this.d.add(d);
-		this.size++;
+		Validate.isInRange(0, size() -1, index);
+		setA0(index, a);
 		
 		return this;
 	}
+	public DMapping4<A,B,C,D> setB(int index, B b)
+	{
+		Validate.isInRange(0, size() - 1, index);
+		setB0(index, b);
+		
+		return this;
+	}
+	public DMapping4<A,B,C,D> setC(int index, C c)
+	{
+		Validate.isInRange(0, size() - 1, index);
+		setC0(index, c);
+		
+		return this;
+	}
+	public DMapping4<A,B,C,D> setD(int index, D d)
+	{
+		Validate.isInRange(0, size() - 1, index);
+		setD0(index, d);
+		
+		return this;
+	}
+
+
 	
+	public DMapping4<A,B,C,D> add(A a, B b, C c, D d)
+	{
+		this.content.add(Auto.LinkedDMap4(a, b, c, d));
+		
+		return this;
+	}
+	public DMapping4<A,B,C,D> add(IDMap4Base<A,B,C,D> entry)
+	{
+		return add(entry.getA(), entry.getB(), entry.getC(), entry.getD());
+	}
+
 	
 	
 	public DMapping4<A,B,C,D> remove(int index)
 	{
-		this.a.remove(index);
-		this.b.remove(index);
-		this.c.remove(index);
-		this.d.remove(index);
-		this.size--;
+		Validate.isInRange(0, size() - 1, index);
+
+		remove0(index);
+		
+		return this;
+	}
+	
+	public DMapping4<A,B,C,D> remove(A a, B b, C c, D d) { return remove(Auto.DMap4(a, b, c, d)); }
+	public DMapping4<A,B,C,D> remove(IDMap4Base<A,B,C,D> entry)
+	{
+		int index = -1;
+		
+		while(contains(entry))
+		{
+			index = firstIndexOf(entry);
+			
+			remove0(index);
+		}
+		
+		return this;
+	}
+	public DMapping4<A,B,C,D> removeByA(A a)
+	{
+		int index = -1;
+		
+		while(containsA(a))
+		{
+			index = firstIndexOfA(a);
+			
+			remove0(index);
+		}
+		
+		return this;
+	}
+	public DMapping4<A,B,C,D> removeByB(B b)
+	{
+		int index = -1;
+		
+		while(containsB(b))
+		{
+			index = firstIndexOfB(b);
+			
+			remove0(index);
+		}
+		
+		return this;
+	}
+	public DMapping4<A,B,C,D> removeByC(C c)
+	{
+		int index = -1;
+		
+		while(containsC(c))
+		{
+			index = firstIndexOfC(c);
+			
+			remove0(index);
+		}
+		
+		return this;
+	}
+	public DMapping4<A,B,C,D> removeByD(D d)
+	{
+		int index = -1;
+		
+		while(containsD(d))
+		{
+			index = firstIndexOfD(d);
+			
+			remove0(index);
+		}
+		
+		return this;
+	}
+	
+	
+	
+	public DMapping4<A,B,C,D> removeFirst(A a, B b, C c, D d) { return removeFirst(Auto.DMap4(a, b, c, d)); }
+	public DMapping4<A,B,C,D> removeFirst(IDMap4Base<A,B,C,D> entry)
+	{
+		int index = firstIndexOf(entry);
+		if(index != -1)
+		{
+			remove0(index);
+		}
+		
+		return this;
+	}
+	public DMapping4<A,B,C,D> removeFirstByA(A a)
+	{
+		int index = firstIndexOfA(a);
+		if(index != -1)
+		{
+			remove0(index);
+		}
+		
+		return this;
+	}
+	public DMapping4<A,B,C,D> removeFirstByB(B b)
+	{
+		int index = firstIndexOfB(b);
+		if(index != -1)
+		{
+			remove0(index);
+		}
+		
+		return this;
+	}
+	public DMapping4<A,B,C,D> removeFirstByC(C c)
+	{
+		int index = firstIndexOfC(c);
+		if(index != -1)
+		{
+			remove0(index);
+		}
+		
+		return this;
+	}
+	public DMapping4<A,B,C,D> removeFirstByD(D d)
+	{
+		int index = firstIndexOfD(d);
+		if(index != -1)
+		{
+			remove0(index);
+		}
+		
+		return this;
+	}
+	
+	
+	
+	public DMapping4<A,B,C,D> sortByLinkedA(Comparator<? super LinkedValue<A,IDMap4Base<A,B,C,D>>> comp)
+	{
+		List<LinkedValue<A, IDMap4Base<A,B,C,D>>> e = linkedA();
+		
+		e.sort(comp);
+
+		Iterator<LinkedValue<A, IDMap4Base<A,B,C,D>>> i = e.iterator();
+		
+		clear();
+		
+		while(i.hasNext())
+		{
+			add(i.next().parent());
+		}
+		
+		return this;
+	}
+	public DMapping4<A,B,C,D> sortByLinkedB(Comparator<? super LinkedValue<B,IDMap4Base<A,B,C,D>>> comp)
+	{
+		List<LinkedValue<B, IDMap4Base<A,B,C,D>>> e = linkedB();
+		
+		e.sort(comp);
+		
+		Iterator<LinkedValue<B, IDMap4Base<A,B,C,D>>> i = e.iterator();
+		
+		clear();
+		
+		while(i.hasNext())
+		{
+			add(i.next().parent());
+		}
+		
+		return this;
+	}
+	public DMapping4<A,B,C,D> sortByLinkedC(Comparator<? super LinkedValue<C,IDMap4Base<A,B,C,D>>> comp)
+	{
+		List<LinkedValue<C, IDMap4Base<A,B,C,D>>> e = linkedC();
+		
+		e.sort(comp);
+		
+		Iterator<LinkedValue<C, IDMap4Base<A,B,C,D>>> i = e.iterator();
+		
+		clear();
+		
+		while(i.hasNext())
+		{
+			add(i.next().parent());
+		}
+		
+		return this;
+	}
+	public DMapping4<A,B,C,D> sortByLinkedD(Comparator<? super LinkedValue<D,IDMap4Base<A,B,C,D>>> comp)
+	{
+		List<LinkedValue<D, IDMap4Base<A,B,C,D>>> e = linkedD();
+		
+		e.sort(comp);
+		
+		Iterator<LinkedValue<D, IDMap4Base<A,B,C,D>>> i = e.iterator();
+		
+		clear();
+		
+		while(i.hasNext())
+		{
+			add(i.next().parent());
+		}
+		
+		return this;
+	}
+	
+	
+	
+	public DMapping4<A,B,C,D> sortByA(Comparator<? super A> comp)
+	{
+		return sortByLinkedA((a,b) -> comp.compare(a.value(), b.value()));
+	}
+	public DMapping4<A,B,C,D> sortByB(Comparator<? super B> comp)
+	{
+		return sortByLinkedB((a,b) -> comp.compare(a.value(), b.value()));
+	}
+	public DMapping4<A,B,C,D> sortByC(Comparator<? super C> comp)
+	{
+		return sortByLinkedC((a,b) -> comp.compare(a.value(), b.value()));
+	}
+	public DMapping4<A,B,C,D> sortByD(Comparator<? super D> comp)
+	{
+		return sortByLinkedD((a,b) -> comp.compare(a.value(), b.value()));
+	}
+
+	
+	
+	public DMapping4<A,B,C,D> clear()
+	{
+		this.content.clear();
 		
 		return this;
 	}
 
 	
 	
-	public int indexOfA(A a) { return this.a.indexOf(a); }
-	
-	public int indexOfB(B b) { return this.b.indexOf(b); }
-	
-	public int indexOfC(C c) { return this.c.indexOf(c); }
-	
-	public int indexOfD(D d) { return this.d.indexOf(d); }
+	private IDMap4Base<A,B,C,D> get0(int index) { return this.content.get(index); }
+	private A getA0(int index) { return this.content.get(index).getA(); } 
+	private B getB0(int index) { return this.content.get(index).getB(); } 
+	private C getC0(int index) { return this.content.get(index).getC(); }
+	private D getD0(int index) { return this.content.get(index).getD(); } 
 	
 	
 	
-	public int[] indicesOfA(A a) { return ListUtils.<A>indicesOf(this.a, a); }
-	
-	public int[] indicesOfB(B b) { return ListUtils.<B>indicesOf(this.b, b); }
-	
-	public int[] indicesOfC(C c) { return ListUtils.<C>indicesOf(this.c, c); }
-	
-	public int[] indicesOfD(D d) { return ListUtils.<D>indicesOf(this.d, d); }
-	
-	
-	
-	public int[] indicesOfAB(A a, B b)
+	private List<IDMap4Base<A,B,C,D>> get0(int... indices)
 	{
-		if(Check.notTrueOOO(containsA(a), containsB(b))) return null;
-		if(Check.isNull(indicesOfA(a))) return null;
-	
-		ArrayList<Integer> out = Auto.ArrayList();
+		ArrayList<IDMap4Base<A,B,C,D>> out = Auto.ArrayList();
 		
-		for(int x : indicesOfA(a))
-			if(Check.isEqual(b, getB0(x))) out.add(x);
+		for(int i : indices)
+		{
+			out.add(get0(i));
+		}
 		
-		if(out.size() == 0) return null;
-		
-		return PrimeUtils.toInt(ListUtils.<Integer>ListToArray(out, Integer.class));
+		return out;
 	}
-	
-	public int[] indicesOfAC(A a, C c)
+	private List<A> getA0(int... indices)
 	{
-		if(Check.notTrueOOO(containsA(a), containsC(c))) return null;
-		if(Check.isNull(indicesOfA(a))) return null;
+		ArrayList<A> out = Auto.ArrayList();
 		
-		ArrayList<Integer> out = Auto.ArrayList();
+		for(int i : indices)
+		{
+			out.add(getA0(i));
+		}
 		
-		for(int x : indicesOfA(a))
-			if(Check.isEqual(c, getC0(x))) out.add(x);
-		
-		if(out.size() == 0) return null;
-		
-		return PrimeUtils.toInt(ListUtils.<Integer>ListToArray(out, Integer.class));
+		return out;
 	}
-	
-	public int[] indicesOfAD(A a, D d)
+	private List<B> getB0(int... indices)
 	{
-		if(Check.notTrueOOO(containsA(a), containsD(d))) return null;
-		if(Check.isNull(indicesOfA(a))) return null;
+		ArrayList<B> out = Auto.ArrayList();
 		
-		ArrayList<Integer> out = Auto.ArrayList();
+		for(int i : indices)
+		{
+			out.add(getB0(i));
+		}
 		
-		for(int x : indicesOfA(a))
-			if(Check.isEqual(d, getD0(x))) out.add(x);
-		
-		if(out.size() == 0) return null;
-		
-		return PrimeUtils.toInt(ListUtils.<Integer>ListToArray(out, Integer.class));
+		return out;
 	}
-	
-	public int[] indicesOfBC(B b, C c)
+	private List<C> getC0(int... indices)
 	{
-		if(Check.notTrueOOO(containsB(b), containsC(c))) return null;
-		if(Check.isNull(indicesOfB(b))) return null;
+		ArrayList<C> out = Auto.ArrayList();
 		
-		ArrayList<Integer> out = Auto.ArrayList();
+		for(int i : indices)
+		{
+			out.add(getC0(i));
+		}
 		
-		for(int x : indicesOfB(b))
-			if(Check.isEqual(c, getC0(x))) out.add(x);
-		
-		if(out.size() == 0) return null;
-		
-		return PrimeUtils.toInt(ListUtils.<Integer>ListToArray(out, Integer.class));
+		return out;
 	}
-	
-	public int[] indicesOfBD(B b, D d)
+	private List<D> getD0(int... indices)
 	{
-		if(Check.notTrueOOO(containsB(b), containsD(d))) return null;
-		if(Check.isNull(indicesOfB(b))) return null;
+		ArrayList<D> out = Auto.ArrayList();
 		
-		ArrayList<Integer> out = Auto.ArrayList();
+		for(int i : indices)
+		{
+			out.add(getD0(i));
+		}
 		
-		for(int x : indicesOfB(b))
-			if(Check.isEqual(d, getD0(x))) out.add(x);
-		
-		if(out.size() == 0) return null;
-		
-		return PrimeUtils.toInt(ListUtils.<Integer>ListToArray(out, Integer.class));
-	}
-	
-	public int[] indicesOfCD(C c, D d)
-	{
-		if(Check.notTrueOOO(containsC(c), containsD(d))) return null;
-		if(Check.isNull(indicesOfC(c))) return null;
-		
-		ArrayList<Integer> out = Auto.ArrayList();
-		
-		for(int x : indicesOfC(c))
-			if(Check.isEqual(d, getD0(x))) out.add(x);
-		
-		if(out.size() == 0) return null;
-		
-		return PrimeUtils.toInt(ListUtils.<Integer>ListToArray(out, Integer.class));
+		return out;
 	}
 	
 	
 	
-	public int[] indicesOfABC(A a, B b, C c)
+	private void setA0(int index, A a) { this.content.get(index).setA(a); }
+	private void setB0(int index, B b) { this.content.get(index).setB(b); }
+	private void setC0(int index, C c) { this.content.get(index).setC(c); }
+	private void setD0(int index, D d) { this.content.get(index).setD(d); }
+	
+	
+	
+	private void remove0(int index)
 	{
-		if(Check.notTrueOOO(containsA(a), containsB(b), containsC(c))) return null;
-		if(Check.isNull(indicesOfA(a))) return null;
-		
-		ArrayList<Integer> out = Auto.ArrayList();
-		
-		for(int x : indicesOfA(a))
-			if(Check.isTrue(Check.isEqual(b, getB0(x)), Check.isEqual(c, getC0(x)))) out.add(x);
-		
-		if(out.size() == 0) return null;
-		
-		return PrimeUtils.toInt(ListUtils.<Integer>ListToArray(out, Integer.class));
+		this.content.remove(index);
 	}
-	
-	public int[] indicesOfACD(A a, C c, D d)
-	{
-		if(Check.notTrueOOO(containsA(a), containsC(c), containsD(d))) return null;
-		if(Check.isNull(indicesOfA(a))) return null;
-		
-		ArrayList<Integer> out = Auto.ArrayList();
-		
-		for(int x : indicesOfA(a))
-			if(Check.isTrue(Check.isEqual(c, getC0(x)), Check.isEqual(d, getD0(x)))) out.add(x);
-		
-		if(out.size() == 0) return null;
-		
-		return PrimeUtils.toInt(ListUtils.<Integer>ListToArray(out, Integer.class));
-	}
-	
-	public int[] indicesOfABD(A a, B b, D d)
-	{
-		if(Check.notTrueOOO(containsA(a), containsB(b), containsD(d))) return null;
-		if(Check.isNull(indicesOfA(a))) return null;
-		
-		ArrayList<Integer> out = Auto.ArrayList();
-		
-		for(int x : indicesOfA(a))
-			if(Check.isTrue(Check.isEqual(b, getB0(x)), Check.isEqual(d, getD0(x)))) out.add(x);
-		
-		if(out.size() == 0) return null;
-		
-		return PrimeUtils.toInt(ListUtils.<Integer>ListToArray(out, Integer.class));
-	}
-	
-	public int[] indicesOfBCD(B b, C c, D d)
-	{
-		if (Check.notTrueOOO(containsB(b), containsC(c), containsD(d))) return null;
-		if(Check.isNull(indicesOfB(b))) return null;
-		
-		ArrayList<Integer> out = Auto.ArrayList();
-		
-		for(int x : indicesOfB(b))
-			if(Check.isTrue(Check.isEqual(c, getC0(x)), Check.isEqual(d, getD(x)))) out.add(x);
-		
-		if(out.size() == 0) return null;
-		
-		return PrimeUtils.toInt(ListUtils.<Integer>ListToArray(out, Integer.class));
-	}
-	
-	
-	
-	public int indexOfAB(A a, B b) { return indicesOfAB(a, b) == null ? -1 : indicesOfAB(a, b)[0]; }
-	
-	public int indexOfAC(A a, C c) { return indicesOfAC(a, c) == null ? -1 : indicesOfAC(a, c)[0]; }
-	
-	public int indexOfAD(A a, D d) { return indicesOfAD(a, d) == null ? -1 : indicesOfAD(a, d)[0]; }
-	
-	public int indexOfBC(B b, C c) { return indicesOfBC(b, c) == null ? -1 : indicesOfBC(b, c)[0]; }
-	
-	public int indexOfBD(B b, D d) { return indicesOfBD(b, d) == null ? -1 : indicesOfBD(b, d)[0]; }
-	
-	public int indexOfCD(C c, D d) { return indicesOfCD(c, d) == null ? -1 : indicesOfCD(c, d)[0]; }
-	
-	
-	
-	public int indexOfABC(A a, B b, C c) { return indicesOfABC(a, b, c) == null ? -1 : indicesOfABC(a, b, c)[0]; }
-	
-	public int indexOfACD(A a, C c, D d) { return indicesOfACD(a, c, d) == null ? -1 : indicesOfACD(a, c, d)[0]; }
-	
-	public int indexOfABD(A a, B b, D d) { return indicesOfABD(a, b, d) == null ? -1 : indicesOfABD(a, b, d)[0]; }
-	
-	public int indexOfBCD(B b, C c, D d) { return indicesOfBCD(b, c, d) == null ? -1 : indicesOfBCD(b, c, d)[0]; }
-	
-	
 
-	public int indexOf(IDMap4Base<A,B,C,D> m) { return indexOf(m.getA(), m.getB(), m.getC(), m.getD()); }
-	
-	public int indexOf(A a, B b, C c, D d)
-	{
-		if(Check.notTrueOOO(containsA(a), containsB(b), containsC(c), containsD(d))) return -1;
-		
-		for(int i : indicesOfAB(a,b))
-			if(Check.isEqual(c, getC0(i)))
-				if(Check.isEqual(d, getD0(i))) return i;
-		
-		return -1;
-	}
-	
-	
-	
-	public boolean containsA(A a) { return this.a.contains(a); }
-	
-	public boolean containsB(B b) { return this.b.contains(b); }
-	
-	public boolean containsC(C c) { return this.c.contains(c); }
-	
-	public boolean containsD(D d) { return this.d.contains(d); }
-	
-	
-	
-	public boolean contains(A a,B b,C c, D d) { return indexOf(a, b, c, d) == -1 ? false : true; }
-	
-	public boolean contains(IDMap4Base<A,B,C,D> m) { return contains(m.getA(), m.getB(), m.getC(), m.getD()); }
-	
-	
-	
-	public boolean containsAB(A a , B b) { return indexOfAB(a, b) != -1; }
-	
-	public boolean containsAC(A a , C c) { return indexOfAC(a, c) != -1; }
-	
-	public boolean containsAD(A a , D d) { return indexOfAD(a, d) != -1; }
-	
-	public boolean containsBC(B b , C c) { return indexOfBC(b, c) != -1; }
-	
-	public boolean containsBD(B b , D d) { return indexOfBD(b, d) != -1; }
-	
-	public boolean containsCD(C c , D d) { return indexOfCD(c, d) != -1; }
-	
-	
-	
-	public boolean containsABC(A a, B b, C c) { return indexOfABC(a, b, c) != -1; }
-	
-	public boolean containsABD(A a, B b, D d) { return indexOfABD(a, b, d) != -1; }
-	
-	public boolean containsACD(A a, C c, D d) { return indexOfACD(a, c, d) != -1; }
-	
-	public boolean containsBCD(B b, C c, D d) { return indexOfBCD(b, c, d) != -1; }
-	
-	
-	
-	protected void validate0(int i)
-	{
-		
-	}
-	
-
-	
-	private DMap4<A,B,C,D> get0(int index) { return index == -1 ? null : get(index); }	
-	
-	
-	
-	private A getA0(int index) { return index == -1 ? null : getA(index); }
-	
-	private B getB0(int index) { return index == -1 ? null : getB(index); }
-	
-	private C getC0(int index) { return index == -1 ? null : getC(index); }
-	
-	private D getD0(int index) { return index == -1 ? null : getD(index); }
-	
 }
+
