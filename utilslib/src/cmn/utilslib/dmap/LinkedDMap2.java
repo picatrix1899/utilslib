@@ -9,7 +9,7 @@ public class LinkedDMap2<A,B> implements IDMap2<A,B>
 	private LinkedValue<B,IDMap2Base<A,B>> b = Auto.LinkedValue(this);
 	
 
-	
+
 	public LinkedDMap2()
 	{
 		this.a.value(null);
