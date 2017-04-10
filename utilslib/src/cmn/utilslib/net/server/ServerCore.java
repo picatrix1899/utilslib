@@ -3,6 +3,11 @@ package cmn.utilslib.net.server;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+
+import cmn.utilslib.essentials.Auto;
+import cmn.utilslib.net.common.PacketFactory;
+import cmn.utilslib.net.common.PacketHandler;
 
 public class ServerCore implements Runnable
 {
@@ -11,7 +16,12 @@ public class ServerCore implements Runnable
 	
 	private volatile boolean isRunning;
 	
-	public ServerCore(String address, int port, int maxConnections)
+	private ArrayList<ServerClientConnection> connections = Auto.ArrayList();
+	
+	private Thread th;
+	
+	
+	public ServerCore(String address, int port, int maxConnections, PacketFactory factory, PacketHandler handler)
 	{
 		try
 		{
@@ -26,6 +36,9 @@ public class ServerCore implements Runnable
 	public void start()
 	{
 		this.isRunning = true;
+		this.th = new Thread(this);
+		this.th.setDaemon(false);
+		this.th.start();
 	}
 	
 	public void stop()
@@ -41,7 +54,9 @@ public class ServerCore implements Runnable
 			{
 				Socket s = socket.accept();
 				
+				s.setKeepAlive(true);
 				
+				connections.add(new ServerClientConnection(this, s));
 			}
 		}
 		catch(Exception e)
