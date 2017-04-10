@@ -15,4 +15,5 @@ public class LinkedValue<Type,Parent>
 	public void value(Type value) { this.value = value; }
 	
 	public Parent parent() { return this.parent; }
+	
 }
