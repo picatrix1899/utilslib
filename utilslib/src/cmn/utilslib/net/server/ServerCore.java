@@ -6,8 +6,10 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 import cmn.utilslib.essentials.Auto;
+import cmn.utilslib.net.common.IngoingPacket;
+import cmn.utilslib.net.common.OutgoingPacket;
+import cmn.utilslib.net.common.Packet;
 import cmn.utilslib.net.common.PacketFactory;
-import cmn.utilslib.net.common.PacketHandler;
 
 public class ServerCore implements Runnable
 {
@@ -20,12 +22,15 @@ public class ServerCore implements Runnable
 	
 	private Thread th;
 	
+	private PacketFactory factory;
 	
-	public ServerCore(String address, int port, int maxConnections, PacketFactory factory, PacketHandler handler)
+	
+	public ServerCore(String address, int port, int maxConnections)
 	{
 		try
 		{
-			socket = new ServerSocket(port, maxConnections, InetAddress.getByName(address));
+			this.socket = new ServerSocket(port, maxConnections, InetAddress.getByName(address));
+			this.factory = new PacketFactory();
 		}
 		catch (Exception e)
 		{
@@ -33,12 +38,25 @@ public class ServerCore implements Runnable
 		}
 	}
 	
+	public void addPacket(long id, Class<? extends Packet> p)
+	{
+		if(OutgoingPacket.class.isAssignableFrom(p))
+			this.factory.registerOutgoingPacketTemplate(id, p.asSubclass(OutgoingPacket.class));
+		
+		if(IngoingPacket.class.isAssignableFrom(p))
+			this.factory.registerIngoingPacketTemplate(id, p.asSubclass(IngoingPacket.class));
+	
+	}
+	
 	public void start()
 	{
-		this.isRunning = true;
-		this.th = new Thread(this);
-		this.th.setDaemon(false);
-		this.th.start();
+		if(!isRunning)
+		{
+			this.isRunning = true;
+			this.th = new Thread(this);
+			this.th.setDaemon(false);
+			this.th.start();			
+		}
 	}
 	
 	public void stop()
@@ -50,19 +68,22 @@ public class ServerCore implements Runnable
 	{
 		try
 		{
-			while(isRunning)
-			{
-				Socket s = socket.accept();
-				
-				s.setKeepAlive(true);
-				
-				connections.add(new ServerClientConnection(this, s));
-			}
+	
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
 		}
+	}
+	
+	public void retriveLoop() throws Exception { while(isRunning) retriveConnection(); }
+	
+	public void retriveConnection() throws Exception
+	{
+		Socket s = socket.accept();
+		
+		s.setKeepAlive(true);
+		
 	}
 	
 }

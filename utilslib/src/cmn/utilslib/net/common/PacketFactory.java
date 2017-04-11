@@ -25,6 +25,7 @@ public class PacketFactory
 	
 	public void registerOutgoingPacketTemplate(long id, Class<? extends OutgoingPacket> clazz)
 	{
+		System.out.println(clazz);
 		this.outTemplates_ClassByID.put(id, clazz);
 		this.outTemplates_IDByClass.put(clazz, id);
 	}
