@@ -25,6 +25,7 @@ public class PacketHandlerImpl implements PacketHandler
 	public void handlePacket(HandShakePacket packet)
 	{
 		this.client.name = packet.name;
+		System.out.println("Hello " + packet.name);
 	}
 	
 	public void handlePacket(TestPacket packet)

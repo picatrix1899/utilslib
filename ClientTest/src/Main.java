@@ -10,79 +10,49 @@ import cmn.utilslib.essentials.SimpleThread;
 public class Main
 {
 	
+	public static TestClient client;
+	
 	public static void main(String[] args)
 	{
-		new Main();
-	}
-
-	
-	
-	private String name;
-	
-	public Main()
-	{
-		BufferedReader sin = new BufferedReader(new InputStreamReader(System.in));
 		
+		BufferedReader sin = new BufferedReader(new InputStreamReader(System.in));
+		String name = ""; 
 		try
 		{
 			name = sin.readLine();
+	
+			
+			Client c = new Client();
+			c.name = name;
+			
+			client = new TestClient("localhost", 25566, c);
+			
+			client.addPacket(0, HandShakePacket.class);
+			client.addPacket(1,  TestPacket.class);
+			
+			client.start();
+			
+			HandShakePacket handshake = new HandShakePacket();
+			handshake.name = c.name;
+			
+			client.client.connection.sendPacket(handshake);
+			
+			while(true)
+			{
+				if(System.in.available() > 0)
+				{
+	
+					String st = sin.readLine();
+					
+					TestPacket p = new TestPacket();
+					p.text = st;
+					client.client.connection.sendPacket(p);
+				}
+			}
 		} catch (IOException e)
 		{
 			e.printStackTrace();
 		}
-		
-		new SimpleThread(() -> run()).start();
+	}
 
-	}
-	
-	public void run()
-	{
-		try
-		{
-			Socket s = new Socket("localhost", 25566);
-			if(!s.isConnected())
-			{
-				System.out.println("Failed to Connect!");
-				s.close();
-				return;
-			}
-			
-			s.setKeepAlive(true);
-			
-			DataInputStream dis = new DataInputStream(s.getInputStream());
-			DataOutputStream dos = new DataOutputStream(s.getOutputStream());
-			
-			dos.writeLong(0);
-			dos.writeUTF(name);
-			dos.flush();
-			
-			while(!s.isClosed())
-			{
-				if(System.in.available() > 0)
-				{
-					BufferedReader sin = new BufferedReader(new InputStreamReader(System.in));
-					
-					String st = sin.readLine();
-					
-					dos.writeLong(1);
-					dos.writeUTF(st);
-					dos.flush();
-				}
-				
-				
-				if(dis.available() > 0) 
-				{
-					dis.readLong();
-					System.out.println(dis.readUTF());
-				}
-			}
-			
-			s.close();
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-		
-	}
 }
