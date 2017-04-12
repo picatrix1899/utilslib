@@ -6,12 +6,13 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 import cmn.utilslib.essentials.Auto;
+import cmn.utilslib.essentials.SimpleThread;
 import cmn.utilslib.net.common.IngoingPacket;
 import cmn.utilslib.net.common.OutgoingPacket;
 import cmn.utilslib.net.common.Packet;
 import cmn.utilslib.net.common.PacketFactory;
 
-public class ServerCore implements Runnable
+public class ServerCore 
 {
 
 	private ServerSocket socket;
@@ -19,9 +20,7 @@ public class ServerCore implements Runnable
 	private volatile boolean isRunning;
 	
 	private ArrayList<ServerClientConnection> connections = Auto.ArrayList();
-	
-	private Thread th;
-	
+
 	private PacketFactory factory;
 	
 	
@@ -45,17 +44,23 @@ public class ServerCore implements Runnable
 		
 		if(IngoingPacket.class.isAssignableFrom(p))
 			this.factory.registerIngoingPacketTemplate(id, p.asSubclass(IngoingPacket.class));
-	
 	}
 	
 	public void start()
 	{
 		if(!isRunning)
 		{
+			this.factory.lock();
 			this.isRunning = true;
-			this.th = new Thread(this);
-			this.th.setDaemon(false);
-			this.th.start();			
+			new SimpleThread(() -> run()).start();			
+		}
+	}
+	
+	public void broadcastPacket(OutgoingPacket p)
+	{
+		for(ServerClientConnection c : this.connections)
+		{
+			c.sendPacket(p);
 		}
 	}
 	
@@ -68,22 +73,41 @@ public class ServerCore implements Runnable
 	{
 		try
 		{
-	
+			while(isRunning && ! socket.isClosed())
+				retriveConnection();
+			
+			socket.close();
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
 		}
 	}
-	
-	public void retriveLoop() throws Exception { while(isRunning) retriveConnection(); }
-	
+
 	public void retriveConnection() throws Exception
 	{
 		Socket s = socket.accept();
 		
 		s.setKeepAlive(true);
 		
+		ServerClientConnection connection = new ServerClientConnection(this, s);
+		
+		joinConnection(connection);
+	}
+	
+	public PacketFactory getPacketFactory()
+	{
+		return this.factory;
+	}
+	
+	public synchronized void joinConnection(ServerClientConnection c)
+	{
+		this.connections.add(c);
+	}
+	
+	public synchronized void quitConnection(ServerClientConnection c)
+	{
+		this.connections.remove(c);
 	}
 	
 }

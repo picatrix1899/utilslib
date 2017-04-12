@@ -4,43 +4,55 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.HashMap;
 
+import cmn.utilslib.dmap.DMapping2;
 import cmn.utilslib.essentials.Auto;
 
 public class PacketFactory
 {
 	
-	private HashMap<Long, Class<? extends IngoingPacket>> inTemplates_ClassByID = Auto.HashMap();
-	private HashMap<Class<? extends IngoingPacket>, Long> inTemplates_IDByClass = Auto.HashMap();
-	private HashMap<Long, Class<? extends OutgoingPacket>> outTemplates_ClassByID = Auto.HashMap();
-	private HashMap<Class<? extends OutgoingPacket>, Long> outTemplates_IDByClass = Auto.HashMap();
+	private DMapping2<Long, Class<? extends IngoingPacket>> in_Templates = Auto.DMapping2();
+	private DMapping2<Long, Class<? extends OutgoingPacket>> out_Templates = Auto.DMapping2();
 	
+	private boolean lock = false;
 	
 	public void registerIngoingPacketTemplate(long id, Class<? extends IngoingPacket> clazz)
 	{
-		this.inTemplates_ClassByID.put(id, clazz);
-		this.inTemplates_IDByClass.put(clazz, id);
+		if(!isLocked())
+		{
+			this.in_Templates.add(id, clazz);
+		}
 	}
 	
 	public void registerOutgoingPacketTemplate(long id, Class<? extends OutgoingPacket> clazz)
 	{
-		System.out.println(clazz);
-		this.outTemplates_ClassByID.put(id, clazz);
-		this.outTemplates_IDByClass.put(clazz, id);
+		if(!isLocked())
+		{
+			this.out_Templates.add(id,clazz);
+		}
+
 	}
 	
 	
+	public void lock()
+	{
+		this.lock = true;
+	}
 	
-	public IngoingPacket resolveIngoingPacketImpl(InputStream stream) throws Exception
+	public boolean isLocked()
+	{
+		return this.lock;
+	}
+	
+	public IngoingPacket resolveIngoingPacket(InputStream stream) throws Exception
 	{
 		DataInputStream dis = new DataInputStream(stream);
 		
 		long id = dis.readLong();
 		
-		if(this.inTemplates_ClassByID.containsKey(id))
+		if(this.in_Templates.containsA(id))
 		{
-			IngoingPacket p = this.inTemplates_ClassByID.get(id).getConstructor((Class<?>)null).newInstance((Object)null);
+			IngoingPacket p = this.in_Templates.getFirstBByA(id).getConstructor().newInstance();
 			
 			p.read(stream);
 			
@@ -50,14 +62,14 @@ public class PacketFactory
 		return null;
 	}
 	
-	public boolean resolveOutgoingPacketImpl(OutgoingPacket packet, OutputStream stream) throws Exception
+	public boolean resolveOutgoingPacket(OutgoingPacket packet, OutputStream stream) throws Exception
 	{
 		DataOutputStream dos = new DataOutputStream(stream);
 		
-		if(this.outTemplates_IDByClass.containsKey(packet.getClass()))
+		if(this.out_Templates.containsB(packet.getClass()))
 		{
 			
-			dos.writeLong(this.outTemplates_IDByClass.get(packet.getClass()));
+			dos.writeLong(this.out_Templates.getFirstAByB(packet.getClass()));
 			
 			packet.write(stream);
 			

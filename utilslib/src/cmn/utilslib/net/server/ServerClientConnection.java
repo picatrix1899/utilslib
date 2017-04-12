@@ -6,9 +6,10 @@ import java.net.Socket;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+import cmn.utilslib.essentials.SimpleThread;
 import cmn.utilslib.net.common.IngoingPacket;
 import cmn.utilslib.net.common.OutgoingPacket;
-import cmn.utilslib.net.common.PacketFactory;
+import cmn.utilslib.net.common.PacketHandler;
 
 public class ServerClientConnection
 {
@@ -20,69 +21,75 @@ public class ServerClientConnection
 	
 	private volatile boolean isRunning;
 	
-	private ServerCore core;
+	private ServerCore server;
+
+	public PacketHandler handler = (i) -> { return; };
 	
-	private Thread th_in;
-	private Thread th_out;
-	
-	private PacketFactory factory;
-	
-	public ServerClientConnection(ServerCore core, PacketFactory factory, Socket socket)
+	public ServerClientConnection(ServerCore server, Socket socket)
 	{
-		this.factory = factory;
-		this.core = core;
+		this.server = server;
 		this.socket = socket;
 		this.isRunning = true;
-		this.th_in = new Thread(() -> runInputThread());
-		this.th_in.setName("SC_Connection_In_" + socket.getInetAddress().getCanonicalHostName());
-		this.th_in.setDaemon(true);
-		this.th_in.start();
-		this.th_out = new Thread(() -> runOutputThread());
-		this.th_out.setName("SC_Connection_Out_" + socket.getInetAddress().getCanonicalHostName());
-		this.th_out.setDaemon(true);
-		this.th_out.start();
 	}
 
-
-	private void runInputThread()
+	public ServerCore getServer()
 	{
-		try
+		return this.server;
+	}
+	
+	public void start()
+	{
+		new SimpleThread(() -> runConnectionLoop(), "SC_Connection" + socket.getInetAddress().getCanonicalHostName(), true).start();
+		new SimpleThread(() -> runUpdate(), "SC_Update" + socket.getInetAddress().getCanonicalHostName(), true).start();
+	}
+	
+	public void sendPacket(OutgoingPacket p)
+	{
+		this.packetQueue_out.add(p);
+	}
+	
+	private void runUpdate()
+	{
+		while(isRunning && !socket.isClosed())
 		{
-			InputStream stream = socket.getInputStream();
-			
-			while(isRunning)
+			if(!this.packetQueue_in.isEmpty())
 			{
-				if(stream.available() > 0)
-				{
-					IngoingPacket p = this.factory.resolveIngoingPacketImpl(stream);
-					
-					if(p != null)
-					{
-						this.packetQueue_in.add(p);
-					}
-				}
-				else
-				{
-					wait(100);
-				}
+				handler.handleIngoing(this.packetQueue_in.poll());
 			}
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
+
 		}
 	}
 	
-	private void runOutputThread()
+	private void runConnectionLoop()
 	{
 		try
 		{
-			OutputStream stream = socket.getOutputStream();
+			InputStream in = socket.getInputStream();
+			OutputStream out = socket.getOutputStream();
 			
-			while(isRunning)
+			while(isRunning && !this.socket.isClosed())
 			{
+				if(in.available() > 0)
+				{
+					IngoingPacket packet_in = this.server.getPacketFactory().resolveIngoingPacket(in);
+					
+					if(packet_in != null)
+					{
+						this.packetQueue_in.add(packet_in);
+					}
+				}
 				
+				if(!this.packetQueue_out.isEmpty())
+				{
+					OutgoingPacket packet_out = this.packetQueue_out.poll();
+					
+					this.server.getPacketFactory().resolveOutgoingPacket(packet_out, out);
+					
+					out.flush();
+				}
 			}
+			
+			this.server.quitConnection(this);
 		}
 		catch(Exception e)
 		{
