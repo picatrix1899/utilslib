@@ -3,9 +3,11 @@ package cmn.utilslib.events;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
+import cmn.utilslib.essentials.Auto;
+
 public class EventHandle
 {
-	private ArrayList<IEventListener> listener = new ArrayList<IEventListener>();
+	private ArrayList<IEventListener> listener = Auto.ArrayList();
 	
 	public void add(IEventListener listener)
 	{
