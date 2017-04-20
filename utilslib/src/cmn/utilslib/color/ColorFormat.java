@@ -3,8 +3,7 @@ package cmn.utilslib.color;
 
 
 
-import cmn.utilslib.dmap.DMap4;
-
+import cmn.utilslib.dmap.dmaps.DMap4;
 import cmn.utilslib.essentials.Auto;
 
 

@@ -1,11 +1,12 @@
-import cmn.utilslib.geometry.DoubleGraph;
+
+import cmn.utilslib.geometry.Graph;
 
 public class Main
 {
 
 	public static void main(String[] args)
 	{
-		DoubleGraph graph = new DoubleGraph();
+		Graph graph = new Graph();
 		
 		graph.insert(0.0d, 0.0d);
 		graph.insert(50.0d, 50.0d);
