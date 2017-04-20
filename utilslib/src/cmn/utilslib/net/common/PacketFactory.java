@@ -5,7 +5,7 @@ import java.io.DataOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import cmn.utilslib.dmap.DMapping2;
+import cmn.utilslib.dmap.dmappings.DMapping2;
 import cmn.utilslib.essentials.Auto;
 
 public class PacketFactory
