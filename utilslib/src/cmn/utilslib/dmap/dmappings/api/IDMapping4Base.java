@@ -8,6 +8,7 @@ import cmn.utilslib.interfaces.MemoryIterator;
 public interface IDMapping4Base<A,B,C,D>
 {
 
+
 	List<A> a();
 	List<B> b();
 	List<C> c();
@@ -129,5 +130,5 @@ public interface IDMapping4Base<A,B,C,D>
 	
 	
 	int size();
-	
+
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import cmn.utilslib.color.colors.PHDRColor4;
 import cmn.utilslib.color.colors.api.IHDRColor4Base;
+
 import cmn.utilslib.color.gradients.api.IHDRGradient4;
 import cmn.utilslib.essentials.Auto;
 
@@ -174,4 +175,5 @@ public class HDRGradient4 implements IHDRGradient4
 		public IHDRColor4Base value;
 		public double index;
 	}
+
 }

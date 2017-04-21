@@ -7,6 +7,7 @@ import cmn.utilslib.dmap.dmaps.api.IDMap4Base;
 public interface IDMapping4<A,B,C,D> extends IDMapping4Base<A,B,C,D>
 {
 
+
 	IDMapping4<A,B,C,D> set(int index, A a, B b, C c, D d);
 	IDMapping4<A,B,C,D> set(int index, IDMap4Base<A,B,C,D> entry);
 	IDMapping4<A,B,C,D> setA(int index, A a);

@@ -8,6 +8,7 @@ import cmn.utilslib.interfaces.MemoryIterator;
 public interface IDMapping3Base<A,B,C>
 {
 
+
 	List<A> a();
 	List<B> b();
 	List<C> c();

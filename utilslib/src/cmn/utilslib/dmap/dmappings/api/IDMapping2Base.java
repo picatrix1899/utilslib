@@ -82,5 +82,5 @@ public interface IDMapping2Base<A,B>
 	
 	
 	int size();
-	
+
 }

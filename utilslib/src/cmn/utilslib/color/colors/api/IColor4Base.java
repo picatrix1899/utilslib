@@ -13,6 +13,7 @@ public interface IColor4Base extends IColor3Base
 	 * Gets the alpha component as a color-range value. 
 	 * @return The alpha component as a color-range value.
 	 */
+
 	int getA();
 	
 	/**
@@ -20,5 +21,5 @@ public interface IColor4Base extends IColor3Base
 	 * @return The alpha component as a unity-range value.
 	 */
 	float getUnityA();
-	
+
 }

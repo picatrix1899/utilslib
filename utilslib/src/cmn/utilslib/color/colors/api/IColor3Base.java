@@ -15,6 +15,7 @@ public interface IColor3Base
 	 * Gets the red component as a color-range value.
 	 * @return The red component as a color-range value.
 	 */
+
 	int getR();
 	
 	/**
@@ -48,5 +49,5 @@ public interface IColor3Base
 	 * @return The blue component as an unity-range value.
 	 */
 	float getUnityB();
-	
+
 }

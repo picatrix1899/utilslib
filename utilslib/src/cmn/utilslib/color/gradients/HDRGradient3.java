@@ -160,4 +160,5 @@ public class HDRGradient3 implements IHDRGradient3
 		public IHDRColor3Base value;
 		public double index;
 	}
+
 }

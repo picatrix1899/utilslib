@@ -22,7 +22,9 @@ import cmn.utilslib.interfaces.IStreamable;
  * @author picatrix1899
  * @category Color
  */
+
 public class HDRColor4 implements  IHDRColor4, IStreamable, Serializable, IObjectable<HDRColor4>
+
 {
 	/**  */
 	public static final PHDRColor4 WHITE =		PHDRColor4.gen(255, 255, 255, 255);

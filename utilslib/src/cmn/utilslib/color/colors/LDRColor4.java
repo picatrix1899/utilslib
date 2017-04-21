@@ -23,7 +23,9 @@ import cmn.utilslib.interfaces.IObjectable;
  * @author picatrix1899
  * @category Color
  */
+
 public class LDRColor4 implements ILDRColor4, IStreamable, Serializable, IObjectable<LDRColor4>
+
 {
 
 	private static final long serialVersionUID = 1L;

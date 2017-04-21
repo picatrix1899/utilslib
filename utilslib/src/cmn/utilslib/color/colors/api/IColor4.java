@@ -1,6 +1,7 @@
 
 package cmn.utilslib.color.colors.api;
 
+
 public interface IColor4 extends IColor4Base
 {
 	
@@ -92,5 +93,5 @@ public interface IColor4 extends IColor4Base
 	 * @return The current instance.
 	 */
 	IColor4 setUnityA(float a);
-	
+
 }

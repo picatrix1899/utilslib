@@ -45,5 +45,4 @@ public interface IDMapping3<A,B,C> extends IDMapping3Base<A,B,C>
 	
 	
 	IDMapping3<A,B,C> clear();	
-
 }

@@ -6,6 +6,7 @@ package cmn.utilslib.color.colors.api;
  * @author picatrix1899
  * @category Color
  */
+
 public interface IColor3 extends IColor3Base
 {
 	
@@ -81,5 +82,5 @@ public interface IColor3 extends IColor3Base
 	 * @return The current instance.
 	 */
 	IColor3 setUnityB(float b);
-	
+
 }

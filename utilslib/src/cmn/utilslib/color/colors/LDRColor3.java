@@ -23,7 +23,9 @@ import cmn.utilslib.interfaces.IObjectable;
  * @author picatrix1899
  * @category Color
  */
+
 public class LDRColor3 implements ILDRColor3, IStreamable, Serializable, IObjectable<LDRColor3>
+
 {
 
 	/**  */

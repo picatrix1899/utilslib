@@ -160,4 +160,5 @@ public class LDRGradient3 implements ILDRGradient3
 		public ILDRColor3Base value;
 		public double index;
 	}
+
 }

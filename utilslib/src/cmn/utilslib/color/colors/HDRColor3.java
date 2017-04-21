@@ -21,6 +21,7 @@ import cmn.utilslib.interfaces.IStreamable;
  * @author picatrix1899
  * @category Color
  */
+
 public class HDRColor3 implements IHDRColor3, IStreamable, Serializable, IObjectable<HDRColor3>
 {
 	
