@@ -1,21 +1,16 @@
 
 package cmn.utilslib.vector;
 
-
+import cmn.utilslib.vector.api.IVec3fBase;
 
 /** 
  * A persistent representation of a vector3f
  * @category Vector
  * @author picatrix1899
  */
-public abstract class PVec3f
+public abstract class PVec3f implements IVec3fBase
 {
-	
-	protected abstract float getX();
-	protected abstract float getY();
-	protected abstract float getZ();
 
-	
 	
 	/** similar to {@link PVec3f#getNewVector} but generates only a new copy, when the old has been changed */
 	public abstract Vec3f getVector();
@@ -33,9 +28,9 @@ public abstract class PVec3f
 			
 			private Vec3f v;
 			
-			protected float getX() { return x; }
-			protected float getY() { return y; }
-			protected float getZ() { return z; }
+			public float getX() { return x; }
+			public float getY() { return y; }
+			public float getZ() { return z; }
 			
 			
 			

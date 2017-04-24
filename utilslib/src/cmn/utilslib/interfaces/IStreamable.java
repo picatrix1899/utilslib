@@ -6,12 +6,14 @@ import java.io.OutputStream;
 
 /**
  * 
-
  * @author picatrix1899
  *
  */
 public interface IStreamable
 {
-	public abstract void readData(InputStream stream) throws IOException;
-	public abstract void writeData(OutputStream stream) throws IOException;
+	
+	public interface Writeable { public abstract void readData(InputStream stream) throws IOException; }
+	
+	public interface Readable { public abstract void writeData(OutputStream stream) throws IOException; }
+	
 }

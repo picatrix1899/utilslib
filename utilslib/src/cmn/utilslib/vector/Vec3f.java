@@ -5,7 +5,6 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.Serializable;
 
 import cmn.utilslib.alloc.Allocator;
 
@@ -14,6 +13,7 @@ import cmn.utilslib.essentials.Maths;
 
 import cmn.utilslib.interfaces.IObjectable;
 import cmn.utilslib.interfaces.IStreamable;
+import cmn.utilslib.vector.api.IVec3fBase;
 
 
 /**
@@ -22,27 +22,9 @@ import cmn.utilslib.interfaces.IStreamable;
  * @author picatrix1899
  *
  */
-public class Vec3f implements IStreamable, Serializable, IObjectable<Vec3f>
+public class Vec3f implements IVec3fBase<Vec3f>
 {
 
-	/**
-	 * 
-	 */
-	private static transient final long serialVersionUID = 1L;
-
-	public static transient final short DIMENSIONS = 3;
-	
-	private static final Allocator<Vec3f> alloc = new Allocator<Vec3f>();
-	
-	public static final PVec3f ZERO = PVec3f.gen(0.0f, 0.0f, 0.0f);
-	public static final PVec3f ONE = PVec3f.gen(1.0f, 1.0f, 1.0f);
-	public static final PVec3f aX = PVec3f.gen(1.0f, 0.0f, 0.0f);
-	public static final PVec3f aY = PVec3f.gen(0.0f, 1.0f, 0.0f);
-	public static final PVec3f aZ = PVec3f.gen(0.0f, 0.0f, 1.0f);
-	public static final PVec3f aNX = PVec3f.gen(-1.0f, 0.0f, 0.0f);
-	public static final PVec3f aNY = PVec3f.gen(0.0f, -1.0f, 0.0f);
-	public static final PVec3f aNZ = PVec3f.gen(0.0f, 0.0f, -1.0f);
-	
 	public float x = 0.0f;
 	public float y = 0.0f;
 	public float z = 0.0f;
@@ -55,53 +37,14 @@ public class Vec3f implements IStreamable, Serializable, IObjectable<Vec3f>
 	
 	public Vec3f(float x, float y, float z) { set(x, y, z); }
 	
-	
 	/*
-	 * ======================
-	 * Allocation
-	 * ======================
+	 * =========
+	 * GETTERS
+	 * =========
 	 */
-	public static Vec3f getNew()
-	{
-		Vec3f v = alloc.alloc(Vec3f.class);
-		
-		v.setZero();
-		
-		return v;
-	}
-	
-	private static Vec3f getNew(Vec3f vec)
-	{
-		Vec3f v = alloc.alloc(Vec3f.class);
-		
-		v.set(vec);
-		
-		return v;
-	}
-	
-	public static Vec3f getNew(float scalar)
-	{
-		Vec3f v = alloc.alloc(Vec3f.class);
-		
-		v.set(scalar);
-		
-		return v;
-	}
-	
-	public static Vec3f getNew(float x, float y, float z)
-	{
-		Vec3f v = alloc.alloc(Vec3f.class);
-		
-		v.set(x, y, z);
-		
-		return v;
-	}
-	
-	public void release()
-	{
-		Vec3f.alloc.release(this);
-	}
-	
+	public float getX() { return this.x; }
+	public float getY() { return this.y; }
+	public float getZ() { return this.z; }
 	
 	/*
 	 * ======================
@@ -110,7 +53,7 @@ public class Vec3f implements IStreamable, Serializable, IObjectable<Vec3f>
 	 */
 	public Vec3f setZero() { return set(0.0f); }
 	
-	public Vec3f set(Vec3f v) { return set(v.x, v.y, v.z); }
+	public Vec3f set(IVec3fBase<?> v) { return set(v.getX(), v.getY(), v.getZ()); }
 	
 	public Vec3f set(float scalar) { return set(scalar, scalar, scalar); }
 	public Vec3f set(double scalar) { return set(scalar, scalar, scalar); }
@@ -130,51 +73,40 @@ public class Vec3f implements IStreamable, Serializable, IObjectable<Vec3f>
 	 * BASIC-OPERATIONS
 	 * ====================
 	 */
-	public Vec3f add(Vec3f v) { return add(v.x, v.y, v.z); }
+
+	public Vec3f add(IVec3fBase<?> v) { return add(v.getX(), v.getY(), v.getZ()); }
 	public Vec3f add(float scalar) { return add(scalar, scalar, scalar); }
-	public Vec3f add(double scalar) { return add(scalar, scalar, scalar); }	
 	public Vec3f add(float x, float y, float z) { return set(this.x + x, this.y + y, this.z + z); }
 	public Vec3f add(double x, double y, double z) { return set(this.x + x, this.y + y, this.z + z); }
 
-	public Vec3f sub(Vec3f v) { return sub(v.x, v.y,v.z); }
-	public Vec3f sub(float scalar) { return sub(scalar, scalar, scalar); }
-	public Vec3f sub(double scalar) { return sub(scalar, scalar, scalar); }	
+	public Vec3f sub(IVec3fBase<?> v) { return add(v.getX(), v.getY(), v.getZ()); }
+	public Vec3f sub(float scalar) { return add(scalar, scalar, scalar); }
 	public Vec3f sub(float x, float y, float z) { return set(this.x - x, this.y - y, this.z - z); }
 	public Vec3f sub(double x, double y, double z) { return set(this.x - x, this.y - y, this.z - z); }
 	
-	public Vec3f mul(Vec3f v) { return mul(v.x, v.y,v.z); }
-	public Vec3f mul(float scalar) { return mul(scalar, scalar, scalar); }
-	public Vec3f mul(double scalar) { return mul(scalar, scalar, scalar); }	
+	public Vec3f mul(IVec3fBase<?> v) { return add(v.getX(), v.getY(), v.getZ()); }
+	public Vec3f mul(float scalar) { return add(scalar, scalar, scalar); }
 	public Vec3f mul(float x, float y, float z) { return set(this.x * x, this.y * y, this.z * z); }
 	public Vec3f mul(double x, double y, double z) { return set(this.x * x, this.y * y, this.z * z); }
 	
-	public Vec3f div(Vec3f v) { return div(v.x, v.y,v.z); }
-	public Vec3f div(float scalar) { return div(scalar, scalar, scalar); }
-	public Vec3f div(double scalar) { return div(scalar, scalar, scalar); }	
+	public Vec3f div(IVec3fBase<?> v) { return add(v.getX(), v.getY(), v.getZ()); }
+	public Vec3f div(float scalar) { return add(scalar, scalar, scalar); }
 	public Vec3f div(float x, float y, float z) { return set(this.x / x, this.y / y, this.z / z); }
 	public Vec3f div(double x, double y, double z) { return set(this.x / x, this.y / y, this.z / z); }
 	
-	public Vec3f addN(Vec3f v) { return addN(v.x, v.y, v.z); }
-	public Vec3f addN(float scalar) { return addN(scalar, scalar, scalar); }
-	public Vec3f addN(double scalar) { return addN(scalar, scalar, scalar); }	
+	
 	public Vec3f addN(float x, float y, float z) { return clone().add(x, y, z); }
 	public Vec3f addN(double x, double y, double z) { return clone().add(x, y, z); }
 	
-	public Vec3f subN(Vec3f v) { return subN(v.x, v.y, v.z); }
-	public Vec3f subN(float scalar) { return subN(scalar, scalar, scalar); }
-	public Vec3f subN(double scalar) { return subN(scalar, scalar, scalar); }	
+
 	public Vec3f subN(float x, float y, float z) { return clone().sub(x, y, z); }
 	public Vec3f subN(double x, double y, double z) { return clone().sub(x, y, z); }
 	
-	public Vec3f mulN(Vec3f v) { return mulN(v.x, v.y, v.z); }
-	public Vec3f mulN(float scalar) { return mulN(scalar, scalar, scalar); }
-	public Vec3f mulN(double scalar) { return mulN(scalar, scalar, scalar); }	
+
 	public Vec3f mulN(float x, float y, float z) { return clone().mul(x, y, z); }
 	public Vec3f mulN(double x, double y, double z) { return clone().mul(x, y, z); }
 	
-	public Vec3f divN(Vec3f v) { return divN(v.x, v.y, v.z); }
-	public Vec3f divN(float scalar) { return divN(scalar, scalar, scalar); }
-	public Vec3f divN(double scalar) { return divN(scalar, scalar, scalar); }	
+	
 	public Vec3f divN(float x, float y, float z) { return clone().div(x, y, z); }
 	public Vec3f divN(double x, double y, double z) { return clone().div(x, y, z); }
 	
@@ -199,11 +131,11 @@ public class Vec3f implements IStreamable, Serializable, IObjectable<Vec3f>
 	
 	public Vec3f inversed() { return clone().inverse(); }
 	
-	public float dot(Vec3f v) { return this.x * v.x + this.y * v.y + this.z * v.z; }
+	public float dot(IVec3fBase<?> v) { return this.x * v.getX() + this.y * v.getY() + this.z * v.getZ(); }
 	
-	public Vec3f cross(Vec3f v) 
+	public Vec3f cross(IVec3fBase<?> v) 
 	{
-		return new Vec3f(this.y * v.z - this.z * v.y, this.z * v.x - this.x * v.z, this.x * v.y - this.y * v.x);
+		return new Vec3f(this.y * v.getZ() - this.z * v.getY(), this.z * v.getX() - this.x * v.getZ(), this.x * v.getY() - this.y * v.getX());
 	}
 
 	public Vec3f project(Vec3f v)
@@ -242,18 +174,18 @@ public class Vec3f implements IStreamable, Serializable, IObjectable<Vec3f>
 		return new Vec3f((float)w.getX(), (float)w.getY(), (float)w.getZ());
 	}
 	
-	public Vec3f reflect(Vec3f normal)
+	public Vec3f reflect(IVec3fBase<?> normal)
 	{
 		float angle = dot(normal) *  2;
 		
-		this.x -= (angle) * normal.x;
-		this.y -= (angle) * normal.y;
-		this.y -= (angle) * normal.z;
+		this.x -= (angle) * normal.getX();
+		this.y -= (angle) * normal.getY();
+		this.y -= (angle) * normal.getZ();
 		
 		return this;
 	}
 	
-	public Vec3f reflected(Vec3f normal)
+	public Vec3f reflected(IVec3fBase<?> normal)
 	{
 		Vec3f out = clone();
 		
@@ -262,16 +194,16 @@ public class Vec3f implements IStreamable, Serializable, IObjectable<Vec3f>
 		return out;
 	}
 	
-	public Vec3f lerp(Vec3f v, float f)
+	public Vec3f lerp(IVec3fBase<?> v, float f)
 	{
-		this.x += (v.x - this.x) * f;
-		this.y += (v.y - this.y) * f;
-		this.z += (v.z - this.z) * f;
+		this.x += (v.getX() - this.x) * f;
+		this.y += (v.getY() - this.y) * f;
+		this.z += (v.getZ() - this.z) * f;
 		
 		return this;
 	}
 	
-	public Vec3f lerped(Vec3f v, float f)
+	public Vec3f lerped(IVec3fBase<?> v, float f)
 	{
 		Vec3f out = clone();
 		out.lerp(v, f);
@@ -311,14 +243,6 @@ public class Vec3f implements IStreamable, Serializable, IObjectable<Vec3f>
 	public Vec3f floorN() { return clone().floor(); }
 	public Vec3f ceilN() { return clone().ceil(); }
 	public Vec3f roundN() { return clone().round(); }
-
-	/*
-	 * ==================
-	 * ORDINAL OPERATIONS
-	 * ==================
-	 */
-	public int getDimensions() { return Vec3f.DIMENSIONS; }
-	
 	
 	/*
 	 * ===========================
@@ -327,7 +251,7 @@ public class Vec3f implements IStreamable, Serializable, IObjectable<Vec3f>
 	 */
 	/** {@inheritDoc} */
 	@Override
-	public Vec3f clone() { return getNew(this); }
+	public Vec3f clone() { return new Vec3f(this); }
 	
 	/** {@inheritDoc} */
 	@Override
@@ -360,16 +284,6 @@ public class Vec3f implements IStreamable, Serializable, IObjectable<Vec3f>
 		this.x = dis.readFloat();
 		this.y = dis.readFloat();
 		this.z = dis.readFloat();
-	}
-	
-	/** {@inheritDoc} */
-	@Override
-	public void writeData(OutputStream stream) throws IOException
-	{
-		DataOutputStream dos = new DataOutputStream(stream);
-		dos.writeFloat(this.x);
-		dos.writeFloat(this.y);
-		dos.writeFloat(this.z);
 	}
 
 }
