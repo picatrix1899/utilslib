@@ -18,17 +18,8 @@ import cmn.utilslib.essentials.Maths;
  */
 public abstract class PLDRColor3 implements ILDRColor3Base
 {
-	
-	/** {@inheritDoc} */
-	public float getUnityR() { return Maths.clamp(getR() / 255.0f, 0.0f, 1.0f); }
-	
-	/** {@inheritDoc} */
-	public float getUnityG() { return Maths.clamp(getG() / 255.0f, 0.0f, 1.0f); }
 
-	/** {@inheritDoc} */
-	public float getUnityB() { return Maths.clamp(getB() / 255.0f, 0.0f, 1.0f); }
-
-	
+	public abstract LDRColor3 clone();
 	
 	/**
 	 * Generates a new persistent Color3 based on 3 unity-range values.
@@ -71,6 +62,12 @@ public abstract class PLDRColor3 implements ILDRColor3Base
 			public int getB()
 			{
 				return Maths.clamp(b, 0, 255);
+			}
+
+			@Override
+			public LDRColor3 clone()
+			{
+				return null;
 			}
 		};
 		

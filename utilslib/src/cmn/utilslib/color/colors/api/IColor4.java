@@ -2,7 +2,16 @@
 package cmn.utilslib.color.colors.api;
 
 
-public interface IColor4 extends IColor4Base
+
+import java.io.DataInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
+import cmn.utilslib.interfaces.IStreamable;
+
+
+
+public interface IColor4 extends IColor4Base, IStreamable.Writeable
 {
 	
 	/**
@@ -11,8 +20,6 @@ public interface IColor4 extends IColor4Base
 	 * @return The current instance.
 	 */
 	IColor4 set(IColor4Base color);
-	
-	
 	
 	/**
 	 * Sets the color based on 3 color-range values.
@@ -23,6 +30,8 @@ public interface IColor4 extends IColor4Base
 	 * @return The current instance.
 	 */
 	IColor4 set(int r, int g, int b, int a);
+	
+	
 	
 	/**
 	 * Sets the color based on 3 unity-range values.
@@ -71,27 +80,43 @@ public interface IColor4 extends IColor4Base
 	 * @param r : The red component as an unity-range value.
 	 * @return The current instance.
 	 */
-	IColor4 setUnityR(float r);
+	default IColor4 setUnityR(float r) { return (ILDRColor4) setR(Math.round(r * 255.0f)); }
 	
 	/** 
 	 * Sets the green component based on an unity-range value.
 	 * @param g : The green component as an unity-range value.
 	 * @return The current instance.
 	 */
-	IColor4 setUnityG(float g);
+	default IColor4 setUnityG(float g) { return (ILDRColor4) setG(Math.round(g * 255.0f)); }
 	
 	/**
 	 * Sets the blue component based on an unity-range value.
 	 * @param b : The blue component as an unity-range value.
 	 * @return The current instance.
 	 */
-	IColor4 setUnityB(float b);
+	default IColor4 setUnityB(float b) { return (ILDRColor4) setB(Math.round(b * 255.0f)); }
 	
 	/**
 	 * Sets the alpha component based on an unity-range value.
 	 * @param a : The alpha component as an unity-range value.
 	 * @return The current instance.
 	 */
-	IColor4 setUnityA(float a);
+	default IColor4 setUnityA(float a) { return (ILDRColor4) setA(Math.round(a * 255.0f)); }
 
+
+	@Override
+	IColor4 clone();
+	
+	
+	
+	/** {@inheritDoc} */ @Override
+	default void readData(InputStream stream) throws IOException
+	{
+		DataInputStream dis = new DataInputStream(stream);
+		setR(dis.readInt());
+		setG(dis.readInt());
+		setB(dis.readInt());
+		setA(dis.readInt());
+	}
+	
 }

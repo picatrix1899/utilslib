@@ -3,18 +3,11 @@ package cmn.utilslib.color.colors;
 
 
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.IOException;
 import java.io.Serializable;
 
 import cmn.utilslib.color.colors.api.IColor4Base;
 import cmn.utilslib.color.colors.api.IHDRColor4;
-import cmn.utilslib.interfaces.IObjectable;
-import cmn.utilslib.interfaces.IStreamable;
-
+import cmn.utilslib.color.colors.api.IHDRColor4Base;
 
 
 /**
@@ -23,28 +16,8 @@ import cmn.utilslib.interfaces.IStreamable;
  * @category Color
  */
 
-public class HDRColor4 implements  IHDRColor4, IStreamable, Serializable, IObjectable<HDRColor4>
-
+public class HDRColor4 implements  IHDRColor4, Serializable
 {
-	/**  */
-	public static final PHDRColor4 WHITE =		PHDRColor4.gen(255, 255, 255, 255);
-	/**  */
-	public static final PHDRColor4 BLACK =		PHDRColor4.gen(000, 000, 000, 255);
-	/**  */
-	public static final PHDRColor4 RED =		PHDRColor4.gen(255, 000, 000, 255);
-	/**  */
-	public static final PHDRColor4 GREEN =		PHDRColor4.gen(000, 255, 000, 255);
-	/**  */
-	public static final PHDRColor4 BLUE =		PHDRColor4.gen(000, 000, 255, 255);
-	/**  */
-	public static final PHDRColor4 YELLOW =		PHDRColor4.gen(255, 255, 000, 255);
-	
-	
-	
-	/** Number of components. */
-	public static final int DIMENSIONS = 4;
-	
-	
 	
 	/** the minimum value. */
 	public static final int DEFAULT_MIN = 0;
@@ -99,22 +72,6 @@ public class HDRColor4 implements  IHDRColor4, IStreamable, Serializable, IObjec
 	
 	/** {@inheritDoc}} */
 	@Override
-	public HDRColor4 set(IColor4Base color) { return setR(color.getR()).setG(color.getG()).setB(color.getB()).setA(color.getA()); }
-	
-	
-	
-	/** {@inheritDoc}} */
-	@Override
-	public HDRColor4 setUnity(float r, float g, float b, float a) { return setUnityR(r).setUnityG(g).setUnityB(b).setUnityA(a); }
-	
-	/** {@inheritDoc}} */
-	@Override
-	public HDRColor4 set(int r, int g, int b, int a) { return setR(r).setG(g).setB(b).setA(a); }
-	
-
-	
-	/** {@inheritDoc}} */
-	@Override
 	public HDRColor4 setR(int r) { this.r = r; return this; }
 
 	/** {@inheritDoc}} */
@@ -130,25 +87,7 @@ public class HDRColor4 implements  IHDRColor4, IStreamable, Serializable, IObjec
 	public HDRColor4 setA(int a) { this.a = a; return this; }
 	
 	
-	
-	/** {@inheritDoc}} */
-	@Override
-	public HDRColor4 setUnityR(float r) { setR(Math.round(r * 255.0f)); return this; }
 
-	/** {@inheritDoc}} */
-	@Override
-	public HDRColor4 setUnityG(float g) { setG(Math.round(g / 255.0f)); return this; }
-
-	/** {@inheritDoc}} */
-	@Override
-	public HDRColor4 setUnityB(float b) { setB(Math.round(b / 255.0f)); return this; }
-	
-	/** {@inheritDoc}} */
-	@Override
-	public HDRColor4 setUnityA(float a) { setB(Math.round(a / 255.0f)); return this; }
-	
-	
-	
 	/** {@inheritDoc} */
 	@Override
 	public int getR() { return this.r; }
@@ -165,73 +104,30 @@ public class HDRColor4 implements  IHDRColor4, IStreamable, Serializable, IObjec
 	@Override
 	public int getA() { return this.a; }
 	
-	/** {@inheritDoc} */
-	@Override
-	public float getUnityR() { return getR() / 255.0f; }
 
-	/** {@inheritDoc} */
-	@Override
-	public float getUnityG() { return getG() / 255.0f; }
 
-	/** {@inheritDoc} */
-	@Override
-	public float getUnityB() { return getB() / 255.0f; }
-	
-	/** {@inheritDoc} */
-	@Override
-	public float getUnityA() { return getA() / 255.0f; }
-	
-
-	
-	/** {@inheritDoc} */
-	@Override
+	/** {@inheritDoc} */ @Override
 	public HDRColor4 clone() { return new HDRColor4(this); }
 	
-	/** {@inheritDoc} */
-	@Override
-	public String toString()
-	{
-		return "color3(" + getR() + ", " + getG() + ", " + getB() + ", " + getA() + ")";
-	}
+	/** {@inheritDoc} */ @Override
+	public String toString() { return "hdr-color4(" + getR() + ", " + getG() + ", " + getB() + ", " + getA() + ")"; }
 	
-	/** {@inheritDoc} */
-	@Override
+	/** {@inheritDoc} */ @Override
 	public boolean equals(Object o)
 	{
-		if(!(o instanceof IColor4Base)) return false;
-		if(!(o instanceof HDRColor4) || !(o instanceof PLDRColor3)) return false;
-		
-		IColor4Base c = (IColor4Base)o;
-		if(c.getR() != this.getR()) return false;
-		if(c.getG() != this.getG()) return false;
-		if(c.getB() != this.getB()) return false;
-		if(c.getA() != this.getA()) return false;
-		
-		return true;
-	}
 
-	
-	
-	/** {@inheritDoc} */
-	@Override
-	public void readData(InputStream stream) throws IOException
-	{
-		DataInputStream dis = new DataInputStream(stream);
-		setR(dis.readInt());
-		setG(dis.readInt());
-		setB(dis.readInt());
-		setA(dis.readInt());
-	}
-
-	/** {@inheritDoc} */
-	@Override
-	public void writeData(OutputStream stream) throws IOException
-	{
-		DataOutputStream dos = new DataOutputStream(stream);
-		dos.writeInt(getR());
-		dos.writeInt(getG());
-		dos.writeInt(getB());
-		dos.writeInt(getA());
+		if(o instanceof HDRColor4)
+		{
+			IHDRColor4Base c = (IHDRColor4Base)o;
+			if(c.getR() != this.getR()) return false;
+			if(c.getG() != this.getG()) return false;
+			if(c.getB() != this.getB()) return false;
+			if(c.getA() != this.getA()) return false;
+			
+			return true;
+		}
+		
+		return false;
 	}
 
 }

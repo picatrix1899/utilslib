@@ -13,18 +13,8 @@ import cmn.utilslib.color.colors.api.IHDRColor4Base;
  */
 public abstract class PHDRColor4 implements IHDRColor4Base
 {
-	
-	public float getUnityR() { return getR() / 255.0f; }
-	
-	/** {@inheritDoc} */
-	public float getUnityG() { return getG() / 255.0f; }
-	
-	/** {@inheritDoc} */
-	public float getUnityB() { return getB() / 255.0f; }
-	
-	/** {@inheritDoc} */
-	public float getUnityA() { return getA() / 255.0f; }
-	
+
+	public abstract HDRColor4 clone();
 	
 	
 	/**
@@ -66,6 +56,12 @@ public abstract class PHDRColor4 implements IHDRColor4Base
 			
 			/** {@inheritDoc} */
 			public int getA() { return a; }
+
+			@Override
+			public HDRColor4 clone()
+			{
+				return null;
+			}
 		};
 		
 	}

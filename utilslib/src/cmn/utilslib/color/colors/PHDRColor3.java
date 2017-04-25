@@ -13,16 +13,8 @@ import cmn.utilslib.color.colors.api.IHDRColor3Base;
  */
 public abstract class PHDRColor3 implements IHDRColor3Base
 {
-	
-	/** {@inheritDoc} */
-	public float getUnityR() { return getR() / 255.0f; }
-	
-	/** {@inheritDoc} */
-	public float getUnityG() { return getG() / 255.0f; }
 
-	/** {@inheritDoc} */
-	public float getUnityB() { return getB() / 255.0f; }
-
+	public abstract HDRColor3 clone();
 	
 	/**
 	 * Generates a new persistent Color3 based on 3 unity-range values.
@@ -57,6 +49,12 @@ public abstract class PHDRColor3 implements IHDRColor3Base
 			
 			/** {@inheritDoc} */
 			public int getB() { return b; }
+
+			@Override
+			public HDRColor3 clone()
+			{
+				return null;
+			}
 		};
 		
 	}

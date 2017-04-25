@@ -3,19 +3,30 @@ package cmn.utilslib.color.colors.api;
 
 
 
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+
+import cmn.utilslib.interfaces.IStreamable;
+
+
+
 /**
  * Interface for ReadOnly Color representation with 3 components.
  * @author picatrix1899
  * @category Color
  */
-public interface IColor3Base
+public interface IColor3Base extends IStreamable.Readable
 {
+	
+	static int DIMENSIONS = 3;
+	
+	
 	
 	/**
 	 * Gets the red component as a color-range value.
 	 * @return The red component as a color-range value.
 	 */
-
 	int getR();
 	
 	/**
@@ -36,18 +47,38 @@ public interface IColor3Base
 	 * Gets the red component as an unity-range value.
 	 * @return The red component as an unity-range value.
 	 */
-	float getUnityR();
+	default float  getUnityR() { return getR() / 255.0f; }
 	
 	/**
 	 * Gets the green component as an unity-range value.
 	 * @return The green component as an unity-range value.
 	 */
-	float getUnityG();
+	default float getUnityG() { return getG() / 255.0f; }
 	
 	/**
 	 * Gets the blue component as an unity-range value.
 	 * @return The blue component as an unity-range value.
 	 */
-	float getUnityB();
+	default float getUnityB() { return getB() / 255.0f; }
 
+	
+	
+	IColor3Base clone();
+	
+	
+	
+	@Override
+	String toString();
+	
+	
+	
+	/** {@inheritDoc} */ @Override
+	default void writeData(OutputStream stream) throws IOException
+	{
+		DataOutputStream dos = new DataOutputStream(stream);
+		dos.writeInt(getR());
+		dos.writeInt(getG());
+		dos.writeInt(getB());
+	}
+	
 }
