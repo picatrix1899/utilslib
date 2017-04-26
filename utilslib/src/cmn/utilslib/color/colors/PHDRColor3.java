@@ -41,20 +41,20 @@ public abstract class PHDRColor3 implements IHDRColor3Base
 		
 		return new PHDRColor3()
 		{
-			/** {@inheritDoc} */
+			/** {@inheritDoc} */ @Override
 			public int getR() { return r; }	
 			
-			/** {@inheritDoc} */
+			/** {@inheritDoc} */ @Override
 			public int getG() { return g; }			
 			
-			/** {@inheritDoc} */
+			/** {@inheritDoc} */ @Override
 			public int getB() { return b; }
 
 			@Override
-			public HDRColor3 clone()
-			{
-				return null;
-			}
+			public String toString() { return "hdr-persistent-color3(" + getR() + ", " + getG() + ", " + getB() + ")"; }
+		
+			@Override
+			public HDRColor3 clone() { return new HDRColor3(getR(), getG(), getB()); }
 		};
 		
 	}

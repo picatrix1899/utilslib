@@ -16,7 +16,6 @@ import cmn.utilslib.interfaces.IStreamable;
  * @author picatrix1899
  * @category Color
  */
-
 public interface IColor3 extends IColor3Base, IStreamable.Writeable
 {
 	
@@ -55,14 +54,12 @@ public interface IColor3 extends IColor3Base, IStreamable.Writeable
 	 * @return The current instance.
 	 */
 	IColor3 setR(int r);
-	
 	/**
 	 * Sets the green component based on a color-range value.
 	 * @param g : The green component as a color-range value.
 	 * @return The current instance.
 	 */
 	IColor3 setG(int g);
-	
 	/**
 	 * Sets the blue component based on a color-range value.
 	 * @param b : The blue component as a color-range value.
@@ -78,14 +75,12 @@ public interface IColor3 extends IColor3Base, IStreamable.Writeable
 	 * @return The current instance.
 	 */
 	default IColor3 setUnityR(float r) { return setR(Math.round(r * 255.0f)); }
-	
 	/** 
 	 * Sets the green component based on an unity-range value.
 	 * @param g : The green component as an unity-range value.
 	 * @return The current instance.
 	 */
 	default IColor3 setUnityG(float g) { return setG(Math.round(g * 255.0f)); }
-	
 	/**
 	 * Sets the blue component based on an unity-range value.
 	 * @param b : The blue component as an unity-range value.
@@ -94,13 +89,15 @@ public interface IColor3 extends IColor3Base, IStreamable.Writeable
 	default IColor3 setUnityB(float b) { return setB(Math.round(b * 255.0f)); }
 
 	
-	/**  */
+	/**
+	 * Clones the current color-object to an object of equal or higher accessibility grade.
+	 */
 	@Override
 	IColor3 clone();
 	
 	
 	
-	/**  */
+	/** {@inheritDoc} */
 	@Override
 	String toString();
 	

@@ -97,7 +97,7 @@ public class LDRColor4 implements ILDRColor4, IStreamable, Serializable
 	public LDRColor4 clone() { return new LDRColor4(this); }
 	
 	/** {@inheritDoc} */ @Override
-	public String toString() { return "color3(" + getR() + ", " + getG() + ", " + getB() + ", " + getA() + ")"; }
+	public String toString() { return "ldr-color4(" + getR() + ", " + getG() + ", " + getB() + ", " + getA() + ")"; }
 	
 	/** {@inheritDoc} */
 	@Override

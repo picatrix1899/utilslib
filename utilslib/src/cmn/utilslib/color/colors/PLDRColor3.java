@@ -46,29 +46,18 @@ public abstract class PLDRColor3 implements ILDRColor3Base
 		
 		return new PLDRColor3()
 		{
-			/** {@inheritDoc} */
-			public int getR()
-			{
-				return Maths.clamp(r, 0, 255);
-			}	
-			
-			/** {@inheritDoc} */
-			public int getG()
-			{
-				return Maths.clamp(g, 0, 255);
-			}			
-			
-			/** {@inheritDoc} */
-			public int getB()
-			{
-				return Maths.clamp(b, 0, 255);
-			}
+			/** {@inheritDoc} */ @Override
+			public int getR() { return Maths.clamp(r, 0, 255); }	
+			/** {@inheritDoc} */ @Override
+			public int getG() { return Maths.clamp(g, 0, 255); }			
+			/** {@inheritDoc} */ @Override
+			public int getB() { return Maths.clamp(b, 0, 255); }
 
 			@Override
-			public LDRColor3 clone()
-			{
-				return null;
-			}
+			public String toString() { return "ldr-persistent-color3(" + getR() + ", " + getG() + ", " + getB() + ")"; }
+			
+			@Override
+			public LDRColor3 clone() { return new LDRColor3(getR(), getG(), getB()); }
 		};
 		
 	}

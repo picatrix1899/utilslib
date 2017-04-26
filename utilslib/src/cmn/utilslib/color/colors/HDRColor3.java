@@ -79,11 +79,11 @@ public class HDRColor3 implements IHDRColor3, IStreamable, Serializable
 	
 		
 	/** {@inheritDoc}} */ @Override
-	public IHDRColor3 setR(int r) { this.r = r; return this; }
+	public HDRColor3 setR(int r) { this.r = r; return this; }
 	/** {@inheritDoc}} */ @Override
-	public IHDRColor3 setG(int g) { this.g = g; return this; }
+	public HDRColor3 setG(int g) { this.g = g; return this; }
 	/** {@inheritDoc}} */ @Override
-	public IHDRColor3 setB(int b) { this.b = b; return this; }
+	public HDRColor3 setB(int b) { this.b = b; return this; }
 	
 
 	

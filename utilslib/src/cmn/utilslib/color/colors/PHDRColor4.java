@@ -57,11 +57,18 @@ public abstract class PHDRColor4 implements IHDRColor4Base
 			/** {@inheritDoc} */
 			public int getA() { return a; }
 
+			public String toString()
+			{
+				return "hdr-persistent-color4(" + getR() + ", " + getG() + ", " + getB() + ", " + getA() + ")";
+ 			}
+			
 			@Override
 			public HDRColor4 clone()
 			{
-				return null;
+				return new HDRColor4(getR(), getG(), getB(), getA());
 			}
+			
+			
 		};
 		
 	}

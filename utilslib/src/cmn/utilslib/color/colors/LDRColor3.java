@@ -95,7 +95,7 @@ public class LDRColor3 implements ILDRColor3, IStreamable, Serializable
 	/** {@inheritDoc} */ @Override
 	public String toString()
 	{
-		return "color3(" + getR() + ", " + getG() + ", " + getB() + ")";
+		return "ldr-color3(" + getR() + ", " + getG() + ", " + getB() + ")";
 	}
 	
 	/** {@inheritDoc} */ @Override
