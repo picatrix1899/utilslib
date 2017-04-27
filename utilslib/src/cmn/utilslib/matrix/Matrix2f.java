@@ -9,6 +9,8 @@ import java.nio.FloatBuffer;
 import cmn.utilslib.essentials.BufferUtils;
 import cmn.utilslib.interfaces.IStreamable;
 import cmn.utilslib.vector.Vec2f;
+import cmn.utilslib.vector.api.IVec2f;
+import cmn.utilslib.vector.api.IVec2fBase;
 
 public class Matrix2f implements IStreamable, Serializable
 {
@@ -72,7 +74,7 @@ public class Matrix2f implements IStreamable, Serializable
 		return dest;
 	}
 	
-	public static Vec2f transform(Matrix2f l, Vec2f r, Vec2f dest)
+	public static IVec2f transform(Matrix2f l, IVec2fBase r, IVec2f dest)
 	{
 		if (dest == null) dest = new Vec2f();
 

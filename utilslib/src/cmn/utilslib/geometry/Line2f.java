@@ -1,6 +1,6 @@
 package cmn.utilslib.geometry;
 
-import cmn.utilslib.vector.Vec2f;
+import cmn.utilslib.vector.api.IVec2f;
 
 public class Line2f
 {
@@ -25,12 +25,12 @@ public class Line2f
 		this.p2 = l.p2;
 	}
 	
-	public Vec2f vector()
+	public IVec2f vector()
 	{
 		return this.p1.vectorTo(this.p2);
 	}
 	
-	public Vec2f direction()
+	public IVec2f direction()
 	{
 		return vector().normalize();
 	}

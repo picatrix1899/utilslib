@@ -16,6 +16,7 @@ public interface IHDRColor4 extends IHDRColor4Base, IColor4
 	default IHDRColor4 setUnity(float r, float g, float b, float a) { return (IHDRColor4) setUnityR(r).setUnityG(g).setUnityB(b).setUnityA(a); }
 	
 	
+	
 	@Override
 	IHDRColor4 clone();
 	

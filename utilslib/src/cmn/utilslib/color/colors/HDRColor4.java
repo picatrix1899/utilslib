@@ -10,12 +10,12 @@ import cmn.utilslib.color.colors.api.IHDRColor4;
 import cmn.utilslib.color.colors.api.IHDRColor4Base;
 
 
+
 /**
  * Represents a color with 4 components.
  * @author picatrix1899
  * @category Color
  */
-
 public class HDRColor4 implements  IHDRColor4, Serializable
 {
 	
@@ -41,7 +41,6 @@ public class HDRColor4 implements  IHDRColor4, Serializable
 	 * Plain Constructor with initial white color
 	 */
 	public HDRColor4() { this(HDRColor4.DEFAULT_MAX, HDRColor4.DEFAULT_MAX, HDRColor4.DEFAULT_MAX, HDRColor4.DEFAULT_MAX); }
-	
 	/**
 	 * Constructor with 4 initial components
 	 * @param r : The red component
@@ -50,7 +49,6 @@ public class HDRColor4 implements  IHDRColor4, Serializable
 	 * @param a : THe alpha component
 	 */
 	public HDRColor4(int r, int g, int b, int a) { set(r, g, b, a); }
-	
 	/**
 	 * Constructor with 4 initial components
 	 * @param r : The red component
@@ -59,9 +57,6 @@ public class HDRColor4 implements  IHDRColor4, Serializable
 	 * @param a : The alpha component
 	 */
 	public HDRColor4(float r, float g, float b, float a) { setUnity(r, g, b, a); }
-	
-	
-	
 	/**
 	 * Clone Constructor
 	 * @param color : The color to clone
@@ -70,38 +65,24 @@ public class HDRColor4 implements  IHDRColor4, Serializable
 	
 	
 	
-	/** {@inheritDoc}} */
-	@Override
+	/** {@inheritDoc}} */ @Override
 	public HDRColor4 setR(int r) { this.r = r; return this; }
-
-	/** {@inheritDoc}} */
-	@Override
+	/** {@inheritDoc}} */ @Override
 	public HDRColor4 setG(int g) { this.g = g; return this; }
-	
-	/** {@inheritDoc}} */
-	@Override
+	/** {@inheritDoc}} */ @Override
 	public HDRColor4 setB(int b) { this.b = b; return this; }
-	
-	/** {@inheritDoc}} */
-	@Override
+	/** {@inheritDoc}} */ @Override
 	public HDRColor4 setA(int a) { this.a = a; return this; }
 	
 	
 
-	/** {@inheritDoc} */
-	@Override
+	/** {@inheritDoc} */ @Override
 	public int getR() { return this.r; }
-
-	/** {@inheritDoc} */
-	@Override
+	/** {@inheritDoc} */ @Override
 	public int getG() { return this.g; }
-
-	/** {@inheritDoc} */
-	@Override
+	/** {@inheritDoc} */ @Override
 	public int getB() { return this.b; }
-	
-	/** {@inheritDoc} */
-	@Override
+	/** {@inheritDoc} */ @Override
 	public int getA() { return this.a; }
 	
 
@@ -109,13 +90,16 @@ public class HDRColor4 implements  IHDRColor4, Serializable
 	/** {@inheritDoc} */ @Override
 	public HDRColor4 clone() { return new HDRColor4(this); }
 	
+	
+	
 	/** {@inheritDoc} */ @Override
 	public String toString() { return "hdr-color4(" + getR() + ", " + getG() + ", " + getB() + ", " + getA() + ")"; }
+	
+	
 	
 	/** {@inheritDoc} */ @Override
 	public boolean equals(Object o)
 	{
-
 		if(o instanceof HDRColor4)
 		{
 			IHDRColor4Base c = (IHDRColor4Base)o;

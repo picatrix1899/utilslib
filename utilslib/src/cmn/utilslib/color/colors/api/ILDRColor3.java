@@ -1,4 +1,6 @@
+
 package cmn.utilslib.color.colors.api;
+
 
 
 public interface ILDRColor3 extends ILDRColor3Base, IColor3
@@ -15,10 +17,6 @@ public interface ILDRColor3 extends ILDRColor3Base, IColor3
 	default ILDRColor3 setUnity(float r, float g, float b) { return (ILDRColor3) setUnityR(r).setUnityG(g).setUnityB(b); }
 	
 	
-	
-
-	
-
 	
 	@Override
 	ILDRColor3 clone();

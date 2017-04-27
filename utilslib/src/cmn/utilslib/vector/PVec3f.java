@@ -1,6 +1,7 @@
 
 package cmn.utilslib.vector;
 
+import cmn.utilslib.vector.api.IVec3f;
 import cmn.utilslib.vector.api.IVec3fBase;
 
 /** 
@@ -11,14 +12,7 @@ import cmn.utilslib.vector.api.IVec3fBase;
 public abstract class PVec3f implements IVec3fBase
 {
 
-	
-	/** similar to {@link PVec3f#getNewVector} but generates only a new copy, when the old has been changed */
-	public abstract Vec3f getVector();
-	
-	/** return always a new instance of the vector */
-	public abstract Vec3f getNewVector();
-	
-	
+	public abstract IVec3f clone();
 	
 	/** generates a new persistent vector2f */
 	public static PVec3f gen(final float x, final float y, final float z)
@@ -26,26 +20,16 @@ public abstract class PVec3f implements IVec3fBase
 		return new PVec3f()
 		{
 			
-			private Vec3f v;
-			
+
 			public float getX() { return x; }
 			public float getY() { return y; }
 			public float getZ() { return z; }
 			
-			
-			
-			/** {@inheritDoc} */
-			public Vec3f getNewVector() { return new Vec3f(x, y, z); }
-			
-			/** {@inheritDoc} */
-			public Vec3f getVector()
+
+			@Override
+			public IVec3f clone()
 			{
-				if(v == null)
-					return v = new Vec3f(x, y, z);
-				else if(v.x != x || v.y != y || v.z != z)
-					return v = new Vec3f(x, y, z);
-				
-				return v;
+				return new Vec3f(this);
 			}
 			
 		};

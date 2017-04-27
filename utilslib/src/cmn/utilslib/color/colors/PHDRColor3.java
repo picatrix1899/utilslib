@@ -1,7 +1,11 @@
 
 package cmn.utilslib.color.colors;
 
+
+
 import cmn.utilslib.color.colors.api.IHDRColor3Base;
+
+
 
 /**
  * An immutable HDR*-Color3.
@@ -16,6 +20,8 @@ public abstract class PHDRColor3 implements IHDRColor3Base
 
 	public abstract HDRColor3 clone();
 	
+	
+	
 	/**
 	 * Generates a new persistent Color3 based on 3 unity-range values.
 	 * @param r : The red component as a unity-range value.
@@ -29,6 +35,7 @@ public abstract class PHDRColor3 implements IHDRColor3Base
 	}
 	
 	
+	
 	/**
 	 * Generates a new persistent Color3 based on 3 color-range values.
 	 * @param r : The red component as a color-range value.
@@ -38,25 +45,27 @@ public abstract class PHDRColor3 implements IHDRColor3Base
 	 */
 	public static PHDRColor3 gen(final int r, final int g, final int b)
 	{
-		
 		return new PHDRColor3()
 		{
+			
 			/** {@inheritDoc} */ @Override
 			public int getR() { return r; }	
-			
 			/** {@inheritDoc} */ @Override
 			public int getG() { return g; }			
-			
 			/** {@inheritDoc} */ @Override
 			public int getB() { return b; }
 
+			
+			
 			@Override
 			public String toString() { return "hdr-persistent-color3(" + getR() + ", " + getG() + ", " + getB() + ")"; }
 		
+			
+			
 			@Override
 			public HDRColor3 clone() { return new HDRColor3(getR(), getG(), getB()); }
+			
 		};
-		
 	}
 	
 }

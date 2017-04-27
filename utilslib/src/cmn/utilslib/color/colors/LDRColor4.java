@@ -2,10 +2,12 @@
 package cmn.utilslib.color.colors;
 
 
+
 import java.io.Serializable;
 
 import cmn.utilslib.color.colors.api.IColor4Base;
 import cmn.utilslib.color.colors.api.ILDRColor4;
+
 import cmn.utilslib.essentials.Maths;
 import cmn.utilslib.interfaces.IStreamable;
 
@@ -16,21 +18,17 @@ import cmn.utilslib.interfaces.IStreamable;
  * @author picatrix1899
  * @category Color
  */
-
 public class LDRColor4 implements ILDRColor4, IStreamable, Serializable
-
 {
-
-	private static final long serialVersionUID = 1L;
-
-	/**
-	 * the minimum value
-	 */
+	
+	/** the minimum value */
 	public static final int MIN = 0;
-	/**
-	 * the maximum value
-	 */
+	/** the maximum value */
 	public static final int MAX = 255;
+	
+	
+	
+	private static final long serialVersionUID = 1L;
 	
 	
 	
@@ -45,7 +43,6 @@ public class LDRColor4 implements ILDRColor4, IStreamable, Serializable
 	 * Plain Constructor with initial white color
 	 */
 	public LDRColor4() { this(LDRColor4.MAX, LDRColor4.MAX, LDRColor4.MAX, LDRColor4.MAX); }
-	
 	/**
 	 * Constructor with 4 initial components
 	 * @param r : The red component
@@ -54,7 +51,6 @@ public class LDRColor4 implements ILDRColor4, IStreamable, Serializable
 	 * @param a : THe alpha component
 	 */
 	public LDRColor4(int r, int g, int b, int a) { set(r, g, b, a); }
-	
 	/**
 	 * Constructor with 4 initial components
 	 * @param r : The red component
@@ -63,14 +59,12 @@ public class LDRColor4 implements ILDRColor4, IStreamable, Serializable
 	 * @param a : The alpha component
 	 */
 	public LDRColor4(float r, float g, float b, float a) { setUnity(r, g, b, a); }
-	
-	
-	
 	/**
 	 * Clone Constructor
 	 * @param color : The color to clone
 	 */
 	public LDRColor4(IColor4Base color) { set(color); }
+	
 	
 	
 	/** {@inheritDoc} */ @Override
@@ -81,6 +75,7 @@ public class LDRColor4 implements ILDRColor4, IStreamable, Serializable
 	public LDRColor4 setB(int b) { this.b = Maths.clamp(b, LDRColor4.MIN, LDRColor4.MAX); return this; }
 	/** {@inheritDoc} */ @Override
 	public LDRColor4 setA(int a) { this.a = Maths.clamp(a, LDRColor4.MIN, LDRColor4.MAX); return this; }
+	
 	
 
 	/** {@inheritDoc} */ @Override
@@ -93,11 +88,16 @@ public class LDRColor4 implements ILDRColor4, IStreamable, Serializable
 	public int getA() { return this.a; }
 
 	
+	
 	/** {@inheritDoc} */ @Override
 	public LDRColor4 clone() { return new LDRColor4(this); }
 	
+	
+	
 	/** {@inheritDoc} */ @Override
 	public String toString() { return "ldr-color4(" + getR() + ", " + getG() + ", " + getB() + ", " + getA() + ")"; }
+	
+	
 	
 	/** {@inheritDoc} */
 	@Override
@@ -116,6 +116,5 @@ public class LDRColor4 implements ILDRColor4, IStreamable, Serializable
 		
 		return false;
 	}
-
 
 }

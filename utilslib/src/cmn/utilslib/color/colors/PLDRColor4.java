@@ -4,6 +4,7 @@ package cmn.utilslib.color.colors;
 
 
 import cmn.utilslib.color.colors.api.ILDRColor4Base;
+
 import cmn.utilslib.essentials.Maths;
 
 
@@ -20,6 +21,8 @@ public abstract class PLDRColor4 implements ILDRColor4Base
 {
 	
 	public abstract LDRColor4 clone();
+	
+	
 	
 	/**
 	 * Generates a new persistent Color3 based on 3 unity-range values.
@@ -46,28 +49,34 @@ public abstract class PLDRColor4 implements ILDRColor4Base
 	 */
 	public static PLDRColor4 gen(final int r, final int g, final int b, final int a)
 	{
-		
 		return new PLDRColor4()
 		{
+			
 			/** {@inheritDoc} */
 			public int getR() { return Maths.clamp(r, 0, 255); }			
-			
 			/** {@inheritDoc} */
 			public int getG() { return Maths.clamp(g, 0, 255); }
-			
 			/** {@inheritDoc} */
 			public int getB() { return Maths.clamp(b, 0, 255); }
-			
 			/** {@inheritDoc} */
 			public int getA() { return Maths.clamp(a, 0, 255); }
 
+		
+			
+			public String toString()
+			{
+				return "ldr-persistent-color4(" + getR() + ", " + getG() + ", " + getB() + ", " + getA() + ")";
+ 			}
+			
+			
+			
 			@Override
 			public LDRColor4 clone()
 			{
 				return null;
 			}
+			
 		};
-		
 	}
 	
 }

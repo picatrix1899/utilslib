@@ -42,7 +42,6 @@ public class HDRColor3 implements IHDRColor3, IStreamable, Serializable
 	 * Plain Constructor with initial white color.
 	 */
 	public HDRColor3() { this(HDRColor3.DEFAULT_MAX, HDRColor3.DEFAULT_MAX, HDRColor3.DEFAULT_MAX); }
-	
 	/**
 	 * Constructor with 3 initial color-range components.
 	 * @param r : The red component as a color-range value.
@@ -50,7 +49,6 @@ public class HDRColor3 implements IHDRColor3, IStreamable, Serializable
 	 * @param b : The blue component as a color-range value.
 	 */
 	public HDRColor3(int r, int g, int b) { setR(r).setG(g).setB(b); }
-	
 	/**
 	 * Constructor with 3 initial unity-range components.
 	 * @param r : The red component as an unity-range value.
@@ -58,9 +56,6 @@ public class HDRColor3 implements IHDRColor3, IStreamable, Serializable
 	 * @param b : The blue component as an unity-range value.
 	 */
 	public HDRColor3(float r, float g, float b) { setUnityR(r).setUnityG(g).setUnityB(b); }
-	
-	
-
 	/**
 	 * Clone Constructor.
 	 * @param color : The color to clone.
@@ -90,8 +85,12 @@ public class HDRColor3 implements IHDRColor3, IStreamable, Serializable
 	/** {@inheritDoc} */ @Override
 	public HDRColor3 clone() { return new HDRColor3(this); }
 	
+	
+	
 	/** {@inheritDoc} */ @Override
 	public String toString() { return "hdr-color3(" + getR() + ", " + getG() + ", " + getB() + ")"; }
+	
+	
 	
 	/** {@inheritDoc} */ @Override
 	public boolean equals(Object o)
@@ -108,4 +107,5 @@ public class HDRColor3 implements IHDRColor3, IStreamable, Serializable
 	
 		return false;
 	}
+	
 }

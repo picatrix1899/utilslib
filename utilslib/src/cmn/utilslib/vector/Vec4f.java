@@ -7,7 +7,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
 
-import cmn.utilslib.interfaces.IObjectable;
 import cmn.utilslib.interfaces.IStreamable;
 
 /**
@@ -16,7 +15,7 @@ import cmn.utilslib.interfaces.IStreamable;
  * @author picatrix1899
  *
  */
-public class Vec4f implements IStreamable, Serializable, IObjectable<Vec4f>
+public class Vec4f implements IStreamable.Readable, IStreamable.Writeable, Serializable
 {
 	private static final long serialVersionUID = 1L;
 

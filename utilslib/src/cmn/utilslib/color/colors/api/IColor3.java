@@ -25,7 +25,6 @@ public interface IColor3 extends IColor3Base, IStreamable.Writeable
 	 * @return The current instance.
 	 */
 	IColor3 set(IColor3Base color);
-	
 	/**
 	 * Sets the color based on 3 color-range values.
 	 * @param r : The red component as a color-range value.
@@ -88,6 +87,7 @@ public interface IColor3 extends IColor3Base, IStreamable.Writeable
 	 */
 	default IColor3 setUnityB(float b) { return setB(Math.round(b * 255.0f)); }
 
+	
 	
 	/**
 	 * Clones the current color-object to an object of equal or higher accessibility grade.

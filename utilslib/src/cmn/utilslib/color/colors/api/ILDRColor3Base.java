@@ -1,6 +1,11 @@
+
 package cmn.utilslib.color.colors.api;
 
+
+
 import cmn.utilslib.color.colors.PLDRColor4;
+
+
 
 public interface ILDRColor3Base extends IColor3Base
 {

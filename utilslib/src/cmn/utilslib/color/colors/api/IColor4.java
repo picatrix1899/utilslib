@@ -20,7 +20,6 @@ public interface IColor4 extends IColor4Base, IStreamable.Writeable
 	 * @return The current instance.
 	 */
 	IColor4 set(IColor4Base color);
-	
 	/**
 	 * Sets the color based on 3 color-range values.
 	 * @param r : The red component as a color-range value.
@@ -51,21 +50,18 @@ public interface IColor4 extends IColor4Base, IStreamable.Writeable
 	 * @return The current instance.
 	 */
 	IColor4 setR(int r);
-	
 	/**
 	 * Sets the green component based on a color-range value.
 	 * @param g : The green component as a color-range value.
 	 * @return The current instance.
 	 */
 	IColor4 setG(int g);
-	
 	/**
 	 * Sets the blue component based on a color-range value.
 	 * @param b : The blue component as a color-range value.
 	 * @return The current instance.
 	 */
 	IColor4 setB(int b);
-	
 	/**
 	 * Sets the alpha component based on a color-range value.
 	 * @param a : The alpha component as a color-range value.
@@ -81,21 +77,18 @@ public interface IColor4 extends IColor4Base, IStreamable.Writeable
 	 * @return The current instance.
 	 */
 	default IColor4 setUnityR(float r) { return (ILDRColor4) setR(Math.round(r * 255.0f)); }
-	
 	/** 
 	 * Sets the green component based on an unity-range value.
 	 * @param g : The green component as an unity-range value.
 	 * @return The current instance.
 	 */
 	default IColor4 setUnityG(float g) { return (ILDRColor4) setG(Math.round(g * 255.0f)); }
-	
 	/**
 	 * Sets the blue component based on an unity-range value.
 	 * @param b : The blue component as an unity-range value.
 	 * @return The current instance.
 	 */
 	default IColor4 setUnityB(float b) { return (ILDRColor4) setB(Math.round(b * 255.0f)); }
-	
 	/**
 	 * Sets the alpha component based on an unity-range value.
 	 * @param a : The alpha component as an unity-range value.
@@ -104,6 +97,7 @@ public interface IColor4 extends IColor4Base, IStreamable.Writeable
 	default IColor4 setUnityA(float a) { return (ILDRColor4) setA(Math.round(a * 255.0f)); }
 
 
+	
 	@Override
 	IColor4 clone();
 	

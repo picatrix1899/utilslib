@@ -11,6 +11,8 @@ import cmn.utilslib.geometry.Point3f;
 import cmn.utilslib.interfaces.IStreamable;
 import cmn.utilslib.vector.Quaternion;
 import cmn.utilslib.vector.Vec3f;
+import cmn.utilslib.vector.api.IVec3f;
+import cmn.utilslib.vector.api.IVec3fBase;
 
 /**
  * A 3 by 3 float Row Major Matrix 
@@ -96,35 +98,35 @@ public class Matrix3f implements IStreamable, Serializable
 		return this;
 	}
 	
-	public static Matrix3f iRotation(Vec3f axis, float angle) { return new Matrix3f().initRotation(axis, angle); }
+	public static Matrix3f iRotation(IVec3fBase axis, float angle) { return new Matrix3f().initRotation(axis, angle); }
 	
-	public Matrix3f initRotation(Vec3f axis, float angle)
+	public Matrix3f initRotation(IVec3fBase axis, float angle)
 	{
 		float c = (float)Math.cos(angle);
 		float s = (float)Math.sin(angle);
 		
 		float omc = 1 - c;
 		
-		float xy = axis.x * axis.y;
-		float xz = axis.x * axis.z;
-		float yz = axis.y * axis.z;
+		float xy = axis.getX() * axis.getY();
+		float xz = axis.getX() * axis.getZ();
+		float yz = axis.getY() * axis.getZ();
 		
-		float sx = s * axis.x;
-		float sy = s * axis.y;
-		float sz = s * axis.z;
+		float sx = s * axis.getX();
+		float sy = s * axis.getY();
+		float sz = s * axis.getZ();
 		
-		this.m0.set(	axis.x * axis.x * omc + c	,	xy * omc - sz				,	xz * omc + sy				);
-		this.m1.set(	xy * omc + sz				,	axis.y * axis.y * omc + c	,	yz * omc - sx				);
-		this.m2.set(	xz * omc - sy				,	yz * omc + sx				,	axis.z * axis.z * omc + c	);
+		this.m0.set(	axis.getX() * axis.getX() * omc + c	,	xy * omc - sz				,	xz * omc + sy				);
+		this.m1.set(	xy * omc + sz				,	axis.getY() * axis.getY() * omc + c	,	yz * omc - sx				);
+		this.m2.set(	xz * omc - sy				,	yz * omc + sx				,	axis.getZ() * axis.getZ() * omc + c	);
 		
 		return this;
 	}
 	
-	public static Matrix3f iScaling(Vec3f v) { return new Matrix3f().initScaling(v); }
+	public static Matrix3f iScaling(IVec3fBase v) { return new Matrix3f().initScaling(v); }
 	
-	public Matrix3f initScaling(Vec3f v)
+	public Matrix3f initScaling(IVec3fBase v)
 	{
-		return initScaling(v.x, v.y, v.z);
+		return initScaling(v.getX(), v.getY(), v.getZ());
 	}
 	
 	public static Matrix3f iScaling(float sx, float sy, float sz) { return new Matrix3f().initScaling(sx, sy, sz); }
@@ -168,11 +170,11 @@ public class Matrix3f implements IStreamable, Serializable
 		return dest;
 	}
 	
-	public Vec3f transformN(Vec3f v) { return transform(this, v, null); }
+	public IVec3f transformN(IVec3fBase v) { return transform(this, v, null); }
 	
-	public Vec3f transform(Vec3f v) { return transform(this, v, v); }
+	public IVec3f transform(IVec3f v) { return transform(this, v, v); }
 	
-	public static Vec3f transform(Matrix3f l, Vec3f r, Vec3f dest)
+	public static IVec3f transform(Matrix3f l, IVec3fBase r, IVec3f dest)
 	{
 		if (dest == null) dest = new Vec3f();
 

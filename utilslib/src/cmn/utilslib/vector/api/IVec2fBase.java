@@ -9,7 +9,7 @@ import cmn.utilslib.essentials.Maths;
 import cmn.utilslib.interfaces.IStreamable;
 import cmn.utilslib.vector.PVec2f;
 
-public interface IVec2fBase<T extends IVec2fBase<?>> extends Iterable<Float>, IStreamable.Readable
+public interface IVec2fBase extends Iterable<Float>, IStreamable.Readable
 {
 	
 	/*
@@ -34,62 +34,46 @@ public interface IVec2fBase<T extends IVec2fBase<?>> extends Iterable<Float>, IS
 	float getX();
 	float getY();
 
+	IVec2f clone();
+	
+
+	
+	default IVec2f absN(boolean x, boolean y) { return clone().abs(x, y); }
 
 	
 
 	
-	T absN(boolean x, boolean y);
+	
+	default IVec2f addN(IVec2fBase v) { return addN(v.getX(), v.getY()); }
+	default IVec2f addN(float scalar) { return addN(scalar, scalar); }
+	default IVec2f addN(double scalar) { return addN(scalar, scalar); }
+	default IVec2f addN(float x, float y) { return clone().add(x, y); }
+	default IVec2f addN(double x, double y) { return clone().add(x, y); }
+	
+	default IVec2f subN(IVec2fBase v) { return subN(v.getX(), v.getY()); }
+	default IVec2f subN(float scalar) { return subN(scalar, scalar); }
+	default IVec2f subN(double scalar) { return subN(scalar, scalar); }
+	default IVec2f subN(float x, float y) { return clone().sub(x, y); }
+	default IVec2f subN(double x, double y) { return clone().sub(x, y); }
+	
+	default IVec2f mulN(IVec2fBase v) { return mulN(v.getX(), v.getY()); }
+	default IVec2f mulN(float scalar) { return mulN(scalar, scalar); }
+	default IVec2f mulN(double scalar) { return mulN(scalar, scalar); }
+	default IVec2f mulN(float x, float y) { return clone().sub(x, y); }
+	default IVec2f mulN(double x, double y) { return clone().sub(x, y); }
+	
+	default IVec2f divN(IVec2fBase v) { return divN(v.getX(), v.getY()); }
+	default IVec2f divN(float scalar) { return divN(scalar, scalar); }
+	default IVec2f divN(double scalar) { return divN(scalar, scalar); }
+	default IVec2f divN(float x, float y) { return clone().sub(x, y); }
+	default IVec2f divN(double x, double y) { return clone().sub(x, y); }
 	
 	
 	
-	T addN(float x, float y); 
-	T addN(double x, double y); 
-
+	default float dot(IVec2fBase v) { return this.getX() * v.getX() + this.getY() * v.getY(); }
 	
-	
-	
-	T subN(float x, float y);
-	T subN(double x, double y);
-
-	
-	
-	
-	T mulN(float x, float y); 
-	T mulN(double x, double y); 
-
-	
-	
-
-	T divN(float x, float y); 
-	T divN(double x, double y);
-
-	
-	T clone();
-
-	
-	
-	default T addN(IVec2fBase<?> v) { return addN(v.getX(), v.getY()); }
-	default T addN(float scalar) { return addN(scalar, scalar); }
-	default T addN(double scalar) { return addN(scalar, scalar); }
-	
-	default T subN(IVec2fBase<?> v) { return subN(v.getX(), v.getY()); }
-	default T subN(float scalar) { return subN(scalar, scalar); }
-	default T subN(double scalar) { return subN(scalar, scalar); }	
-	
-	default T mulN(IVec2fBase<?> v) { return mulN(v.getX(), v.getY()); }
-	default T mulN(float scalar) { return mulN(scalar, scalar); }
-	default T mulN(double scalar) { return mulN(scalar, scalar); }	
-	
-	default T divN(IVec2fBase<?> v) { return divN(v.getX(), v.getY()); }
-	default T divN(float scalar) { return divN(scalar, scalar); }
-	default T divN(double scalar) { return divN(scalar, scalar); }
-	
-	
-	
-	default float dot(IVec2fBase<?> v) { return this.getX() * v.getX() + this.getY() * v.getY(); }
-	
-	default double angleRad(IVec2fBase<?> v) { return Math.acos((dot(v)) / (length() * v.length())); }
-	default double angleDeg(IVec2fBase<?> v) { return angleRad(v) * Maths.RAD_TO_DEG; }
+	default double angleRad(IVec2fBase v) { return Math.acos((dot(v)) / (length() * v.length())); }
+	default double angleDeg(IVec2fBase v) { return angleRad(v) * Maths.RAD_TO_DEG; }
 	
 	default float max() { return Math.max(this.getX(), this.getY()); }
 	default float min() { return Math.min(this.getX(), this.getY()); }
@@ -108,7 +92,7 @@ public interface IVec2fBase<T extends IVec2fBase<?>> extends Iterable<Float>, IS
 			
 			/**  */
 			@Override
-			public boolean hasNext() { return this.index < getDimensions(); }
+			public boolean hasNext() { return this.index < DIMENSIONS; }
 
 			/** */
 			@Override
@@ -135,17 +119,13 @@ public interface IVec2fBase<T extends IVec2fBase<?>> extends Iterable<Float>, IS
 		};
 	}
 	
+	default IVec2f inverted() { return clone().invert(); }
 	
-	default int getDimensions() { return IVec2fBase.DIMENSIONS; }
+	default IVec2f normalized() { return clone().normalize(); }
 	
-	
-	T inverted();
-	
-	T normalized();
-	
-	T floorN();
-	T ceilN();
-	T roundN();
+	default IVec2f floorN() { return clone().floor(); }
+	default IVec2f ceilN() { return clone().ceil(); }
+	default IVec2f roundN() { return clone().round(); }
 	
 	/** {@inheritDoc} */ @Override
 	default void writeData(OutputStream stream) throws IOException

@@ -1,8 +1,6 @@
 
 package cmn.utilslib.vector;
 
-import cmn.utilslib.essentials.Check;
-
 
 import cmn.utilslib.interfaces.IStreamable;
 import cmn.utilslib.vector.api.IVec2f;
@@ -15,7 +13,7 @@ import cmn.utilslib.vector.api.IVec2fBase;
  * @author picatrix1899
  * @category Vector
  */
-public class Vec2f implements IVec2f<Vec2f>, IStreamable
+public class Vec2f implements IVec2f, IStreamable
 {
 	
 	/*
@@ -44,7 +42,7 @@ public class Vec2f implements IVec2f<Vec2f>, IStreamable
 	 * Clone constructor - Instance a new 2 dimensional float vector based on another 2 dimensional float vector {@literal <v>}}
 	 * @param v : The 2 dimensional float vector to clone
 	 */
-	public Vec2f(IVec2fBase<?> v) { set(v); }
+	public Vec2f(IVec2fBase v) { set(v); }
 	
 	/**
 	 * Constructor - Instance a new 2 dimensional float vector with both components set to {@literal <scalar>} 
@@ -100,96 +98,8 @@ public class Vec2f implements IVec2f<Vec2f>, IStreamable
 	public Vec2f setY(float y) { this.y = y; return this; }
 	/** {@inheritDoc} */ @Override
 	public Vec2f setY(double y) { this.y = (float)y; return this; }	
-	
 
 	
-	
-
-	/** {@inheritDoc} */ @Override 
-	public Vec2f addN(float x, float y) { return clone().add(x, y); }
-	/** {@inheritDoc} */ @Override
-	public Vec2f addN(double x, double y) { return clone().add(x, y); }
-
-	
-	
-	
-
-	/** {@inheritDoc} */ @Override
-	public Vec2f subN(float x, float y) { return clone().sub(x, y); }
-	/** {@inheritDoc} */ @Override
-	public Vec2f subN(double x, double y) { return clone().sub(x, y); }
-
-	
-
-	
-	/** {@inheritDoc} */ @Override
-	public Vec2f mulN(float x, float y) { return clone().mul(x, y); }
-	/** {@inheritDoc} */ @Override
-	public Vec2f mulN(double x, double y) { return clone().mul(x, y); }
-
-	
-	
-	
-	/** {@inheritDoc} */ @Override
-	public Vec2f divN(float x, float y) { return clone().div(x, y); }
-	/** {@inheritDoc} */ @Override
-	public Vec2f divN(double x, double y) { return clone().div(x, y); }
-
-	
-	
-	
-	/*
-	 * ===================
-	 * VECTOR-OPERATIONS
-	 * ===================
-	 */
-	/** {@inheritDoc} */ @Override
-	public Vec2f normalize() { return Check.notNull(this) ? div(length()) : this; }
-	
-	/** {@inheritDoc} */ @Override
-	public Vec2f normalized() { return clone().normalize(); }
-	
-	
-	/** {@inheritDoc} */ @Override
-	public Vec2f invert() { return mul(-1.0f); }
-
-	/** {@inheritDoc} */ @Override
-	public Vec2f inverted() { return clone().invert(); }
-
-	
-
-	
-	/** {@inheritDoc} */ @Override
-	public Vec2f abs(boolean x, boolean y) { return set(Math.abs(this.x), Math.abs(this.y)); }
-	
-	/** {@inheritDoc} */ @Override
-	public Vec2f absN(boolean x, boolean y) { return clone().abs(x, y); }
-	
-	
-	
-	/*
-	 * ==========
-	 * ROUNDING
-	 * ==========
-	 */
-	/** {@inheritDoc} */ @Override
-	public Vec2f floor() { return set(Math.floor(this.x) , Math.floor(this.y)); }
-	/** {@inheritDoc} */ @Override
-	public Vec2f ceil() { return set(Math.ceil(this.x), Math.ceil(this.y)); }
-	/** {@inheritDoc} */ @Override
-	public Vec2f round() { return set(Math.round(this.x),Math.round(this.y)); }
-	
-	/** {@inheritDoc} */ @Override
-	public Vec2f floorN() { return clone().floor(); }
-	
-	/** {@inheritDoc} */ @Override
-	public Vec2f ceilN() { return clone().ceil(); }
-	
-	/** {@inheritDoc} */ @Override
-	public Vec2f roundN() { return clone().round(); }
-
-	
-
 	/*
 	 * ==================
 	 * OBJECT-OVERRIDES

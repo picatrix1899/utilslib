@@ -1,7 +1,11 @@
 
 package cmn.utilslib.color.colors;
 
+
+
 import cmn.utilslib.color.colors.api.IHDRColor4Base;
+
+
 
 /**
  * An immutable HDR*-Color4.
@@ -15,6 +19,7 @@ public abstract class PHDRColor4 implements IHDRColor4Base
 {
 
 	public abstract HDRColor4 clone();
+	
 	
 	
 	/**
@@ -42,25 +47,26 @@ public abstract class PHDRColor4 implements IHDRColor4Base
 	 */
 	public static PHDRColor4 gen(final int r, final int g, final int b, final int a)
 	{
-		
 		return new PHDRColor4()
 		{
-			/** {@inheritDoc} */
+			
+			/** {@inheritDoc} */ @Override
 			public int getR() { return r; }			
-			
-			/** {@inheritDoc} */
+			/** {@inheritDoc} */ @Override
 			public int getG() { return g; }
-			
-			/** {@inheritDoc} */
+			/** {@inheritDoc} */ @Override
 			public int getB() { return b; }
-			
-			/** {@inheritDoc} */
+			/** {@inheritDoc} */ @Override
 			public int getA() { return a; }
 
+			
+			
 			public String toString()
 			{
 				return "hdr-persistent-color4(" + getR() + ", " + getG() + ", " + getB() + ", " + getA() + ")";
  			}
+			
+			
 			
 			@Override
 			public HDRColor4 clone()
@@ -68,8 +74,7 @@ public abstract class PHDRColor4 implements IHDRColor4Base
 				return new HDRColor4(getR(), getG(), getB(), getA());
 			}
 			
-			
 		};
-		
 	}
+	
 }

@@ -4,6 +4,7 @@ package cmn.utilslib.color.colors;
 
 
 import cmn.utilslib.color.colors.api.ILDRColor3Base;
+
 import cmn.utilslib.essentials.Maths;
 
 
@@ -21,6 +22,8 @@ public abstract class PLDRColor3 implements ILDRColor3Base
 
 	public abstract LDRColor3 clone();
 	
+	
+	
 	/**
 	 * Generates a new persistent Color3 based on 3 unity-range values.
 	 * @param r : The red component as a unity-range value.
@@ -34,6 +37,7 @@ public abstract class PLDRColor3 implements ILDRColor3Base
 	}
 	
 	
+	
 	/**
 	 * Generates a new persistent Color3 based on 3 color-range values.
 	 * @param r : The red component as a color-range value.
@@ -43,9 +47,9 @@ public abstract class PLDRColor3 implements ILDRColor3Base
 	 */
 	public static PLDRColor3 gen(final int r, final int g, final int b)
 	{
-		
 		return new PLDRColor3()
 		{
+			
 			/** {@inheritDoc} */ @Override
 			public int getR() { return Maths.clamp(r, 0, 255); }	
 			/** {@inheritDoc} */ @Override
@@ -53,13 +57,17 @@ public abstract class PLDRColor3 implements ILDRColor3Base
 			/** {@inheritDoc} */ @Override
 			public int getB() { return Maths.clamp(b, 0, 255); }
 
+			
+			
 			@Override
 			public String toString() { return "ldr-persistent-color3(" + getR() + ", " + getG() + ", " + getB() + ")"; }
 			
+			
+			
 			@Override
 			public LDRColor3 clone() { return new LDRColor3(getR(), getG(), getB()); }
+			
 		};
-		
 	}
 	
 }

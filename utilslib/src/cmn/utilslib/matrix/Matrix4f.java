@@ -7,6 +7,8 @@ import cmn.utilslib.geometry.Point3f;
 import cmn.utilslib.vector.Quaternion;
 import cmn.utilslib.vector.Vec3f;
 import cmn.utilslib.vector.Vec4f;
+import cmn.utilslib.vector.api.IVec3f;
+import cmn.utilslib.vector.api.IVec3fBase;
 
 /**
  * A 4 by 4 float Row Major Matrix 
@@ -90,21 +92,21 @@ public class Matrix4f
 		return this;
 	}
 	
-	public Matrix4f initRotation(Vec3f forward, Vec3f up, Vec3f right)
+	public Matrix4f initRotation(IVec3fBase forward, IVec3fBase up, IVec3fBase right)
 	{
-		this.m0.setX(right.x);
-		this.m0.setY(right.y);
-		this.m0.setZ(right.z);
+		this.m0.setX(right.getX());
+		this.m0.setY(right.getY());
+		this.m0.setZ(right.getZ());
 		this.m0.setA(0.0d);
 		
-		this.m1.setX(up.x);
-		this.m1.setY(up.y);
-		this.m1.setZ(up.z);
+		this.m1.setX(up.getX());
+		this.m1.setY(up.getY());
+		this.m1.setZ(up.getZ());
 		this.m1.setA(0.0d);
 		
-		this.m2.setX(forward.x);
-		this.m2.setY(forward.y);
-		this.m2.setZ(forward.z);
+		this.m2.setX(forward.getX());
+		this.m2.setY(forward.getY());
+		this.m2.setZ(forward.getZ());
 		this.m2.setA(0.0d);
 		
 		this.m3.set(0.0d, 0.0d, 0.0d, 1.0d);
@@ -142,22 +144,22 @@ public class Matrix4f
 		return this;
 	}
 	
-	public Matrix4f initRotation(Vec3f forward, Vec3f up)
+	public Matrix4f initRotation(IVec3fBase forward, IVec3fBase up)
 	{
-		Vec3f f = forward.normalized();
-		Vec3f r = up.normalized();
+		IVec3f f = forward.normalized();
+		IVec3f r = up.normalized();
 		r = r.cross(f);
 		
-		Vec3f u = f.cross(r);
+		IVec3f u = f.cross(r);
 		
 		u.normalize();
 		
 		return initRotation(forward.normalized(), u, r);
 	}
 	
-	public static Matrix4f iRotation(Vec3f axis, float angle) { return new Matrix4f().initRotation(axis, angle); }
+	public static Matrix4f iRotation(IVec3fBase axis, float angle) { return new Matrix4f().initRotation(axis, angle); }
 	
-	public Matrix4f initRotation(Vec3f axis, float angle)
+	public Matrix4f initRotation(IVec3fBase axis, float angle)
 	{
 		
 		float c = (float)Math.cos(angle);
@@ -165,27 +167,27 @@ public class Matrix4f
 		
 		float omc = 1 - c;
 		
-		float xy = axis.x * axis.y;
-		float xz = axis.x * axis.z;
-		float yz = axis.y * axis.z;
+		float xy = axis.getX() * axis.getY();
+		float xz = axis.getX() * axis.getZ();
+		float yz = axis.getY() * axis.getZ();
 		
-		float sx = s * axis.x;
-		float sy = s * axis.y;
-		float sz = s * axis.z;
+		float sx = s * axis.getX();
+		float sy = s * axis.getY();
+		float sz = s * axis.getZ();
 		
-		this.m0.set(	axis.x * axis.x * omc + c	,	xy * omc - sz				,	xz * omc + sy				,	0.0f	);
-		this.m1.set(	xy * omc + sz				,	axis.y * axis.y * omc + c	,	yz * omc - sx				,	0.0f	);
-		this.m2.set(	xz * omc - sy				,	yz * omc + sx				,	axis.z * axis.z * omc + c	,	0.0f	);
+		this.m0.set(	axis.getX() * axis.getX() * omc + c	,	xy * omc - sz				,	xz * omc + sy				,	0.0f	);
+		this.m1.set(	xy * omc + sz				,	axis.getY() * axis.getY() * omc + c	,	yz * omc - sx				,	0.0f	);
+		this.m2.set(	xz * omc - sy				,	yz * omc + sx				,	axis.getZ() * axis.getZ() * omc + c	,	0.0f	);
 		this.m3.set(	0.0							,	0.0f						,	0.0f						,	1.0f	);
 
 		return this;
 	}
 	
-	public static Matrix4f iTranslation(Vec3f v) { return new Matrix4f().initTranslation(v); }
+	public static Matrix4f iTranslation(IVec3fBase v) { return new Matrix4f().initTranslation(v); }
 	
 	public static Matrix4f iTranslation(float tx, float ty, float tz) { return new Matrix4f().initTranslation(tx, ty, tz); }
 	
-	public Matrix4f initTranslation(Vec3f v) { return initTranslation(v.x, v.y, v.z); }	
+	public Matrix4f initTranslation(IVec3fBase v) { return initTranslation(v.getX(), v.getY(), v.getZ()); }	
 	
 	public Matrix4f initTranslation(float tx, float ty, float tz)
 	{
@@ -197,11 +199,11 @@ public class Matrix4f
 		return this;
 	}
 	
-	public static Matrix4f iScaling(Vec3f v) { return new Matrix4f().initScaling(v); }
+	public static Matrix4f iScaling(IVec3fBase v) { return new Matrix4f().initScaling(v); }
 	
 	public static Matrix4f iScaling(float sx, float sy, float sz) { return new Matrix4f().initScaling(sx, sy, sz); }
 	
-	public Matrix4f initScaling(Vec3f v) { return initScaling(v.x, v.y, v.z); }
+	public Matrix4f initScaling(IVec3fBase v) { return initScaling(v.getX(), v.getY(), v.getZ()); }
 	
 	public Matrix4f initScaling(float sx, float sy, float sz)
 	{
@@ -214,9 +216,9 @@ public class Matrix4f
 		return this;
 	}
 	
-	public static Matrix4f iModelMatrix(Vec3f pos, Quaternion rot, Vec3f scale) { return new Matrix4f().initModelMatrix(pos, rot, scale); }
+	public static Matrix4f iModelMatrix(IVec3fBase pos, Quaternion rot, IVec3fBase scale) { return new Matrix4f().initModelMatrix(pos, rot, scale); }
 	
-	public Matrix4f initModelMatrix(Vec3f pos, Quaternion rot, Vec3f scale)
+	public Matrix4f initModelMatrix(IVec3fBase pos, Quaternion rot, IVec3fBase scale)
 	{
 		if(scale == null) scale = new Vec3f(1.0f, 1.0f, 1.0f);
 		
@@ -228,9 +230,9 @@ public class Matrix4f
 		return this;
 	}
 	
-	public static Matrix4f iViewMatrix(Vec3f pos, Quaternion rot) { return new Matrix4f().initViewMatrix(pos, rot); }
+	public static Matrix4f iViewMatrix(IVec3fBase pos, Quaternion rot) { return new Matrix4f().initViewMatrix(pos, rot); }
 	
-	public Matrix4f initViewMatrix(Vec3f pos, Quaternion rot)
+	public Matrix4f initViewMatrix(IVec3fBase pos, Quaternion rot)
 	{
 		initIdendity();
 		
@@ -240,15 +242,15 @@ public class Matrix4f
 		return this;
 	}
 	
-	public Matrix4f translate(Vec3f v){ return translate(v, this); }
+	public Matrix4f translate(IVec3fBase v){ return translate(v, this); }
 	
 	public Matrix4f translate(float tx, float ty, float tz) { return translate(tx, ty, tz, this); }
 	
-	public Matrix4f translate(Vec3f v, Matrix4f dest) { return translate(v, this, dest); }
+	public Matrix4f translate(IVec3fBase v, Matrix4f dest) { return translate(v, this, dest); }
 	
 	public Matrix4f translate(float tx, float ty, float tz, Matrix4f dest) { return translate(tx, ty, tz, this, dest); }
 	
-	public Matrix4f translate(Vec3f v, Matrix4f src, Matrix4f dest) { return translate(v.x, v.y, v.z, src, dest); }
+	public Matrix4f translate(IVec3fBase v, Matrix4f src, Matrix4f dest) { return translate(v.getX(), v.getY(), v.getZ(), src, dest); }
 	
 	public Matrix4f translate(float tx, float ty, float tz, Matrix4f src, Matrix4f dest) { return Matrix4f.mul(new Matrix4f().initTranslation(tx, ty, tz), src, dest); }
 	
@@ -262,23 +264,23 @@ public class Matrix4f
 	
 	
 	
-	public Matrix4f rotate(Vec3f axis, float angle) { return rotate(axis, angle, this); }
+	public Matrix4f rotate(IVec3fBase axis, float angle) { return rotate(axis, angle, this); }
 	
-	public Matrix4f rotate(Vec3f axis, float angle, Matrix4f dest) { return rotate(axis, angle, this, dest); }
+	public Matrix4f rotate(IVec3fBase axis, float angle, Matrix4f dest) { return rotate(axis, angle, this, dest); }
 	
-	public Matrix4f rotate(Vec3f axis, float angle, Matrix4f src, Matrix4f dest) { return Matrix4f.mul(new Matrix4f().initRotation(axis, angle), src, dest); }
+	public Matrix4f rotate(IVec3fBase axis, float angle, Matrix4f src, Matrix4f dest) { return Matrix4f.mul(new Matrix4f().initRotation(axis, angle), src, dest); }
 	
 	
 	
-	public Matrix4f scale(Vec3f v) { return scale(v.x, v.y, v.z); }
+	public Matrix4f scale(IVec3fBase v) { return scale(v.getX(), v.getY(), v.getZ()); }
 	
 	public Matrix4f scale(float sx,float sy,float sz) { return scale(sx, sy, sz, this); }
 	
-	public Matrix4f scale(Vec3f v, Matrix4f dest) { return scale(v.x, v.y, v.z, this, dest); }
+	public Matrix4f scale(IVec3fBase v, Matrix4f dest) { return scale(v.getX(), v.getY(), v.getZ(), this, dest); }
 	
 	public Matrix4f scale(float sx, float sy, float sz, Matrix4f dest) { return scale(sx, sy, sz, this, dest); }
 	
-	public Matrix4f scale(Vec3f v, Matrix4f src, Matrix4f dest) { return scale(v.x, v.y, v.z, src, dest); }
+	public Matrix4f scale(IVec3fBase v, Matrix4f src, Matrix4f dest) { return scale(v.getX(), v.getY(), v.getZ(), src, dest); }
 	
 	public Matrix4f scale(float sx, float sy, float sz, Matrix4f src, Matrix4f dest) { return Matrix4f.mul(new Matrix4f().initScaling(sx,  sy,  sz), src, dest); }
 	
@@ -318,17 +320,17 @@ public class Matrix4f
 		return dest;
 	}
 	
-	public Vec3f transformN(Vec3f r) { return Matrix4f.transform(this, r, null); }
+	public IVec3f transformN(IVec3fBase r) { return Matrix4f.transform(this, r, null); }
 	
-	public Vec3f transform(Vec3f r) { return Matrix4f.transform(this, r, r); }
+	public IVec3f transform(IVec3f r) { return Matrix4f.transform(this, r, r); }
 	
-	public static Vec3f transform(Matrix4f l, Vec3f r, Vec3f dest)
+	public static IVec3f transform(Matrix4f l, IVec3fBase r, IVec3f dest)
 	{
 		if (dest == null) dest = new Vec3f();
 
-		float x_ = l.m0.x * r.x + l.m0.y * r.y + l.m0.z * r.z + l.m0.a * 1.0f;
-		float y_ = l.m1.x * r.x + l.m1.y * r.y + l.m1.z * r.z + l.m1.a * 1.0f;
-		float z_ = l.m2.x * r.x + l.m2.y * r.y + l.m2.z * r.z + l.m2.a * 1.0f;
+		float x_ = l.m0.x * r.getX() + l.m0.y * r.getY() + l.m0.z * r.getZ() + l.m0.a * 1.0f;
+		float y_ = l.m1.x * r.getX() + l.m1.y * r.getY() + l.m1.z * r.getZ() + l.m1.a * 1.0f;
+		float z_ = l.m2.x * r.getX() + l.m2.y * r.getY() + l.m2.z * r.getZ() + l.m2.a * 1.0f;
 
 		dest.set(x_, y_, z_);
 		
