@@ -12,6 +12,8 @@ import java.nio.ShortBuffer;
 import cmn.utilslib.vector.Vec2f;
 import cmn.utilslib.vector.Vec3f;
 import cmn.utilslib.vector.Vec4f;
+import cmn.utilslib.vector.api.IVec2fBase;
+import cmn.utilslib.vector.api.IVec3fBase;
 
 /**
  * 
@@ -101,28 +103,28 @@ public final class BufferUtils
 		return buffer;
 	}
 	
-	public final static FloatBuffer wrapVector2FBuffer(Vec2f... v)
+	public final static FloatBuffer wrapVector2FBuffer(IVec2fBase... v)
 	{
 		float[] f = new float[v.length * Vec2f.DIMENSIONS];
 		
 		for(int i = 0; i < v.length; i++)
 		{
-			f[i + 0] = v[i].x;
-			f[i + 1] = v[i].y;
+			f[i + 0] = v[i].getX();
+			f[i + 1] = v[i].getY();
 		}
 		
 		return wrapFloatBuffer(f);
 	}
 	
-	public final static FloatBuffer wrapVector3FBuffer(Vec3f... v)
+	public final static FloatBuffer wrapVector3FBuffer(IVec3fBase... v)
 	{
 		float[] f = new float[v.length * Vec3f.DIMENSIONS];
 		
 		for(int i = 0; i < v.length; i++)
 		{
-			f[i + 0] = v[i].x;
-			f[i + 1] = v[i].y;
-			f[i + 2] = v[i].z;
+			f[i + 0] = v[i].getX();
+			f[i + 1] = v[i].getY();
+			f[i + 2] = v[i].getZ();
 		}
 		
 		return wrapFloatBuffer(f);
@@ -201,28 +203,28 @@ public final class BufferUtils
 		return buffer;
 	}
 	
-	public final static FloatBuffer wrapFlippedVector2FBuffer(Vec2f... v)
+	public final static FloatBuffer wrapFlippedVector2FBuffer(IVec2fBase... v)
 	{
 		float[] f = new float[v.length * Vec2f.DIMENSIONS];
 		
 		for(int i = 0; i < v.length; i++)
 		{
-			f[i * 2 + 0] = v[i].x;
-			f[i * 2 + 1] = v[i].y;
+			f[i * 2 + 0] = v[i].getX();
+			f[i * 2 + 1] = v[i].getY();
 		}
 		
 		return wrapFlippedFloatBuffer(f);
 	}
 	
-	public final static FloatBuffer wrapFlippedVector3FBuffer(Vec3f... v)
+	public final static FloatBuffer wrapFlippedVector3FBuffer(IVec3fBase... v)
 	{
 		float[] f = new float[v.length * Vec3f.DIMENSIONS];
 		
 		for(int i = 0; i < v.length; i++)
 		{
-			f[i * 3 + 0] = v[i].x;
-			f[i * 3 + 1] = v[i].y;
-			f[i * 3 + 2] = v[i].z;
+			f[i * 3 + 0] = v[i].getX();
+			f[i * 3 + 1] = v[i].getY();
+			f[i * 3 + 2] = v[i].getZ();
 		}
 		
 		return wrapFlippedFloatBuffer(f);

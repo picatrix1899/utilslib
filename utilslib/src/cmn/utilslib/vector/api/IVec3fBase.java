@@ -93,9 +93,9 @@ public interface IVec3fBase extends Iterable<Float>, IStreamable.Readable
 	default IVec3f project(Vec3f v)
 	{	
 		IVec3f vn = v.normalized();
-		 float f = this.dot(vn);
+		 double f = this.dot(vn);
 		 
-		 return vn.mul(f);
+		 return vn.mul((float)f);
 	}
 	
 	
@@ -143,7 +143,9 @@ public interface IVec3fBase extends Iterable<Float>, IStreamable.Readable
 		return out;
 	}
 	
-	default float dot(IVec3fBase v) { return this.getX() * v.getX() + this.getY() * v.getY(); }
+	
+	
+	default double dot(IVec3fBase v) { return (double) this.getX() * v.getX() + this.getY() * v.getY(); }
 	
 	default double angleRad(IVec3fBase v) { return Math.acos((dot(v)) / (length() * v.length())); }
 	default double angleDeg(IVec3fBase v) { return angleRad(v) * Maths.RAD_TO_DEG; }

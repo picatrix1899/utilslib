@@ -93,5 +93,27 @@ public class HDRColor3Examples
 		
 	}
 	
+	public static void Test5()
+	{
+		IHDRColor3 color = HDRColor3.RED.clone();
+		
+		color.setR(100).setG(50).setB(200);
+		
+		System.out.println(color);
+		
+		color.set(23, 85, 102);
+		
+		System.out.println(color);
+		
+		IHDRColor3 color2 = HDRColor3.BLACK.clone();
+		
+		System.out.println(color2);
+		
+		color2.set(color);
+		
+		System.out.print(color2);
+		
+	}
+	
 	
 }

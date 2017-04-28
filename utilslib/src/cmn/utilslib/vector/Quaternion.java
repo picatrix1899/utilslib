@@ -162,7 +162,7 @@ public class Quaternion implements IStreamable
 		IVec3f a = Vec3f.aZ.clone();
 		IVec3f b = v1.clone().normalize();
 		IVec3f axis = a.cross(b);
-		float angle = 1 + a.dot(b);
+		double angle = 1 + a.dot(b);
 		
 		axis.normalize();
 		
@@ -174,7 +174,7 @@ public class Quaternion implements IStreamable
 		IVec3f a = v1.clone().normalize();
 		IVec3f b = v2.clone().normalize();
 		IVec3f axis = a.cross(b);
-		float angle = 1 + a.dot(b);
+		double angle = 1 + a.dot(b);
 		
 		axis.normalize();
 		return new Quaternion(angle, axis.getX(), axis.getY(), axis.getZ()).normalize();
@@ -224,7 +224,7 @@ public class Quaternion implements IStreamable
 		
 		
 		IVec3f axis = a.cross(b);
-		float rot = a.dot(b);
+		double rot = a.dot(b);
 		
 		axis.normalize();
 		
