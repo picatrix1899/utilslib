@@ -18,11 +18,13 @@ import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
 import javax.swing.JList;
+
 
 import cmn.utilslib.dmap.LinkedValue;
 import cmn.utilslib.dmap.dmappings.DMapping2;
@@ -155,6 +157,16 @@ public class Auto
 	public static <V> ArrayList<V> ArrayList(Collection<? extends V> c)
 	{ return new ArrayList<V>(c); }
 	
+	
+	@SuppressWarnings("unchecked")
+	public static <V> ArrayList<V> ArrayList(V... args)
+	{
+		ArrayList<V> out = ArrayList();
+		
+		Collections.addAll(out, args);
+		
+		return out;
+	}
 	
 	public static <A> IPluginSystem<A> PluginSystem(A a)
 	{ return new PluginSystem<A>(a); }
