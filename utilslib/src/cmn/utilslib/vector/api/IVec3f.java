@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import cmn.utilslib.essentials.Check;
-import cmn.utilslib.essentials.Maths;
 import cmn.utilslib.interfaces.IStreamable;
 import cmn.utilslib.vector.Vec3f;
 

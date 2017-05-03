@@ -9,6 +9,7 @@ import java.io.OutputStream;
 import cmn.utilslib.essentials.Maths;
 import cmn.utilslib.interfaces.IStreamable;
 import cmn.utilslib.matrix.Matrix4f;
+import cmn.utilslib.vector.api.IVec3dBase;
 import cmn.utilslib.vector.api.IVec3f;
 import cmn.utilslib.vector.api.IVec3fBase;
 
@@ -219,7 +220,7 @@ public class Quaternion implements IStreamable
 	
 	public Quaternion rotateTo(IVec3fBase v)
 	{
-		IVec3f a = getForward().clone().normalize();
+		IVec3f a = getForwardf().clone().normalize();
 		IVec3f b = v.clone().normalize();
 		
 		
@@ -244,7 +245,7 @@ public class Quaternion implements IStreamable
 		if(!this.uPitch)
 		{
 
-			IVec3f a = getForward();
+			IVec3f a = getForwardf();
 			IVec3f b = a.clone().setY(0);
 			
 			int i = a.getY() > 0 ? -1 : 1;
@@ -366,25 +367,39 @@ public class Quaternion implements IStreamable
 		
 	}
 	
+	public Quaternion mul(IVec3dBase v)
+	{
+		double w_ = -this.x * v.getX() - this.y * v.getY() - this.z * v.getZ(); // - v * v'
+		double x_ =  this.w * v.getX() + this.y * v.getZ() - this.z * v.getY(); // s * v'.x ...
+		double y_ =  this.w * v.getY() + this.z * v.getX() - this.x * v.getZ(); // s * v'.y ...
+		double z_ =  this.w * v.getZ() + this.x * v.getY() - this.y * v.getX(); // s * v*.z ...
+		
+		set(w_, x_, y_, z_);
+		
+		return this;
+		
+	}
+	
 	public Quaternion addN(Quaternion q) { return this.clone().add(q); }
 	
 	public Quaternion mulN(Quaternion q) { return this.clone().mul(q); }
 	
 	public Quaternion mulN(IVec3fBase v) { return this.clone().mul(v); }
 	
+	public Quaternion mulN(IVec3dBase v) { return this.clone().mul(v); }
 	
 	
-	public IVec3f getForward() { return Vec3f.aZ.clone().rot(this).normalize(); }
+	public IVec3f getForwardf() { return Vec3f.aZ.clone().rot(this).normalize(); }
 	
-	public IVec3f getBack() { return Vec3f.aNZ.clone().rot(this).normalize(); }
+	public IVec3f getBackf() { return Vec3f.aNZ.clone().rot(this).normalize(); }
 	
-	public IVec3f getUp() { return Vec3f.aY.clone().rot(this).normalize(); }
+	public IVec3f getUpf() { return Vec3f.aY.clone().rot(this).normalize(); }
 	
-	public IVec3f getDown() { return Vec3f.aNY.clone().rot(this).normalize(); }
+	public IVec3f getDownf() { return Vec3f.aNY.clone().rot(this).normalize(); }
 	
-	public IVec3f getRight() { return Vec3f.aNX.clone().rot(this).normalize(); }
+	public IVec3f getRightf() { return Vec3f.aNX.clone().rot(this).normalize(); }
 	
-	public IVec3f getLeft() { return Vec3f.aX.clone().rot(this).normalize(); }
+	public IVec3f getLeftf() { return Vec3f.aX.clone().rot(this).normalize(); }
 	
 
 	
