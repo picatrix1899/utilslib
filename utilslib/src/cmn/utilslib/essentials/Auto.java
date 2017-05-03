@@ -25,7 +25,6 @@ import java.util.function.Function;
 
 import javax.swing.JList;
 
-
 import cmn.utilslib.dmap.LinkedValue;
 import cmn.utilslib.dmap.dmappings.DMapping2;
 import cmn.utilslib.dmap.dmappings.DMapping3;
@@ -46,6 +45,7 @@ import cmn.utilslib.plugin.IPluginSystemTemplate;
 import cmn.utilslib.plugin.PluginSystem;
 import cmn.utilslib.plugin.PluginSystemFactory;
 import cmn.utilslib.plugin.PluginSystemTemplate;
+import cmn.utilslib.reflection.FieldRef;
 import cmn.utilslib.reflection.ManagedFieldRef;
 
 public class Auto
@@ -176,6 +176,11 @@ public class Auto
 	
 	public static <A> PluginSystemFactory<A> PluginSystemFactory()
 	{ return new PluginSystemFactory<A>(); }
+	
+	public static <A> FieldRef<A> FieldRef(String field, Class<?> clazz, Object obj) throws Exception
+	{
+		return new FieldRef<A>(field, clazz, obj);
+	}
 	
 	public static <A> ManagedFieldRef<A> ManagedFieldRef(String field, Class<?> clazz, Object obj)
 	{ return new ManagedFieldRef<A>(field, clazz, obj);	 }
