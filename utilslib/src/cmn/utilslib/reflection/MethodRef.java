@@ -13,6 +13,12 @@ public class MethodRef<T>
 		this.obj = obj;
 	}
 	
+	public MethodRef(Object obj, String method, Class<?>... types) throws Exception
+	{
+		this.m = obj.getClass().getDeclaredMethod(method, types);
+		this.obj = obj;
+	}
+	
 	@SuppressWarnings("unchecked")
 	public T invoke(Object... params) throws Exception
 	{

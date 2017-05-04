@@ -1,6 +1,6 @@
 package cmn.utilslib.essentials;
 
-public class Calculus
+public class Misc
 {
 	public static boolean isLeapyear(int year)
 	{

@@ -6,12 +6,10 @@ public class PluginSystemFactory<T>
 {
 	
 	private IPluginSystemTemplate<T> template = new PluginSystemTemplate<T>();
-	
-	
-	
+
 	public IPluginSystem<T> instance(T t)
 	{
-		IPluginSystem<T> system = Auto.PluginSystem(null);
+		IPluginSystem<T> system = Auto.PluginSystem(t);
 		
 		for(Class<? extends IPluginSystemPlugin<T>> c : template.getPlugins())
 		{

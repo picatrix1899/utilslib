@@ -168,10 +168,10 @@ public class Auto
 		return out;
 	}
 	
-	public static <A> IPluginSystem<A> PluginSystem(A a)
+	public static <A> PluginSystem<A> PluginSystem(A a)
 	{ return new PluginSystem<A>(a); }
 	
-	public static <A> IPluginSystemTemplate<A> PluginSystemTemplate()
+	public static <A> PluginSystemTemplate<A> PluginSystemTemplate()
 	{ return new PluginSystemTemplate<A>(); }
 	
 	public static <A> PluginSystemFactory<A> PluginSystemFactory()
