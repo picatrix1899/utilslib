@@ -40,11 +40,6 @@ import cmn.utilslib.dmap.dmaps.api.IDMap3Base;
 import cmn.utilslib.dmap.dmaps.api.IDMap4Base;
 import cmn.utilslib.exceptions.IErrorHandler;
 import cmn.utilslib.exceptions.SimpleErrorHandler;
-import cmn.utilslib.plugin.IPluginSystem;
-import cmn.utilslib.plugin.IPluginSystemTemplate;
-import cmn.utilslib.plugin.PluginSystem;
-import cmn.utilslib.plugin.PluginSystemFactory;
-import cmn.utilslib.plugin.PluginSystemTemplate;
 import cmn.utilslib.reflection.FieldRef;
 import cmn.utilslib.reflection.ManagedFieldRef;
 
@@ -167,15 +162,6 @@ public class Auto
 		
 		return out;
 	}
-	
-	public static <A> PluginSystem<A> PluginSystem(A a)
-	{ return new PluginSystem<A>(a); }
-	
-	public static <A> PluginSystemTemplate<A> PluginSystemTemplate()
-	{ return new PluginSystemTemplate<A>(); }
-	
-	public static <A> PluginSystemFactory<A> PluginSystemFactory()
-	{ return new PluginSystemFactory<A>(); }
 	
 	public static <A> FieldRef<A> FieldRef(String field, Class<?> clazz, Object obj) throws Exception
 	{

@@ -3,49 +3,37 @@ import java.util.HashMap;
 
 import cmn.utilslib.essentials.Auto;
 
-public class PluginSystem<A> implements IPluginSystem<A>
+public class PluginSystem<A extends PluginSystemApplicant<A>>
 {
-	private HashMap<Class<? extends IPluginSystemPlugin<A>>, IPluginSystemPlugin<A>> plugins = Auto.HashMap();
-	
-	private A a;
-	
-	public PluginSystem(A a)
+	private HashMap<Class<? extends PluginSystemPlugin<A>>, PluginSystemPlugin<A>> plugins = Auto.HashMap();
+
+	public PluginSystem()
 	{
-		this.a = a;
+		
 	}
 	
 	@SuppressWarnings("unchecked")
-	public boolean hookPlugin(IPluginSystemPlugin<A> plugin)
+	public boolean registerPlugin(PluginSystemPlugin<A> plugin, A a)
 	{
 		if(!plugins.containsKey(plugin.getClass()))
 		{
-			plugins.put((Class<? extends IPluginSystemPlugin<A>>)plugin.getClass(), plugin);
-			plugin.onHook(this);
+			plugin.hook(this);
+			plugin.load(a);
+			plugins.put((Class<? extends PluginSystemPlugin<A>>)plugin.getClass(), plugin);
 		}
 		
 		return false;
 	}
 	
-	public boolean existsPlugin(Class<? extends IPluginSystemPlugin<A>> clazz)
+	public boolean existsPlugin(Class<? extends PluginSystemPlugin<A>> clazz)
 	{
 		return plugins.containsKey(clazz);
 	} 
 	
 	@SuppressWarnings("unchecked")
-	public <T extends IPluginSystemPlugin<A>> T getPlugin(Class<T> clazz)
+	public <T extends PluginSystemPlugin<A>> T getPlugin(Class<T> clazz)
 	{
 		return (T) this.plugins.get(clazz);
-	}
-
-	@Override
-	public boolean constrainPlugins()
-	{
-		for(IPluginSystemPlugin<A> plugin : plugins.values())
-		{
-			plugin.onConstrain(a);
-		}
-		
-		return false;
 	}
 
 }

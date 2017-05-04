@@ -1,21 +1,32 @@
 package cmn.utilslib.plugin;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import cmn.utilslib.essentials.Auto;
+import cmn.utilslib.essentials.WeakList;
 
-public class PluginSystemFactory<T>
+public class PluginSystemFactory<T extends PluginSystemApplicant<T>>
 {
-	
-	private IPluginSystemTemplate<T> template = new PluginSystemTemplate<T>();
 
-	public IPluginSystem<T> instance(T t)
+	private WeakList<T> list = new WeakList<T>();
+	
+	private ArrayList<Class<? extends PluginSystemPlugin<T>>> plugins = Auto.ArrayList();
+	
+	
+	
+	public void instance(T t)
 	{
-		IPluginSystem<T> system = Auto.PluginSystem(t);
 		
-		for(Class<? extends IPluginSystemPlugin<T>> c : template.getPlugins())
+		PluginSystem<T> system = new PluginSystem<T>();
+		
+		t.setPluginSystem(system);
+		
+		for(Class<? extends PluginSystemPlugin<T>> c : this.plugins)
 		{
 			try
 			{
-				system.hookPlugin(c.newInstance());
+				system.registerPlugin(c.newInstance(), t);
 			}
 			catch (Exception e)
 			{
@@ -24,24 +35,36 @@ public class PluginSystemFactory<T>
 		
 		}
 		
-		system.constrainPlugins();
+		list.add(t);
+	}
+
+	
+	public void addPluginPreset(Class<? extends PluginSystemPlugin<T>> plugin)
+	{
+		if(!this.plugins.contains(plugin))
+		{
+			this.plugins.add(plugin);
 		
-		return system;
+			for(T t : this.list)
+			{
+				try
+				{
+					t.getPluginSystem().registerPlugin(plugin.newInstance(), t);
+				}
+				catch (Exception e)
+				{
+					e.printStackTrace();
+				}
+				
+			}
+			
+		}
+
 	}
 	
-	public IPluginSystem<T> instance()
+	
+	public List<Class<? extends PluginSystemPlugin<T>>> getPlugins()
 	{
-		return instance(null);
+		return this.plugins;
 	}
-	
-	public void setTemplate(IPluginSystemTemplate<T> template)
-	{
-		this.template = template;
-	}
-	
-	public IPluginSystemTemplate<T> getTemplate()
-	{
-		return this.template;
-	}
-	
 }
