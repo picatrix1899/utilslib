@@ -1,11 +1,11 @@
 import java.util.HashMap;
 
 import cmn.utilslib.essentials.Auto;
-import cmn.utilslib.plugin.IPluginSystem;
+import cmn.utilslib.plugin.DefaultPluginSystemFactory;
 import cmn.utilslib.plugin.PluginSystem;
-import cmn.utilslib.plugin.PluginSystemApplicant;
-import cmn.utilslib.plugin.PluginSystemFactory;
-import cmn.utilslib.plugin.PluginSystemPlugin;
+import cmn.utilslib.plugin.api.PluginSystemApplicant;
+import cmn.utilslib.plugin.api.PluginSystemFactory;
+import cmn.utilslib.plugin.api.PluginSystemPlugin;
 
 public class PluginSystemExample
 {
@@ -45,7 +45,7 @@ public class PluginSystemExample
 	{
 		private HashMap<String,Player> players = Auto.HashMap();
 		
-		private PluginSystemFactory<Player> factory = new PluginSystemFactory<Player>();
+		private PluginSystemFactory<Player> factory = new DefaultPluginSystemFactory<Player>();
 		
 		public void addPlugin(Class<? extends PluginSystemPlugin<Player>> clazz)
 		{
@@ -89,7 +89,7 @@ public class PluginSystemExample
 			return this.plugins.getPlugin(clazz);
 		}
 		
-		public void setPluginSystem(IPluginSystem<Player> p)
+		public void setPluginSystem(PluginSystem<Player> p)
 		{
 			this.plugins = (PluginSystem<Player>) p;
 		}
