@@ -3,17 +3,12 @@ import java.util.HashMap;
 
 import cmn.utilslib.essentials.Auto;
 
-public class PluginSystem<A extends PluginSystemApplicant<A>>
+public class PluginSystem<A extends PluginSystemApplicant<A>> implements IPluginSystem<A>
 {
 	private HashMap<Class<? extends PluginSystemPlugin<A>>, PluginSystemPlugin<A>> plugins = Auto.HashMap();
-
-	public PluginSystem()
-	{
-		
-	}
 	
 	@SuppressWarnings("unchecked")
-	public boolean registerPlugin(PluginSystemPlugin<A> plugin, A a)
+	public void registerPlugin(PluginSystemPlugin<A> plugin, A a)
 	{
 		if(!plugins.containsKey(plugin.getClass()))
 		{
@@ -21,8 +16,6 @@ public class PluginSystem<A extends PluginSystemApplicant<A>>
 			plugin.load(a);
 			plugins.put((Class<? extends PluginSystemPlugin<A>>)plugin.getClass(), plugin);
 		}
-		
-		return false;
 	}
 	
 	public boolean existsPlugin(Class<? extends PluginSystemPlugin<A>> clazz)

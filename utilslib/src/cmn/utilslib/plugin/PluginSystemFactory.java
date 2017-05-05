@@ -1,12 +1,11 @@
 package cmn.utilslib.plugin;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import cmn.utilslib.essentials.Auto;
 import cmn.utilslib.essentials.WeakList;
 
-public class PluginSystemFactory<T extends PluginSystemApplicant<T>>
+public class PluginSystemFactory<T extends PluginSystemApplicant<T>> implements IPluginSystemFactory<T>
 {
 
 	private WeakList<T> list = new WeakList<T>();
@@ -15,18 +14,18 @@ public class PluginSystemFactory<T extends PluginSystemApplicant<T>>
 	
 	
 	
-	public void instance(T t)
+	public void instance(T master)
 	{
 		
-		PluginSystem<T> system = new PluginSystem<T>();
+		IPluginSystem<T> system = new PluginSystem<T>();
 		
-		t.setPluginSystem(system);
+		master.setPluginSystem(system);
 		
 		for(Class<? extends PluginSystemPlugin<T>> c : this.plugins)
 		{
 			try
 			{
-				system.registerPlugin(c.newInstance(), t);
+				system.registerPlugin(c.newInstance(), master);
 			}
 			catch (Exception e)
 			{
@@ -35,7 +34,7 @@ public class PluginSystemFactory<T extends PluginSystemApplicant<T>>
 		
 		}
 		
-		list.add(t);
+		list.add(master);
 	}
 
 	
@@ -60,11 +59,5 @@ public class PluginSystemFactory<T extends PluginSystemApplicant<T>>
 			
 		}
 
-	}
-	
-	
-	public List<Class<? extends PluginSystemPlugin<T>>> getPlugins()
-	{
-		return this.plugins;
 	}
 }

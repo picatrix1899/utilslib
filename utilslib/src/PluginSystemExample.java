@@ -1,6 +1,7 @@
 import java.util.HashMap;
 
 import cmn.utilslib.essentials.Auto;
+import cmn.utilslib.plugin.IPluginSystem;
 import cmn.utilslib.plugin.PluginSystem;
 import cmn.utilslib.plugin.PluginSystemApplicant;
 import cmn.utilslib.plugin.PluginSystemFactory;
@@ -14,27 +15,24 @@ public class PluginSystemExample
 	public static void main()
 	{
 		
-		Player player1 = new Player("Florian");
-		Player player2 = new Player("Manfred");
+
 
 		
 		
-		list.playerJoin(player1);
+		list.playerJoin("Florian");
 
-		list.playerJoin(player2);
+		list.playerJoin("Manfred");
 		
+		System.out.println("Welcome " + list.get("Florian").getName() + "! Welcome to the Game");
+		System.out.println("Welcome " + list.get("Manfred").getName() + "! Welcome to the Game");
+		
+		list.playerLeave("Manfred");
+
 		list.addPlugin(PlayerProperties.class);
 		
-		System.out.println(player1.getPlugin(PlayerProperties.class).getMessage());
-		System.out.println(player2.getPlugin(PlayerProperties.class).getMessage());
+		list.get("Florian").getPlugin(PlayerProperties.class).setAge(20);
 		
-		list.playerLeave(player2);
-		
-		player2 = null;
-		
-		list.addPlugin(Test.class);
-		
-		System.out.println(player1.getPlugin(Test.class).test());
+		System.out.println("Florian is " + list.get("Florian").getPlugin(PlayerProperties.class).getAge() + " years old!");
 		
 	}
 	
@@ -54,15 +52,17 @@ public class PluginSystemExample
 			factory.addPluginPreset(clazz);
 		}
 		
-		public void playerJoin(Player p)
+		public void playerJoin(String name)
 		{
+			Player p = new Player(name);
+			
 			factory.instance(p);
 			players.put(p.getName(), p);
 		}
 		
-		public void playerLeave(Player p)
+		public void playerLeave(String name)
 		{
-			players.remove(p.getName());
+			players.remove(name);
 		}
 		
 		public Player get(String name)
@@ -89,9 +89,9 @@ public class PluginSystemExample
 			return this.plugins.getPlugin(clazz);
 		}
 		
-		public void setPluginSystem(PluginSystem<Player> p)
+		public void setPluginSystem(IPluginSystem<Player> p)
 		{
-			this.plugins = p;
+			this.plugins = (PluginSystem<Player>) p;
 		}
 		
 		public PluginSystem<Player> getPluginSystem()
@@ -109,7 +109,13 @@ public class PluginSystemExample
 	public static class PlayerProperties implements PluginSystemPlugin<Player>
 	{
 
-		private Player p;
+		private Player player;
+		
+		private int age;
+		private double height;
+		private double weight;
+		
+		
 		
 		@Override
 		public void hook(PluginSystem<Player> core) { }
@@ -117,33 +123,45 @@ public class PluginSystemExample
 		@Override
 		public void load(Player master)
 		{
-			this.p = master;
+			this.player = master;
 		}
 		
-		
-		public String getMessage()
+		public int getAge()
 		{
-			return "Hello " + this.p.getName() + "! Welcome to the Game!";
+			return this.age;
+		}
+		
+		public void setAge(int age)
+		{
+			this.age = age;
+		}
+		
+		public double getHeight()
+		{
+			return this.height;
+		}
+		
+		public void setHeight(double height)
+		{
+			this.height = height;
 		}
 		
 		
-	}
-	
-	public static class Test implements PluginSystemPlugin<Player>
-	{
-
-		public boolean test()
+		public double getWeight()
 		{
-			return true;
+			return this.weight;
 		}
 		
-		public void hook(PluginSystem<Player> core)
+		public void setWeight(double weight)
 		{
+			this.weight = weight;
 		}
-
-		public void load(Player master)
+		
+		public Player getPlayer()
 		{
+			return this.player;
 		}
+		
 		
 	}
 	
