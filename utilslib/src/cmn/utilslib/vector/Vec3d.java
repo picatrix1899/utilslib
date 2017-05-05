@@ -1,8 +1,8 @@
 package cmn.utilslib.vector;
 
 
-import cmn.utilslib.vector.api.IVec3d;
-import cmn.utilslib.vector.api.IVec3dBase;
+import cmn.utilslib.vector.api.Vector3d;
+import cmn.utilslib.vector.api.Vector3dBase;
 
 
 
@@ -12,7 +12,7 @@ import cmn.utilslib.vector.api.IVec3dBase;
  * @author picatrix1899
  *
  */
-public class Vec3d implements IVec3d
+public class Vec3d implements Vector3d
 {
 
 	public double x = 0.0f;
@@ -26,7 +26,7 @@ public class Vec3d implements IVec3d
 	public Vec3d(double scalar) { set(scalar); }
 	
 	public Vec3d(double x, double y, double z) { set(x, y, z); }
-	public Vec3d(IVec3dBase v) { set(v); }
+	public Vec3d(Vector3dBase v) { set(v); }
 	
 	/*
 	 * =========
@@ -58,7 +58,7 @@ public class Vec3d implements IVec3d
 	 */
 	/** {@inheritDoc} */
 	@Override
-	public IVec3d clone() { return new Vec3d(this); }
+	public Vector3d clone() { return new Vec3d(this); }
 	
 	/** {@inheritDoc} */
 	@Override

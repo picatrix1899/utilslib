@@ -7,11 +7,11 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import cmn.utilslib.interfaces.IStreamable;
+import cmn.utilslib.interfaces.Streamable;
 
 
 
-public interface IColor4 extends IColor4Base, IStreamable.Writeable
+public interface IColor4 extends IColor4Base, Streamable.Writeable
 {
 	
 	/**

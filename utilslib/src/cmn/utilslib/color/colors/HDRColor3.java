@@ -5,8 +5,6 @@ package cmn.utilslib.color.colors;
 
 import java.io.Serializable;
 
-import cmn.utilslib.interfaces.IStreamable;
-
 import cmn.utilslib.color.colors.api.IColor3Base;
 import cmn.utilslib.color.colors.api.IHDRColor3;
 import cmn.utilslib.color.colors.api.IHDRColor3Base;
@@ -18,7 +16,7 @@ import cmn.utilslib.color.colors.api.IHDRColor3Base;
  * @author picatrix1899
  * @category Color
  */
-public class HDRColor3 implements IHDRColor3, IStreamable, Serializable
+public class HDRColor3 implements IHDRColor3, Serializable
 {
 
 	/** the minimum value. */

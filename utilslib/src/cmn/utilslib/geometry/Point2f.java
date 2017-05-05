@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 import cmn.utilslib.interfaces.IStreamable;
 import cmn.utilslib.vector.Vec2f;
-import cmn.utilslib.vector.api.IVec2f;
+import cmn.utilslib.vector.api.Vector2f;
 
 public class Point2f implements IStreamable, Serializable
 {
@@ -46,17 +46,17 @@ public class Point2f implements IStreamable, Serializable
 	
 	public Point2f setY(float y) { this.y = y; return this; }
 	
-	public IVec2f vectorTo(Point2f p) { return new Vec2f(p.x - this.x, p.y - this.y); }
+	public Vector2f vectorTo(Point2f p) { return new Vec2f(p.x - this.x, p.y - this.y); }
 	
-	public IVec2f vectorFrom(Point2f p) { return new Vec2f(this.x - p.x, this.y - p.y); }
+	public Vector2f vectorFrom(Point2f p) { return new Vec2f(this.x - p.x, this.y - p.y); }
 	
 	public float distanceTo(Point2f p) { return vectorTo(p).length(); }
 	
-	public IVec2f directionTo(Point2f p) { return vectorTo(p).normalize(); }
+	public Vector2f directionTo(Point2f p) { return vectorTo(p).normalize(); }
 	
-	public IVec2f directionFrom(Point2f p) { return vectorFrom(p).normalize(); }
+	public Vector2f directionFrom(Point2f p) { return vectorFrom(p).normalize(); }
 	
-	public IVec2f vector() { return new Vec2f(this.x, this.y); }
+	public Vector2f vector() { return new Vec2f(this.x, this.y); }
 	
 	public String toString()
 	{

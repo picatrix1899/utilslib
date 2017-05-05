@@ -12,8 +12,8 @@ import java.nio.ShortBuffer;
 import cmn.utilslib.vector.Vec2f;
 import cmn.utilslib.vector.Vec3f;
 import cmn.utilslib.vector.Vec4f;
-import cmn.utilslib.vector.api.IVec2fBase;
-import cmn.utilslib.vector.api.IVec3fBase;
+import cmn.utilslib.vector.api.Vector2fBase;
+import cmn.utilslib.vector.api.Vector3fBase;
 
 /**
  * 
@@ -103,7 +103,7 @@ public final class BufferUtils
 		return buffer;
 	}
 	
-	public final static FloatBuffer wrapVector2FBuffer(IVec2fBase... v)
+	public final static FloatBuffer wrapVector2FBuffer(Vector2fBase... v)
 	{
 		float[] f = new float[v.length * Vec2f.DIMENSIONS];
 		
@@ -116,7 +116,7 @@ public final class BufferUtils
 		return wrapFloatBuffer(f);
 	}
 	
-	public final static FloatBuffer wrapVector3FBuffer(IVec3fBase... v)
+	public final static FloatBuffer wrapVector3FBuffer(Vector3fBase... v)
 	{
 		float[] f = new float[v.length * Vec3f.DIMENSIONS];
 		
@@ -203,7 +203,7 @@ public final class BufferUtils
 		return buffer;
 	}
 	
-	public final static FloatBuffer wrapFlippedVector2FBuffer(IVec2fBase... v)
+	public final static FloatBuffer wrapFlippedVector2FBuffer(Vector2fBase... v)
 	{
 		float[] f = new float[v.length * Vec2f.DIMENSIONS];
 		
@@ -216,7 +216,7 @@ public final class BufferUtils
 		return wrapFlippedFloatBuffer(f);
 	}
 	
-	public final static FloatBuffer wrapFlippedVector3FBuffer(IVec3fBase... v)
+	public final static FloatBuffer wrapFlippedVector3FBuffer(Vector3fBase... v)
 	{
 		float[] f = new float[v.length * Vec3f.DIMENSIONS];
 		

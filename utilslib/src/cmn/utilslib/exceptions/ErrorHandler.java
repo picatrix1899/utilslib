@@ -1,6 +1,6 @@
 package cmn.utilslib.exceptions;
 
-public interface IErrorHandler
+public interface ErrorHandler
 {
 	public abstract void handle(Exception e);
 	

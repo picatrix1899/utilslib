@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cmn.utilslib.essentials.Auto;
-import cmn.utilslib.exceptions.IErrorHandler;
+import cmn.utilslib.exceptions.ErrorHandler;
 
-public class CaptureErrorHandler implements IErrorHandler
+public class CaptureErrorHandler implements ErrorHandler
 {
 	private int count;
 	private ArrayList<Class<? extends Exception>> types = Auto.ArrayList();

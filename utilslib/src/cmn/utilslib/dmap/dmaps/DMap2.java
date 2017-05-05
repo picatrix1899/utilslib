@@ -5,14 +5,13 @@ package cmn.utilslib.dmap.dmaps;
 
 import cmn.utilslib.dmap.dmaps.api.IDMap2;
 import cmn.utilslib.dmap.dmaps.api.IDMap2Base;
-import cmn.utilslib.interfaces.IObjectable;
 
 /**
  * Packet system with 2 entries
  * @author picatrix1899
  * @category DMaps
  */
-public class DMap2<A,B> implements IDMap2<A,B>, IObjectable<DMap2<A,B>>
+public class DMap2<A,B> implements IDMap2<A,B>
 {
 	
 	private volatile A a = null;

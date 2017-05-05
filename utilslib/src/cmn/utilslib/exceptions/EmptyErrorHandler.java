@@ -1,8 +1,8 @@
 package cmn.utilslib.exceptions;
 
-import cmn.utilslib.exceptions.IErrorHandler;
+import cmn.utilslib.exceptions.ErrorHandler;
 
-public class EmptyErrorHandler implements IErrorHandler
+public class EmptyErrorHandler implements ErrorHandler
 {
 
 	public void handle(Exception e) { }

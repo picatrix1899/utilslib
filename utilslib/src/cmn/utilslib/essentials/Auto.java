@@ -38,7 +38,7 @@ import cmn.utilslib.dmap.dmaps.LinkedDMap4;
 import cmn.utilslib.dmap.dmaps.api.IDMap2Base;
 import cmn.utilslib.dmap.dmaps.api.IDMap3Base;
 import cmn.utilslib.dmap.dmaps.api.IDMap4Base;
-import cmn.utilslib.exceptions.IErrorHandler;
+import cmn.utilslib.exceptions.ErrorHandler;
 import cmn.utilslib.exceptions.SimpleErrorHandler;
 import cmn.utilslib.reflection.FieldRef;
 import cmn.utilslib.reflection.ManagedFieldRef;
@@ -46,9 +46,9 @@ import cmn.utilslib.reflection.ManagedFieldRef;
 public class Auto
 {
 	
-	private static IErrorHandler handler = new SimpleErrorHandler();
+	private static ErrorHandler handler = new SimpleErrorHandler();
 	
-	public static void setErrorHandler(IErrorHandler h)
+	public static void setErrorHandler(ErrorHandler h)
 	{
 		Auto.handler = h;
 	}

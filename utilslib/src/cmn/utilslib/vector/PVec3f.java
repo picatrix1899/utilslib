@@ -1,18 +1,18 @@
 
 package cmn.utilslib.vector;
 
-import cmn.utilslib.vector.api.IVec3f;
-import cmn.utilslib.vector.api.IVec3fBase;
+import cmn.utilslib.vector.api.Vector3f;
+import cmn.utilslib.vector.api.Vector3fBase;
 
 /** 
  * A persistent representation of a vector3f
  * @category Vector
  * @author picatrix1899
  */
-public abstract class PVec3f implements IVec3fBase
+public abstract class PVec3f implements Vector3fBase
 {
 
-	public abstract IVec3f clone();
+	public abstract Vector3f clone();
 	
 	/** generates a new persistent vector2f */
 	public static PVec3f gen(final float x, final float y, final float z)
@@ -27,7 +27,7 @@ public abstract class PVec3f implements IVec3fBase
 			
 
 			@Override
-			public IVec3f clone()
+			public Vector3f clone()
 			{
 				return new Vec3f(this);
 			}

@@ -1,7 +1,5 @@
 package cmn.utilslib.plugin.api;
 
-import cmn.utilslib.plugin.PluginSystem;
-
 public interface PluginSystemPlugin<A extends PluginSystemApplicant<A>>
 {
 	

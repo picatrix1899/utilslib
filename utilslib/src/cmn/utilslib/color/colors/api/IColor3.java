@@ -7,7 +7,7 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import cmn.utilslib.interfaces.IStreamable;
+import cmn.utilslib.interfaces.Streamable;
 
 
 
@@ -16,7 +16,7 @@ import cmn.utilslib.interfaces.IStreamable;
  * @author picatrix1899
  * @category Color
  */
-public interface IColor3 extends IColor3Base, IStreamable.Writeable
+public interface IColor3 extends IColor3Base, Streamable.Writeable
 {
 	
 	/**

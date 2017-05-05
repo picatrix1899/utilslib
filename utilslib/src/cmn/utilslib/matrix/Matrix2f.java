@@ -7,12 +7,12 @@ import java.io.Serializable;
 import java.nio.FloatBuffer;
 
 import cmn.utilslib.essentials.BufferUtils;
-import cmn.utilslib.interfaces.IStreamable;
+import cmn.utilslib.interfaces.Streamable;
 import cmn.utilslib.vector.Vec2f;
-import cmn.utilslib.vector.api.IVec2f;
-import cmn.utilslib.vector.api.IVec2fBase;
+import cmn.utilslib.vector.api.Vector2f;
+import cmn.utilslib.vector.api.Vector2fBase;
 
-public class Matrix2f implements IStreamable, Serializable
+public class Matrix2f implements Streamable.Readable, Streamable.Writeable, Serializable
 {
 
 	private static final long serialVersionUID = 1L;
@@ -74,7 +74,7 @@ public class Matrix2f implements IStreamable, Serializable
 		return dest;
 	}
 	
-	public static IVec2f transform(Matrix2f l, IVec2fBase r, IVec2f dest)
+	public static Vector2f transform(Matrix2f l, Vector2fBase r, Vector2f dest)
 	{
 		if (dest == null) dest = new Vec2f();
 

@@ -7,7 +7,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import cmn.utilslib.interfaces.IStreamable;
+import cmn.utilslib.interfaces.Streamable;
 
 
 
@@ -16,7 +16,7 @@ import cmn.utilslib.interfaces.IStreamable;
  * @author picatrix1899
  * @category Color
  */
-public interface IColor4Base extends IColor3Base, IStreamable.Readable
+public interface IColor4Base extends IColor3Base, Streamable.Readable
 {
 	
 	static int DIMENSIONS = 4;

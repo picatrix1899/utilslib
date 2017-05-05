@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import cmn.utilslib.exceptions.FastException;
-import cmn.utilslib.interfaces.IStreamable;
+import cmn.utilslib.interfaces.Streamable;
 import cmn.utilslib.validation.Validate;
 
 /**
@@ -18,7 +18,7 @@ import cmn.utilslib.validation.Validate;
  * @author picatrix1899
  *
  */
-public class Flag8 implements IStreamable
+public class Flag8 implements Streamable.Readable, Streamable.Writeable
 {
 	
 	public static final int DIMENSIONS = 8;

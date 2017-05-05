@@ -2,6 +2,7 @@ package cmn.utilslib.plugin;
 import java.util.HashMap;
 
 import cmn.utilslib.essentials.Auto;
+import cmn.utilslib.plugin.api.PluginSystem;
 import cmn.utilslib.plugin.api.PluginSystemApplicant;
 import cmn.utilslib.plugin.api.PluginSystemPlugin;
 

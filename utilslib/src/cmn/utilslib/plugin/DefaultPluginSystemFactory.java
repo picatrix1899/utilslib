@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import cmn.utilslib.essentials.Auto;
 import cmn.utilslib.essentials.WeakList;
+import cmn.utilslib.plugin.api.PluginSystem;
 import cmn.utilslib.plugin.api.PluginSystemApplicant;
 import cmn.utilslib.plugin.api.PluginSystemFactory;
 import cmn.utilslib.plugin.api.PluginSystemPlugin;

@@ -6,12 +6,12 @@ import java.io.OutputStream;
 import java.util.Iterator;
 
 import cmn.utilslib.essentials.Maths;
-import cmn.utilslib.interfaces.IStreamable;
+import cmn.utilslib.interfaces.Streamable;
 import cmn.utilslib.vector.PVec3f;
 import cmn.utilslib.vector.Quaternion;
 import cmn.utilslib.vector.Vec3f;
 
-public interface IVec3fBase extends Iterable<Float>, IStreamable.Readable
+public interface Vector3fBase extends Iterable<Float>, Streamable.Readable
 {
 	/*
 	 * ==============
@@ -37,69 +37,69 @@ public interface IVec3fBase extends Iterable<Float>, IStreamable.Readable
 
 
 	
-	default IVec3f inverted() { return clone().invert(); }
+	default Vector3f inverted() { return clone().invert(); }
 	
-	default IVec3f normalized() { return clone().normalize(); }
+	default Vector3f normalized() { return clone().normalize(); }
 
-	default IVec3f floorN() { return clone().floor(); }
-	default IVec3f ceilN() { return clone().ceil(); }
-	default IVec3f roundN() { return clone().round(); }
+	default Vector3f floorN() { return clone().floor(); }
+	default Vector3f ceilN() { return clone().ceil(); }
+	default Vector3f roundN() { return clone().round(); }
 	
-	default IVec3f absN(boolean x, boolean y, boolean z) { return clone().abs(x, y, z); }
+	default Vector3f absN(boolean x, boolean y, boolean z) { return clone().abs(x, y, z); }
 	
 	default float max() { return Math.max(getX(), Math.max(getY(), getZ())); }
 	default float min() { return Math.min(getX(), Math.min(getY(), getZ())); }
 	
 	
-	default IVec3f addN(float x, float y, float z) { return clone().add(x, y, z); }
-	default IVec3f addN(double x, double y, double z) { return clone().add(x, y, z); }
+	default Vector3f addN(float x, float y, float z) { return clone().add(x, y, z); }
+	default Vector3f addN(double x, double y, double z) { return clone().add(x, y, z); }
 
-	default IVec3f subN(float x, float y, float z) { return clone().sub(x, y, z); }
-	default IVec3f subN(double x, double y, double z) { return clone().sub(x, y, z); }
+	default Vector3f subN(float x, float y, float z) { return clone().sub(x, y, z); }
+	default Vector3f subN(double x, double y, double z) { return clone().sub(x, y, z); }
 
-	default IVec3f mulN(float x, float y, float z) { return clone().mul(x, y, z); }
-	default IVec3f mulN(double x, double y, double z) { return clone().mul(x, y, z); }
+	default Vector3f mulN(float x, float y, float z) { return clone().mul(x, y, z); }
+	default Vector3f mulN(double x, double y, double z) { return clone().mul(x, y, z); }
 
-	default IVec3f divN(float x, float y, float z) { return clone().div(x, y, z); }
-	default IVec3f divN(double x, double y, double z) { return clone().div(x, y, z); }
-
-	
-	IVec3f clone();
+	default Vector3f divN(float x, float y, float z) { return clone().div(x, y, z); }
+	default Vector3f divN(double x, double y, double z) { return clone().div(x, y, z); }
 
 	
-	
-	default IVec3f addN(IVec3fBase v) { return addN(v.getX(), v.getY(), v.getZ()); }
-	default IVec3f addN(float scalar) { return addN(scalar, scalar, scalar); }
-	default IVec3f addN(double scalar) { return addN(scalar, scalar, scalar); }
-	
-	default IVec3f subN(IVec3fBase v) { return subN(v.getX(), v.getY(), v.getZ()); }
-	default IVec3f subN(float scalar) { return subN(scalar, scalar, scalar); }
-	default IVec3f subN(double scalar) { return subN(scalar, scalar, scalar); }	
-	
-	default IVec3f mulN(IVec3fBase v) { return mulN(v.getX(), v.getY(), v.getZ()); }
-	default IVec3f mulN(float scalar) { return mulN(scalar, scalar, scalar); }
-	default IVec3f mulN(double scalar) { return mulN(scalar, scalar, scalar); }	
-	
-	default IVec3f divN(IVec3fBase v) { return divN(v.getX(), v.getY(), v.getZ()); }
-	default IVec3f divN(float scalar) { return divN(scalar, scalar, scalar); }
-	default IVec3f divN(double scalar) { return divN(scalar, scalar, scalar); }
+	Vector3f clone();
+
 	
 	
-	default IVec3f cross(IVec3fBase v) 
+	default Vector3f addN(Vector3fBase v) { return addN(v.getX(), v.getY(), v.getZ()); }
+	default Vector3f addN(float scalar) { return addN(scalar, scalar, scalar); }
+	default Vector3f addN(double scalar) { return addN(scalar, scalar, scalar); }
+	
+	default Vector3f subN(Vector3fBase v) { return subN(v.getX(), v.getY(), v.getZ()); }
+	default Vector3f subN(float scalar) { return subN(scalar, scalar, scalar); }
+	default Vector3f subN(double scalar) { return subN(scalar, scalar, scalar); }	
+	
+	default Vector3f mulN(Vector3fBase v) { return mulN(v.getX(), v.getY(), v.getZ()); }
+	default Vector3f mulN(float scalar) { return mulN(scalar, scalar, scalar); }
+	default Vector3f mulN(double scalar) { return mulN(scalar, scalar, scalar); }	
+	
+	default Vector3f divN(Vector3fBase v) { return divN(v.getX(), v.getY(), v.getZ()); }
+	default Vector3f divN(float scalar) { return divN(scalar, scalar, scalar); }
+	default Vector3f divN(double scalar) { return divN(scalar, scalar, scalar); }
+	
+	
+	default Vector3f cross(Vector3fBase v) 
 	{
 		return new Vec3f(getY() * v.getZ() - getZ() * v.getY(), getZ() * v.getX() - getX() * v.getZ(), getX() * v.getY() - getY() * v.getX());
 	}
 	
-	default IVec3f project(Vec3f v)
+	default Vector3f project(Vec3f v)
 	{	
-		IVec3f vn = v.normalized();
+		Vector3f vn = v.normalized();
 		 double f = this.dot(vn);
 		 
 		 return vn.mul((float)f);
 	}
 	
 	
-	default IVec3f rot(Vec3f axis, float angle)
+	default Vector3f rot(Vec3f axis, float angle)
 	{
 		
 		angle *= 0.5f;
@@ -118,7 +118,7 @@ public interface IVec3fBase extends Iterable<Float>, IStreamable.Readable
 		return rot(rotation);
 	}
 	
-	default IVec3f rot(Quaternion q)
+	default Vector3f rot(Quaternion q)
 	{
 		Quaternion conjugate = q.conjugated();
 		Quaternion w = q.mulN(this).mulN(conjugate);
@@ -127,28 +127,28 @@ public interface IVec3fBase extends Iterable<Float>, IStreamable.Readable
 	}
 
 	
-	default IVec3f reflected(IVec3fBase normal)
+	default Vector3f reflected(Vector3fBase normal)
 	{
-		IVec3f out = clone();
+		Vector3f out = clone();
 		
 		out.reflect(normal);
 		
 		return out;
 	}
 	
-	default IVec3f lerped(IVec3fBase v, float f)
+	default Vector3f lerped(Vector3fBase v, float f)
 	{
-		IVec3f out = clone();
+		Vector3f out = clone();
 		out.lerp(v, f);
 		return out;
 	}
 	
 	
 	
-	default double dot(IVec3fBase v) { return (double) this.getX() * v.getX() + this.getY() * v.getY(); }
+	default double dot(Vector3fBase v) { return (double) this.getX() * v.getX() + this.getY() * v.getY(); }
 	
-	default double angleRad(IVec3fBase v) { return Math.acos((dot(v)) / (length() * v.length())); }
-	default double angleDeg(IVec3fBase v) { return angleRad(v) * Maths.RAD_TO_DEG; }
+	default double angleRad(Vector3fBase v) { return Math.acos((dot(v)) / (length() * v.length())); }
+	default double angleDeg(Vector3fBase v) { return angleRad(v) * Maths.RAD_TO_DEG; }
 
 	default float length() { return (float)Math.sqrt(squaredLength()); }
 	default float squaredLength() { return getX() * getX() + getY() * getY() + getZ() * getZ(); }

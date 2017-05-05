@@ -9,7 +9,6 @@ import cmn.utilslib.color.colors.api.IColor4Base;
 import cmn.utilslib.color.colors.api.ILDRColor4;
 
 import cmn.utilslib.essentials.Maths;
-import cmn.utilslib.interfaces.IStreamable;
 
 
 
@@ -18,7 +17,7 @@ import cmn.utilslib.interfaces.IStreamable;
  * @author picatrix1899
  * @category Color
  */
-public class LDRColor4 implements ILDRColor4, IStreamable, Serializable
+public class LDRColor4 implements ILDRColor4, Serializable
 {
 	
 	/** the minimum value */

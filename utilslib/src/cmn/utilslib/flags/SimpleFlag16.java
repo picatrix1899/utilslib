@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import cmn.utilslib.interfaces.IStreamable;
+import cmn.utilslib.interfaces.Streamable;
 import cmn.utilslib.validation.Validate;
 
 /**
@@ -15,7 +15,7 @@ import cmn.utilslib.validation.Validate;
  * @author picatrix1899
  *
  */
-public class SimpleFlag16 implements IStreamable
+public class SimpleFlag16 implements Streamable.Readable, Streamable.Writeable
 {
 	
 	public static final int DIMENSIONS = 16;

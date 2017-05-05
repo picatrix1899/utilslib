@@ -8,11 +8,11 @@ import java.nio.FloatBuffer;
 
 import cmn.utilslib.essentials.BufferUtils;
 import cmn.utilslib.geometry.Point3f;
-import cmn.utilslib.interfaces.IStreamable;
+import cmn.utilslib.interfaces.Streamable;
 import cmn.utilslib.vector.Quaternion;
 import cmn.utilslib.vector.Vec3f;
-import cmn.utilslib.vector.api.IVec3f;
-import cmn.utilslib.vector.api.IVec3fBase;
+import cmn.utilslib.vector.api.Vector3f;
+import cmn.utilslib.vector.api.Vector3fBase;
 
 /**
  * A 3 by 3 float Row Major Matrix 
@@ -20,7 +20,7 @@ import cmn.utilslib.vector.api.IVec3fBase;
  * @author picatrix1899
  *
  */
-public class Matrix3f implements IStreamable, Serializable
+public class Matrix3f implements Streamable.Readable, Streamable.Writeable, Serializable
 {
 
 	private static final long serialVersionUID = 1L;
@@ -98,9 +98,9 @@ public class Matrix3f implements IStreamable, Serializable
 		return this;
 	}
 	
-	public static Matrix3f iRotation(IVec3fBase axis, float angle) { return new Matrix3f().initRotation(axis, angle); }
+	public static Matrix3f iRotation(Vector3fBase axis, float angle) { return new Matrix3f().initRotation(axis, angle); }
 	
-	public Matrix3f initRotation(IVec3fBase axis, float angle)
+	public Matrix3f initRotation(Vector3fBase axis, float angle)
 	{
 		float c = (float)Math.cos(angle);
 		float s = (float)Math.sin(angle);
@@ -122,9 +122,9 @@ public class Matrix3f implements IStreamable, Serializable
 		return this;
 	}
 	
-	public static Matrix3f iScaling(IVec3fBase v) { return new Matrix3f().initScaling(v); }
+	public static Matrix3f iScaling(Vector3fBase v) { return new Matrix3f().initScaling(v); }
 	
-	public Matrix3f initScaling(IVec3fBase v)
+	public Matrix3f initScaling(Vector3fBase v)
 	{
 		return initScaling(v.getX(), v.getY(), v.getZ());
 	}
@@ -170,11 +170,11 @@ public class Matrix3f implements IStreamable, Serializable
 		return dest;
 	}
 	
-	public IVec3f transformN(IVec3fBase v) { return transform(this, v, null); }
+	public Vector3f transformN(Vector3fBase v) { return transform(this, v, null); }
 	
-	public IVec3f transform(IVec3f v) { return transform(this, v, v); }
+	public Vector3f transform(Vector3f v) { return transform(this, v, v); }
 	
-	public static IVec3f transform(Matrix3f l, IVec3fBase r, IVec3f dest)
+	public static Vector3f transform(Matrix3f l, Vector3fBase r, Vector3f dest)
 	{
 		if (dest == null) dest = new Vec3f();
 

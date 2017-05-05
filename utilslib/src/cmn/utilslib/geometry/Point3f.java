@@ -2,8 +2,8 @@ package cmn.utilslib.geometry;
 
 import cmn.utilslib.matrix.Matrix4f;
 import cmn.utilslib.vector.Vec3f;
-import cmn.utilslib.vector.api.IVec3f;
-import cmn.utilslib.vector.api.IVec3fBase;
+import cmn.utilslib.vector.api.Vector3f;
+import cmn.utilslib.vector.api.Vector3fBase;
 
 public class Point3f
 {
@@ -37,7 +37,7 @@ public class Point3f
 	
 	public Point3f set(Point3f p) { return set(p.x, p.y, p.z); }
 	
-	public Point3f set(IVec3fBase v) { return set(v.getX(), v.getY(), v.getZ()); }	
+	public Point3f set(Vector3fBase v) { return set(v.getX(), v.getY(), v.getZ()); }	
 	
 	public Point3f set(float x, float y, float z) { return setX(x).setY(y).setZ(z); }
 	
@@ -48,19 +48,19 @@ public class Point3f
 	public Point3f setZ(float z) { this.z = z; return this; }
 	
 	
-	public IVec3f vectorTo(Point3f p) { return new Vec3f(p.x - this.x, p.y - this.y, p.z - this.z); }
+	public Vector3f vectorTo(Point3f p) { return new Vec3f(p.x - this.x, p.y - this.y, p.z - this.z); }
 	
-	public IVec3f vectorFrom(Point3f p) { return new Vec3f(this.x - p.x, this.y - p.y, this.z - p.z); }
+	public Vector3f vectorFrom(Point3f p) { return new Vec3f(this.x - p.x, this.y - p.y, this.z - p.z); }
 	
 	public float distanceTo(Point3f p) { return vectorTo(p).length(); }
 	
 	public float distanceFrom(Point3f p) { return vectorFrom(p).length(); }
 	
-	public IVec3f directionTo(Point3f p) { return vectorTo(p).normalize(); }
+	public Vector3f directionTo(Point3f p) { return vectorTo(p).normalize(); }
 	
-	public IVec3f directionFrom(Point3f p) { return vectorFrom(p).normalize(); }
+	public Vector3f directionFrom(Point3f p) { return vectorFrom(p).normalize(); }
 	
-	public IVec3f vector() { return new Vec3f(this.x, this.y, this.z); }
+	public Vector3f vector() { return new Vec3f(this.x, this.y, this.z); }
 	
 	public Point3f transform(Matrix4f m) { return m.transform(this); }
 	
@@ -68,11 +68,11 @@ public class Point3f
 	
 	public Point3f translate(float x, float y, float z) { return set(this.x + x, this.y + y, this.z + z); }
 	
-	public Point3f add(IVec3fBase v) { return add(v.getX(), v.getY(), v.getZ()); }
+	public Point3f add(Vector3fBase v) { return add(v.getX(), v.getY(), v.getZ()); }
 	
 	public Point3f add(float x, float y, float z) { return new Point3f(this.x + x, this.y + y, this.z + z); }
 	
-	public Point3f sub(IVec3fBase v) { return sub(v.getX(), v.getY(), v.getZ()); }
+	public Point3f sub(Vector3fBase v) { return sub(v.getX(), v.getY(), v.getZ()); }
 	
 	public Point3f sub(float x, float y, float z) { return new Point3f(this.x - x, this.y - y, this.z - z); }
 	

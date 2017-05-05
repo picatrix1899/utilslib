@@ -7,7 +7,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
 
-import cmn.utilslib.interfaces.IStreamable;
+import cmn.utilslib.interfaces.Streamable;
+import cmn.utilslib.vector.api.Vector4f;
 
 /**
  * A mathematical 4-dimensional vector of type float
@@ -15,7 +16,7 @@ import cmn.utilslib.interfaces.IStreamable;
  * @author picatrix1899
  *
  */
-public class Vec4f implements IStreamable.Readable, IStreamable.Writeable, Serializable
+public class Vec4f implements Vector4f, Streamable.Readable, Streamable.Writeable, Serializable
 {
 	private static final long serialVersionUID = 1L;
 

@@ -4,14 +4,14 @@ import java.util.Arrays;
 import java.util.List;
 
 import cmn.utilslib.essentials.Auto;
-import cmn.utilslib.exceptions.IErrorHandler;
+import cmn.utilslib.exceptions.ErrorHandler;
 import cmn.utilslib.exceptions.SimpleErrorHandler;
 
 public class ValidationException extends IllegalArgumentException
 {
 	
 	private static final long serialVersionUID = 1L;
-	private static IErrorHandler handler = new SimpleErrorHandler();
+	private static ErrorHandler handler = new SimpleErrorHandler();
 	
 	
 	
@@ -20,7 +20,7 @@ public class ValidationException extends IllegalArgumentException
 	
 	
 	
-	public static void setErrorHandler(IErrorHandler handler)
+	public static void setErrorHandler(ErrorHandler handler)
 	{
 		ValidationException.handler = handler;
 	}

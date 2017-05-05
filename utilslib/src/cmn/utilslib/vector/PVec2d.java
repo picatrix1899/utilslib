@@ -1,31 +1,31 @@
 
 package cmn.utilslib.vector;
 
-import cmn.utilslib.vector.api.Vector2fBase;
+import cmn.utilslib.vector.api.Vector2dBase;
 
 /** 
  * A persistent representation of a vector2f
  * @category Vector
  * @author picatrix1899
  */
-public abstract class PVec2f implements Vector2fBase
+public abstract class PVec2d implements Vector2dBase
 {
 
 	/** {@inheritDoc} */ @Override
-	public Vec2f clone() { return new Vec2f(this); }
+	public Vec2d clone() { return new Vec2d(this); }
 
 
 	/** generates a new persistent vector2f */
-	public static PVec2f gen(final float x, final float y)
+	public static PVec2d gen(final float x, final float y)
 	{
-		return new PVec2f()
+		return new PVec2d()
 		{
 
 			/** {@inheritDoc} */ @Override
-			public float getX() { return x; }
+			public double getX() { return x; }
 			
 			/** {@inheritDoc} */ @Override
-			public float getY() { return y; }
+			public double getY() { return y; }
 
 		};
 	}

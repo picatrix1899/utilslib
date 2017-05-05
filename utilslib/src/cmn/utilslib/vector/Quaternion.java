@@ -7,11 +7,11 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import cmn.utilslib.essentials.Maths;
-import cmn.utilslib.interfaces.IStreamable;
+import cmn.utilslib.interfaces.Streamable;
 import cmn.utilslib.matrix.Matrix4f;
-import cmn.utilslib.vector.api.IVec3dBase;
-import cmn.utilslib.vector.api.IVec3f;
-import cmn.utilslib.vector.api.IVec3fBase;
+import cmn.utilslib.vector.api.Vector3dBase;
+import cmn.utilslib.vector.api.Vector3f;
+import cmn.utilslib.vector.api.Vector3fBase;
 
 /**
  * A Quaternion
@@ -19,7 +19,7 @@ import cmn.utilslib.vector.api.IVec3fBase;
  * @author picatrix1899
  *
  */
-public class Quaternion implements IStreamable
+public class Quaternion implements Streamable
 {
 	private double x;
 	private double y;
@@ -98,7 +98,7 @@ public class Quaternion implements IStreamable
 	}
 	
 	
-	public static Quaternion getFromAxis(IVec3fBase axis, float angle) { return getFromAxis(axis.getX(), axis.getY(), axis.getZ(), angle); }
+	public static Quaternion getFromAxis(Vector3fBase axis, float angle) { return getFromAxis(axis.getX(), axis.getY(), axis.getZ(), angle); }
 	
 	public static Quaternion getFromAxis(float ax, float ay, float az, float angle)
 	{
@@ -114,7 +114,7 @@ public class Quaternion implements IStreamable
 		return new Quaternion(rW, rX, rY, rZ).normalize();
 	}
 	
-	public static Quaternion getFromAxis(IVec3fBase axis, double angle) { return getFromAxis(axis.getX(), axis.getY(), axis.getZ(), angle); }
+	public static Quaternion getFromAxis(Vector3fBase axis, double angle) { return getFromAxis(axis.getX(), axis.getY(), axis.getZ(), angle); }
 	
 	public static Quaternion getFromAxis(float ax, float ay, float az, double angle)
 	{
@@ -158,11 +158,11 @@ public class Quaternion implements IStreamable
 		return new Quaternion(rW, rX, rY, rZ).normalize();
 	}
 	
-	public static Quaternion getFromVector(IVec3fBase v1)
+	public static Quaternion getFromVector(Vector3fBase v1)
 	{
-		IVec3f a = Vec3f.aZ.clone();
-		IVec3f b = v1.clone().normalize();
-		IVec3f axis = a.cross(b);
+		Vector3f a = Vec3f.aZ.clone();
+		Vector3f b = v1.clone().normalize();
+		Vector3f axis = a.cross(b);
 		double angle = 1 + a.dot(b);
 		
 		axis.normalize();
@@ -170,11 +170,11 @@ public class Quaternion implements IStreamable
 		return new Quaternion(angle, axis.getX(), axis.getY(), axis.getZ()).normalize();
 	}
 	
-	public static Quaternion getFromVectors(IVec3fBase v1, IVec3fBase v2)
+	public static Quaternion getFromVectors(Vector3fBase v1, Vector3fBase v2)
 	{
-		IVec3f a = v1.clone().normalize();
-		IVec3f b = v2.clone().normalize();
-		IVec3f axis = a.cross(b);
+		Vector3f a = v1.clone().normalize();
+		Vector3f b = v2.clone().normalize();
+		Vector3f axis = a.cross(b);
 		double angle = 1 + a.dot(b);
 		
 		axis.normalize();
@@ -189,14 +189,14 @@ public class Quaternion implements IStreamable
 	
 	public double getZ() { return this.z; }
 
-	public Quaternion rotate(IVec3fBase axis, float angle) { return rotate(axis.getX(), axis.getY(), axis.getZ(), angle); }
+	public Quaternion rotate(Vector3fBase axis, float angle) { return rotate(axis.getX(), axis.getY(), axis.getZ(), angle); }
 	
 	public Quaternion rotate(float ax, float ay, float az, float angle)
 	{
 		return set(getFromAxis(ax, ay, az, angle).mul(this));
 	}
 	
-	public Quaternion rotate(IVec3fBase axis, double angle) { return rotate(axis.getX(), axis.getY(), axis.getZ(), angle); }
+	public Quaternion rotate(Vector3fBase axis, double angle) { return rotate(axis.getX(), axis.getY(), axis.getZ(), angle); }
 	
 	public Quaternion rotate(float ax, float ay, float az, double angle)
 	{
@@ -218,13 +218,13 @@ public class Quaternion implements IStreamable
 		return set(q.mul(this));
 	}
 	
-	public Quaternion rotateTo(IVec3fBase v)
+	public Quaternion rotateTo(Vector3fBase v)
 	{
-		IVec3f a = getForwardf().clone().normalize();
-		IVec3f b = v.clone().normalize();
+		Vector3f a = getForwardf().clone().normalize();
+		Vector3f b = v.clone().normalize();
 		
 		
-		IVec3f axis = a.cross(b);
+		Vector3f axis = a.cross(b);
 		double rot = a.dot(b);
 		
 		axis.normalize();
@@ -245,8 +245,8 @@ public class Quaternion implements IStreamable
 		if(!this.uPitch)
 		{
 
-			IVec3f a = getForwardf();
-			IVec3f b = a.clone().setY(0);
+			Vector3f a = getForwardf();
+			Vector3f b = a.clone().setY(0);
 			
 			int i = a.getY() > 0 ? -1 : 1;
 			
@@ -354,7 +354,7 @@ public class Quaternion implements IStreamable
 		return this;
 	}
 	
-	public Quaternion mul(IVec3fBase v)
+	public Quaternion mul(Vector3fBase v)
 	{
 		double w_ = -this.x * v.getX() - this.y * v.getY() - this.z * v.getZ(); // - v * v'
 		double x_ =  this.w * v.getX() + this.y * v.getZ() - this.z * v.getY(); // s * v'.x ...
@@ -367,7 +367,7 @@ public class Quaternion implements IStreamable
 		
 	}
 	
-	public Quaternion mul(IVec3dBase v)
+	public Quaternion mul(Vector3dBase v)
 	{
 		double w_ = -this.x * v.getX() - this.y * v.getY() - this.z * v.getZ(); // - v * v'
 		double x_ =  this.w * v.getX() + this.y * v.getZ() - this.z * v.getY(); // s * v'.x ...
@@ -384,22 +384,22 @@ public class Quaternion implements IStreamable
 	
 	public Quaternion mulN(Quaternion q) { return this.clone().mul(q); }
 	
-	public Quaternion mulN(IVec3fBase v) { return this.clone().mul(v); }
+	public Quaternion mulN(Vector3fBase v) { return this.clone().mul(v); }
 	
-	public Quaternion mulN(IVec3dBase v) { return this.clone().mul(v); }
+	public Quaternion mulN(Vector3dBase v) { return this.clone().mul(v); }
 	
 	
-	public IVec3f getForwardf() { return Vec3f.aZ.clone().rot(this).normalize(); }
+	public Vector3f getForwardf() { return Vec3f.aZ.clone().rot(this).normalize(); }
 	
-	public IVec3f getBackf() { return Vec3f.aNZ.clone().rot(this).normalize(); }
+	public Vector3f getBackf() { return Vec3f.aNZ.clone().rot(this).normalize(); }
 	
-	public IVec3f getUpf() { return Vec3f.aY.clone().rot(this).normalize(); }
+	public Vector3f getUpf() { return Vec3f.aY.clone().rot(this).normalize(); }
 	
-	public IVec3f getDownf() { return Vec3f.aNY.clone().rot(this).normalize(); }
+	public Vector3f getDownf() { return Vec3f.aNY.clone().rot(this).normalize(); }
 	
-	public IVec3f getRightf() { return Vec3f.aNX.clone().rot(this).normalize(); }
+	public Vector3f getRightf() { return Vec3f.aNX.clone().rot(this).normalize(); }
 	
-	public IVec3f getLeftf() { return Vec3f.aX.clone().rot(this).normalize(); }
+	public Vector3f getLeftf() { return Vec3f.aX.clone().rot(this).normalize(); }
 	
 
 	

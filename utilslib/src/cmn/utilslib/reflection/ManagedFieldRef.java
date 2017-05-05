@@ -3,7 +3,7 @@ package cmn.utilslib.reflection;
 import java.lang.reflect.Field;
 
 import cmn.utilslib.exceptions.Exceptions;
-import cmn.utilslib.exceptions.IErrorHandler;
+import cmn.utilslib.exceptions.ErrorHandler;
 import cmn.utilslib.exceptions.SimpleErrorHandler;
 
 public class ManagedFieldRef<T>
@@ -13,7 +13,7 @@ public class ManagedFieldRef<T>
 	private Object obj;
 	private Class<?> clazz;
 	
-	private IErrorHandler handler;
+	private ErrorHandler handler;
 	
 	public <A> ManagedFieldRef(String field, Class<?> clazz, Object object)
 	{
@@ -37,7 +37,7 @@ public class ManagedFieldRef<T>
 		
 	}
 	
-	public void setErrorHandler(IErrorHandler handler)
+	public void setErrorHandler(ErrorHandler handler)
 	{
 		this.handler = handler;
 	}

@@ -9,7 +9,7 @@ import java.io.OutputStream;
  * @author picatrix1899
  *
  */
-public interface IStreamable
+public interface Streamable
 {
 	
 	public interface Writeable { public abstract void readData(InputStream stream) throws IOException; }

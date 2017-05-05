@@ -1,8 +1,8 @@
 package cmn.utilslib.vector;
 
 
-import cmn.utilslib.vector.api.IVec3f;
-import cmn.utilslib.vector.api.IVec3fBase;
+import cmn.utilslib.vector.api.Vector3f;
+import cmn.utilslib.vector.api.Vector3fBase;
 
 
 /**
@@ -11,7 +11,7 @@ import cmn.utilslib.vector.api.IVec3fBase;
  * @author picatrix1899
  *
  */
-public class Vec3f implements IVec3f
+public class Vec3f implements Vector3f
 {
 
 	public float x = 0.0f;
@@ -25,7 +25,7 @@ public class Vec3f implements IVec3f
 	public Vec3f(float scalar) { set(scalar); }
 	
 	public Vec3f(float x, float y, float z) { set(x, y, z); }
-	public Vec3f(IVec3fBase v) { set(v); }
+	public Vec3f(Vector3fBase v) { set(v); }
 	
 	/*
 	 * =========
@@ -57,7 +57,7 @@ public class Vec3f implements IVec3f
 	 */
 	/** {@inheritDoc} */
 	@Override
-	public IVec3f clone() { return new Vec3f(this); }
+	public Vec3f clone() { return new Vec3f(this); }
 	
 	/** {@inheritDoc} */
 	@Override

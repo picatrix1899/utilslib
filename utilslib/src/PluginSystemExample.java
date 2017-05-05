@@ -2,7 +2,7 @@ import java.util.HashMap;
 
 import cmn.utilslib.essentials.Auto;
 import cmn.utilslib.plugin.DefaultPluginSystemFactory;
-import cmn.utilslib.plugin.PluginSystem;
+import cmn.utilslib.plugin.api.PluginSystem;
 import cmn.utilslib.plugin.api.PluginSystemApplicant;
 import cmn.utilslib.plugin.api.PluginSystemFactory;
 import cmn.utilslib.plugin.api.PluginSystemPlugin;

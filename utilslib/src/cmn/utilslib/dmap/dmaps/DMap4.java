@@ -3,14 +3,13 @@ package cmn.utilslib.dmap.dmaps;
 
 import cmn.utilslib.dmap.dmaps.api.IDMap4;
 import cmn.utilslib.dmap.dmaps.api.IDMap4Base;
-import cmn.utilslib.interfaces.IObjectable;
 
 /**
  * Packet system with 3 entries
  * 
  * @author picatrix1899
  */
-public class DMap4<A,B,C,D> implements IDMap4<A,B,C,D>, IObjectable<DMap4<A,B,C,D>>
+public class DMap4<A,B,C,D> implements IDMap4<A,B,C,D>
 {
 
 	private A a = null;
