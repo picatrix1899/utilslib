@@ -7,11 +7,11 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
 
-import cmn.utilslib.interfaces.IStreamable;
+import cmn.utilslib.interfaces.Streamable;
 import cmn.utilslib.vector.Vec2f;
 import cmn.utilslib.vector.api.Vector2f;
 
-public class Point2f implements IStreamable, Serializable
+public class Point2f implements Streamable, Serializable
 {
 	private static final long serialVersionUID = 1L;
 	
