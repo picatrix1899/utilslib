@@ -32,6 +32,7 @@ public class ManagedMethodRef<T>
 			this.handler = new SimpleErrorHandler();
 			this.m = obj.getClass().getDeclaredMethod(method, types);
 			this.obj = obj;
+			this.m.setAccessible(true);
 		}
 		catch(Exception e)
 		{
