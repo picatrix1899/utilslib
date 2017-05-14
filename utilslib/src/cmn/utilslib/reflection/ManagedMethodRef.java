@@ -25,7 +25,7 @@ public class ManagedMethodRef<T>
 		this.handler = handler;
 	}
 	
-	public ManagedMethodRef(Object obj, String method, Class<?>... types) throws Exception
+	public ManagedMethodRef(Object obj, String method, Class<?>... types)
 	{
 		try
 		{
