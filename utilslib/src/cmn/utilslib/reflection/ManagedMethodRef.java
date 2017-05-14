@@ -29,6 +29,7 @@ public class ManagedMethodRef<T>
 	{
 		try
 		{
+			this.handler = new SimpleErrorHandler();
 			this.m = obj.getClass().getDeclaredMethod(method, types);
 			this.obj = obj;
 		}
