@@ -121,9 +121,14 @@ public class LNBTList implements LNBTBase, Serializable
 		return add(paths, value);
 	}
 
-	public boolean addByte(String path, Byte value)
+	public boolean addByte(String path, byte value)
 	{
 		return add(path, new LNBTByte(value));
+	}
+	
+	public boolean addByteArray(String path, byte... value)
+	{
+		return add(path, new LNBTByteArray(value));
 	}
 	
 	public boolean addShort(String path, short value)
@@ -177,6 +182,11 @@ public class LNBTList implements LNBTBase, Serializable
 	public byte getByte(String path)
 	{
 		return contains(path) ? ((LNBTByte)get(path)).getValue() : 0;
+	}
+	
+	public byte[] getByteArray(String path)
+	{
+		return contains(path) ? ((LNBTByteArray)get(path)).getValue() : null;
 	}
 	
 	public short getShort(String path)
