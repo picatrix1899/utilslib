@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="utilslib.makejar" default="makejar" basedir=".">
+	
+	
+	<target name="clean" description="">
+		<delete dir="build" />
+	</target>
+		
+	<target name="compile">
+		<ant antfile="build.xml" />
+	</target>
+		
+	<target name="makejar" description="">
+		<jar jarfile="utilslib.jar" includes="*.class" basedir="bin" level="9"/>
+  	</target>
+	<target name="moveit" description="">
+		<move file="utilslib.jar" todir="build" />
+	</target>
+</project>
