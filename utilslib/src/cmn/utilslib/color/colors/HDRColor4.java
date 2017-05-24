@@ -66,13 +66,13 @@ public class HDRColor4 implements  IHDRColor4, Serializable
 	
 	
 	/** {@inheritDoc}} */ @Override
-	public HDRColor4 setR(int r) { this.r = r; return this; }
+	public IHDRColor4 setR(int r) { this.r = r; return this; }
 	/** {@inheritDoc}} */ @Override
-	public HDRColor4 setG(int g) { this.g = g; return this; }
+	public IHDRColor4 setG(int g) { this.g = g; return this; }
 	/** {@inheritDoc}} */ @Override
-	public HDRColor4 setB(int b) { this.b = b; return this; }
+	public IHDRColor4 setB(int b) { this.b = b; return this; }
 	/** {@inheritDoc}} */ @Override
-	public HDRColor4 setA(int a) { this.a = a; return this; }
+	public IHDRColor4 setA(int a) { this.a = a; return this; }
 	
 	
 
@@ -88,7 +88,7 @@ public class HDRColor4 implements  IHDRColor4, Serializable
 
 
 	/** {@inheritDoc} */ @Override
-	public HDRColor4 clone() { return new HDRColor4(this); }
+	public IHDRColor4 clone() { return new HDRColor4(this); }
 	
 	
 	

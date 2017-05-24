@@ -1,5 +1,6 @@
 package cmn.utilslib.color.gradients;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import cmn.utilslib.color.colors.PHDRColor3;
@@ -7,13 +8,15 @@ import cmn.utilslib.color.colors.api.IHDRColor3Base;
 import cmn.utilslib.color.gradients.api.IHDRGradient3;
 import cmn.utilslib.essentials.Auto;
 
-public class HDRGradient3 implements IHDRGradient3
+public class HDRGradient3 implements IHDRGradient3, Serializable
 {
+	
+	private static final long serialVersionUID = 1L;
 	
 	private ArrayList<HDRGradient3Node> nodes = Auto.ArrayList();
 
 	@Override
-	public HDRGradient3 insert(double index, IHDRColor3Base value)
+	public IHDRGradient3 insert(double index, IHDRColor3Base value)
 	{
 		HDRGradient3Node node = new HDRGradient3Node();
 		node.index = index;
@@ -155,8 +158,10 @@ public class HDRGradient3 implements IHDRGradient3
 		return get(index).getUnityB();
 	}
 	
-	private static class HDRGradient3Node
+	private static class HDRGradient3Node implements Serializable
 	{
+		private static final long serialVersionUID = 1L;
+		
 		public IHDRColor3Base value;
 		public double index;
 	}

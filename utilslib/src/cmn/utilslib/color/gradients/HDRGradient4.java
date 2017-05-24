@@ -14,7 +14,7 @@ public class HDRGradient4 implements IHDRGradient4
 	private ArrayList<HDRGradient4Node> nodes = Auto.ArrayList();
 
 	@Override
-	public HDRGradient4 insert(double index, IHDRColor4Base value)
+	public IHDRGradient4 insert(double index, IHDRColor4Base value)
 	{
 		HDRGradient4Node node = new HDRGradient4Node();
 		node.index = index;

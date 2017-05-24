@@ -29,7 +29,7 @@ public abstract class PHDRColor3 implements IHDRColor3Base
 	 * @param b : The blue component as a unity-range value.
 	 * @return A persistent Color3.
 	 */
-	public static PHDRColor3 genUnity(final float r, final float g, final float b)
+	public static IHDRColor3Base genUnity(final float r, final float g, final float b)
 	{
 		return gen(Math.round(r * 255.0f), Math.round(g * 255.0f), Math.round(b * 255.0f));
 	}
@@ -43,7 +43,7 @@ public abstract class PHDRColor3 implements IHDRColor3Base
 	 * @param b : The blue component as a color-range value.
 	 * @return A persistent Color3.
 	 */
-	public static PHDRColor3 gen(final int r, final int g, final int b)
+	public static IHDRColor3Base gen(final int r, final int g, final int b)
 	{
 		return new PHDRColor3()
 		{

@@ -1,5 +1,7 @@
 package cmn.utilslib.essentials;
 
+
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -15,6 +17,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.lang.reflect.Method;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -42,138 +45,101 @@ import cmn.utilslib.exceptions.ErrorHandler;
 import cmn.utilslib.exceptions.SimpleErrorHandler;
 import cmn.utilslib.reflection.FieldRef;
 import cmn.utilslib.reflection.ManagedFieldRef;
+import cmn.utilslib.reflection.ManagedMethodRef;
+import cmn.utilslib.reflection.MethodRef;
+
+
 
 public class Auto
 {
 	
 	private static ErrorHandler handler = new SimpleErrorHandler();
 	
-	public static void setErrorHandler(ErrorHandler h)
-	{
-		Auto.handler = h;
-	}
 	
-	public static void resetErrorHandler()
-	{
-		Auto.handler = new SimpleErrorHandler();
-	}
 	
-	public static <T> SimpleMemoryIterator<T> SimpleMemoryIterator(Function<Void,Integer> f_size, Function<Integer,T> f_get)
-	{ return new SimpleMemoryIterator<T>(f_size, f_get); }
+	public static void setErrorHandler(ErrorHandler h) { Auto.handler = h; }
+	public static void resetErrorHandler() { Auto.handler = new SimpleErrorHandler(); }
+	
+	
+	
+	public static <T> SimpleMemoryIterator<T> SimpleMemoryIterator(Function<Void,Integer> f_size, Function<Integer,T> f_get) { return new SimpleMemoryIterator<T>(f_size, f_get); }
 	
 
 	
-	public static <T,P> LinkedValue<T,P> LinkedValue(P p)
-	{ return new LinkedValue<T,P>(p); }
-	
-	public static <T,P> LinkedValue<T,P> LinkedValue(P p, T t)
-	{ return new LinkedValue<T,P>(p); }
+	public static <T,P> LinkedValue<T,P> LinkedValue(P p) { return new LinkedValue<T,P>(p); }
+	public static <T,P> LinkedValue<T,P> LinkedValue(P p, T t) { return new LinkedValue<T,P>(p, t); }
 	
 
 	
-	public static <A,B> LinkedDMap2<A,B> LinkedDMap2()
-	{ return new LinkedDMap2<A,B>(); }
-	
-	public static <A,B> LinkedDMap2<A,B> LinkedDMap2(A a, B b)
-	{ return new LinkedDMap2<A,B>(a, b); }
-	
-	public static <A,B> LinkedDMap2<A,B> LinkedDMap2(IDMap2Base<A,B> dmap)
-	{ return new LinkedDMap2<A,B>(dmap); }
-	
-	public static <A,B,C> LinkedDMap3<A,B,C> LinkedDMap3()
-	{ return new LinkedDMap3<A,B,C>();}
-	
-	public static <A,B,C> LinkedDMap3<A,B,C> LinkedDMap3(A a, B b, C c)
-	{ return new LinkedDMap3<A,B,C>(a, b, c); }
-	
-	public static <A,B,C> LinkedDMap3<A,B,C> LinkedDMap3(IDMap3Base<A,B,C> dmap)
-	{ return new LinkedDMap3<A,B,C>(dmap); }
-	
-	public static <A,B,C,D> LinkedDMap4<A,B,C,D> LinkedDMap4()
-	{ return new LinkedDMap4<A,B,C,D>(); }
-	
-	public static <A,B,C,D> LinkedDMap4<A,B,C,D> LinkedDMap4(A a, B b, C c, D d)
-	{ return new LinkedDMap4<A,B,C,D>(a, b, c, d); }
-	
-	public static <A,B,C,D> LinkedDMap4<A,B,C,D> LinkedDMap4(IDMap4Base<A,B,C,D> dmap)
-	{ return new LinkedDMap4<A,B,C,D>(dmap); }
-	
-	public static <A,B> DMap2<A,B> DMap2()
-	{ return new DMap2<A,B>(); }
-	
-	public static <A,B> DMap2<A,B> DMap2(A a, B b)
-	{ return new DMap2<A,B>(a, b); }
-	
-	public static <A,B> DMap2<A,B> DMap2(IDMap2Base<A,B> dmap)
-	{ return new DMap2<A,B>(dmap); }
-	
-	public static <A,B,C> DMap3<A,B,C> DMap3()
-	{ return new DMap3<A,B,C>(); }
-	
-	public static <A,B,C> DMap3<A,B,C> DMap3(A a, B b, C c)
-	{ return new DMap3<A,B,C>(a, b, c); }
-	
-	public static <A,B,C> DMap3<A,B,C> DMap3(IDMap3Base<A,B,C> dmap)
-	{ return new DMap3<A,B,C>(dmap); }
-	
-	public static <A,B,C,D> DMap4<A,B,C,D> DMap4()
-	{ return new DMap4<A,B,C,D>(); }
-	
-	public static <A,B,C,D> DMap4<A,B,C,D> DMap4(A a, B b, C c, D d)
-	{ return new DMap4<A,B,C,D>(a, b, c, d); }
-	
-	public static <A,B,C,D> DMap4<A,B,C,D> DMap4(IDMap4Base<A,B,C,D> dmap)
-	{ return new DMap4<A,B,C,D>(dmap); }
+	public static <A,B> LinkedDMap2<A,B> LinkedDMap2() { return new LinkedDMap2<A,B>(); }
+	public static <A,B> LinkedDMap2<A,B> LinkedDMap2(A a, B b) { return new LinkedDMap2<A,B>(a, b); }
+	public static <A,B> LinkedDMap2<A,B> LinkedDMap2(IDMap2Base<A,B> dmap) { return new LinkedDMap2<A,B>(dmap); }
 	
 	
 	
-	public static <A,B> DMapping2<A,B> DMapping2()
-	{ return new DMapping2<A,B>(); }
-	
-	public static <A,B,C> DMapping3<A,B,C> DMapping3()
-	{ return new DMapping3<A,B,C>(); }
-	
-	public static <A,B,C,D> DMapping4<A,B,C,D> DMapping4()
-	{ return new DMapping4<A,B,C,D>(); }
+	public static <A,B,C> LinkedDMap3<A,B,C> LinkedDMap3() { return new LinkedDMap3<A,B,C>();}
+	public static <A,B,C> LinkedDMap3<A,B,C> LinkedDMap3(A a, B b, C c) { return new LinkedDMap3<A,B,C>(a, b, c); }
+	public static <A,B,C> LinkedDMap3<A,B,C> LinkedDMap3(IDMap3Base<A,B,C> dmap) { return new LinkedDMap3<A,B,C>(dmap); }
 	
 	
 	
-	public static <K,V> HashMap<K,V> HashMap()
-	{ return new HashMap<K,V>(); }
-	
-	public static <K,V> HashMap<K,V> HashMap(Map<? extends K, ? extends V> m)
-	{ return new HashMap<K,V>(m); }
+	public static <A,B,C,D> LinkedDMap4<A,B,C,D> LinkedDMap4() { return new LinkedDMap4<A,B,C,D>(); }
+	public static <A,B,C,D> LinkedDMap4<A,B,C,D> LinkedDMap4(A a, B b, C c, D d) { return new LinkedDMap4<A,B,C,D>(a, b, c, d); }
+	public static <A,B,C,D> LinkedDMap4<A,B,C,D> LinkedDMap4(IDMap4Base<A,B,C,D> dmap) { return new LinkedDMap4<A,B,C,D>(dmap); }
 	
 	
-	public static <V> ArrayList<V> ArrayList()
-	{ return new ArrayList<V>(); }
+	
+	public static <A,B> DMap2<A,B> DMap2() { return new DMap2<A,B>(); }
+	public static <A,B> DMap2<A,B> DMap2(A a, B b) { return new DMap2<A,B>(a, b); }
+	public static <A,B> DMap2<A,B> DMap2(IDMap2Base<A,B> dmap) { return new DMap2<A,B>(dmap); }
 	
 	
-	public static <V> ArrayList<V> ArrayList(Collection<? extends V> c)
-	{ return new ArrayList<V>(c); }
+	
+	public static <A,B,C> DMap3<A,B,C> DMap3() { return new DMap3<A,B,C>(); }
+	public static <A,B,C> DMap3<A,B,C> DMap3(A a, B b, C c) { return new DMap3<A,B,C>(a, b, c); }
+	public static <A,B,C> DMap3<A,B,C> DMap3(IDMap3Base<A,B,C> dmap) { return new DMap3<A,B,C>(dmap); }
 	
 	
+	
+	public static <A,B,C,D> DMap4<A,B,C,D> DMap4() { return new DMap4<A,B,C,D>(); }
+	public static <A,B,C,D> DMap4<A,B,C,D> DMap4(A a, B b, C c, D d) { return new DMap4<A,B,C,D>(a, b, c, d); }
+	public static <A,B,C,D> DMap4<A,B,C,D> DMap4(IDMap4Base<A,B,C,D> dmap) { return new DMap4<A,B,C,D>(dmap); }
+	
+	
+	
+	public static <A,B> DMapping2<A,B> DMapping2() { return new DMapping2<A,B>(); }
+	public static <A,B,C> DMapping3<A,B,C> DMapping3() { return new DMapping3<A,B,C>(); }
+	public static <A,B,C,D> DMapping4<A,B,C,D> DMapping4() { return new DMapping4<A,B,C,D>(); }
+	
+	
+	
+	public static <K,V> HashMap<K,V> HashMap() { return new HashMap<K,V>(); }
+	public static <K,V> HashMap<K,V> HashMap(Map<? extends K, ? extends V> m) { return new HashMap<K,V>(m); }
+	
+	
+	public static <V> ArrayList<V> ArrayList() { return new ArrayList<V>(); }
+	public static <V> ArrayList<V> ArrayList(Collection<? extends V> c) { return new ArrayList<V>(c); }
 	@SuppressWarnings("unchecked")
-	public static <V> ArrayList<V> ArrayList(V... args)
-	{
-		ArrayList<V> out = ArrayList();
-		
-		Collections.addAll(out, args);
-		
-		return out;
-	}
-	
-	public static <A> FieldRef<A> FieldRef(String field, Class<?> clazz, Object obj) throws Exception
-	{
-		return new FieldRef<A>(field, clazz, obj);
-	}
-	
-	public static <A> ManagedFieldRef<A> ManagedFieldRef(String field, Class<?> clazz, Object obj)
-	{ return new ManagedFieldRef<A>(field, clazz, obj);	 }
+	public static <V> ArrayList<V> ArrayList(V... args) { ArrayList<V> out = ArrayList(); Collections.addAll(out, args); return out; }
 	
 	
-	public static DataInputStream DataInputStream(InputStream stream)
-	{ return new DataInputStream(stream); }
+	
+	public static <A> FieldRef<A> FieldRef(String field, Class<?> clazz, Object obj) throws Exception { return new FieldRef<A>(field, clazz, obj); }
+	
+	
+	
+	public static <A> ManagedFieldRef<A> ManagedFieldRef(String field, Class<?> clazz, Object obj) { return new ManagedFieldRef<A>(field, clazz, obj);	 }
+	
+	
+	public static <R> MethodRef<R> MethodRef(Method m, Object obj) { return new MethodRef<R>(m, obj); }
+	public static <R> MethodRef<R> MethodRef(Object obj, String method, Class<?>... paramtypes) throws Exception { return new MethodRef<R>(obj, method, paramtypes); }
+	
+	public static <R> ManagedMethodRef<R> ManagedMethodRef(Method m, Object obj) { return new ManagedMethodRef<R>(m, obj); }
+	public static <R> ManagedMethodRef<R> ManagedMethodRef(Object obj, String method, Class<?>... paramtypes) { return new ManagedMethodRef<R>(obj, method, paramtypes); }
+	
+	
+	
+	public static DataInputStream DataInputStream(InputStream stream) { return new DataInputStream(stream); }
 	
 	public static DataInputStream DataInputStream(Socket socket)
 	{
@@ -181,10 +147,7 @@ public class Auto
 		{
 			return new DataInputStream(socket.getInputStream());
 		}
-		catch(Exception e)
-		{
-			handler.handle(e);
-		}
+		catch(Exception e) { handler.handle(e); }
 		
 		return null;
 	}
@@ -195,16 +158,14 @@ public class Auto
 		{
 			return new DataInputStream(new FileInputStream(file));
 		}
-		catch(Exception e)
-		{
-			handler.handle(e);
-		}
+		catch(Exception e) { handler.handle(e); }
 		
 		return null;
 	}
 
-	public static DataOutputStream DataOutputStream(OutputStream stream)
-	{ return new DataOutputStream(stream); }
+	
+	
+	public static DataOutputStream DataOutputStream(OutputStream stream) { return new DataOutputStream(stream); }
 	
 	public static DataOutputStream DataOutputStream(Socket socket)
 	{
@@ -212,10 +173,7 @@ public class Auto
 		{
 			return new DataOutputStream(socket.getOutputStream());
 		}
-		catch(Exception e)
-		{
-			handler.handle(e);
-		}
+		catch(Exception e) { handler.handle(e); }
 		
 		return null;
 	}
@@ -226,17 +184,14 @@ public class Auto
 		{
 			return new DataOutputStream(new FileOutputStream(file));
 		}
-		catch(Exception e)
-		{
-			handler.handle(e);
-		}
+		catch(Exception e) { handler.handle(e); }
 		
 		return null;
 	}
 	
 	
-	public static BufferedInputStream BufferedInputStream(InputStream stream)
-	{ return new BufferedInputStream(stream); }
+	
+	public static BufferedInputStream BufferedInputStream(InputStream stream) { return new BufferedInputStream(stream); }
 	
 	public static BufferedInputStream BufferedInputStream(Socket socket)
 	{
@@ -244,10 +199,8 @@ public class Auto
 		{
 			return new BufferedInputStream(socket.getInputStream());
 		}
-		catch(Exception e)
-		{
-			handler.handle(e);
-		}
+		catch(Exception e) { handler.handle(e); }
+		
 		return null;
 	}
 	
@@ -257,15 +210,14 @@ public class Auto
 		{
 			return new BufferedInputStream(new FileInputStream(file));
 		}
-		catch(Exception e)
-		{
-			handler.handle(e);
-		}
+		catch(Exception e) { handler.handle(e); }
+		
 		return null;
 	}
 	
-	public static BufferedOutputStream BufferedOutputStream(OutputStream stream)
-	{ return new BufferedOutputStream(stream); }
+	
+	
+	public static BufferedOutputStream BufferedOutputStream(OutputStream stream) { return new BufferedOutputStream(stream); }
 	
 	public static BufferedOutputStream BufferedOutputStream(Socket socket)
 	{
@@ -273,10 +225,8 @@ public class Auto
 		{
 			return new BufferedOutputStream(socket.getOutputStream());
 		}
-		catch(Exception e)
-		{
-			handler.handle(e);
-		}
+		catch(Exception e) { handler.handle(e); }
+		
 		return null;
 	}
 	
@@ -286,23 +236,19 @@ public class Auto
 		{
 			return new BufferedOutputStream(new FileOutputStream(file));
 		}
-		catch(Exception e)
-		{
-			handler.handle(e);
-		}
+		catch(Exception e) { handler.handle(e); }
+		
 		return null;
 	}
+	
+	
 	
 	public static BufferedReader BufferedReader(InputStream stream)
 	{
 		try
 		{
 			return new BufferedReader(new InputStreamReader(stream));
-		}
-		catch(Exception e)
-		{
-			handler.handle(e);
-		}
+		} catch(Exception e) { handler.handle(e); }
 		
 		return null;
 	}
@@ -313,13 +259,12 @@ public class Auto
 		{
 			return new BufferedReader(new FileReader(file));
 		}
-		catch(Exception e)
-		{
-			handler.handle(e);
-		}
+		catch(Exception e) { handler.handle(e); }
 		
 		return null;
 	}
+	
+	
 	
 	public static BufferedWriter BufferedWriter(OutputStream stream)
 	{
@@ -327,10 +272,7 @@ public class Auto
 		{
 			return new BufferedWriter(new OutputStreamWriter(stream));
 		}
-		catch(Exception e)
-		{
-			handler.handle(e);
-		}
+		catch(Exception e) { handler.handle(e); }
 		
 		return null;
 	}
@@ -341,16 +283,13 @@ public class Auto
 		{
 			return new BufferedWriter(new FileWriter(file));
 		}
-		catch(Exception e)
-		{
-			handler.handle(e);
-		}
+		catch(Exception e) { handler.handle(e); }
 		
 		return null;
 	}
 	
-	public static <A> JList<A> JList()
-	{ return new JList<A>(); }
 	
 	
+	public static <A> JList<A> JList() { return new JList<A>(); }
+
 }

@@ -64,12 +64,12 @@ public class Maths
 	
 	public static float img(float pos, float maxPos, float maxVal)
 	{
-		return pos / (maxPos / maxVal);
+		return Func.projectScale(pos, 0.0f, 0.0f, maxPos, maxVal); //pos / (maxPos / maxVal);
 	}
 	
 	public static float rimg(float val, float maxPos, float maxVal)
 	{
-		return val * (maxPos / maxVal);
+		return Func.projectScale(val, 0.0f, 0.0f, maxVal, maxPos); //val * (maxPos / maxVal);
 	}
 	
 	public static boolean equalsFPN(float a, float b, float epsilon)

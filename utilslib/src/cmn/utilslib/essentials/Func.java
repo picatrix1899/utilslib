@@ -3,6 +3,13 @@ package cmn.utilslib.essentials;
 
 public class Func
 {
+	/**
+	 * Simple linear interpolation function
+	 * @param a min value
+	 * @param b max value
+	 * @param t position 0 <= t <= 1
+	 * @return
+	 */
 	public static float lerpf(float a, float b, float t)
 	{
 		// a = origin
@@ -39,4 +46,8 @@ public class Func
 	}
 	
 	
+	public static float projectScale(float pos, float minPos, float minVal, float maxPos, float maxVal)
+	{
+		return (pos - minPos) * (maxVal - minVal) / (maxPos - minPos) + minVal;
+	}
 }

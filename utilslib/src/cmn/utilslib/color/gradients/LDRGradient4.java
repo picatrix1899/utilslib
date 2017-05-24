@@ -13,7 +13,7 @@ public class LDRGradient4 implements ILDRGradient4
 	
 	private ArrayList<LDRGradient4Node> nodes = Auto.ArrayList();
 
-	public LDRGradient4 insert(double index, ILDRColor4Base value)
+	public ILDRGradient4 insert(double index, ILDRColor4Base value)
 	{
 		LDRGradient4Node node = new LDRGradient4Node();
 		node.index = index;

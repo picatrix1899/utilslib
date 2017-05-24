@@ -7,7 +7,6 @@ import java.io.Serializable;
 import java.nio.FloatBuffer;
 
 import cmn.utilslib.essentials.BufferUtils;
-import cmn.utilslib.geometry.Point3f;
 import cmn.utilslib.interfaces.Streamable;
 import cmn.utilslib.vector.Quaternion;
 import cmn.utilslib.vector.Vec3f;
@@ -179,23 +178,6 @@ public class Matrix3f implements Streamable.Readable, Streamable.Writeable, Seri
 		if (dest == null) dest = new Vec3f();
 
 		return dest.set(l.m0.dot(r), l.m1.dot(r), l.m2.dot(r));
-	}
-	
-	public Point3f transformN(Point3f p) { return transform(this, p, null); }
-	
-	public Point3f transform(Point3f p) { return transform(this, p, p); }
-	
-	public static Point3f transform(Matrix3f l, Point3f r, Point3f dest)
-	{
-		if (dest == null) dest = new Point3f();
-
-		float x_ = l.m0.x * r.x + l.m0.y * r.y + l.m0.z * r.z;
-		float y_ = l.m1.x * r.x + l.m1.y * r.y + l.m1.z * r.z;
-		float z_ = l.m2.x * r.x + l.m2.y * r.y + l.m2.z * r.z;
-
-		dest.set(x_, y_, z_);
-		
-		return dest;
 	}
 	
 	public float[] getRowMajor()

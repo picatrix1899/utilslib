@@ -3,7 +3,6 @@ package cmn.utilslib.matrix;
 import java.nio.FloatBuffer;
 
 import cmn.utilslib.essentials.BufferUtils;
-import cmn.utilslib.geometry.Point3f;
 import cmn.utilslib.vector.Quaternion;
 import cmn.utilslib.vector.Vec3f;
 import cmn.utilslib.vector.Vec4f;
@@ -331,23 +330,6 @@ public class Matrix4f
 		float x_ = l.m0.x * r.getX() + l.m0.y * r.getY() + l.m0.z * r.getZ() + l.m0.a * 1.0f;
 		float y_ = l.m1.x * r.getX() + l.m1.y * r.getY() + l.m1.z * r.getZ() + l.m1.a * 1.0f;
 		float z_ = l.m2.x * r.getX() + l.m2.y * r.getY() + l.m2.z * r.getZ() + l.m2.a * 1.0f;
-
-		dest.set(x_, y_, z_);
-		
-		return dest;
-	}
-	
-	public Point3f transformN(Point3f r) { return Matrix4f.transform(this, r, null); }
-	
-	public Point3f transform(Point3f r) { return Matrix4f.transform(this, r, r); }
-	
-	public static Point3f transform(Matrix4f l, Point3f r, Point3f dest)
-	{
-		if (dest == null) dest = new Point3f();
-
-		float x_ = l.m0.x * r.x + l.m0.y * r.y + l.m0.z * r.z + l.m0.a * 1.0f;
-		float y_ = l.m1.x * r.x + l.m1.y * r.y + l.m1.z * r.z + l.m1.a * 1.0f;
-		float z_ = l.m2.x * r.x + l.m2.y * r.y + l.m2.z * r.z + l.m2.a * 1.0f;
 
 		dest.set(x_, y_, z_);
 		

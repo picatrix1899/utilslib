@@ -44,7 +44,7 @@ public class HDRColor3Examples
 		IColor3 color2_ = color2.clone();
 		IHDRColor3Base color3_ = color3.clone();
 		IHDRColor3 color4_ = color4.clone();
-		HDRColor3 color5_ = color5.clone();
+		IHDRColor3 color5_ = color5.clone();
 		
 		System.out.println(color1_);
 		System.out.println(color2_);
@@ -95,7 +95,7 @@ public class HDRColor3Examples
 	
 	public static void Test5()
 	{
-		IHDRColor3 color = HDRColor3.RED.clone();
+		IHDRColor3 color = (IHDRColor3) HDRColor3.RED.clone();
 		
 		color.setR(100).setG(50).setB(200);
 		
@@ -105,7 +105,7 @@ public class HDRColor3Examples
 		
 		System.out.println(color);
 		
-		IHDRColor3 color2 = HDRColor3.BLACK.clone();
+		IHDRColor3 color2 = (IHDRColor3) HDRColor3.BLACK.clone();
 		
 		System.out.println(color2);
 		

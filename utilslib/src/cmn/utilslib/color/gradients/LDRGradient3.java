@@ -12,7 +12,7 @@ public class LDRGradient3 implements ILDRGradient3
 	
 	private ArrayList<LDRGradient3Node> nodes = Auto.ArrayList();
 
-	public LDRGradient3 insert(double index, ILDRColor3Base value)
+	public ILDRGradient3 insert(double index, ILDRColor3Base value)
 	{
 		LDRGradient3Node node = new LDRGradient3Node();
 		node.index = index;

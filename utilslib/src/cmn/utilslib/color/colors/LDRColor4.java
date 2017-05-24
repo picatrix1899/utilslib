@@ -67,13 +67,13 @@ public class LDRColor4 implements ILDRColor4, Serializable
 	
 	
 	/** {@inheritDoc} */ @Override
-	public LDRColor4 setR(int r) { this.r = Maths.clamp(r, LDRColor4.MIN, LDRColor4.MAX); return this; }
+	public ILDRColor4 setR(int r) { this.r = Maths.clamp(r, LDRColor4.MIN, LDRColor4.MAX); return this; }
 	/** {@inheritDoc} */ @Override
-	public LDRColor4 setG(int g) { this.g = Maths.clamp(g, LDRColor4.MIN, LDRColor4.MAX); return this; }
+	public ILDRColor4 setG(int g) { this.g = Maths.clamp(g, LDRColor4.MIN, LDRColor4.MAX); return this; }
 	/** {@inheritDoc} */ @Override
-	public LDRColor4 setB(int b) { this.b = Maths.clamp(b, LDRColor4.MIN, LDRColor4.MAX); return this; }
+	public ILDRColor4 setB(int b) { this.b = Maths.clamp(b, LDRColor4.MIN, LDRColor4.MAX); return this; }
 	/** {@inheritDoc} */ @Override
-	public LDRColor4 setA(int a) { this.a = Maths.clamp(a, LDRColor4.MIN, LDRColor4.MAX); return this; }
+	public ILDRColor4 setA(int a) { this.a = Maths.clamp(a, LDRColor4.MIN, LDRColor4.MAX); return this; }
 	
 	
 
@@ -89,7 +89,7 @@ public class LDRColor4 implements ILDRColor4, Serializable
 	
 	
 	/** {@inheritDoc} */ @Override
-	public LDRColor4 clone() { return new LDRColor4(this); }
+	public ILDRColor4 clone() { return new LDRColor4(this); }
 	
 	
 	

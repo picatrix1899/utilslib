@@ -64,11 +64,11 @@ public class LDRColor3 implements ILDRColor3, Serializable
 	
 
 	/** {@inheritDoc} */ @Override
-	public LDRColor3 setR(int r) { this.r = Maths.clamp(r, LDRColor3.MIN, LDRColor3.MAX); return this; }
+	public ILDRColor3 setR(int r) { this.r = Maths.clamp(r, LDRColor3.MIN, LDRColor3.MAX); return this; }
 	/** {@inheritDoc} */ @Override
-	public LDRColor3 setG(int g) { this.g = Maths.clamp(g, LDRColor3.MIN, LDRColor3.MAX); return this; }
+	public ILDRColor3 setG(int g) { this.g = Maths.clamp(g, LDRColor3.MIN, LDRColor3.MAX); return this; }
 	/** {@inheritDoc} */ @Override
-	public LDRColor3 setB(int b) { this.b = Maths.clamp(b, LDRColor3.MIN, LDRColor3.MAX); return this; }
+	public ILDRColor3 setB(int b) { this.b = Maths.clamp(b, LDRColor3.MIN, LDRColor3.MAX); return this; }
 	
 
 	
@@ -82,7 +82,7 @@ public class LDRColor3 implements ILDRColor3, Serializable
 	
 
 	@Override
-	public LDRColor3 clone() { return new LDRColor3(this); }
+	public ILDRColor3 clone() { return new LDRColor3(this); }
 	
 	
 	

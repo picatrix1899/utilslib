@@ -32,7 +32,7 @@ public abstract class PLDRColor4 implements ILDRColor4Base
 	 * @param a : The alpha component as a unity-range value.
 	 * @return A persistent Color3.
 	 */
-	public static PLDRColor4 genUnity(final float r, final float g, final float b, final float a)
+	public static ILDRColor4Base genUnity(final float r, final float g, final float b, final float a)
 	{
 		return gen(Math.round(r * 255.0f), Math.round(g * 255.0f), Math.round(b * 255.0f), Math.round(a * 255.0f));
 	}
@@ -47,7 +47,7 @@ public abstract class PLDRColor4 implements ILDRColor4Base
 	 * @param a : The alpha component as a color-range value.
 	 * @return A persistent Color3.
 	 */
-	public static PLDRColor4 gen(final int r, final int g, final int b, final int a)
+	public static ILDRColor4Base gen(final int r, final int g, final int b, final int a)
 	{
 		return new PLDRColor4()
 		{

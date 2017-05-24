@@ -30,7 +30,7 @@ public abstract class PHDRColor4 implements IHDRColor4Base
 	 * @param a : The alpha component as a unity-range value.
 	 * @return A persistent Color3.
 	 */
-	public static PHDRColor4 genUnity(final float r, final float g, final float b, final float a)
+	public static IHDRColor4Base genUnity(final float r, final float g, final float b, final float a)
 	{
 		return gen(Math.round(r * 255.0f), Math.round(g * 255.0f), Math.round(b * 255.0f), Math.round(a * 255.0f));
 	}
@@ -45,7 +45,7 @@ public abstract class PHDRColor4 implements IHDRColor4Base
 	 * @param a : The alpha component as a color-range value.
 	 * @return A persistent Color3.
 	 */
-	public static PHDRColor4 gen(final int r, final int g, final int b, final int a)
+	public static IHDRColor4Base gen(final int r, final int g, final int b, final int a)
 	{
 		return new PHDRColor4()
 		{
