@@ -1,12 +1,28 @@
 package cmn.utilslib.events;
 
+import java.util.HashMap;
 
-public abstract class Event
+import cmn.utilslib.essentials.Auto;
+
+public class Event<A extends EventArgs>
 {
-	public abstract EventHandle getHandle();
 	
-	public void raise()
+	HashMap<Integer,EventHandler<A>> handlers = Auto.HashMap();
+	
+	static <B extends EventArgs> EventHandler<B> getDefault()
 	{
-		getHandle().raise(this);
+		return (argsorg, argsref) -> {};
+	}
+	
+	
+	@SuppressWarnings("unchecked")
+	public void raise(A args)
+	{
+		A ref = (A) args.cloneArgs();
+		
+		for(EventHandler<A> handler : handlers.values())
+		{
+			handler.raise(args, ref);
+		}
 	}
 }

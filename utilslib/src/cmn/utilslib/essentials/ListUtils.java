@@ -2,32 +2,36 @@ package cmn.utilslib.essentials;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
-import cmn.utilslib.validation.Validate;
 
 /**
  * 
-
  * @author picatrix1899
  *
  */
 public class ListUtils
 {
-	public static <A> int[] indicesOf(ArrayList<A> list, A a)
+	/**
+	 * Finds the occurences of "a" in "list" and return their indices.
+	 * @param list The list to search.
+	 * @param element The value to find.
+	 * @return An array of the indices of each occurence of "a" in "list".
+	 */
+	public static <A> int[] indicesOf(ArrayList<A> list, A element)
 	{
-	
-		Validate.notEmpty(list);
+		int occurences = ListUtils.occurrencesOf(list, element);
 		
-		if(ListUtils.occurrencesOf(list, a) == 0) return null;
+		if(occurences == 0) return null;
 		
-		int[] out = new int[ListUtils.occurrencesOf(list, a)]; 
+		int[] out = new int[occurences]; 
 		
 		int index = 0;
 		
 		for(int i = 0; i < list.size(); i++)
 		{
 			
-			if(list.get(i).equals(a) || list.get(i) == a)
+			if(list.get(i).equals(element) || list.get(i) == element)
 			{
 				out[index] = i;
 				index++;
@@ -38,16 +42,19 @@ public class ListUtils
 		return out;
 	}
 	
-	public static <A> int occurrencesOf(ArrayList<A> list, A a)
+	/**
+	 * Counts the occurences of "a" in "list".
+	 * @param list The list to search.
+	 * @param element The value to find.
+	 * @return The total count of occurences of "a" in "list".
+	 */
+	public static <A> int occurrencesOf(List<A> list, A element)
 	{
-		
-		Validate.notEmpty(list);
-		
 		int i = 0;
 		
 		for(A val : list)
 		{
-			if(val.equals(a) || val == a)
+			if(val.equals(element) || val == element)
 			{
 				i++;
 			}
@@ -56,11 +63,17 @@ public class ListUtils
 		return i;
 	}
 	
-	public static <A> A[] ListToArray(ArrayList<A> list, Class<A> c)
+	/**
+	 * Converts a generic {@link List} into an array using the given class.
+	 * @param list The list to convert.
+	 * @param clazz The type of the List and of the resulting array.
+	 * @return An array of given type with the elements of list.
+	 */
+	public static <A> A[] ListToArray(List<A> list, Class<A> clazz)
 	{
 		
 		@SuppressWarnings("unchecked")
-		A[] out = (A[]) Array.newInstance(c, list.size());
+		A[] out = (A[]) Array.newInstance(clazz, list.size());
 		
 		out = list.<A>toArray(out);
 		
@@ -68,37 +81,52 @@ public class ListUtils
 	
 	}
 	
-	public static int[] toIntArray(ArrayList<Integer> a)
+	/**
+	 * Converts a {@link List} of {@link Integer} into an int array.
+	 * @param list The list to convert.
+	 * @return An int array with the elements of a
+	 */
+	public static int[] toIntArray(List<Integer> list)
 	{
-		int[] out = new int[a.size()];
+		int[] out = new int[list.size()];
 		
-		for(int i = 0; i < a.size(); i++)
+		for(int i = 0; i < list.size(); i++)
 		{
-			out[i] = a.get(i);
+			out[i] = list.get(i);
 		}
 		
 		return out;
 	}
 	
-	public static byte[] toByteArray(ArrayList<Byte> a)
+	/**
+	 * Converts a {@link List} of {@link Byte} into an byte array.
+	 * @param list The list to convert.
+	 * @return An byte array with the elements of a
+	 */
+	public static byte[] toByteArray(List<Byte> list)
 	{
-		byte[] out = new byte[a.size()];
+		byte[] out = new byte[list.size()];
 		
-		for(int i = 0; i < a.size(); i++)
+		for(int i = 0; i < list.size(); i++)
 		{
-			out[i] = a.get(i);
+			out[i] = list.get(i);
 		}
 		
 		return out;
 	}
 	
-	public static float[] toFloatArray(ArrayList<Float> a)
+	/**
+	 * Converts a {@link List} of {@link Float} into an float array.
+	 * @param list The list to convert.
+	 * @return An float array with the elements of a
+	 */
+	public static float[] toFloatArray(List<Float> list)
 	{
-		float[] out = new float[a.size()];
+		float[] out = new float[list.size()];
 		
-		for(int i = 0; i < a.size(); i++)
+		for(int i = 0; i < list.size(); i++)
 		{
-			out[i] = a.get(i);
+			out[i] = list.get(i);
 		}
 		
 		return out;

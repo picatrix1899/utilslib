@@ -84,7 +84,7 @@ public class ServerCore
 		}
 	}
 
-	public void retriveConnection() throws Exception
+	private void retriveConnection() throws Exception
 	{
 		Socket s = socket.accept();
 		

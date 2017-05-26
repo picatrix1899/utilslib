@@ -5,12 +5,15 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
+import cmn.utilslib.events.EmptyArgs;
+import cmn.utilslib.events.Event;
+
 public class ObservedList<T> implements List<T>
 {
 
 	private List<T> list;
 	
-	private List<Listener> listeners = Auto.ArrayList();
+	public Event<EmptyArgs> ChangedEvent = new Event<EmptyArgs>();
 	
 	
 	public ObservedList(List<T> list)
@@ -18,17 +21,20 @@ public class ObservedList<T> implements List<T>
 		this.list = list;
 	}
 	
-	public void addListener(Listener l)
+	public ObservedList()
 	{
-		this.listeners.add(l);
+		this.list = Auto.ArrayList();
+	}
+	
+	@SafeVarargs
+	public ObservedList(T... array)
+	{
+		this.list = Auto.ArrayList(array);
 	}
 	
 	private void changed()
 	{
-		for(Listener l : this.listeners)
-		{
-			l.trigger();
-		}
+		ChangedEvent.raise(EmptyArgs.getInstance());
 	}
 	
 	
@@ -124,30 +130,35 @@ public class ObservedList<T> implements List<T>
 	@Override
 	public boolean remove(Object o)
 	{
+		changed();
 		return this.list.remove(o);
 	}
 
 	@Override
 	public T remove(int index)
 	{
+		changed();
 		return this.list.remove(index);
 	}
 
 	@Override
 	public boolean removeAll(Collection<?> c)
 	{
+		changed();
 		return this.list.removeAll(c);
 	}
 
 	@Override
 	public boolean retainAll(Collection<?> c)
 	{
+		changed();
 		return this.list.retainAll(c);
 	}
 
 	@Override
 	public T set(int index, T element)
 	{
+		changed();
 		return this.list.set(index, element);
 	}
 
