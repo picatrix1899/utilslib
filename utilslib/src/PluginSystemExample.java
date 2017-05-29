@@ -29,9 +29,11 @@ public class PluginSystemExample
 		
 		list.playerLeave("Manfred");
 
-		list.addPlugin(PlayerAge.class);
+		
 		
 		list.addPlugin(PlayerProperties.class);
+		
+		list.addPlugin(PlayerAge.class);
 		
 		list.get("Florian").getPlugin(PlayerProperties.class).setAge(19);
 		

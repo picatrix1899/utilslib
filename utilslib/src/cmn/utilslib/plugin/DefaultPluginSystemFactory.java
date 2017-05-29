@@ -1,6 +1,7 @@
 package cmn.utilslib.plugin;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import cmn.utilslib.essentials.Auto;
 import cmn.utilslib.essentials.WeakList;
@@ -17,7 +18,7 @@ public class DefaultPluginSystemFactory<Applicant extends PluginSystemApplicant<
 	
 	private ArrayList<Class<? extends PluginSystemPlugin<Applicant>>> plugins = Auto.ArrayList();
 	
-	
+	private ArrayList<Class<? extends PluginSystemPlugin<Applicant>>> lateInsert = Auto.ArrayList();
 	
 	public void instance(Applicant master)
 	{
@@ -113,7 +114,12 @@ public class DefaultPluginSystemFactory<Applicant extends PluginSystemApplicant<
 		if(!this.plugins.contains(plugin))
 		{
 			
-			if(!checkFactoryDependencies(plugin)) return false;
+			if(!checkFactoryDependencies(plugin))
+			{
+				if(!this.lateInsert.contains(plugin))
+					this.lateInsert.add(plugin);
+				return false;
+			}
 			
 			this.plugins.add(plugin);
 			
@@ -130,6 +136,52 @@ public class DefaultPluginSystemFactory<Applicant extends PluginSystemApplicant<
 				
 			}
 			
+			for(Iterator<Class<? extends PluginSystemPlugin<Applicant>>> it = this.lateInsert.iterator(); it.hasNext(); )
+			{
+				if(addLatePluginPreset(it.next()))
+				{
+					it = this.lateInsert.iterator();
+				}
+			}
+			
+			return true;
+		}
+		
+		return false;
+
+	}
+	
+	
+	private boolean addLatePluginPreset(Class<? extends PluginSystemPlugin<Applicant>> plugin)
+	{
+		if(!this.plugins.contains(plugin))
+		{
+			
+			if(!checkFactoryDependencies(plugin)) return false;
+			
+			this.plugins.add(plugin);
+			this.lateInsert.remove(plugin);
+			for(Applicant t : this.list)
+			{
+				try
+				{
+					t.getPluginSystem().registerPlugin(plugin.newInstance(), t);
+				}
+				catch (Exception e)
+				{
+					e.printStackTrace();
+				}
+				
+			}
+			
+			for(Iterator<Class<? extends PluginSystemPlugin<Applicant>>> it = this.lateInsert.iterator(); it.hasNext(); )
+			{
+				if(addLatePluginPreset(it.next()))
+				{
+					it = this.lateInsert.iterator();
+				}
+			}
+			
 			return true;
 			
 		}
@@ -137,4 +189,5 @@ public class DefaultPluginSystemFactory<Applicant extends PluginSystemApplicant<
 		return false;
 
 	}
+	
 }
