@@ -2,6 +2,7 @@ import java.util.HashMap;
 
 import cmn.utilslib.essentials.Auto;
 import cmn.utilslib.plugin.DefaultPluginSystemFactory;
+import cmn.utilslib.plugin.api.DependsOn;
 import cmn.utilslib.plugin.api.PluginSystem;
 import cmn.utilslib.plugin.api.PluginSystemApplicant;
 import cmn.utilslib.plugin.api.PluginSystemFactory;
@@ -28,9 +29,11 @@ public class PluginSystemExample
 		
 		list.playerLeave("Manfred");
 
+		list.addPlugin(PlayerAge.class);
+		
 		list.addPlugin(PlayerProperties.class);
 		
-		list.get("Florian").getPlugin(PlayerProperties.class).setAge(20);
+		list.get("Florian").getPlugin(PlayerProperties.class).setAge(19);
 		
 		System.out.println("Florian is " + list.get("Florian").getPlugin(PlayerProperties.class).getAge() + " years old!");
 		
@@ -106,12 +109,12 @@ public class PluginSystemExample
 
 	}
 	
+	@DependsOn(PlayerAge.class)
 	public static class PlayerProperties implements PluginSystemPlugin<Player>
 	{
 
 		private Player player;
 		
-		private int age;
 		private double height;
 		private double weight;
 		
@@ -128,12 +131,12 @@ public class PluginSystemExample
 		
 		public int getAge()
 		{
-			return this.age;
+			return this.player.getPlugin(PlayerAge.class).getAge();
 		}
 		
 		public void setAge(int age)
 		{
-			this.age = age;
+			this.player.getPlugin(PlayerAge.class).setAge(age);
 		}
 		
 		public double getHeight()
@@ -162,6 +165,31 @@ public class PluginSystemExample
 			return this.player;
 		}
 		
+		
+	}
+	
+	public static class PlayerAge implements PluginSystemPlugin<Player>
+	{
+
+		private int age;
+		
+		public int getAge()
+		{
+			return this.age;
+		}
+		
+		public void setAge(int age)
+		{
+			this.age = age;
+		}
+		
+		public void hook(PluginSystem<Player> core)
+		{
+		}
+
+		public void load(Player master)
+		{
+		}
 		
 	}
 	

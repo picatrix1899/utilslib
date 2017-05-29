@@ -7,22 +7,39 @@ import cmn.utilslib.essentials.Auto;
 public class Event<A extends EventArgs>
 {
 	
-	HashMap<Integer,EventHandler<A>> handlers = Auto.HashMap();
+	private HashMap<Integer,EventHandler<A>> handlers = Auto.HashMap();
+	
+	private int index = 0;
 	
 	static <B extends EventArgs> EventHandler<B> getDefault()
 	{
 		return (argsorg, argsref) -> {};
 	}
 	
+	public int addHandler(EventHandler<A> handler)
+	{
+		int index = this.index;
+		
+		handlers.put(index, handler);
+		
+		this.index++;
+		
+		return index;
+	}
+	
+	public void removeHandler(int index)
+	{
+		this.handlers.remove(index);
+	}
 	
 	@SuppressWarnings("unchecked")
 	public void raise(A args)
 	{
-		A ref = (A) args.cloneArgs();
-		
 		for(EventHandler<A> handler : handlers.values())
 		{
-			handler.raise(args, ref);
+			A src = (A) args.cloneArgs();
+			
+			handler.raise(src, args);
 		}
 	}
 }

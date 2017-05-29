@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import cmn.utilslib.essentials.Auto;
 import cmn.utilslib.essentials.WeakList;
+import cmn.utilslib.plugin.api.DependsOn;
 import cmn.utilslib.plugin.api.PluginSystem;
 import cmn.utilslib.plugin.api.PluginSystemApplicant;
 import cmn.utilslib.plugin.api.PluginSystemFactory;
@@ -25,29 +26,97 @@ public class DefaultPluginSystemFactory<Applicant extends PluginSystemApplicant<
 		
 		master.setPluginSystem(system);
 		
-		for(Class<? extends PluginSystemPlugin<Applicant>> c : this.plugins)
-		{
-			try
-			{
-				system.registerPlugin(c.newInstance(), master);
-			}
-			catch (Exception e)
-			{
-				e.printStackTrace();
-			}
+		ArrayList<Class<? extends PluginSystemPlugin<Applicant>>> wait = Auto.ArrayList(this.plugins);
 		
+		ArrayList<Class<? extends PluginSystemPlugin<Applicant>>> waitDel = Auto.ArrayList();
+		
+		while(!wait.isEmpty())
+		{
+			for(Class<? extends PluginSystemPlugin<Applicant>> plugin : wait)
+			{
+				int state = checkLoadedDependencies(system, plugin);
+				
+				if(state == 1)
+				{
+					waitDel.add(plugin);
+					
+					try
+					{
+						system.registerPlugin(plugin.newInstance(), master);
+					}
+					catch (Exception e)
+					{
+						e.printStackTrace();
+					}
+				}
+				else if(state == -1)
+				{
+					waitDel.add(plugin);
+				}
+				
+			}
+			
+			wait.removeAll(waitDel);
+			waitDel.clear();			
 		}
+
 		
 		list.add(master);
 	}
 
 	
-	public void addPluginPreset(Class<? extends PluginSystemPlugin<Applicant>> plugin)
+	private boolean checkFactoryDependencies(Class<? extends PluginSystemPlugin<Applicant>> plugin)
+	{
+		DependsOn dependsOn = plugin.getAnnotation(DependsOn.class);
+		if(dependsOn != null)
+		{
+			@SuppressWarnings("unchecked")
+			Class<? extends PluginSystemPlugin<Applicant>>[] dependencies = (Class<? extends PluginSystemPlugin<Applicant>>[]) dependsOn.value();
+		
+			for(Class<? extends PluginSystemPlugin<Applicant>> dependency : dependencies)
+			{
+				if(!this.plugins.contains(dependency))
+				{
+					return false;
+				}
+			}
+		}
+		
+		return true;
+	}
+	
+	private int checkLoadedDependencies(PluginSystem<Applicant> system, Class<? extends PluginSystemPlugin<Applicant>> plugin)
+	{
+		
+		if(!checkFactoryDependencies(plugin)) return -1;
+		
+		DependsOn dependsOn = plugin.getAnnotation(DependsOn.class);
+		if(dependsOn != null)
+		{
+			@SuppressWarnings("unchecked")
+			Class<? extends PluginSystemPlugin<Applicant>>[] dependencies = (Class<? extends PluginSystemPlugin<Applicant>>[]) dependsOn.value();
+		
+			for(Class<? extends PluginSystemPlugin<Applicant>> dependency : dependencies)
+			{
+				if(!system.existsPlugin(dependency))
+				{
+					return 0;
+				}
+			}
+		}
+		
+		return 1;
+	}
+	
+	public boolean addPluginPreset(Class<? extends PluginSystemPlugin<Applicant>> plugin)
 	{
 		if(!this.plugins.contains(plugin))
 		{
+			
+			if(!checkFactoryDependencies(plugin)) return false;
+			
 			this.plugins.add(plugin);
-		
+			
 			for(Applicant t : this.list)
 			{
 				try
@@ -61,7 +130,11 @@ public class DefaultPluginSystemFactory<Applicant extends PluginSystemApplicant<
 				
 			}
 			
+			return true;
+			
 		}
+		
+		return false;
 
 	}
 }
