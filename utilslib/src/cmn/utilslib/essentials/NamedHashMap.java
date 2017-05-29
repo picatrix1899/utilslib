@@ -2,7 +2,7 @@ package cmn.utilslib.essentials;
 
 import java.util.HashMap;
 
-public class KeyedHashMap<T> extends HashMap<String, T>
+public class NamedHashMap<T> extends HashMap<String, T>
 {
 	private static final long serialVersionUID = 1L;
 
