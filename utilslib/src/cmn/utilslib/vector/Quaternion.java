@@ -12,6 +12,8 @@ import cmn.utilslib.matrix.Matrix4f;
 import cmn.utilslib.vector.api.Vector3dBase;
 import cmn.utilslib.vector.api.Vector3f;
 import cmn.utilslib.vector.api.Vector3fBase;
+import cmn.utilslib.vector.api.Vector4dBase;
+import cmn.utilslib.vector.api.Vector4fBase;
 
 /**
  * A Quaternion
@@ -380,6 +382,32 @@ public class Quaternion implements Streamable
 		
 	}
 	
+	public Quaternion mul(Vector4fBase v)
+	{
+		double w_ = -this.x * v.getX() - this.y * v.getY() - this.z * v.getZ(); // - v * v'
+		double x_ =  this.w * v.getX() + this.y * v.getZ() - this.z * v.getY(); // s * v'.x ...
+		double y_ =  this.w * v.getY() + this.z * v.getX() - this.x * v.getZ(); // s * v'.y ...
+		double z_ =  this.w * v.getZ() + this.x * v.getY() - this.y * v.getX(); // s * v*.z ...
+		
+		set(w_, x_, y_, z_);
+		
+		return this;
+		
+	}
+	
+	public Quaternion mul(Vector4dBase v)
+	{
+		double w_ = -this.x * v.getX() - this.y * v.getY() - this.z * v.getZ(); // - v * v'
+		double x_ =  this.w * v.getX() + this.y * v.getZ() - this.z * v.getY(); // s * v'.x ...
+		double y_ =  this.w * v.getY() + this.z * v.getX() - this.x * v.getZ(); // s * v'.y ...
+		double z_ =  this.w * v.getZ() + this.x * v.getY() - this.y * v.getX(); // s * v*.z ...
+		
+		set(w_, x_, y_, z_);
+		
+		return this;
+		
+	}
+	
 	public Quaternion addN(Quaternion q) { return this.clone().add(q); }
 	
 	public Quaternion mulN(Quaternion q) { return this.clone().mul(q); }
@@ -387,6 +415,10 @@ public class Quaternion implements Streamable
 	public Quaternion mulN(Vector3fBase v) { return this.clone().mul(v); }
 	
 	public Quaternion mulN(Vector3dBase v) { return this.clone().mul(v); }
+	
+	public Quaternion mulN(Vector4fBase v) { return this.clone().mul(v); }
+	
+	public Quaternion mulN(Vector4dBase v) { return this.clone().mul(v); }
 	
 	
 	public Vector3f getForwardf() { return Vec3f.aZ.clone().rot(this).normalize(); }
