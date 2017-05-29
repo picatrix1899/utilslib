@@ -73,9 +73,6 @@ public class ClientCore
 		this.connection.start();
 	}
 	
-	public PacketFactory getPacketFactory()
-	{
-		return this.factory;
-	}
+	public PacketFactory getPacketFactory() { return this.factory; }
 	
 }

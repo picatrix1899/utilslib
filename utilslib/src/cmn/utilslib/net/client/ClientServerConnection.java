@@ -32,10 +32,7 @@ public class ClientServerConnection
 		this.isRunning = true;
 	}
 
-	public ClientCore getServer()
-	{
-		return this.client;
-	}
+	public ClientCore getServer() { return this.client; }
 	
 	public void start()
 	{
@@ -43,21 +40,13 @@ public class ClientServerConnection
 		new SimpleThread(() -> runUpdate(), "CC_Update" + socket.getInetAddress().getCanonicalHostName(), true).start();
 	}
 	
-	public void sendPacket(OutgoingPacket p)
-	{
-		this.packetQueue_out.add(p);
-	}
+	public void sendPacket(OutgoingPacket p) { this.packetQueue_out.add(p); }
 	
 	private void runUpdate()
 	{
 		while(isRunning && !socket.isClosed())
-		{
 			if(!this.packetQueue_in.isEmpty())
-			{
 				handler.handleIngoing(this.packetQueue_in.poll());
-			}
-
-		}
 	}
 	
 	private void runConnectionLoop()
@@ -74,9 +63,7 @@ public class ClientServerConnection
 					IngoingPacket packet_in = this.client.getPacketFactory().resolveIngoingPacket(in);
 					
 					if(packet_in != null)
-					{
 						this.packetQueue_in.add(packet_in);
-					}
 				}
 				
 				if(!this.packetQueue_out.isEmpty())

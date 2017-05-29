@@ -19,30 +19,19 @@ public class PacketFactory
 	public void registerIngoingPacketTemplate(long id, Class<? extends IngoingPacket> clazz)
 	{
 		if(!isLocked())
-		{
 			this.in_Templates.add(id, clazz);
-		}
 	}
 	
 	public void registerOutgoingPacketTemplate(long id, Class<? extends OutgoingPacket> clazz)
 	{
 		if(!isLocked())
-		{
 			this.out_Templates.add(id,clazz);
-		}
-
 	}
 	
 	
-	public void lock()
-	{
-		this.lock = true;
-	}
+	public void lock() { this.lock = true; }
 	
-	public boolean isLocked()
-	{
-		return this.lock;
-	}
+	public boolean isLocked() { return this.lock; }
 	
 	public IngoingPacket resolveIngoingPacket(InputStream stream) throws Exception
 	{
@@ -68,15 +57,14 @@ public class PacketFactory
 		
 		if(this.out_Templates.containsB(packet.getClass()))
 		{
-			
 			dos.writeLong(this.out_Templates.getFirstAByB(packet.getClass()));
 			
 			packet.write(stream);
 			
 			return true;
-			
 		}
 		
 		return false;
 	}
+	
 }

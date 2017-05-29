@@ -1,8 +1,6 @@
 package cmn.utilslib.lnbt;
 
-import java.io.Serializable;
-
-public class LNBTFloat implements LNBTValue, Serializable
+public class LNBTFloat implements LNBTValue
 {
 	private static final long serialVersionUID = 1L;
 
@@ -12,8 +10,5 @@ public class LNBTFloat implements LNBTValue, Serializable
 	
 	public LNBTFloat(float value) { this.value = value; }
 	
-	public float getValue()
-	{
-		return this.value;
-	}
+	public float getValue() { return this.value; }
 }

@@ -5,5 +5,5 @@ import java.io.OutputStream;
 
 public interface OutgoingPacket extends Packet
 {
-	public void write(OutputStream stream) throws IOException;
+	void write(OutputStream stream) throws IOException;
 }

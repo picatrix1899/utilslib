@@ -1,13 +1,12 @@
 package cmn.utilslib.lnbt;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import cmn.utilslib.essentials.Auto;
 
-public class LNBTList implements LNBTBase, Serializable
+public class LNBTList implements LNBTBase
 {
 	
 	private static final long serialVersionUID = 1L;
@@ -41,26 +40,18 @@ public class LNBTList implements LNBTBase, Serializable
 					return entry0.get(paths);
 				}
 				else
-				{
-					return null;
-				}				
+					return null;			
 			}
 			else
-			{
 				return null;
-			}
 
 		}
 		else
 		{
 			if(this.content.containsKey(paths.get(0)))
-			{
 				return this.content.get(paths.get(0));
-			}
 			else
-			{
 				return null;
-			}
 		}
 	}
 	
@@ -82,9 +73,7 @@ public class LNBTList implements LNBTBase, Serializable
 					return entry0.add(paths, value);
 				}
 				else
-				{
-					return false;
-				}				
+					return false;				
 			}
 			else
 			{
@@ -101,9 +90,7 @@ public class LNBTList implements LNBTBase, Serializable
 		else
 		{
 			if(this.content.containsKey(paths.get(0)))
-			{
 				return false;
-			}
 			else
 			{
 				this.content.put(paths.get(0), value);
@@ -121,118 +108,55 @@ public class LNBTList implements LNBTBase, Serializable
 		return add(paths, value);
 	}
 
-	public boolean addByte(String path, byte value)
-	{
-		return add(path, new LNBTByte(value));
-	}
+	public boolean addByte(String path, byte value) { return add(path, new LNBTByte(value)); }
 	
-	public boolean addByteArray(String path, byte... value)
-	{
-		return add(path, new LNBTByteArray(value));
-	}
+	public boolean addByteArray(String path, byte... value) { return add(path, new LNBTByteArray(value)); }
 	
-	public boolean addShort(String path, short value)
-	{
-		return add(path, new LNBTShort(value));
-	}
+	public boolean addShort(String path, short value) { return add(path, new LNBTShort(value)); }
 	
-	public boolean addInt(String path, int value)
-	{
-		return add(path, new LNBTInt(value));
-	}
+	public boolean addInt(String path, int value) { return add(path, new LNBTInt(value)); }
 	
-	public boolean addLong(String path, long value)
-	{
-		return add(path, new LNBTLong(value));
-	}
+	public boolean addLong(String path, long value) { return add(path, new LNBTLong(value)); }
 	
 	
 	
-	public boolean addFloat(String path, float value)
-	{
-		return add(path, new LNBTFloat(value));
-	}
+	public boolean addFloat(String path, float value) { return add(path, new LNBTFloat(value)); }
 	
-	public boolean addDouble(String path, double value)
-	{
-		return add(path, new LNBTDouble(value));
-	}
+	public boolean addDouble(String path, double value) { return add(path, new LNBTDouble(value)); }
 
 	
 	
-	public boolean addChar(String path, char value)
-	{
-		return add(path, new LNBTChar(value));
-	}
+	public boolean addChar(String path, char value) { return add(path, new LNBTChar(value)); }
 
-	public boolean addString(String path, String value)
-	{
-		return add(path, new LNBTString(value));
-	}
+	public boolean addString(String path, String value) { return add(path, new LNBTString(value)); }
 	
 	
 	
-	public boolean addBoolean(String path, boolean value)
-	{
-		return add(path, new LNBTBoolean(value));
-	}
+	public boolean addBoolean(String path, boolean value) { return add(path, new LNBTBoolean(value)); }
 
 
 	
-	public byte getByte(String path)
-	{
-		return contains(path) ? ((LNBTByte)get(path)).getValue() : 0;
-	}
+	public byte getByte(String path) { return contains(path) ? ((LNBTByte)get(path)).getValue() : 0; }
 	
-	public byte[] getByteArray(String path)
-	{
-		return contains(path) ? ((LNBTByteArray)get(path)).getValue() : null;
-	}
+	public byte[] getByteArray(String path) { return contains(path) ? ((LNBTByteArray)get(path)).getValue() : null; }
 	
-	public short getShort(String path)
-	{
-		return contains(path) ? ((LNBTShort)get(path)).getValue() : 0;
-	}
+	public short getShort(String path) { return contains(path) ? ((LNBTShort)get(path)).getValue() : 0; }
 	
-	public int getInt(String path)
-	{
-		return contains(path) ? ((LNBTInt)get(path)).getValue() : 0;
-	}
+	public int getInt(String path) { return contains(path) ? ((LNBTInt)get(path)).getValue() : 0; }
 	
-	public long getLong(String path)
-	{
-		return contains(path) ? ((LNBTLong)get(path)).getValue() : 0l;
-	}
+	public long getLong(String path) { return contains(path) ? ((LNBTLong)get(path)).getValue() : 0l; }
 	
-	public float getFloat(String path)
-	{
-		return contains(path) ? ((LNBTFloat)get(path)).getValue() : 0.0f;
-	}
+	public float getFloat(String path) { return contains(path) ? ((LNBTFloat)get(path)).getValue() : 0.0f; }
 	
-	public double getDouble(String path)
-	{
-		return contains(path) ? ((LNBTDouble)get(path)).getValue() : 0.0d;
-	}
+	public double getDouble(String path) { return contains(path) ? ((LNBTDouble)get(path)).getValue() : 0.0d; }
 	
-	public boolean getBoolean(String path)
-	{
-		return contains(path) ? ((LNBTBoolean)get(path)).getValue() : false;
-	}
+	public boolean getBoolean(String path) { return contains(path) ? ((LNBTBoolean)get(path)).getValue() : false; }
 	
-	public char getChar(String path)
-	{
-		return contains(path) ? ((LNBTChar)get(path)).getValue() : 0;
-	}
+	public char getChar(String path) { return contains(path) ? ((LNBTChar)get(path)).getValue() : 0; }
 	
-	public String getString(String path)
-	{
-		return contains(path) ? ((LNBTString)get(path)).getValue() : "";
-	}
+	public String getString(String path) { return contains(path) ? ((LNBTString)get(path)).getValue() : ""; }
 	
-	public LNBTList getList(String path)
-	{
-		return contains(path) ? ((LNBTList)get(path)) : null;
-	}
+	public LNBTList getList(String path) { return contains(path) ? ((LNBTList)get(path)) : null; }
 	
 	public boolean contains(String path)
 	{

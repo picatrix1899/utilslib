@@ -6,6 +6,6 @@ import java.io.InputStream;
 public interface IngoingPacket extends Packet
 {
 	
-	public void read(InputStream stream) throws IOException;
+	void read(InputStream stream) throws IOException;
 	
 }

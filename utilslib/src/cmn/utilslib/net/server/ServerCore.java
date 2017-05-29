@@ -3,7 +3,8 @@ package cmn.utilslib.net.server;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.UUID;
 
 import cmn.utilslib.essentials.Auto;
 import cmn.utilslib.essentials.SimpleThread;
@@ -19,8 +20,8 @@ public class ServerCore
 	
 	private volatile boolean isRunning;
 	
-	private ArrayList<ServerClientConnection> connections = Auto.ArrayList();
-
+	private HashMap<UUID,ServerClientConnection> connections = Auto.HashMap();
+	
 	private PacketFactory factory;
 	
 	
@@ -58,16 +59,11 @@ public class ServerCore
 	
 	public void broadcastPacket(OutgoingPacket p)
 	{
-		for(ServerClientConnection c : this.connections)
-		{
+		for(ServerClientConnection c : this.connections.values())
 			c.sendPacket(p);
-		}
 	}
 	
-	public void stop()
-	{
-		this.isRunning = false;
-	}
+	public void stop() { this.isRunning = false; }
 	
 	public void run()
 	{
@@ -90,24 +86,16 @@ public class ServerCore
 		
 		s.setKeepAlive(true);
 		
-		ServerClientConnection connection = new ServerClientConnection(this, s);
+		ServerClientConnection connection = new ServerClientConnection(this, s, UUID.randomUUID());
 		
 		joinConnection(connection);
 	}
 	
-	public PacketFactory getPacketFactory()
-	{
-		return this.factory;
-	}
+	public PacketFactory getPacketFactory() { return this.factory; }
 	
-	public synchronized void joinConnection(ServerClientConnection c)
-	{
-		this.connections.add(c);
-	}
 	
-	public synchronized void quitConnection(ServerClientConnection c)
-	{
-		this.connections.remove(c);
-	}
+	
+	public synchronized void joinConnection(ServerClientConnection c) { this.connections.put(c.getID(),c); }
+	public synchronized void quitConnection(ServerClientConnection c) { this.connections.remove(c.getID()); }
 	
 }

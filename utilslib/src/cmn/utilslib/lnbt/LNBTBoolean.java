@@ -1,8 +1,6 @@
 package cmn.utilslib.lnbt;
 
-import java.io.Serializable;
-
-public class LNBTBoolean implements LNBTValue, Serializable
+public class LNBTBoolean implements LNBTValue
 {
 	private static final long serialVersionUID = 1L;
 
@@ -12,8 +10,5 @@ public class LNBTBoolean implements LNBTValue, Serializable
 	
 	public LNBTBoolean(boolean value) { this.value = value; }
 	
-	public boolean getValue()
-	{
-		return this.value;
-	}
+	public boolean getValue() { return this.value; }
 }

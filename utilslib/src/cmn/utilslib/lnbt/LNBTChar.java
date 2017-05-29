@@ -1,8 +1,7 @@
 package cmn.utilslib.lnbt;
 
-import java.io.Serializable;
 
-public class LNBTChar implements LNBTValue, Serializable
+public class LNBTChar implements LNBTValue
 {
 	private static final long serialVersionUID = 1L;
 
@@ -12,8 +11,5 @@ public class LNBTChar implements LNBTValue, Serializable
 	
 	public LNBTChar(char value) { this.value = value; }
 	
-	public char getValue()
-	{
-		return this.value;
-	}
+	public char getValue() { return this.value; }
 }
