@@ -7,10 +7,8 @@ import java.util.Iterator;
 
 import cmn.utilslib.essentials.Maths;
 import cmn.utilslib.interfaces.Streamable;
-import cmn.utilslib.vector.PVec3f;
 import cmn.utilslib.vector.PVec4f;
 import cmn.utilslib.vector.Quaternion;
-import cmn.utilslib.vector.Vec3f;
 import cmn.utilslib.vector.Vec4f;
 
 public interface Vector4fBase extends Iterable<Float>, Streamable.Readable
@@ -88,7 +86,7 @@ public interface Vector4fBase extends Iterable<Float>, Streamable.Readable
 	default Vector4f divN(double scalar) { return divN(scalar, scalar, scalar, scalar); }
 	
 	
-	default Vector4f project(Vec4f v)
+	default Vector4f project(Vector4fBase v)
 	{	
 		Vector4f vn = v.normalized();
 		 double f = this.dot(vn);

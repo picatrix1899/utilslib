@@ -336,23 +336,23 @@ public class Matrix4f
 		return dest;
 	}
 	
-	public Vec4f transformN(Vec4f r) { return Matrix4f.transform(this, r, null); }
-	
-	public Vec4f transform(Vec4f r) { return Matrix4f.transform(this, r, r); }
-	
-	public static Vec4f transform(Matrix4f l, Vec4f r, Vec4f dest)
-	{
-		if (dest == null) dest = new Vec4f();
-		
-		float x_ = l.m0.dot(r);
-		float y_ = l.m1.dot(r);
-		float z_ = l.m2.dot(r);
-		float a_ = l.m3.dot(r);
-
-		dest.set(x_, y_, z_, a_);
-		
-		return dest;
-	}
+//	public Vec4f transformN(Vec4f r) { return Matrix4f.transform(this, r, null); }
+//	
+//	public Vec4f transform(Vec4f r) { return Matrix4f.transform(this, r, r); }
+//	
+//	public static Vec4f transform(Matrix4f l, Vec4f r, Vec4f dest)
+//	{
+//		if (dest == null) dest = new Vec4f();
+//		
+//		float x_ = l.m0.dot(r);
+//		float y_ = l.m1.dot(r);
+//		float z_ = l.m2.dot(r);
+//		float a_ = l.m3.dot(r);
+//
+//		dest.set(x_, y_, z_, a_);
+//		
+//		return dest;
+//	}
 	
 	public FloatBuffer getRowMajorBuffer() { return (FloatBuffer) BufferUtils.wrapFloatBuffer(getRowMajor()).flip(); }	
 	

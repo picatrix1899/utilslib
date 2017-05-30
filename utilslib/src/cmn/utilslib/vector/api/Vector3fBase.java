@@ -90,7 +90,7 @@ public interface Vector3fBase extends Iterable<Float>, Streamable.Readable
 		return new Vec3f(getY() * v.getZ() - getZ() * v.getY(), getZ() * v.getX() - getX() * v.getZ(), getX() * v.getY() - getY() * v.getX());
 	}
 	
-	default Vector3f project(Vec3f v)
+	default Vector3f project(Vector3fBase v)
 	{	
 		Vector3f vn = v.normalized();
 		 double f = this.dot(vn);
@@ -99,7 +99,7 @@ public interface Vector3fBase extends Iterable<Float>, Streamable.Readable
 	}
 	
 	
-	default Vector3f rot(Vec3f axis, float angle)
+	default Vector3f rot(Vector3fBase axis, float angle)
 	{
 		
 		angle *= 0.5f;
@@ -108,9 +108,9 @@ public interface Vector3fBase extends Iterable<Float>, Streamable.Readable
 		double sinHalfAngle = Math.sin(angle);
 		double cosHalfAngle = Math.cos(angle);
 		
-		double rX = axis.x * sinHalfAngle;
-		double rY = axis.y * sinHalfAngle;
-		double rZ = axis.z * sinHalfAngle;
+		double rX = axis.getX() * sinHalfAngle;
+		double rY = axis.getY() * sinHalfAngle;
+		double rZ = axis.getZ() * sinHalfAngle;
 		double rW = cosHalfAngle;
 		
 		Quaternion rotation = new Quaternion(rW, rX, rY, rZ);
