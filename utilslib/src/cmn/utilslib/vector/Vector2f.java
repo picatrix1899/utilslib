@@ -2,8 +2,8 @@
 package cmn.utilslib.vector;
 
 
-import cmn.utilslib.vector.api.Vector2f;
-import cmn.utilslib.vector.api.Vector2fBase;
+import cmn.utilslib.vector.api.Vec2f;
+import cmn.utilslib.vector.api.Vec2fBase;
 
 
 
@@ -12,7 +12,7 @@ import cmn.utilslib.vector.api.Vector2fBase;
  * @author picatrix1899
  * @category Vector
  */
-public class Vec2f implements Vector2f
+public class Vector2f implements Vec2f
 {
 	
 	/*
@@ -35,37 +35,37 @@ public class Vec2f implements Vector2f
 	/**
 	 * Default constructor - Instance a new 2 dimensional float vector with both components set to zero 
 	 */
-	public Vec2f() { setZero(); }
+	public Vector2f() { setZero(); }
 	
 	/**
 	 * Clone constructor - Instance a new 2 dimensional float vector based on another 2 dimensional float vector {@literal <v>}}
 	 * @param v : The 2 dimensional float vector to clone
 	 */
-	public Vec2f(Vector2fBase v) { set(v); }
+	public Vector2f(Vec2fBase v) { set(v); }
 	
 	/**
 	 * Constructor - Instance a new 2 dimensional float vector with both components set to {@literal <scalar>} 
 	 * @param scalar : The initial value for both components
 	 */
-	public Vec2f(float scalar) { set(scalar); }
+	public Vector2f(float scalar) { set(scalar); }
 	/**
 	 * Constructor - Instance a new 2 dimensional float vector with both components set to {@literal <scalar>}
 	 * @param scalar : The initial value for both components
 	 */
-	public Vec2f(double scalar) { set(scalar); }
+	public Vector2f(double scalar) { set(scalar); }
 
 	/**
 	 * Constructor - Instance a new 2 dimensional float vector with component x set to {@literal <x>} and component y set to {@literal <y>}
 	 * @param x : The initial value for the x component
 	 * @param y : The initial value for the y component
 	 */
-	public Vec2f(float x, float y) { set(x, y); }
+	public Vector2f(float x, float y) { set(x, y); }
 	/**
 	 * Constructor - Instance a new 2 dimensional float vector with component x set to {@literal <x>} and component y set to {@literal <y>}
 	 * @param x : The initial value for the x component
 	 * @param y : The initial value for the y component
 	 */
-	public Vec2f(double x, double y) { set(x, y); }
+	public Vector2f(double x, double y) { set(x, y); }
 
 	
 	
@@ -88,15 +88,15 @@ public class Vec2f implements Vector2f
 	 * =========
 	 */
 	/** {@inheritDoc} */ @Override
-	public Vec2f setX(float x) { this.x = x; return this; }
+	public Vector2f setX(float x) { this.x = x; return this; }
 	/** {@inheritDoc} */ @Override
-	public Vec2f setX(double x) { this.x = (float)x; return this; }
+	public Vector2f setX(double x) { this.x = (float)x; return this; }
 
 	
 	/** {@inheritDoc} */ @Override
-	public Vec2f setY(float y) { this.y = y; return this; }
+	public Vector2f setY(float y) { this.y = y; return this; }
 	/** {@inheritDoc} */ @Override
-	public Vec2f setY(double y) { this.y = (float)y; return this; }	
+	public Vector2f setY(double y) { this.y = (float)y; return this; }	
 
 	
 	/*
@@ -105,7 +105,7 @@ public class Vec2f implements Vector2f
 	 * ==================
 	 */
 	/** {@inheritDoc} */ @Override
-	public Vec2f clone() { return new Vec2f(this); }
+	public Vector2f clone() { return new Vector2f(this); }
 	
 	/** {@inheritDoc} */ @Override
 	public String toString() { return "Vec2f(" + this.x + "f, " + this.y + "f)"; }
@@ -113,8 +113,8 @@ public class Vec2f implements Vector2f
 	/** {@inheritDoc} */ @Override
 	public boolean equals(Object obj)
 	{
-		if(!(obj instanceof Vec2f)) return false;
-		Vec2f v = (Vec2f) obj;
+		if(!(obj instanceof Vector2f)) return false;
+		Vector2f v = (Vector2f) obj;
 
 		if(v.x != this.x) return false;
 		if(v.y != this.y) return false;
