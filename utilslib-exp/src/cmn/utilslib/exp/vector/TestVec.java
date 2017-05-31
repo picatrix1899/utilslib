@@ -16,7 +16,7 @@ public class TestVec implements Vector3fE<TestVec>
 
 
 	public TestVec setX(float x) { this.x = x; return this; }
-	public TestVec setY(float y) { this.y = y; return this; }
+	public TestVec setY(float y) { this.y = y; return this; } 
 	public TestVec setZ(float z) { this.z = z; return this; }
 	
 	

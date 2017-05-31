@@ -21,12 +21,7 @@ public class Main
 		print(v1);
 	}
 
-	public static void print(Vector3fBaseE<Vec3f> v)
-	{
-		System.out.println(v.getX() + ", " + v.getY() + ", " + v.getZ());
-	}
-	
-	public static void print(Vector3fBaseE<TestVec> v)
+	public static void print(Vector3fBaseE<?> v)
 	{
 		System.out.println(v.getX() + ", " + v.getY() + ", " + v.getZ());
 	}

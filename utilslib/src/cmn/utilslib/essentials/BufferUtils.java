@@ -231,16 +231,16 @@ public final class BufferUtils
 		return wrapFlippedFloatBuffer(f);
 	}
 	
-	public final static FloatBuffer wrapFlippedVector4FBuffer(Vec4f... v)
+	public final static FloatBuffer wrapFlippedVector4FBuffer(Vector4fBase... v)
 	{
 		float[] f = new float[v.length * Vec4f.DIMENSIONS];
 		
 		for(int i = 0; i < v.length; i++)
 		{
-			f[i * 4 + 0] = v[i].x;
-			f[i * 4 + 1] = v[i].y;
-			f[i * 4 + 2] = v[i].z;
-			f[i * 4 + 3] = v[i].a;
+			f[i * 4 + 0] = v[i].getX();
+			f[i * 4 + 1] = v[i].getY();
+			f[i * 4 + 2] = v[i].getZ();
+			f[i * 4 + 3] = v[i].getA();
 		}
 		
 		return wrapFlippedFloatBuffer(f);
