@@ -83,18 +83,18 @@ public interface Vec3d extends Vec3dBase, Streamable.Writeable
 	default Vec3d add(float x, float y, float z) { return set(getX() + x, getY() + y, getZ() + z); }
 	default Vec3d add(double x, double y, double z) { return set(getX() + x, getY() + y, getZ() + z); }
 
-	default Vec3d sub(Vec3dBase v) { return add(v.getX(), v.getY(), v.getZ()); }
-	default Vec3d sub(double scalar) { return add(scalar, scalar, scalar); }
+	default Vec3d sub(Vec3dBase v) { return sub(v.getX(), v.getY(), v.getZ()); }
+	default Vec3d sub(double scalar) { return sub(scalar, scalar, scalar); }
 	default Vec3d sub(float x, float y, float z) { return set(getX() - x, getY() - y, getZ() - z); }
 	default Vec3d sub(double x, double y, double z) { return set(getX() - x, getY() - y, getZ() - z); }
 	
-	default Vec3d mul(Vec3dBase v) { return add(v.getX(), v.getY(), v.getZ()); }
-	default Vec3d mul(double scalar) { return add(scalar, scalar, scalar); }
+	default Vec3d mul(Vec3dBase v) { return mul(v.getX(), v.getY(), v.getZ()); }
+	default Vec3d mul(double scalar) { return mul(scalar, scalar, scalar); }
 	default Vec3d mul(float x, float y, float z) { return set(getX() * x, getY() * y, getZ() * z); }
 	default Vec3d mul(double x, double y, double z) { return set(getX() * x, getY() * y, getZ() * z); }
 	
-	default Vec3d div(Vec3dBase v) { return add(v.getX(), v.getY(), v.getZ()); }
-	default Vec3d div(double scalar) { return add(scalar, scalar, scalar); }
+	default Vec3d div(Vec3dBase v) { return div(v.getX(), v.getY(), v.getZ()); }
+	default Vec3d div(double scalar) { return div(scalar, scalar, scalar); }
 	default Vec3d div(float x, float y, float z) { return set(getX() / x, getY() / y, getZ() / z); }
 	default Vec3d div(double x, double y, double z) { return set(getX() / x, getY() / y, getZ() / z); }
 	

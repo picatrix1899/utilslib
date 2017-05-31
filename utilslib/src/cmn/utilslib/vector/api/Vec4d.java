@@ -90,18 +90,18 @@ public interface Vec4d extends Vec4dBase, Streamable.Writeable
 	default Vec4d add(float x, float y, float z, float a) { return set(getX() + x, getY() + y, getZ() + z, getA() + a); }
 	default Vec4d add(double x, double y, double z, double a) { return set(getX() + x, getY() + y, getZ() + z, getA() + a); }
 
-	default Vec4d sub(Vec4dBase v) { return add(v.getX(), v.getY(), v.getZ(), v.getA()); }
-	default Vec4d sub(double scalar) { return add(scalar, scalar, scalar, scalar); }
+	default Vec4d sub(Vec4dBase v) { return sub(v.getX(), v.getY(), v.getZ(), v.getA()); }
+	default Vec4d sub(double scalar) { return sub(scalar, scalar, scalar, scalar); }
 	default Vec4d sub(float x, float y, float z, float a) { return set(getX() - x, getY() - y, getZ() - z, getA() - a); }
 	default Vec4d sub(double x, double y, double z, double a) { return set(getX() - x, getY() - y, getZ() - z, getA() - a); }
 	
-	default Vec4d mul(Vec4dBase v) { return add(v.getX(), v.getY(), v.getZ(), v.getA()); }
-	default Vec4d mul(double scalar) { return add(scalar, scalar, scalar, scalar); }
+	default Vec4d mul(Vec4dBase v) { return mul(v.getX(), v.getY(), v.getZ(), v.getA()); }
+	default Vec4d mul(double scalar) { return mul(scalar, scalar, scalar, scalar); }
 	default Vec4d mul(float x, float y, float z, float a) { return set(getX() * x, getY() * y, getZ() * z, getA() * a); }
 	default Vec4d mul(double x, double y, double z, double a) { return set(getX() * x, getY() * y, getZ() * z, getA() * a); }
 	
-	default Vec4d div(Vec4dBase v) { return add(v.getX(), v.getY(), v.getZ(), v.getA()); }
-	default Vec4d div(double scalar) { return add(scalar, scalar, scalar, scalar); }
+	default Vec4d div(Vec4dBase v) { return div(v.getX(), v.getY(), v.getZ(), v.getA()); }
+	default Vec4d div(double scalar) { return div(scalar, scalar, scalar, scalar); }
 	default Vec4d div(float x, float y, float z, float a) { return set(getX() / x, getY() / y, getZ() / z, getA() / a); }
 	default Vec4d div(double x, double y, double z, double a) { return set(getX() / x, getY() / y, getZ() / z, getA() / a); }
 	

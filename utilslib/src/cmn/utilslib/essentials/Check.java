@@ -2,6 +2,8 @@ package cmn.utilslib.essentials;
 
 import java.util.List;
 
+import cmn.utilslib.vector.api.Vec3f;
+
 public class Check
 {
 	
@@ -170,7 +172,7 @@ public class Check
 		return false;
 	}
 	
-	
+	public static <A> boolean isNull(Vec3f object) { return object.getX() == 0.0f && object.getY() == 0.0f && object.getZ() == 0.0f; }
 	
 	public static <A> boolean isNull(A object) { return object == null; }
 	
@@ -672,6 +674,7 @@ public class Check
 	}
 	
 	
+	public static <A> boolean notNull(Vec3f object) { return !isNull(object); }
 	
 	public static <A> boolean notNull(A object) { return !isNull(object); }
 	
