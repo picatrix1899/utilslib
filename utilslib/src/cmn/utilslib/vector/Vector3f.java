@@ -57,7 +57,7 @@ public class Vector3f implements Vec3f
 	 */
 	/** {@inheritDoc} */
 	@Override
-	public Vec3f clone() { return new Vector3f(this); }
+	public Vector3f clone() { return new Vector3f(this); }
 	
 	/** {@inheritDoc} */
 	@Override
