@@ -1,7 +1,7 @@
 package cmn.utilslib.exp.vector;
 
 
-import cmn.utilslib.exp.vector.api.Vector3fE;
+import cmn.utilslib.exp.vector.api.Vector3f;
 
 /**
  * A mathematical 3-dimensional vector of type float
@@ -9,7 +9,7 @@ import cmn.utilslib.exp.vector.api.Vector3fE;
  * @author picatrix1899
  *
  */
-public class Vec3f implements Vector3fE<Vec3f>
+public class Vec3f implements Vector3f
 {
 
 	public float x = 0.0f;

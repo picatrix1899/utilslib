@@ -1,7 +1,7 @@
 package cmn.utilslib.exp.vector.api;
 
 
-public interface Vector3fBaseE<T extends Vector3fE<T>>
+public interface Vector3fBaseE<T extends Vector3fE<T>> extends Vector3fBase
 {
 	float getX();
 	float getY();
