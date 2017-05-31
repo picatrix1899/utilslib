@@ -2,7 +2,7 @@ package cmn.utilslib.essentials;
 
 import java.util.ArrayList;
 
-import cmn.utilslib.vector.Vec2f;
+import cmn.utilslib.vector.Vector2f;
 
 public class LindenmayerGenerator
 {
@@ -16,11 +16,11 @@ public class LindenmayerGenerator
 	private int cDepth;
 	private double cRot;
 	private double cStepLength;
-	private Vec2f a;
-	private Vec2f b;	
+	private Vector2f a;
+	private Vector2f b;	
 	
 	
-	private ArrayList<Vec2f> points;
+	private ArrayList<Vector2f> points;
 	
 
 	
@@ -35,10 +35,10 @@ public class LindenmayerGenerator
 		cRot = initRot;
 		cStepLength = initStepLength;
 		
-		a = new Vec2f();
-		b = new Vec2f();
+		a = new Vector2f();
+		b = new Vector2f();
 		
-		points = new ArrayList<Vec2f>();
+		points = new ArrayList<Vector2f>();
 	}
 	
 	public void generate(String axiom, String... way)
@@ -53,8 +53,8 @@ public class LindenmayerGenerator
 		
 		char c;
 		
-		ArrayList<Vec2f> lastA = new ArrayList<Vec2f>();
-		ArrayList<Vec2f> lastB = new ArrayList<Vec2f>();
+		ArrayList<Vector2f> lastA = new ArrayList<Vector2f>();
+		ArrayList<Vector2f> lastB = new ArrayList<Vector2f>();
 		ArrayList<Double> lastDir = new ArrayList<Double>();
 		
 		for(int i = 0; i < sequence.length(); i++)
@@ -92,7 +92,7 @@ public class LindenmayerGenerator
 				int p = (int) (cStepLength * Math.cos(rad));
 				int q = (int) (cStepLength * Math.sin(rad));
 				
-				b = new Vec2f(a.x + p, a.y + q);
+				b = new Vector2f(a.x + p, a.y + q);
 				
 				points.add(a.clone());
 				points.add(b.clone());
@@ -103,10 +103,10 @@ public class LindenmayerGenerator
 	}
 	
 	
-	public Vec2f[] get()
+	public Vector2f[] get()
 	{
-		Vec2f[] out;
-		out = new Vec2f[points.size()];
+		Vector2f[] out;
+		out = new Vector2f[points.size()];
 		for (int i = 0; i < points.size(); i++)
 		{
 			out[i] = points.get(i);

@@ -8,8 +8,8 @@ import java.io.OutputStream;
 import java.io.Serializable;
 
 import cmn.utilslib.interfaces.Streamable;
-import cmn.utilslib.vector.api.Vector4f;
-import cmn.utilslib.vector.api.Vector4fBase;
+import cmn.utilslib.vector.api.Vec4f;
+import cmn.utilslib.vector.api.Vec4fBase;
 
 /**
  * A mathematical 4-dimensional vector of type float
@@ -17,7 +17,7 @@ import cmn.utilslib.vector.api.Vector4fBase;
  * @author picatrix1899
  *
  */
-public class Vec4f implements Vector4f, Streamable.Readable, Streamable.Writeable, Serializable
+public class Vector4f implements Vec4f, Streamable.Readable, Streamable.Writeable, Serializable
 {
 	private static final long serialVersionUID = 1L;
 
@@ -28,13 +28,13 @@ public class Vec4f implements Vector4f, Streamable.Readable, Streamable.Writeabl
 	public float z = 0.0f;
 	public float a = 0.0f;
 	
-	public Vec4f() { setZero(); }
+	public Vector4f() { setZero(); }
 	
-	public Vec4f(Vector4fBase v) { set(v); }	
+	public Vector4f(Vec4fBase v) { set(v); }	
 	
-	public Vec4f(float scalar) { set(scalar); }
+	public Vector4f(float scalar) { set(scalar); }
 	
-	public Vec4f(float x, float y, float z, float a) { set(x, y, z, a); }
+	public Vector4f(float x, float y, float z, float a) { set(x, y, z, a); }
 	
 
 	@Override
@@ -83,14 +83,14 @@ public class Vec4f implements Vector4f, Streamable.Readable, Streamable.Writeabl
 	 */
 	/** {@inheritDoc} */
 	@Override
-	public Vec4f clone() { return new Vec4f(this); }
+	public Vector4f clone() { return new Vector4f(this); }
 	
 	/** {@inheritDoc} */
 	@Override
 	public boolean equals(Object obj)
 	{
-		if(!(obj instanceof Vec4f)) return false;
-		Vec4f v = (Vec4f)obj;
+		if(!(obj instanceof Vector4f)) return false;
+		Vector4f v = (Vector4f)obj;
 		
 		if(v.x != this.x) return false;
 		if(v.y != this.y) return false;

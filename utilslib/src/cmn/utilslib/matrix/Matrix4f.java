@@ -4,10 +4,10 @@ import java.nio.FloatBuffer;
 
 import cmn.utilslib.essentials.BufferUtils;
 import cmn.utilslib.vector.Quaternion;
-import cmn.utilslib.vector.Vec3f;
-import cmn.utilslib.vector.Vec4f;
-import cmn.utilslib.vector.api.Vector3f;
-import cmn.utilslib.vector.api.Vector3fBase;
+import cmn.utilslib.vector.Vector3f;
+import cmn.utilslib.vector.Vector4f;
+import cmn.utilslib.vector.api.Vec3f;
+import cmn.utilslib.vector.api.Vec3fBase;
 
 /**
  * A 4 by 4 float Row Major Matrix 
@@ -22,10 +22,10 @@ public class Matrix4f
 	public static final int COLS = 4;
 	public static final int ENTS = 16;
 	
-	public Vec4f m0 = new Vec4f();
-	public Vec4f m1 = new Vec4f();
-	public Vec4f m2 = new Vec4f();
-	public Vec4f m3 = new Vec4f();
+	public Vector4f m0 = new Vector4f();
+	public Vector4f m1 = new Vector4f();
+	public Vector4f m2 = new Vector4f();
+	public Vector4f m3 = new Vector4f();
 	
 	public Matrix4f() { initZero(); }
 	
@@ -91,7 +91,7 @@ public class Matrix4f
 		return this;
 	}
 	
-	public Matrix4f initRotation(Vector3fBase forward, Vector3fBase up, Vector3fBase right)
+	public Matrix4f initRotation(Vec3fBase forward, Vec3fBase up, Vec3fBase right)
 	{
 		this.m0.setX(right.getX());
 		this.m0.setY(right.getY());
@@ -143,22 +143,22 @@ public class Matrix4f
 		return this;
 	}
 	
-	public Matrix4f initRotation(Vector3fBase forward, Vector3fBase up)
+	public Matrix4f initRotation(Vec3fBase forward, Vec3fBase up)
 	{
-		Vector3f f = forward.normalized();
-		Vector3f r = up.normalized();
+		Vec3f f = forward.normalized();
+		Vec3f r = up.normalized();
 		r = r.cross(f);
 		
-		Vector3f u = f.cross(r);
+		Vec3f u = f.cross(r);
 		
 		u.normalize();
 		
 		return initRotation(forward.normalized(), u, r);
 	}
 	
-	public static Matrix4f iRotation(Vector3fBase axis, float angle) { return new Matrix4f().initRotation(axis, angle); }
+	public static Matrix4f iRotation(Vec3fBase axis, float angle) { return new Matrix4f().initRotation(axis, angle); }
 	
-	public Matrix4f initRotation(Vector3fBase axis, float angle)
+	public Matrix4f initRotation(Vec3fBase axis, float angle)
 	{
 		
 		float c = (float)Math.cos(angle);
@@ -182,11 +182,11 @@ public class Matrix4f
 		return this;
 	}
 	
-	public static Matrix4f iTranslation(Vector3fBase v) { return new Matrix4f().initTranslation(v); }
+	public static Matrix4f iTranslation(Vec3fBase v) { return new Matrix4f().initTranslation(v); }
 	
 	public static Matrix4f iTranslation(float tx, float ty, float tz) { return new Matrix4f().initTranslation(tx, ty, tz); }
 	
-	public Matrix4f initTranslation(Vector3fBase v) { return initTranslation(v.getX(), v.getY(), v.getZ()); }	
+	public Matrix4f initTranslation(Vec3fBase v) { return initTranslation(v.getX(), v.getY(), v.getZ()); }	
 	
 	public Matrix4f initTranslation(float tx, float ty, float tz)
 	{
@@ -198,11 +198,11 @@ public class Matrix4f
 		return this;
 	}
 	
-	public static Matrix4f iScaling(Vector3fBase v) { return new Matrix4f().initScaling(v); }
+	public static Matrix4f iScaling(Vec3fBase v) { return new Matrix4f().initScaling(v); }
 	
 	public static Matrix4f iScaling(float sx, float sy, float sz) { return new Matrix4f().initScaling(sx, sy, sz); }
 	
-	public Matrix4f initScaling(Vector3fBase v) { return initScaling(v.getX(), v.getY(), v.getZ()); }
+	public Matrix4f initScaling(Vec3fBase v) { return initScaling(v.getX(), v.getY(), v.getZ()); }
 	
 	public Matrix4f initScaling(float sx, float sy, float sz)
 	{
@@ -215,11 +215,11 @@ public class Matrix4f
 		return this;
 	}
 	
-	public static Matrix4f iModelMatrix(Vector3fBase pos, Quaternion rot, Vector3fBase scale) { return new Matrix4f().initModelMatrix(pos, rot, scale); }
+	public static Matrix4f iModelMatrix(Vec3fBase pos, Quaternion rot, Vec3fBase scale) { return new Matrix4f().initModelMatrix(pos, rot, scale); }
 	
-	public Matrix4f initModelMatrix(Vector3fBase pos, Quaternion rot, Vector3fBase scale)
+	public Matrix4f initModelMatrix(Vec3fBase pos, Quaternion rot, Vec3fBase scale)
 	{
-		if(scale == null) scale = new Vec3f(1.0f, 1.0f, 1.0f);
+		if(scale == null) scale = new Vector3f(1.0f, 1.0f, 1.0f);
 		
 		initIdendity();
 		rotate(rot);
@@ -229,9 +229,9 @@ public class Matrix4f
 		return this;
 	}
 	
-	public static Matrix4f iViewMatrix(Vector3fBase pos, Quaternion rot) { return new Matrix4f().initViewMatrix(pos, rot); }
+	public static Matrix4f iViewMatrix(Vec3fBase pos, Quaternion rot) { return new Matrix4f().initViewMatrix(pos, rot); }
 	
-	public Matrix4f initViewMatrix(Vector3fBase pos, Quaternion rot)
+	public Matrix4f initViewMatrix(Vec3fBase pos, Quaternion rot)
 	{
 		initIdendity();
 		
@@ -241,15 +241,15 @@ public class Matrix4f
 		return this;
 	}
 	
-	public Matrix4f translate(Vector3fBase v){ return translate(v, this); }
+	public Matrix4f translate(Vec3fBase v){ return translate(v, this); }
 	
 	public Matrix4f translate(float tx, float ty, float tz) { return translate(tx, ty, tz, this); }
 	
-	public Matrix4f translate(Vector3fBase v, Matrix4f dest) { return translate(v, this, dest); }
+	public Matrix4f translate(Vec3fBase v, Matrix4f dest) { return translate(v, this, dest); }
 	
 	public Matrix4f translate(float tx, float ty, float tz, Matrix4f dest) { return translate(tx, ty, tz, this, dest); }
 	
-	public Matrix4f translate(Vector3fBase v, Matrix4f src, Matrix4f dest) { return translate(v.getX(), v.getY(), v.getZ(), src, dest); }
+	public Matrix4f translate(Vec3fBase v, Matrix4f src, Matrix4f dest) { return translate(v.getX(), v.getY(), v.getZ(), src, dest); }
 	
 	public Matrix4f translate(float tx, float ty, float tz, Matrix4f src, Matrix4f dest) { return Matrix4f.mul(new Matrix4f().initTranslation(tx, ty, tz), src, dest); }
 	
@@ -263,23 +263,23 @@ public class Matrix4f
 	
 	
 	
-	public Matrix4f rotate(Vector3fBase axis, float angle) { return rotate(axis, angle, this); }
+	public Matrix4f rotate(Vec3fBase axis, float angle) { return rotate(axis, angle, this); }
 	
-	public Matrix4f rotate(Vector3fBase axis, float angle, Matrix4f dest) { return rotate(axis, angle, this, dest); }
+	public Matrix4f rotate(Vec3fBase axis, float angle, Matrix4f dest) { return rotate(axis, angle, this, dest); }
 	
-	public Matrix4f rotate(Vector3fBase axis, float angle, Matrix4f src, Matrix4f dest) { return Matrix4f.mul(new Matrix4f().initRotation(axis, angle), src, dest); }
+	public Matrix4f rotate(Vec3fBase axis, float angle, Matrix4f src, Matrix4f dest) { return Matrix4f.mul(new Matrix4f().initRotation(axis, angle), src, dest); }
 	
 	
 	
-	public Matrix4f scale(Vector3fBase v) { return scale(v.getX(), v.getY(), v.getZ()); }
+	public Matrix4f scale(Vec3fBase v) { return scale(v.getX(), v.getY(), v.getZ()); }
 	
 	public Matrix4f scale(float sx,float sy,float sz) { return scale(sx, sy, sz, this); }
 	
-	public Matrix4f scale(Vector3fBase v, Matrix4f dest) { return scale(v.getX(), v.getY(), v.getZ(), this, dest); }
+	public Matrix4f scale(Vec3fBase v, Matrix4f dest) { return scale(v.getX(), v.getY(), v.getZ(), this, dest); }
 	
 	public Matrix4f scale(float sx, float sy, float sz, Matrix4f dest) { return scale(sx, sy, sz, this, dest); }
 	
-	public Matrix4f scale(Vector3fBase v, Matrix4f src, Matrix4f dest) { return scale(v.getX(), v.getY(), v.getZ(), src, dest); }
+	public Matrix4f scale(Vec3fBase v, Matrix4f src, Matrix4f dest) { return scale(v.getX(), v.getY(), v.getZ(), src, dest); }
 	
 	public Matrix4f scale(float sx, float sy, float sz, Matrix4f src, Matrix4f dest) { return Matrix4f.mul(new Matrix4f().initScaling(sx,  sy,  sz), src, dest); }
 	
@@ -319,13 +319,13 @@ public class Matrix4f
 		return dest;
 	}
 	
-	public Vector3f transformN(Vector3fBase r) { return Matrix4f.transform(this, r, null); }
+	public Vector3f transformN(Vec3fBase r) { return Matrix4f.transform(this, r, null); }
 	
 	public Vector3f transform(Vector3f r) { return Matrix4f.transform(this, r, r); }
 	
-	public static Vector3f transform(Matrix4f l, Vector3fBase r, Vector3f dest)
+	public static Vector3f transform(Matrix4f l, Vec3fBase r, Vector3f dest)
 	{
-		if (dest == null) dest = new Vec3f();
+		if (dest == null) dest = new Vector3f();
 
 		float x_ = l.m0.x * r.getX() + l.m0.y * r.getY() + l.m0.z * r.getZ() + l.m0.a * 1.0f;
 		float y_ = l.m1.x * r.getX() + l.m1.y * r.getY() + l.m1.z * r.getZ() + l.m1.a * 1.0f;

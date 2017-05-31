@@ -8,9 +8,9 @@ import java.nio.FloatBuffer;
 
 import cmn.utilslib.essentials.BufferUtils;
 import cmn.utilslib.interfaces.Streamable;
-import cmn.utilslib.vector.Vec2f;
-import cmn.utilslib.vector.api.Vector2f;
-import cmn.utilslib.vector.api.Vector2fBase;
+import cmn.utilslib.vector.Vector2f;
+import cmn.utilslib.vector.api.Vec2f;
+import cmn.utilslib.vector.api.Vec2fBase;
 
 public class Matrix2f implements Streamable.Readable, Streamable.Writeable, Serializable
 {
@@ -21,8 +21,8 @@ public class Matrix2f implements Streamable.Readable, Streamable.Writeable, Seri
 	public static final int COLS = 2;
 	public static final int ENTS = 4;
 	
-	public final Vec2f m0 = new Vec2f();
-	public final Vec2f m1 = new Vec2f();
+	public final Vector2f m0 = new Vector2f();
+	public final Vector2f m1 = new Vector2f();
 	
 	public Matrix2f() { }
 	
@@ -74,9 +74,9 @@ public class Matrix2f implements Streamable.Readable, Streamable.Writeable, Seri
 		return dest;
 	}
 	
-	public static Vector2f transform(Matrix2f l, Vector2fBase r, Vector2f dest)
+	public static Vec2f transform(Matrix2f l, Vec2fBase r, Vector2f dest)
 	{
-		if (dest == null) dest = new Vec2f();
+		if (dest == null) dest = new Vector2f();
 
 		return dest.set(l.m0.dot(r), l.m1.dot(r));
 	}

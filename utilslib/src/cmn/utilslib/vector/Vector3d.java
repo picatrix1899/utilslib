@@ -1,8 +1,8 @@
 package cmn.utilslib.vector;
 
 
-import cmn.utilslib.vector.api.Vector3d;
-import cmn.utilslib.vector.api.Vector3dBase;
+import cmn.utilslib.vector.api.Vec3d;
+import cmn.utilslib.vector.api.Vec3dBase;
 
 
 
@@ -12,7 +12,7 @@ import cmn.utilslib.vector.api.Vector3dBase;
  * @author picatrix1899
  *
  */
-public class Vec3d implements Vector3d
+public class Vector3d implements Vec3d
 {
 
 	public double x = 0.0f;
@@ -21,12 +21,12 @@ public class Vec3d implements Vector3d
 	
 	
 
-	public Vec3d() { setZero(); }
+	public Vector3d() { setZero(); }
 	
-	public Vec3d(double scalar) { set(scalar); }
+	public Vector3d(double scalar) { set(scalar); }
 	
-	public Vec3d(double x, double y, double z) { set(x, y, z); }
-	public Vec3d(Vector3dBase v) { set(v); }
+	public Vector3d(double x, double y, double z) { set(x, y, z); }
+	public Vector3d(Vec3dBase v) { set(v); }
 	
 	/*
 	 * =========
@@ -58,14 +58,14 @@ public class Vec3d implements Vector3d
 	 */
 	/** {@inheritDoc} */
 	@Override
-	public Vector3d clone() { return new Vec3d(this); }
+	public Vector3d clone() { return new Vector3d(this); }
 	
 	/** {@inheritDoc} */
 	@Override
 	public boolean equals(Object obj)
 	{
-		if(!(obj instanceof Vec3d)) return false;
-		Vec3d v = (Vec3d)obj;
+		if(!(obj instanceof Vector3d)) return false;
+		Vector3d v = (Vector3d)obj;
 		
 		if(v.x != this.x) return false;
 		if(v.y != this.y) return false;

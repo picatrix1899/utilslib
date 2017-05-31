@@ -1,23 +1,23 @@
 
 package cmn.utilslib.vector;
 
-import cmn.utilslib.vector.api.Vector4f;
-import cmn.utilslib.vector.api.Vector4fBase;
+import cmn.utilslib.vector.api.Vec4f;
+import cmn.utilslib.vector.api.Vec4fBase;
 
 /** 
  * A persistent representation of a vector3f
  * @category Vector
  * @author picatrix1899
  */
-public abstract class PVec4f implements Vector4fBase
+public abstract class PVector4f implements Vec4fBase
 {
 
 	public abstract Vector4f clone();
 	
 	/** generates a new persistent vector2f */
-	public static PVec4f gen(final float x, final float y, final float z, final float a)
+	public static PVector4f gen(final float x, final float y, final float z, final float a)
 	{
-		return new PVec4f()
+		return new PVector4f()
 		{
 			
 
@@ -29,7 +29,7 @@ public abstract class PVec4f implements Vector4fBase
 			@Override
 			public Vector4f clone()
 			{
-				return new Vec4f(this);
+				return new Vector4f(this);
 			}
 			
 		};

@@ -8,8 +8,8 @@ import java.io.OutputStream;
 import java.io.Serializable;
 
 import cmn.utilslib.interfaces.Streamable;
-import cmn.utilslib.vector.api.Vector4d;
-import cmn.utilslib.vector.api.Vector4dBase;
+import cmn.utilslib.vector.api.Vec4d;
+import cmn.utilslib.vector.api.Vec4dBase;
 
 /**
  * A mathematical 4-dimensional vector of type float
@@ -17,7 +17,7 @@ import cmn.utilslib.vector.api.Vector4dBase;
  * @author picatrix1899
  *
  */
-public class Vec4d implements Vector4d, Streamable.Readable, Streamable.Writeable, Serializable
+public class Vector4d implements Vec4d, Streamable.Readable, Streamable.Writeable, Serializable
 {
 	private static final long serialVersionUID = 1L;
 
@@ -28,13 +28,13 @@ public class Vec4d implements Vector4d, Streamable.Readable, Streamable.Writeabl
 	public double z = 0.0d;
 	public double a = 0.0d;
 	
-	public Vec4d() { setZero(); }
+	public Vector4d() { setZero(); }
 	
-	public Vec4d(Vector4dBase v) { set(v); }	
+	public Vector4d(Vec4dBase v) { set(v); }	
 	
-	public Vec4d(double scalar) { set(scalar); }
+	public Vector4d(double scalar) { set(scalar); }
 	
-	public Vec4d(double x, double y, double z, double a) { set(x, y, z, a); }
+	public Vector4d(double x, double y, double z, double a) { set(x, y, z, a); }
 	
 
 	@Override
@@ -83,14 +83,14 @@ public class Vec4d implements Vector4d, Streamable.Readable, Streamable.Writeabl
 	 */
 	/** {@inheritDoc} */
 	@Override
-	public Vec4d clone() { return new Vec4d(this); }
+	public Vector4d clone() { return new Vector4d(this); }
 	
 	/** {@inheritDoc} */
 	@Override
 	public boolean equals(Object obj)
 	{
-		if(!(obj instanceof Vec4d)) return false;
-		Vec4d v = (Vec4d)obj;
+		if(!(obj instanceof Vector4d)) return false;
+		Vector4d v = (Vector4d)obj;
 		
 		if(v.x != this.x) return false;
 		if(v.y != this.y) return false;

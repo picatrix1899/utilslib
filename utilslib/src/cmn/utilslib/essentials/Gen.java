@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.UUID;
 
-import cmn.utilslib.vector.Vec2f;
+import cmn.utilslib.vector.Vector2f;
 
 /**
  * 
@@ -69,25 +69,25 @@ public class Gen
 		public static int stepLength = DEFAULT_STEPLENGTH;
 		public static double initDir = DEFAULT_START_DIR;
 		
-		private static ArrayList<Vec2f> points;
+		private static ArrayList<Vector2f> points;
 		private static int depth;
 		private static double dir;
-		private static Vec2f a, b;
+		private static Vector2f a, b;
 		
-		public static Vec2f[] generate2D(String axiom, String way)
+		public static Vector2f[] generate2D(String axiom, String way)
 		{
-			points = new ArrayList<Vec2f>();
-			Vec2f[] out;
+			points = new ArrayList<Vector2f>();
+			Vector2f[] out;
 
 			depth = initDepth;
 			dir = initDir;
 			
-			a = new Vec2f();
+			a = new Vector2f();
 			
 			calcPoint(axiom, way);
 			
 			
-			out = new Vec2f[points.size()];
+			out = new Vector2f[points.size()];
 			for (int i = 0; i < points.size(); i++)
 			{
 				out[i] = points.get(i);
@@ -101,7 +101,7 @@ public class Gen
 			if(depth == 0) return;
 			depth--;
 			
-			Vec2f aMark = new Vec2f();
+			Vector2f aMark = new Vector2f();
 			double dirMark = 0.0d;
 			
 			int i;
@@ -122,7 +122,7 @@ public class Gen
 						int p = (int) (stepLength * Math.cos(rad));
 						int q = (int) (stepLength * Math.sin(rad));
 						
-						b = new Vec2f(a.x + p, a.y + q);
+						b = new Vector2f(a.x + p, a.y + q);
 						
 						points.add(a.clone());
 						points.add(b.clone());

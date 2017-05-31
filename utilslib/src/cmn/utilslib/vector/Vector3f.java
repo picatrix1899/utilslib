@@ -1,8 +1,8 @@
 package cmn.utilslib.vector;
 
 
-import cmn.utilslib.vector.api.Vector3f;
-import cmn.utilslib.vector.api.Vector3fBase;
+import cmn.utilslib.vector.api.Vec3f;
+import cmn.utilslib.vector.api.Vec3fBase;
 
 
 /**
@@ -11,7 +11,7 @@ import cmn.utilslib.vector.api.Vector3fBase;
  * @author picatrix1899
  *
  */
-public class Vec3f implements Vector3f
+public class Vector3f implements Vec3f
 {
 
 	public float x = 0.0f;
@@ -20,12 +20,12 @@ public class Vec3f implements Vector3f
 	
 	
 
-	public Vec3f() { setZero(); }
+	public Vector3f() { setZero(); }
 	
-	public Vec3f(float scalar) { set(scalar); }
+	public Vector3f(float scalar) { set(scalar); }
 	
-	public Vec3f(float x, float y, float z) { set(x, y, z); }
-	public Vec3f(Vector3fBase v) { set(v); }
+	public Vector3f(float x, float y, float z) { set(x, y, z); }
+	public Vector3f(Vec3fBase v) { set(v); }
 	
 	/*
 	 * =========
@@ -57,14 +57,14 @@ public class Vec3f implements Vector3f
 	 */
 	/** {@inheritDoc} */
 	@Override
-	public Vec3f clone() { return new Vec3f(this); }
+	public Vec3f clone() { return new Vector3f(this); }
 	
 	/** {@inheritDoc} */
 	@Override
 	public boolean equals(Object obj)
 	{
-		if(!(obj instanceof Vec3f)) return false;
-		Vec3f v = (Vec3f)obj;
+		if(!(obj instanceof Vector3f)) return false;
+		Vector3f v = (Vector3f)obj;
 		
 		if(v.x != this.x) return false;
 		if(v.y != this.y) return false;

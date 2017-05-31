@@ -9,9 +9,9 @@ import java.nio.FloatBuffer;
 import cmn.utilslib.essentials.BufferUtils;
 import cmn.utilslib.interfaces.Streamable;
 import cmn.utilslib.vector.Quaternion;
-import cmn.utilslib.vector.Vec3f;
-import cmn.utilslib.vector.api.Vector3f;
-import cmn.utilslib.vector.api.Vector3fBase;
+import cmn.utilslib.vector.Vector3f;
+import cmn.utilslib.vector.api.Vec3f;
+import cmn.utilslib.vector.api.Vec3fBase;
 
 /**
  * A 3 by 3 float Row Major Matrix 
@@ -28,9 +28,9 @@ public class Matrix3f implements Streamable.Readable, Streamable.Writeable, Seri
 	public static final int COLS = 3;
 	public static final int ENTS = 9;
 	
-	public final Vec3f m0 = new Vec3f();
-	public final Vec3f m1 = new Vec3f();
-	public final Vec3f m2 = new Vec3f();
+	public final Vector3f m0 = new Vector3f();
+	public final Vector3f m1 = new Vector3f();
+	public final Vector3f m2 = new Vector3f();
 	
 	public Matrix3f()
 	{
@@ -97,9 +97,9 @@ public class Matrix3f implements Streamable.Readable, Streamable.Writeable, Seri
 		return this;
 	}
 	
-	public static Matrix3f iRotation(Vector3fBase axis, float angle) { return new Matrix3f().initRotation(axis, angle); }
+	public static Matrix3f iRotation(Vec3fBase axis, float angle) { return new Matrix3f().initRotation(axis, angle); }
 	
-	public Matrix3f initRotation(Vector3fBase axis, float angle)
+	public Matrix3f initRotation(Vec3fBase axis, float angle)
 	{
 		float c = (float)Math.cos(angle);
 		float s = (float)Math.sin(angle);
@@ -121,9 +121,9 @@ public class Matrix3f implements Streamable.Readable, Streamable.Writeable, Seri
 		return this;
 	}
 	
-	public static Matrix3f iScaling(Vector3fBase v) { return new Matrix3f().initScaling(v); }
+	public static Matrix3f iScaling(Vec3fBase v) { return new Matrix3f().initScaling(v); }
 	
-	public Matrix3f initScaling(Vector3fBase v)
+	public Matrix3f initScaling(Vec3fBase v)
 	{
 		return initScaling(v.getX(), v.getY(), v.getZ());
 	}
@@ -169,13 +169,13 @@ public class Matrix3f implements Streamable.Readable, Streamable.Writeable, Seri
 		return dest;
 	}
 	
-	public Vector3f transformN(Vector3fBase v) { return transform(this, v, null); }
+	public Vec3f transformN(Vec3fBase v) { return transform(this, v, null); }
 	
-	public Vector3f transform(Vector3f v) { return transform(this, v, v); }
+	public Vec3f transform(Vector3f v) { return transform(this, v, v); }
 	
-	public static Vector3f transform(Matrix3f l, Vector3fBase r, Vector3f dest)
+	public static Vec3f transform(Matrix3f l, Vec3fBase r, Vector3f dest)
 	{
-		if (dest == null) dest = new Vec3f();
+		if (dest == null) dest = new Vector3f();
 
 		return dest.set(l.m0.dot(r), l.m1.dot(r), l.m2.dot(r));
 	}
