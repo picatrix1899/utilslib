@@ -13,10 +13,7 @@ public interface Vec3f extends Vec3fBase
 	Vec3f setZ(float z);
 	Vec3f setZ(double z);
 	
-	default Vec3f floor() { return set(Math.floor(getX()), Math.floor(getY()), Math.floor(getZ())); }
-	default Vec3f ceil() { return set(Math.ceil(getX()), Math.ceil(getY()), Math.ceil(getZ())); }
-	default Vec3f round() { return set(Math.round(getX()), Math.round(getY()), Math.round(getZ())); }
-	
+
 	default Vec3f normalize() { return Check.notNull(this) ? div(length()) : this; }
 	
 	default Vec3f invert() { return mul(-1.0f); }
@@ -61,9 +58,7 @@ public interface Vec3f extends Vec3fBase
 		
 		return new Vector3f((float)x, (float)y, (float)z);
 	}
-	
-	default Vec3f abs(boolean x, boolean y, boolean z) { return set(x ? Math.abs(getX()) : getX(), y ? Math.abs(getY()) : getY(), z ? Math.abs(getZ()) : getZ()); }
-	
+
 	default Vec3f setZero() { return set(0.0f); }
 	
 	default Vec3f set(Vec3fBase v) { return set(v.getX(), v.getY(), v.getZ()); }

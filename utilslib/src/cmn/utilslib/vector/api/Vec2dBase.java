@@ -48,8 +48,6 @@ public interface Vec2dBase extends Vecd
 	Vec2d clone();
 	
 
-	
-	default Vec2d absN(boolean x, boolean y) { return clone().abs(x, y); }
 
 	
 
@@ -97,9 +95,4 @@ public interface Vec2dBase extends Vecd
 	default Vec2d inverted() { return clone().invert(); }
 	
 	default Vec2d normalized() { return clone().normalize(); }
-	
-	default Vec2d floorN() { return clone().floor(); }
-	default Vec2d ceilN() { return clone().ceil(); }
-	default Vec2d roundN() { return clone().round(); }
-
 }

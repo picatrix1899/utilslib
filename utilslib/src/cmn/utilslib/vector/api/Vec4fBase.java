@@ -50,12 +50,6 @@ public interface Vec4fBase extends Vecf
 	
 	default Vec4f normalized() { return clone().normalize(); }
 
-	default Vec4f floorN() { return clone().floor(); }
-	default Vec4f ceilN() { return clone().ceil(); }
-	default Vec4f roundN() { return clone().round(); }
-	
-	default Vec4f absN(boolean x, boolean y, boolean z, boolean a) { return clone().abs(x, y, z, a); }
-	
 	default float max() { return Math.max(getX(), Math.max(getY(), getZ())); }
 	default float min() { return Math.min(getX(), Math.min(getY(), getZ())); }
 	

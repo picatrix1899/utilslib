@@ -14,11 +14,7 @@ public interface Vec4f extends Vec4fBase
 	Vec4f setZ(double z);
 	Vec4f setA(float a);
 	Vec4f setA(double a);
-	
-	default Vec4f floor() { return set(Math.floor(getX()), Math.floor(getY()), Math.floor(getZ()), Math.floor(getA())); }
-	default Vec4f ceil() { return set(Math.ceil(getX()), Math.ceil(getY()), Math.ceil(getZ()), Math.ceil(getA())); }
-	default Vec4f round() { return set(Math.round(getX()), Math.round(getY()), Math.round(getZ()), Math.round(getA())); }
-	
+
 	default Vec4f normalize() { return Check.notNull(this) ? div(length()) : this; }
 	
 	default Vec4f invert() { return mul(-1.0f); }
@@ -69,9 +65,7 @@ public interface Vec4f extends Vec4fBase
 		
 		return new Vector4f((float)x, (float)y, (float)z, (float)a);
 	}
-	
-	default Vec4f abs(boolean x, boolean y, boolean z, boolean a) { return set(x ? Math.abs(getX()) : getX(), y ? Math.abs(getY()) : getY(), z ? Math.abs(getZ()) : getZ(), a ? Math.abs(getA()) : getA() ); }
-	
+
 	default Vec4f setZero() { return set(0.0f); }
 	
 	default Vec4f set(Vec4fBase v) { return set(v.getX(), v.getY(), v.getZ(), v.getA()); }

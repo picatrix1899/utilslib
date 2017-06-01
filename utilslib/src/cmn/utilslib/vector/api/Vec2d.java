@@ -71,11 +71,4 @@ public interface Vec2d extends Vec2dBase
 	default Vec2d normalize() { return div(length()); }
 	
 	default Vec2d invert() { return mul(-1.0f); }
-	
-	default Vec2d abs(boolean x, boolean y) { return set(x ? Math.abs(getX()) : getX(), y ? Math.abs(getY()) : getY()); }
-	
-	default Vec2d floor() { return set(Math.floor(getX()), Math.floor(getY())); }
-	default Vec2d ceil() { return set(Math.ceil(getX()), Math.ceil(getY())); }
-	default Vec2d round() { return set(Math.round(getX()), Math.round(getY())); }
-
 }

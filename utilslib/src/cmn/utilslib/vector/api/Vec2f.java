@@ -73,10 +73,4 @@ public interface Vec2f extends Vec2fBase
 	default Vec2f normalize() { return div(length()); }
 	
 	default Vec2f invert() { return mul(-1.0f); }
-	
-	default Vec2f abs(boolean x, boolean y) { return set(x ? Math.abs(getX()) : getX(), y ? Math.abs(getY()) : getY()); }
-	
-	default Vec2f floor() { return set(Math.floor(getX()), Math.floor(getY())); }
-	default Vec2f ceil() { return set(Math.ceil(getX()), Math.ceil(getY())); }
-	default Vec2f round() { return set(Math.round(getX()), Math.round(getY())); }
 }

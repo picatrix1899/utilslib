@@ -47,10 +47,6 @@ public interface Vec2fBase extends Vecf
 	Vec2f clone();
 	
 
-	
-	default Vec2f absN(boolean x, boolean y) { return clone().abs(x, y); }
-
-	
 
 	
 	
@@ -96,8 +92,5 @@ public interface Vec2fBase extends Vecf
 	default Vec2f inverted() { return clone().invert(); }
 	
 	default Vec2f normalized() { return clone().normalize(); }
-	
-	default Vec2f floorN() { return clone().floor(); }
-	default Vec2f ceilN() { return clone().ceil(); }
-	default Vec2f roundN() { return clone().round(); } 
+
 }

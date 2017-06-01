@@ -39,12 +39,6 @@ public interface Vec3dBase extends Vecd
 	
 	default Vec3d normalized() { return clone().normalize(); }
 
-	default Vec3d floorN() { return clone().floor(); }
-	default Vec3d ceilN() { return clone().ceil(); }
-	default Vec3d roundN() { return clone().round(); }
-	
-	default Vec3d absN(boolean x, boolean y, boolean z) { return clone().abs(x, y, z); }
-	
 	default double max() { return Math.max(getX(), Math.max(getY(), getZ())); }
 	default double min() { return Math.min(getX(), Math.min(getY(), getZ())); }
 	

@@ -49,12 +49,7 @@ public interface Vec3fBase extends Vecf
 	
 	default Vec3f normalized() { return clone().normalize(); }
 
-	default Vec3f floorN() { return clone().floor(); }
-	default Vec3f ceilN() { return clone().ceil(); }
-	default Vec3f roundN() { return clone().round(); }
-	
-	default Vec3f absN(boolean x, boolean y, boolean z) { return clone().abs(x, y, z); }
-	
+
 	default float max() { return Math.max(getX(), Math.max(getY(), getZ())); }
 	default float min() { return Math.min(getX(), Math.min(getY(), getZ())); }
 	

@@ -13,11 +13,7 @@ public interface Vec4d extends Vec4dBase
 	Vec4d setZ(double z);
 	Vec4d setA(float a);
 	Vec4d setA(double a);
-	
-	default Vec4d floor() { return set(Math.floor(getX()), Math.floor(getY()), Math.floor(getZ()), Math.floor(getA())); }
-	default Vec4d ceil() { return set(Math.ceil(getX()), Math.ceil(getY()), Math.ceil(getZ()), Math.ceil(getA())); }
-	default Vec4d round() { return set(Math.round(getX()), Math.round(getY()), Math.round(getZ()), Math.round(getA())); }
-	
+
 	default Vec4d normalize() { return Check.notNull(this) ? div(length()) : this; }
 
 	default Vec4d invert() { return mul(-1.0f); }
@@ -68,9 +64,7 @@ public interface Vec4d extends Vec4dBase
 		
 		return new Vector4d(x, y, z, a);
 	}
-	
-	default Vec4d abs(boolean x, boolean y, boolean z, boolean a) { return set(x ? Math.abs(getX()) : getX(), y ? Math.abs(getY()) : getY(), z ? Math.abs(getZ()) : getZ(), a ? Math.abs(getA()) : getA() ); }
-	
+
 	default Vec4d setZero() { return set(0.0f); }
 	
 	default Vec4d set(Vec4dBase v) { return set(v.getX(), v.getY(), v.getZ(), v.getA()); }

@@ -53,12 +53,6 @@ public interface Vec4dBase extends Vecd
 	
 	default Vec4d normalized() { return clone().normalize(); }
 
-	default Vec4d floorN() { return clone().floor(); }
-	default Vec4d ceilN() { return clone().ceil(); }
-	default Vec4d roundN() { return clone().round(); }
-	
-	default Vec4d absN(boolean x, boolean y, boolean z, boolean a) { return clone().abs(x, y, z, a); }
-	
 	default double max() { return Math.max(getX(), Math.max(getY(), getZ())); }
 	default double min() { return Math.min(getX(), Math.min(getY(), getZ())); }
 	

@@ -12,11 +12,7 @@ public interface Vec3d extends Vec3dBase
 	Vec3d setY(double y); 
 	Vec3d setZ(float z);
 	Vec3d setZ(double z);
-	
-	default Vec3d floor() { return set(Math.floor(getX()), Math.floor(getY()), Math.floor(getZ())); }
-	default Vec3d ceil() { return set(Math.ceil(getX()), Math.ceil(getY()), Math.ceil(getZ())); }
-	default Vec3d round() { return set(Math.round(getX()), Math.round(getY()), Math.round(getZ())); }
-	
+
 	default Vec3d normalize() { return Check.notNull(this) ? div(length()) : this; }
 	
 	default Vec3d invert() { return mul(-1.0f); }
@@ -62,8 +58,7 @@ public interface Vec3d extends Vec3dBase
 		return new Vector3d(x, y, z);
 	}
 	
-	default Vec3d abs(boolean x, boolean y, boolean z) { return set(x ? Math.abs(getX()) : getX(), y ? Math.abs(getY()) : getY(), z ? Math.abs(getZ()) : getZ()); }
-	
+
 	default Vec3d setZero() { return set(0.0f); }
 	
 	default Vec3d set(Vec3dBase v) { return set(v.getX(), v.getY(), v.getZ()); }
