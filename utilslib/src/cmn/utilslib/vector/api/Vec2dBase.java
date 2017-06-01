@@ -50,29 +50,33 @@ public interface Vec2dBase extends Vecd
 	
 
 
-	default Vec2d addN(Vec2dBase v) { return addN(v.getX(), v.getY()); }
-	default Vec2d addN(float scalar) { return addN(scalar, scalar); }
-	default Vec2d addN(double scalar) { return addN(scalar, scalar); }
-	default Vec2d addN(float x, float y) { return clone().add(x, y); }
-	default Vec2d addN(double x, double y) { return clone().add(x, y); }
+	Vec2d addN(Vec2dBase v);
+	Vec2d addN(float scalar); 
+	Vec2d addN(double scalar); 
+	Vec2d addN(float x, float y);
+	Vec2d addN(double x, double y);
 	
-	default Vec2d subN(Vec2dBase v) { return subN(v.getX(), v.getY()); }
-	default Vec2d subN(float scalar) { return subN(scalar, scalar); }
-	default Vec2d subN(double scalar) { return subN(scalar, scalar); }
-	default Vec2d subN(float x, float y) { return clone().sub(x, y); }
-	default Vec2d subN(double x, double y) { return clone().sub(x, y); }
+	Vec2d subN(Vec2dBase v); 
+	Vec2d subN(float scalar); 
+	Vec2d subN(double scalar); 
+	Vec2d subN(float x, float y); 
+	Vec2d subN(double x, double y);
 	
-	default Vec2d mulN(Vec2dBase v) { return mulN(v.getX(), v.getY()); }
-	default Vec2d mulN(float scalar) { return mulN(scalar, scalar); }
-	default Vec2d mulN(double scalar) { return mulN(scalar, scalar); }
-	default Vec2d mulN(float x, float y) { return clone().mul(x, y); }
-	default Vec2d mulN(double x, double y) { return clone().mul(x, y); }
+	Vec2d mulN(Vec2dBase v);
+	Vec2d mulN(float scalar); 
+	Vec2d mulN(double scalar); 
+	Vec2d mulN(float x, float y); 
+	Vec2d mulN(double x, double y);
 	
-	default Vec2d divN(Vec2dBase v) { return divN(v.getX(), v.getY()); }
-	default Vec2d divN(float scalar) { return divN(scalar, scalar); }
-	default Vec2d divN(double scalar) { return divN(scalar, scalar); }
-	default Vec2d divN(float x, float y) { return clone().div(x, y); }
-	default Vec2d divN(double x, double y) { return clone().div(x, y); }
+	Vec2d divN(Vec2dBase v);
+	Vec2d divN(float scalar); 
+	Vec2d divN(double scalar);
+	Vec2d divN(float x, float y); 
+	Vec2d divN(double x, double y);
+	
+	Vec2d inverted();
+	
+	Vec2d normalized();
 	
 	
 	
@@ -87,10 +91,4 @@ public interface Vec2dBase extends Vecd
 	default double length() { return Math.sqrt(squaredLength()); }
 	default double squaredLength() { return getX() * getX() + getY() * getY(); }
 
-	
-	
-	default Vec2d inverted() { return clone().invert(); }
-	
-	default Vec2d normalized() { return clone().normalize(); }
-	
 }

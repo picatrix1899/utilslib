@@ -87,45 +87,105 @@ public class Vector2d implements Vec2d
 	 * SETTERS
 	 * =========
 	 */
+	
+	/**
+	 * Sets all the components based on another 2 dimensional float vector {@literal <v>}
+	 * @return
+	 */
+	public Vector2d set(Vec2dBase v) { return set(v.getX(), v.getY()); }
+	/**
+	 * Sets all components to zero
+	 */
+	public Vector2d setZero() { return set(0.0f); }
+	/**
+	 * Sets all the components to {@literal <scalar>}
+	 */
+	public Vector2d set(float scalar) { return set(scalar, scalar); }
+	/**
+	 * Sets all the components to {@literal <scalar>}
+	 */
+	public Vector2d set(double scalar) { return set(scalar, scalar); }
+	/**
+	 * Sets the component x to {@literal <x>} and the component y to {@literal <y>}
+	 */
+	public Vector2d set(float x, float y) { return setX(x).setY(y); }
+	/**
+	 * Sets the component x to {@literal <x>} and the component y to {@literal <y>}
+	 */
+	public Vector2d set(double x, double y) { return setX(x).setY(y); }
+	
 	/** {@inheritDoc} */ @Override
-	public Vec2d setX(float x) { this.x = x; return this; }
+	public Vector2d setX(float x) { this.x = x; return this; }
 	/** {@inheritDoc} */ @Override
-	public Vec2d setX(double x) { this.x = (float)x; return this; }
+	public Vector2d setX(double x) { this.x = (float)x; return this; }
 
 	
 	/** {@inheritDoc} */ @Override
-	public Vec2d setY(float y) { this.y = y; return this; }
+	public Vector2d setY(float y) { this.y = y; return this; }
 	/** {@inheritDoc} */ @Override
-	public Vec2d setY(double y) { this.y = (float)y; return this; }	
+	public Vector2d setY(double y) { this.y = (float)y; return this; }	
 
 	
-	public Vector2d addN(Vec2dBase v) { return (Vector2d) super.addN(v); }
-	public Vector2d addN(float scalar) { return (Vector2d) super.addN(scalar); }
-	public Vector2d addN(double scalar) { return (Vector2d) super.addN(scalar); }
-	public Vector2d addN(float x, float y) { return (Vector2d) super.addN(x, y); }
-	public Vector2d addN(double x, double y) { return (Vector2d) super.addN(x, y); }
 	
-	public Vector2d subN(Vec2dBase v) { return (Vector2d) super.subN(v); }
-	public Vector2d subN(float scalar) { return (Vector2d) super.subN(scalar); }
-	public Vector2d subN(double scalar) { return (Vector2d) super.subN(scalar); }
-	public Vector2d subN(float x, float y) { return (Vector2d)super.subN(x, y); }
-	public Vector2d subN(double x, double y) { return (Vector2d) super.subN(x, y); }
 	
-	public Vector2d mulN(Vec2dBase v) { return (Vector2d) super.mulN(v); }
-	public Vector2d mulN(float scalar) { return (Vector2d) super.mulN(scalar); }
-	public Vector2d mulN(double scalar) { return (Vector2d) super.mulN(scalar); }
-	public Vector2d mulN(float x, float y) { return (Vector2d) super.mulN(x, y); }
-	public Vector2d mulN(double x, double y) { return (Vector2d) super.mulN(x, y); }
+	/** */
+	public Vector2d add(Vec2dBase v) { return add(v.getX(), v.getY()); }
+	/** */
+	public Vector2d add(float scalar) { return add(scalar, scalar); }
+	public Vector2d add(double scalar) { return add(scalar, scalar); }
+	public Vector2d add(float x, float y) { return set(getX() + x, getY() + y); }
+	public Vector2d add(double x, double y) { return set(getX() + x, getY() + y); }
 	
-	public Vector2d divN(Vec2dBase v) { return (Vector2d) super.divN(v); }
-	public Vector2d divN(float scalar) { return (Vector2d) super.divN(scalar); }
-	public Vector2d divN(double scalar) { return (Vector2d) super.divN(scalar); }
-	public Vector2d divN(float x, float y) { return (Vector2d) super.divN(x, y); }
-	public Vector2d divN(double x, double y) { return (Vector2d) super.divN(x, y); }
+	public Vector2d sub(Vec2dBase v) { return sub(v.getX(), v.getY()); }
+	public Vector2d sub(float scalar) { return sub(scalar, scalar); }
+	public Vector2d sub(double scalar) { return sub(scalar, scalar); }
+	public Vector2d sub(float x, float y) { return set(getX() - x, getY() - y); }
+	public Vector2d sub(double x, double y) { return set(getX() - x, getY() - y); }
+
+	public Vector2d mul(Vec2dBase v) { return mul(v.getX(), v.getY()); }
+	public Vector2d mul(float scalar) { return mul(scalar, scalar); }
+	public Vector2d mul(double scalar) { return mul(scalar, scalar); }
+	public Vector2d mul(float x, float y) { return set(getX() * x, getY() * y); }
+	public Vector2d mul(double x, double y) { return set(getX() * x, getY() * y); }
+
+	public Vector2d div(Vec2dBase v) { return div(v.getX(), v.getY()); }
+	public Vector2d div(float scalar) { return div(scalar, scalar); }
+	public Vector2d div(double scalar) { return div(scalar, scalar); }
+	public Vector2d div(float x, float y) { return set(getX() / x, getY() / y); }
+	public Vector2d div(double x, double y) { return set(getX() / x, getY() / y); }
 	
-	public Vector2d inverted() { return (Vector2d) super.inverted(); }
 	
-	public Vector2d normalized() { return (Vector2d) super.normalized(); }
+	public Vector2d normalize() { return div(length()); }
+	
+	public Vector2d invert() { return mul(-1.0f); }
+	
+	public Vector2d addN(Vec2dBase v) { return addN(v.getX(), v.getY()); }
+	public Vector2d addN(float scalar) { return addN(scalar, scalar); }
+	public Vector2d addN(double scalar) { return addN(scalar, scalar); }
+	public Vector2d addN(float x, float y) { return clone().add(x, y); }
+	public Vector2d addN(double x, double y) { return clone().add(x, y); }
+	
+	public Vector2d subN(Vec2dBase v) { return subN(v.getX(), v.getY()); }
+	public Vector2d subN(float scalar) { return subN(scalar, scalar); }
+	public Vector2d subN(double scalar) { return subN(scalar, scalar); }
+	public Vector2d subN(float x, float y) { return clone().sub(x, y); }
+	public Vector2d subN(double x, double y) { return clone().sub(x, y); }
+	
+	public Vector2d mulN(Vec2dBase v) { return mulN(v.getX(), v.getY()); }
+	public Vector2d mulN(float scalar) { return mulN(scalar, scalar); }
+	public Vector2d mulN(double scalar) { return mulN(scalar, scalar); }
+	public Vector2d mulN(float x, float y) { return clone().mul(x, y); }
+	public Vector2d mulN(double x, double y) { return clone().mul(x, y); }
+	
+	public Vector2d divN(Vec2dBase v) { return divN(v.getX(), v.getY()); }
+	public Vector2d divN(float scalar) { return divN(scalar, scalar); }
+	public Vector2d divN(double scalar) { return divN(scalar, scalar); }
+	public Vector2d divN(float x, float y) { return clone().div(x, y); }
+	public Vector2d divN(double x, double y) { return clone().div(x, y); }
+	
+	public Vector2d inverted() { return clone().invert(); }
+	
+	public Vector2d normalized() { return clone().normalize(); }
 	
 	
 	/*
