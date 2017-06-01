@@ -1,17 +1,11 @@
 package cmn.utilslib.vector.api;
 
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.util.Iterator;
-
 import cmn.utilslib.essentials.Maths;
-import cmn.utilslib.interfaces.Streamable;
 import cmn.utilslib.vector.PVector4f;
 import cmn.utilslib.vector.Quaternion;
 import cmn.utilslib.vector.Vector4f;
 
-public interface Vec4fBase extends Iterable<Float>, Streamable.Readable
+public interface Vec4fBase extends Vecf
 {
 	/*
 	 * ==============
@@ -36,7 +30,21 @@ public interface Vec4fBase extends Iterable<Float>, Streamable.Readable
 	float getZ();
 	float getA();
 
+	@Override
+	default float get(int index)
+	{
+		switch(index)
+		{
+			case 0: return getX();
+			case 1: return getY();
+			case 2: return getZ();
+			case 3: return getA();
+			default: return 0.0f;
+		}
+	}
 
+	@Override
+	default int getDimensions() { return DIMENSIONS; }
 	
 	default Vec4f inverted() { return clone().invert(); }
 	
@@ -148,54 +156,4 @@ public interface Vec4fBase extends Iterable<Float>, Streamable.Readable
 
 	default float length() { return (float)Math.sqrt(squaredLength()); }
 	default float squaredLength() { return getX() * getX() + getY() * getY() + getZ() * getZ() + getA() * getA(); }
-	
-	
-	/** */ @Override
-	default Iterator<Float> iterator()
-	{
-		return new Iterator<Float>()
-		{
-
-			private int index = 0;
-			
-			/**  */
-			@Override
-			public boolean hasNext() { return this.index < DIMENSIONS; }
-
-			/** */
-			@Override
-			public Float next()
-			{
-				if(hasNext())
-				{
-					float out = 0;
-					
-					switch(this.index)
-					{
-						case 0: out = getX();
-						case 1: out = getY();
-						case 2: out = getZ();
-						case 3: out = getA();
-					}
-					
-					index++;
-					
-					return out;					
-				}
-			
-				return 0.0f;
-			}
-			
-		};
-	}
-
-	/** {@inheritDoc} */ @Override
-	default void writeData(OutputStream stream) throws IOException
-	{
-		DataOutputStream dos = new DataOutputStream(stream);
-		dos.writeFloat(getX());
-		dos.writeFloat(getY());
-		dos.writeFloat(getZ());
-		dos.writeFloat(getA());
-	}
 }

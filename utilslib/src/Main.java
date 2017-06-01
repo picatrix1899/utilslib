@@ -1,6 +1,5 @@
-import cmn.utilslib.vector.Quaternion;
+
 import cmn.utilslib.vector.Vector3f;
-import cmn.utilslib.vector.api.Vec3f;
 
 public class Main
 {

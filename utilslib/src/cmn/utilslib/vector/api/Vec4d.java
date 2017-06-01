@@ -1,14 +1,9 @@
 package cmn.utilslib.vector.api;
 
-import java.io.DataInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-
 import cmn.utilslib.essentials.Check;
-import cmn.utilslib.interfaces.Streamable;
 import cmn.utilslib.vector.Vector4d;
 
-public interface Vec4d extends Vec4dBase, Streamable.Writeable
+public interface Vec4d extends Vec4dBase
 {
 	Vec4d setX(float x);
 	Vec4d setX(double x); 
@@ -104,14 +99,5 @@ public interface Vec4d extends Vec4dBase, Streamable.Writeable
 	default Vec4d div(double scalar) { return div(scalar, scalar, scalar, scalar); }
 	default Vec4d div(float x, float y, float z, float a) { return set(getX() / x, getY() / y, getZ() / z, getA() / a); }
 	default Vec4d div(double x, double y, double z, double a) { return set(getX() / x, getY() / y, getZ() / z, getA() / a); }
-	
-	/** {@inheritDoc} */ @Override
-	default void readData(InputStream stream) throws IOException
-	{
-		DataInputStream dis = new DataInputStream(stream);
-		setX(dis.readDouble());
-		setY(dis.readDouble());
-		setZ(dis.readDouble());
-		setA(dis.readDouble());
-	}
+
 }

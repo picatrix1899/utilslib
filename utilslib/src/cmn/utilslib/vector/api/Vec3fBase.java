@@ -1,17 +1,11 @@
 package cmn.utilslib.vector.api;
 
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.util.Iterator;
-
 import cmn.utilslib.essentials.Maths;
-import cmn.utilslib.interfaces.Streamable;
 import cmn.utilslib.vector.PVector3f;
 import cmn.utilslib.vector.Quaternion;
 import cmn.utilslib.vector.Vector3f;
 
-public interface Vec3fBase extends Iterable<Float>, Streamable.Readable
+public interface Vec3fBase extends Vecf
 {
 	/*
 	 * ==============
@@ -35,7 +29,21 @@ public interface Vec3fBase extends Iterable<Float>, Streamable.Readable
 	float getY();
 	float getZ();
 
+	@Override
+	default float get(int index)
+	{
+		switch(index)
+		{
+			case 0: return getX();
+			case 1: return getY();
+			case 2: return getZ();
+			default: return 0.0f;
+		}
+	}
 
+	@Override
+	default int getDimensions() { return DIMENSIONS; }
+	
 	
 	default Vec3f inverted() { return clone().invert(); }
 	
@@ -152,52 +160,4 @@ public interface Vec3fBase extends Iterable<Float>, Streamable.Readable
 
 	default float length() { return (float)Math.sqrt(squaredLength()); }
 	default float squaredLength() { return getX() * getX() + getY() * getY() + getZ() * getZ(); }
-	
-	
-	/** */ @Override
-	default Iterator<Float> iterator()
-	{
-		return new Iterator<Float>()
-		{
-
-			private int index = 0;
-			
-			/**  */
-			@Override
-			public boolean hasNext() { return this.index < DIMENSIONS; }
-
-			/** */
-			@Override
-			public Float next()
-			{
-				if(hasNext())
-				{
-					float out = 0;
-					
-					switch(this.index)
-					{
-						case 0: out = getX();
-						case 1: out = getY();
-						case 2: out = getZ();
-					}
-					
-					index++;
-					
-					return out;					
-				}
-			
-				return 0.0f;
-			}
-			
-		};
-	}
-
-	/** {@inheritDoc} */ @Override
-	default void writeData(OutputStream stream) throws IOException
-	{
-		DataOutputStream dos = new DataOutputStream(stream);
-		dos.writeFloat(getX());
-		dos.writeFloat(getY());
-		dos.writeFloat(getZ());
-	}
 }

@@ -1,13 +1,8 @@
 package cmn.utilslib.matrix;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.Serializable;
 import java.nio.FloatBuffer;
 
 import cmn.utilslib.essentials.BufferUtils;
-import cmn.utilslib.interfaces.Streamable;
 import cmn.utilslib.vector.Quaternion;
 import cmn.utilslib.vector.Vector3f;
 import cmn.utilslib.vector.api.Vec3f;
@@ -19,11 +14,9 @@ import cmn.utilslib.vector.api.Vec3fBase;
  * @author picatrix1899
  *
  */
-public class Matrix3f implements Streamable.Readable, Streamable.Writeable, Serializable
+public class Matrix3f
 {
 
-	private static final long serialVersionUID = 1L;
-	
 	public static final int ROWS = 3;
 	public static final int COLS = 3;
 	public static final int ENTS = 9;
@@ -277,17 +270,4 @@ public class Matrix3f implements Streamable.Readable, Streamable.Writeable, Seri
 	
 	public Matrix3f invert() { return set(inversed()); }
 
-	public void readData(InputStream stream) throws IOException
-	{
-		this.m0.readData(stream);
-		this.m1.readData(stream);
-		this.m2.readData(stream);
-	}
-
-	public void writeData(OutputStream stream) throws IOException
-	{
-		this.m0.writeData(stream);
-		this.m1.writeData(stream);
-		this.m2.writeData(stream);
-	}
 }

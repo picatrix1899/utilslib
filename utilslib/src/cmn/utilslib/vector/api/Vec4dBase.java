@@ -1,17 +1,13 @@
 package cmn.utilslib.vector.api;
 
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.util.Iterator;
+
 
 import cmn.utilslib.essentials.Maths;
-import cmn.utilslib.interfaces.Streamable;
 import cmn.utilslib.vector.PVector4d;
 import cmn.utilslib.vector.Quaternion;
 import cmn.utilslib.vector.Vector4d;
 
-public interface Vec4dBase extends Iterable<Double>, Streamable.Readable
+public interface Vec4dBase extends Vecd
 {
 	/*
 	 * ==============
@@ -36,7 +32,22 @@ public interface Vec4dBase extends Iterable<Double>, Streamable.Readable
 	double getZ();
 	double getA();
 
+	@Override
+	default double get(int index)
+	{
+		switch(index)
+		{
+			case 0: return getX();
+			case 1: return getY();
+			case 2: return getZ();
+			case 3: return getA();
+			default: return 0.0d;
+		}
+	}
 
+	@Override
+	default int getDimensions() { return DIMENSIONS; }
+	
 	
 	default Vec4d inverted() { return clone().invert(); }
 	
@@ -148,54 +159,4 @@ public interface Vec4dBase extends Iterable<Double>, Streamable.Readable
 
 	default double length() { return Math.sqrt(squaredLength()); }
 	default double squaredLength() { return getX() * getX() + getY() * getY() + getZ() * getZ() + getA() * getA(); }
-	
-	
-	/** */ @Override
-	default Iterator<Double> iterator()
-	{
-		return new Iterator<Double>()
-		{
-
-			private int index = 0;
-			
-			/**  */
-			@Override
-			public boolean hasNext() { return this.index < DIMENSIONS; }
-
-			/** */
-			@Override
-			public Double next()
-			{
-				if(hasNext())
-				{
-					double out = 0.0d;
-					
-					switch(this.index)
-					{
-						case 0: out = getX();
-						case 1: out = getY();
-						case 2: out = getZ();
-						case 3: out = getA();
-					}
-					
-					index++;
-					
-					return out;					
-				}
-			
-				return 0.0d;
-			}
-			
-		};
-	}
-
-	/** {@inheritDoc} */ @Override
-	default void writeData(OutputStream stream) throws IOException
-	{
-		DataOutputStream dos = new DataOutputStream(stream);
-		dos.writeDouble(getX());
-		dos.writeDouble(getY());
-		dos.writeDouble(getZ());
-		dos.writeDouble(getA());
-	}
 }

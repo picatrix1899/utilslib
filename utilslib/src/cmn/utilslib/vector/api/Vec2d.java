@@ -1,12 +1,6 @@
 package cmn.utilslib.vector.api;
 
-import java.io.DataInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-
-import cmn.utilslib.interfaces.Streamable;
-
-public interface Vec2d extends Vec2dBase, Streamable.Writeable
+public interface Vec2d extends Vec2dBase
 {
 	/** Sets the x component to {@literal <x>} */
 	Vec2d setX(float x);
@@ -83,14 +77,5 @@ public interface Vec2d extends Vec2dBase, Streamable.Writeable
 	default Vec2d floor() { return set(Math.floor(getX()), Math.floor(getY())); }
 	default Vec2d ceil() { return set(Math.ceil(getX()), Math.ceil(getY())); }
 	default Vec2d round() { return set(Math.round(getX()), Math.round(getY())); }
-	
-	 
-	
-	/** {@inheritDoc} */ @Override
-	default void readData(InputStream stream) throws IOException
-	{
-		DataInputStream dis = new DataInputStream(stream);
-		setX(dis.readDouble());
-		setY(dis.readDouble());
-	}
+
 }

@@ -1,14 +1,9 @@
 package cmn.utilslib.vector.api;
 
-import java.io.DataInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-
 import cmn.utilslib.essentials.Check;
-import cmn.utilslib.interfaces.Streamable;
 import cmn.utilslib.vector.Vector3f;
 
-public interface Vec3f extends Vec3fBase, Streamable.Writeable
+public interface Vec3f extends Vec3fBase
 {
 	
 	Vec3f setX(float x);
@@ -97,15 +92,4 @@ public interface Vec3f extends Vec3fBase, Streamable.Writeable
 	default Vec3f div(float scalar) { return div(scalar, scalar, scalar); }
 	default Vec3f div(float x, float y, float z) { return set(getX() / x, getY() / y, getZ() / z); }
 	default Vec3f div(double x, double y, double z) { return set(getX() / x, getY() / y, getZ() / z); }
-	
-	/** {@inheritDoc} */ @Override
-	default void readData(InputStream stream) throws IOException
-	{
-		DataInputStream dis = new DataInputStream(stream);
-		setX(dis.readFloat());
-		setY(dis.readFloat());
-		setZ(dis.readFloat());
-
-	}
-	
 }

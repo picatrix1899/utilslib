@@ -1,7 +1,6 @@
 
 package cmn.utilslib.vector;
 
-import cmn.utilslib.vector.api.Vec4f;
 import cmn.utilslib.vector.api.Vec4fBase;
 
 /** 

@@ -1,16 +1,10 @@
 package cmn.utilslib.vector.api;
 
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.util.Iterator;
-
 import cmn.utilslib.essentials.Maths;
-import cmn.utilslib.interfaces.Streamable;
 import cmn.utilslib.vector.Quaternion;
 import cmn.utilslib.vector.Vector3d;
 
-public interface Vec3dBase extends Iterable<Double>, Streamable.Readable
+public interface Vec3dBase extends Vecd
 {
 	/*
 	 * ==============
@@ -26,7 +20,20 @@ public interface Vec3dBase extends Iterable<Double>, Streamable.Readable
 	double getY();
 	double getZ();
 
+	@Override
+	default double get(int index)
+	{
+		switch(index)
+		{
+			case 0: return getX();
+			case 1: return getY();
+			case 2: return getZ();
+			default: return 0.0d;
+		}
+	}
 
+	@Override
+	default int getDimensions() { return DIMENSIONS; }
 	
 	default Vec3d inverted() { return clone().invert(); }
 	
@@ -143,52 +150,4 @@ public interface Vec3dBase extends Iterable<Double>, Streamable.Readable
 
 	default double length() { return Math.sqrt(squaredLength()); }
 	default double squaredLength() { return getX() * getX() + getY() * getY() + getZ() * getZ(); }
-	
-	
-	/** */ @Override
-	default Iterator<Double> iterator()
-	{
-		return new Iterator<Double>()
-		{
-
-			private int index = 0;
-			
-			/**  */
-			@Override
-			public boolean hasNext() { return this.index < DIMENSIONS; }
-
-			/** */
-			@Override
-			public Double next()
-			{
-				if(hasNext())
-				{
-					double out = 0;
-					
-					switch(this.index)
-					{
-						case 0: out = getX();
-						case 1: out = getY();
-						case 2: out = getZ();
-					}
-					
-					index++;
-					
-					return out;					
-				}
-			
-				return 0.0d;
-			}
-			
-		};
-	}
-
-	/** {@inheritDoc} */ @Override
-	default void writeData(OutputStream stream) throws IOException
-	{
-		DataOutputStream dos = new DataOutputStream(stream);
-		dos.writeDouble(getX());
-		dos.writeDouble(getY());
-		dos.writeDouble(getZ());
-	}
 }

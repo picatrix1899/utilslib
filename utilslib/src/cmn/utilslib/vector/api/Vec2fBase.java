@@ -1,15 +1,11 @@
 package cmn.utilslib.vector.api;
 
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.util.Iterator;
+
 
 import cmn.utilslib.essentials.Maths;
-import cmn.utilslib.interfaces.Streamable;
 import cmn.utilslib.vector.PVector2f;
 
-public interface Vec2fBase extends Iterable<Float>, Streamable.Readable
+public interface Vec2fBase extends Vecf
 {
 	
 	/*
@@ -34,6 +30,20 @@ public interface Vec2fBase extends Iterable<Float>, Streamable.Readable
 	float getX();
 	float getY();
 
+	@Override
+	default float get(int index)
+	{
+		switch(index)
+		{
+			case 0: return getX();
+			case 1: return getY();
+			default: return 0.0f;
+		}
+	}
+
+	@Override
+	default int getDimensions() { return DIMENSIONS; }
+	
 	Vec2f clone();
 	
 
@@ -81,43 +91,7 @@ public interface Vec2fBase extends Iterable<Float>, Streamable.Readable
 	default float length() { return (float)Math.sqrt(squaredLength()); }
 	default float squaredLength() { return getX() * getX() + getY() * getY(); }
 	
-	
-	/** */ @Override
-	default Iterator<Float> iterator()
-	{
-		return new Iterator<Float>()
-		{
 
-			private int index = 0;
-			
-			/**  */
-			@Override
-			public boolean hasNext() { return this.index < DIMENSIONS; }
-
-			/** */
-			@Override
-			public Float next()
-			{
-				if(hasNext())
-				{
-					float out = 0;
-					
-					switch(this.index)
-					{
-						case 0: out = getX();
-						case 1: out = getY();
-					}
-					
-					index++;
-					
-					return out;					
-				}
-			
-				return 0.0f;
-			}
-			
-		};
-	}
 	
 	default Vec2f inverted() { return clone().invert(); }
 	
@@ -125,14 +99,5 @@ public interface Vec2fBase extends Iterable<Float>, Streamable.Readable
 	
 	default Vec2f floorN() { return clone().floor(); }
 	default Vec2f ceilN() { return clone().ceil(); }
-	default Vec2f roundN() { return clone().round(); }
-	
-	/** {@inheritDoc} */ @Override
-	default void writeData(OutputStream stream) throws IOException
-	{
-		DataOutputStream dos = new DataOutputStream(stream);
-		dos.writeFloat(getX());
-		dos.writeFloat(getY());
-	}
-	 
+	default Vec2f roundN() { return clone().round(); } 
 }

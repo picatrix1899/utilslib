@@ -1,22 +1,14 @@
 package cmn.utilslib.matrix;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.Serializable;
 import java.nio.FloatBuffer;
 
 import cmn.utilslib.essentials.BufferUtils;
-import cmn.utilslib.interfaces.Streamable;
 import cmn.utilslib.vector.Vector2f;
 import cmn.utilslib.vector.api.Vec2f;
 import cmn.utilslib.vector.api.Vec2fBase;
 
-public class Matrix2f implements Streamable.Readable, Streamable.Writeable, Serializable
+public class Matrix2f
 {
-
-	private static final long serialVersionUID = 1L;
-
 	public static final int ROWS = 2;
 	public static final int COLS = 2;
 	public static final int ENTS = 4;
@@ -159,18 +151,6 @@ public class Matrix2f implements Streamable.Readable, Streamable.Writeable, Seri
 		m.m1.set(this.m1);
 		
 		return m;
-	}
-	
-	public void readData(InputStream stream) throws IOException
-	{
-		this.m0.readData(stream);
-		this.m1.readData(stream);
-	}
-
-	public void writeData(OutputStream stream) throws IOException
-	{
-		this.m0.writeData(stream);
-		this.m1.writeData(stream);
 	}
 
 }
