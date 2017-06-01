@@ -13,7 +13,7 @@ import cmn.utilslib.vector.api.Vec4dBase;
 import cmn.utilslib.vector.api.Vec4f;
 import cmn.utilslib.vector.api.Vec4fBase;
 
-public class VecUtils
+public class VectorRounding
 {
 	public static Vec2f floorN(Vec2fBase v) { return floor(v.clone()); }
 	public static Vec2f floorN(Vec2fBase v, boolean x, boolean y) { return floor(v.clone(), x, y); }
