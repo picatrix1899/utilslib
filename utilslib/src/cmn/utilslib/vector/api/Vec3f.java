@@ -1,8 +1,5 @@
 package cmn.utilslib.vector.api;
 
-import cmn.utilslib.essentials.Check;
-import cmn.utilslib.vector.Vector3f;
-
 public interface Vec3f extends Vec3fBase
 {
 	
@@ -12,79 +9,44 @@ public interface Vec3f extends Vec3fBase
 	Vec3f setY(double y); 
 	Vec3f setZ(float z);
 	Vec3f setZ(double z);
+
+	Vec3f normalize();
+	
+	Vec3f invert();
+	
+	Vec3f reflect(Vec3fBase normal);
+	
+	Vec3f lerp(Vec3fBase v, float f);
+	
+	Vec3f slerp(Vec3fBase v, double f);
 	
 
-	default Vec3f normalize() { return Check.notNull(this) ? div(length()) : this; }
+	Vec3f setZero();
 	
-	default Vec3f invert() { return mul(-1.0f); }
-	
-	default Vec3f reflect(Vec3fBase normal)
-	{
-		double angle = dot(normal) * 2;
-		
-		setX(getX() - (angle) * normal.getX());
-		setY(getY() - (angle) * normal.getY());
-		setZ(getZ() - (angle) * normal.getZ());
-		
-		return this;
-	}
-	
-	default Vec3f lerp(Vec3fBase v, float f)
-	{
-		setX(getX() + (v.getX() - getX()) * f);
-		setY(getY() + (v.getY() - getY()) * f);
-		setZ(getZ() + (v.getZ() - getZ()) * f);
-		
-		return this;
-	}
-	
-	default Vec3f slerp(Vec3fBase v, double f)
-	{
-		double angle = angleRad(v);
-		
-		double sinAngle = Math.sin(angle);
+	Vec3f set(Vec3fBase v);
 
-		double x_1 = (1 - f)	* sinAngle / sinAngle * getX();
-		double x_2 = f			* sinAngle / sinAngle * v.getX();
-		double x = x_1 + x_2;
-		
-		double y_1 = (1 - f)	* sinAngle / sinAngle * getY();
-		double y_2 = f			* sinAngle / sinAngle * v.getY();
-		double y = y_1 + y_2;
-		
-		double z_1 = (1 - f)	* sinAngle / sinAngle * getZ();
-		double z_2 = f			* sinAngle / sinAngle * v.getZ();
-		double z = z_1 + z_2;
-		
-		return new Vector3f((float)x, (float)y, (float)z);
-	}
+	Vec3f set(float scalar);
+	Vec3f set(double scalar);
+	Vec3f set(float x, float y, float z);
+	Vec3f set(double x, double y, double z);
 
-	default Vec3f setZero() { return set(0.0f); }
-	
-	default Vec3f set(Vec3fBase v) { return set(v.getX(), v.getY(), v.getZ()); }
-	
-	default Vec3f set(float scalar) { return set(scalar, scalar, scalar); }
-	default Vec3f set(double scalar) { return set(scalar, scalar, scalar); }
-	default Vec3f set(float x, float y, float z) { return setX(x).setY(y).setZ(z); }
-	default Vec3f set(double x, double y, double z) { return setX(x).setY(y).setZ(z); }
+	Vec3f add(Vec3fBase v);
+	Vec3f add(double scalar);
+	Vec3f add(float x, float y, float z);
+	Vec3f add(double x, double y, double z);
 
-	default Vec3f add(Vec3fBase v) { return add(v.getX(), v.getY(), v.getZ()); }
-	default Vec3f add(float scalar) { return add(scalar, scalar, scalar); }
-	default Vec3f add(float x, float y, float z) { return set(getX() + x, getY() + y, getZ() + z); }
-	default Vec3f add(double x, double y, double z) { return set(getX() + x, getY() + y, getZ() + z); }
-
-	default Vec3f sub(Vec3fBase v) { return sub(v.getX(), v.getY(), v.getZ()); }
-	default Vec3f sub(float scalar) { return sub(scalar, scalar, scalar); }
-	default Vec3f sub(float x, float y, float z) { return set(getX() - x, getY() - y, getZ() - z); }
-	default Vec3f sub(double x, double y, double z) { return set(getX() - x, getY() - y, getZ() - z); }
+	Vec3f sub(Vec3fBase v);
+	Vec3f sub(double scalar);
+	Vec3f sub(float x, float y, float z);
+	Vec3f sub(double x, double y, double z);
 	
-	default Vec3f mul(Vec3fBase v) { return mul(v.getX(), v.getY(), v.getZ()); }
-	default Vec3f mul(float scalar) { return mul(scalar, scalar, scalar); }
-	default Vec3f mul(float x, float y, float z) { return set(getX() * x, getY() * y, getZ() * z); }
-	default Vec3f mul(double x, double y, double z) { return set(getX() * x, getY() * y, getZ() * z); }
+	Vec3f mul(Vec3fBase v);
+	Vec3f mul(double scalar);
+	Vec3f mul(float x, float y, float z);
+	Vec3f mul(double x, double y, double z);
 	
-	default Vec3f div(Vec3fBase v) { return div(v.getX(), v.getY(), v.getZ()); }
-	default Vec3f div(float scalar) { return div(scalar, scalar, scalar); }
-	default Vec3f div(float x, float y, float z) { return set(getX() / x, getY() / y, getZ() / z); }
-	default Vec3f div(double x, double y, double z) { return set(getX() / x, getY() / y, getZ() / z); }
+	Vec3f div(Vec3fBase v);
+	Vec3f div(double scalar);
+	Vec3f div(float x, float y, float z);
+	Vec3f div(double x, double y, double z);
 }

@@ -50,30 +50,33 @@ public interface Vec2fBase extends Vecf
 
 	
 	
-	default Vec2f addN(Vec2fBase v) { return addN(v.getX(), v.getY()); }
-	default Vec2f addN(float scalar) { return addN(scalar, scalar); }
-	default Vec2f addN(double scalar) { return addN(scalar, scalar); }
-	default Vec2f addN(float x, float y) { return clone().add(x, y); }
-	default Vec2f addN(double x, double y) { return clone().add(x, y); }
+	Vec2f addN(Vec2fBase v);
+	Vec2f addN(float scalar);
+	Vec2f addN(double scalar);
+	Vec2f addN(float x, float y);
+	Vec2f addN(double x, double y);
 	
-	default Vec2f subN(Vec2fBase v) { return subN(v.getX(), v.getY()); }
-	default Vec2f subN(float scalar) { return subN(scalar, scalar); }
-	default Vec2f subN(double scalar) { return subN(scalar, scalar); }
-	default Vec2f subN(float x, float y) { return clone().sub(x, y); }
-	default Vec2f subN(double x, double y) { return clone().sub(x, y); }
+	Vec2f subN(Vec2fBase v);
+	Vec2f subN(float scalar);
+	Vec2f subN(double scalar);
+	Vec2f subN(float x, float y);
+	Vec2f subN(double x, double y);
 	
-	default Vec2f mulN(Vec2fBase v) { return mulN(v.getX(), v.getY()); }
-	default Vec2f mulN(float scalar) { return mulN(scalar, scalar); }
-	default Vec2f mulN(double scalar) { return mulN(scalar, scalar); }
-	default Vec2f mulN(float x, float y) { return clone().sub(x, y); }
-	default Vec2f mulN(double x, double y) { return clone().sub(x, y); }
+	Vec2f mulN(Vec2fBase v);
+	Vec2f mulN(float scalar);
+	Vec2f mulN(double scalar);
+	Vec2f mulN(float x, float y);
+	Vec2f mulN(double x, double y);
 	
-	default Vec2f divN(Vec2fBase v) { return divN(v.getX(), v.getY()); }
-	default Vec2f divN(float scalar) { return divN(scalar, scalar); }
-	default Vec2f divN(double scalar) { return divN(scalar, scalar); }
-	default Vec2f divN(float x, float y) { return clone().sub(x, y); }
-	default Vec2f divN(double x, double y) { return clone().sub(x, y); }
+	Vec2f divN(Vec2fBase v);
+	Vec2f divN(float scalar);
+	Vec2f divN(double scalar);
+	Vec2f divN(float x, float y);
+	Vec2f divN(double x, double y);
 	
+	Vec2f inverted();
+	
+	Vec2f normalized();
 	
 	
 	default float dot(Vec2fBase v) { return this.getX() * v.getX() + this.getY() * v.getY(); }
@@ -87,10 +90,4 @@ public interface Vec2fBase extends Vecf
 	default float length() { return (float)Math.sqrt(squaredLength()); }
 	default float squaredLength() { return getX() * getX() + getY() * getY(); }
 	
-
-	
-	default Vec2f inverted() { return clone().invert(); }
-	
-	default Vec2f normalized() { return clone().normalize(); }
-
 }

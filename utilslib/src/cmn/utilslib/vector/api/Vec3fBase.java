@@ -3,7 +3,6 @@ package cmn.utilslib.vector.api;
 import cmn.utilslib.essentials.Maths;
 import cmn.utilslib.vector.PVector3f;
 import cmn.utilslib.vector.Quaternion;
-import cmn.utilslib.vector.Vector3f;
 
 public interface Vec3fBase extends Vecf
 {
@@ -45,107 +44,54 @@ public interface Vec3fBase extends Vecf
 	default int getDimensions() { return DIMENSIONS; }
 	
 	
-	default Vec3f inverted() { return clone().invert(); }
-	
-	default Vec3f normalized() { return clone().normalize(); }
 
-
-	default float max() { return Math.max(getX(), Math.max(getY(), getZ())); }
-	default float min() { return Math.min(getX(), Math.min(getY(), getZ())); }
-	
-	
-	default Vec3f addN(float x, float y, float z) { return clone().add(x, y, z); }
-	default Vec3f addN(double x, double y, double z) { return clone().add(x, y, z); }
-
-	default Vec3f subN(float x, float y, float z) { return clone().sub(x, y, z); }
-	default Vec3f subN(double x, double y, double z) { return clone().sub(x, y, z); }
-
-	default Vec3f mulN(float x, float y, float z) { return clone().mul(x, y, z); }
-	default Vec3f mulN(double x, double y, double z) { return clone().mul(x, y, z); }
-
-	default Vec3f divN(float x, float y, float z) { return clone().div(x, y, z); }
-	default Vec3f divN(double x, double y, double z) { return clone().div(x, y, z); }
 
 	
 	Vec3f clone();
 
 	
+	Vec3f inverted();
+	Vec3f normalized();
 	
-	default Vec3f addN(Vec3fBase v) { return addN(v.getX(), v.getY(), v.getZ()); }
-	default Vec3f addN(float scalar) { return addN(scalar, scalar, scalar); }
-	default Vec3f addN(double scalar) { return addN(scalar, scalar, scalar); }
+	Vec3f addN(Vec3fBase v);
+	Vec3f addN(float scalar);
+	Vec3f addN(double scalar);
+	Vec3f addN(float x, float y, float z);
+	Vec3f addN(double x, double y, double z);
 	
-	default Vec3f subN(Vec3fBase v) { return subN(v.getX(), v.getY(), v.getZ()); }
-	default Vec3f subN(float scalar) { return subN(scalar, scalar, scalar); }
-	default Vec3f subN(double scalar) { return subN(scalar, scalar, scalar); }	
+	Vec3f subN(Vec3fBase v);
+	Vec3f subN(float scalar);
+	Vec3f subN(double scalar);
+	Vec3f subN(float x, float y, float z);
+	Vec3f subN(double x, double y, double z);
 	
-	default Vec3f mulN(Vec3fBase v) { return mulN(v.getX(), v.getY(), v.getZ()); }
-	default Vec3f mulN(float scalar) { return mulN(scalar, scalar, scalar); }
-	default Vec3f mulN(double scalar) { return mulN(scalar, scalar, scalar); }	
+	Vec3f mulN(Vec3fBase v);
+	Vec3f mulN(float scalar);
+	Vec3f mulN(double scalar);
+	Vec3f mulN(float x, float y, float z);
+	Vec3f mulN(double x, double y, double z);
 	
-	default Vec3f divN(Vec3fBase v) { return divN(v.getX(), v.getY(), v.getZ()); }
-	default Vec3f divN(float scalar) { return divN(scalar, scalar, scalar); }
-	default Vec3f divN(double scalar) { return divN(scalar, scalar, scalar); }
-	
-	
-	default Vec3f cross(Vec3fBase v) 
-	{
-		return new Vector3f(getY() * v.getZ() - getZ() * v.getY(), getZ() * v.getX() - getX() * v.getZ(), getX() * v.getY() - getY() * v.getX());
-	}
-	
-	default Vec3f project(Vec3fBase v)
-	{	
-		Vec3f vn = v.normalized();
-		 double f = this.dot(vn);
-		 
-		 return vn.mul((float)f);
-	}
+	Vec3f divN(Vec3fBase v);
+	Vec3f divN(float scalar);
+	Vec3f divN(double scalar);
+	Vec3f divN(float x, float y, float z);
+	Vec3f divN(double x, double y, double z);
 	
 	
-	default Vec3f rot(Vec3fBase axis, float angle)
-	{
-		
-		angle *= 0.5f;
-		angle *= Maths.DEG_TO_RAD;
-		
-		double sinHalfAngle = Math.sin(angle);
-		double cosHalfAngle = Math.cos(angle);
-		
-		double rX = axis.getX() * sinHalfAngle;
-		double rY = axis.getY() * sinHalfAngle;
-		double rZ = axis.getZ() * sinHalfAngle;
-		double rW = cosHalfAngle;
-		
-		Quaternion rotation = new Quaternion(rW, rX, rY, rZ);
-		
-		return rot(rotation);
-	}
 	
-	default Vec3f rot(Quaternion q)
-	{
-		Quaternion conjugate = q.conjugated();
-		Quaternion w = q.mulN(this).mulN(conjugate);
-
-		return new Vector3f((float)w.getX(), (float)w.getY(), (float)w.getZ());
-	}
+	Vec3f cross(Vec3fBase v);
+	
+	Vec3f project(Vec3fBase v);
+	
+	
+	Vec3f rot(Vec3fBase axis, float angle);
+	
+	Vec3f rot(Quaternion q);
 
 	
-	default Vec3f reflected(Vec3fBase normal)
-	{
-		Vec3f out = clone();
-		
-		out.reflect(normal);
-		
-		return out;
-	}
+	Vec3f reflected(Vec3fBase normal);
 	
-	default Vec3f lerped(Vec3fBase v, float f)
-	{
-		Vec3f out = clone();
-		out.lerp(v, f);
-		return out;
-	}
-	
+	Vec3f lerped(Vec3fBase v, float f);
 	
 	
 	default double dot(Vec3fBase v) { return (double) this.getX() * v.getX() + this.getY() * v.getY(); }

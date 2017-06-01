@@ -3,7 +3,6 @@ package cmn.utilslib.vector.api;
 import cmn.utilslib.essentials.Maths;
 import cmn.utilslib.vector.PVector4f;
 import cmn.utilslib.vector.Quaternion;
-import cmn.utilslib.vector.Vector4f;
 
 public interface Vec4fBase extends Vecf
 {
@@ -45,101 +44,57 @@ public interface Vec4fBase extends Vecf
 
 	@Override
 	default int getDimensions() { return DIMENSIONS; }
-	
-	default Vec4f inverted() { return clone().invert(); }
-	
-	default Vec4f normalized() { return clone().normalize(); }
 
+	Vec4f clone();
+	
 	default float max() { return Math.max(getX(), Math.max(getY(), getZ())); }
 	default float min() { return Math.min(getX(), Math.min(getY(), getZ())); }
 	
+	Vec4f inverted();
 	
-	default Vec4f addN(float x, float y, float z, float a) { return clone().add(x, y, z, a); }
-	default Vec4f addN(double x, double y, double z, double a) { return clone().add(x, y, z, a); }
+	Vec4f normalized();
 
-	default Vec4f subN(float x, float y, float z, float a) { return clone().sub(x, y, z, a); }
-	default Vec4f subN(double x, double y, double z, double a) { return clone().sub(x, y, z, a); }
-
-	default Vec4f mulN(float x, float y, float z, float a) { return clone().mul(x, y, z, a); }
-	default Vec4f mulN(double x, double y, double z, double a) { return clone().mul(x, y, z, a); }
-
-	default Vec4f divN(float x, float y, float z, float a) { return clone().div(x, y, z, a); }
-	default Vec4f divN(double x, double y, double z, double a) { return clone().div(x, y, z, a); }
-
-	
-	Vec4f clone();
 
 	
 	
-	default Vec4f addN(Vec4fBase v) { return addN(v.getX(), v.getY(), v.getZ(), v.getA()); }
-	default Vec4f addN(float scalar) { return addN(scalar, scalar, scalar, scalar); }
-	default Vec4f addN(double scalar) { return addN(scalar, scalar, scalar, scalar); }
+	Vec4f addN(float x, float y, float z, float a);
+	Vec4f addN(double x, double y, double z, double a);
+	Vec4f addN(Vec4fBase v);
+	Vec4f addN(float scalar);
+	Vec4f addN(double scalar);
 	
-	default Vec4f subN(Vec4fBase v) { return subN(v.getX(), v.getY(), v.getZ(), v.getA()); }
-	default Vec4f subN(float scalar) { return subN(scalar, scalar, scalar, scalar); }
-	default Vec4f subN(double scalar) { return subN(scalar, scalar, scalar, scalar); }	
+	Vec4f subN(float x, float y, float z, float a);
+	Vec4f subN(double x, double y, double z, double a);
+	Vec4f subN(Vec4fBase v);
+	Vec4f subN(float scalar);
+	Vec4f subN(double scalar);
 	
-	default Vec4f mulN(Vec4fBase v) { return mulN(v.getX(), v.getY(), v.getZ(), v.getA()); }
-	default Vec4f mulN(float scalar) { return mulN(scalar, scalar, scalar, scalar); }
-	default Vec4f mulN(double scalar) { return mulN(scalar, scalar, scalar, scalar); }	
+	Vec4f mulN(float x, float y, float z, float a);
+	Vec4f mulN(double x, double y, double z, double a);
+	Vec4f mulN(Vec4fBase v);
+	Vec4f mulN(float scalar);
+	Vec4f mulN(double scalar);
 	
-	default Vec4f divN(Vec4fBase v) { return divN(v.getX(), v.getY(), v.getZ(), v.getA()); }
-	default Vec4f divN(float scalar) { return divN(scalar, scalar, scalar, scalar); }
-	default Vec4f divN(double scalar) { return divN(scalar, scalar, scalar, scalar); }
+	Vec4f divN(float x, float y, float z, float a);
+	Vec4f divN(double x, double y, double z, double a);
+	Vec4f divN(Vec4fBase v);
+	Vec4f divN(float scalar);
+	Vec4f divN(double scalar);
 	
-	
-	default Vec4f project(Vec4fBase v)
-	{	
-		Vec4f vn = v.normalized();
-		 double f = this.dot(vn);
-		 
-		 return vn.mul((float)f);
-	}
+	Vec4f project(Vec4fBase v);
 	
 	
-	default Vec4f rot(Vec4f axis, float angle)
-	{
-		
-		angle *= 0.5f;
-		angle *= Maths.DEG_TO_RAD;
-		
-		double sinHalfAngle = Math.sin(angle);
-		double cosHalfAngle = Math.cos(angle);
-		
-		double rX = axis.getX() * sinHalfAngle;
-		double rY = axis.getY() * sinHalfAngle;
-		double rZ = axis.getZ() * sinHalfAngle;
-		double rW = cosHalfAngle;
-		
-		Quaternion rotation = new Quaternion(rW, rX, rY, rZ);
-		
-		return rot(rotation);
-	}
+	Vec4f rot(Vec4fBase axis, float angle);
 	
-	default Vec4f rot(Quaternion q)
-	{
-		Quaternion conjugate = q.conjugated();
-		Quaternion w = q.mulN(this).mulN(conjugate);
+	Vec4f rot(Quaternion q);
 
-		return new Vector4f((float)w.getX(), (float)w.getY(), (float)w.getZ(), (float)w.getW());
-	}
 
 	
-	default Vec4f reflected(Vec4fBase normal)
-	{
-		Vec4f out = clone();
-		
-		out.reflect(normal);
-		
-		return out;
-	}
+	Vec4f reflected(Vec4fBase normal);
+
 	
-	default Vec4f lerped(Vec4fBase v, float f)
-	{
-		Vec4f out = clone();
-		out.lerp(v, f);
-		return out;
-	}
+	Vec4f lerped(Vec4fBase v, double f);
+	
 	
 	
 	

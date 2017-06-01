@@ -19,60 +19,60 @@ public interface Vec2f extends Vec2fBase
 	 * Sets all the components based on another 2 dimensional float vector {@literal <v>}
 	 * @return
 	 */
-	default Vec2f set(Vec2fBase v) { return set(v.getX(), v.getY()); }
+	Vec2f set(Vec2fBase v);
 	/**
 	 * Sets all components to zero
 	 */
-	default Vec2f setZero() { return set(0.0f); }
+	Vec2f setZero();
 	/**
 	 * Sets all the components to {@literal <scalar>}
 	 */
-	default Vec2f set(float scalar) { return set(scalar, scalar); }
+	Vec2f set(float scalar);
 	/**
 	 * Sets all the components to {@literal <scalar>}
 	 */
-	default Vec2f set(double scalar) { return set(scalar, scalar); }
+	Vec2f set(double scalar);
 	/**
 	 * Sets the component x to {@literal <x>} and the component y to {@literal <y>}
 	 */
-	default Vec2f set(float x, float y) { return setX(x).setY(y); }
+	Vec2f set(float x, float y);
 	/**
 	 * Sets the component x to {@literal <x>} and the component y to {@literal <y>}
 	 */
-	default Vec2f set(double x, double y) { return setX(x).setY(y); }
+	Vec2f set(double x, double y);
 
 	 
 	 
 	/** */
-	default Vec2f add(Vec2fBase v) { return add(v.getX(), v.getY()); }
+	Vec2f add(Vec2fBase v);
 	/** */
-	default Vec2f add(float scalar) { return add(scalar, scalar); }
-	default Vec2f add(double scalar) { return add(scalar, scalar); }
-	default Vec2f add(float x, float y) { return set(getX() + x, getY() + y); }
-	default Vec2f add(double x, double y) { return set(getX() + x, getY() + y); }
+	Vec2f add(float scalar);
+	Vec2f add(double scalar);
+	Vec2f add(float x, float y);
+	Vec2f add(double x, double y);
 	
-	default Vec2f sub(Vec2fBase v) { return sub(v.getX(), v.getY()); }
-	default Vec2f sub(float scalar) { return sub(scalar, scalar); }
-	default Vec2f sub(double scalar) { return sub(scalar, scalar); }
-	default Vec2f sub(float x, float y) { return set(getX() - x, getY() - y); }
-	default Vec2f sub(double x, double y) { return set(getX() - x, getY() - y); }
+	Vec2f sub(Vec2fBase v);
+	Vec2f sub(float scalar);
+	Vec2f sub(double scalar);
+	Vec2f sub(float x, float y);
+	Vec2f sub(double x, double y);
 
-	default Vec2f mul(Vec2fBase v) { return mul(v.getX(), v.getY()); }
-	default Vec2f mul(float scalar) { return mul(scalar, scalar); }
-	default Vec2f mul(double scalar) { return mul(scalar, scalar); }
-	default Vec2f mul(float x, float y) { return set(getX() * x, getY() * y); }
-	default Vec2f mul(double x, double y) { return set(getX() * x, getY() * y); }
+	Vec2f mul(Vec2fBase v);
+	Vec2f mul(float scalar);
+	Vec2f mul(double scalar);
+	Vec2f mul(float x, float y);
+	Vec2f mul(double x, double y);
 
-	default Vec2f div(Vec2fBase v) { return div(v.getX(), v.getY()); }
-	default Vec2f div(float scalar) { return div(scalar, scalar); }
-	default Vec2f div(double scalar) { return div(scalar, scalar); }
-	default Vec2f div(float x, float y) { return set(getX() / x, getY() / y); }
-	default Vec2f div(double x, double y) { return set(getX() / x, getY() / y); }
+	Vec2f div(Vec2fBase v);
+	Vec2f div(float scalar);
+	Vec2f div(double scalar);
+	Vec2f div(float x, float y);
+	Vec2f div(double x, double y);
 
 	 
 	
-	default Vec2f normalize() { return div(length()); }
+	Vec2f normalize();
 	
-	default Vec2f invert() { return mul(-1.0f); }
+	Vec2f invert();
 	
 }
