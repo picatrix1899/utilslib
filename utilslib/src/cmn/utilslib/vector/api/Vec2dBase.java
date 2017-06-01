@@ -44,15 +44,12 @@ public interface Vec2dBase extends Vecd
 	@Override
 	default int getDimensions() { return DIMENSIONS; }
 	
+
 	
 	Vec2d clone();
 	
 
 
-	
-
-	
-	
 	default Vec2d addN(Vec2dBase v) { return addN(v.getX(), v.getY()); }
 	default Vec2d addN(float scalar) { return addN(scalar, scalar); }
 	default Vec2d addN(double scalar) { return addN(scalar, scalar); }
@@ -68,14 +65,14 @@ public interface Vec2dBase extends Vecd
 	default Vec2d mulN(Vec2dBase v) { return mulN(v.getX(), v.getY()); }
 	default Vec2d mulN(float scalar) { return mulN(scalar, scalar); }
 	default Vec2d mulN(double scalar) { return mulN(scalar, scalar); }
-	default Vec2d mulN(float x, float y) { return clone().sub(x, y); }
-	default Vec2d mulN(double x, double y) { return clone().sub(x, y); }
+	default Vec2d mulN(float x, float y) { return clone().mul(x, y); }
+	default Vec2d mulN(double x, double y) { return clone().mul(x, y); }
 	
 	default Vec2d divN(Vec2dBase v) { return divN(v.getX(), v.getY()); }
 	default Vec2d divN(float scalar) { return divN(scalar, scalar); }
 	default Vec2d divN(double scalar) { return divN(scalar, scalar); }
-	default Vec2d divN(float x, float y) { return clone().sub(x, y); }
-	default Vec2d divN(double x, double y) { return clone().sub(x, y); }
+	default Vec2d divN(float x, float y) { return clone().div(x, y); }
+	default Vec2d divN(double x, double y) { return clone().div(x, y); }
 	
 	
 	
@@ -95,4 +92,5 @@ public interface Vec2dBase extends Vecd
 	default Vec2d inverted() { return clone().invert(); }
 	
 	default Vec2d normalized() { return clone().normalize(); }
+	
 }

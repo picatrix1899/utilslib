@@ -2,6 +2,7 @@ package cmn.utilslib.vector.api;
 
 public interface Vec2d extends Vec2dBase
 {
+	
 	/** Sets the x component to {@literal <x>} */
 	Vec2d setX(float x);
 	/** Sets the x component to {@literal <x>} */
@@ -68,7 +69,9 @@ public interface Vec2d extends Vec2dBase
 	default Vec2d div(double x, double y) { return set(getX() / x, getY() / y); }
 
 	 
+	
 	default Vec2d normalize() { return div(length()); }
 	
 	default Vec2d invert() { return mul(-1.0f); }
+	
 }

@@ -70,7 +70,9 @@ public interface Vec2f extends Vec2fBase
 	default Vec2f div(double x, double y) { return set(getX() / x, getY() / y); }
 
 	 
+	
 	default Vec2f normalize() { return div(length()); }
 	
 	default Vec2f invert() { return mul(-1.0f); }
+	
 }
