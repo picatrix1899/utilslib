@@ -113,13 +113,41 @@ public abstract class PVector3f implements Vec3fBase
 				return out;
 			}
 			
-		 	public Vector3f lerped(Vec3fBase v, float f)
+		 	public Vector3f lerp(Vec3fBase v, float f)
 			{
-				Vector3f out = clone();
-				out.lerp(v, f);
+		 		Vector3f out = new Vector3f();
+		 		
+				out.setX(getX() + (v.getX() - getX()) * f);
+				out.setY(getY() + (v.getY() - getY()) * f);
+				out.setZ(getZ() + (v.getZ() - getZ()) * f);
+				
 				return out;
 			}
 			
+		 	public Vector3f slerp(Vec3fBase v, double f)
+			{
+				double angle = angleRad(v);
+				
+				double sinAngle = Math.sin(angle);
+
+				double x_1 = (1 - f)	* sinAngle / sinAngle * getX();
+				double x_2 = f			* sinAngle / sinAngle * v.getX();
+				float x = (float) (x_1 + x_2);
+				
+				double y_1 = (1 - f)	* sinAngle / sinAngle * getY();
+				double y_2 = f			* sinAngle / sinAngle * v.getY();
+				float y = (float) (y_1 + y_2);
+				
+				double z_1 = (1 - f)	* sinAngle / sinAngle * getZ();
+				double z_2 = f			* sinAngle / sinAngle * v.getZ();
+				float z = (float) (z_1 + z_2);
+				
+				return new Vector3f(x, y, z);
+			}
+		 	
+			/** {@inheritDoc} */
+			@Override
+			public String toString() { return "PVec3f(" + getX() + "f, " + getY() + "f, " + getZ() + "f)"; }
 		};
 	}
 	

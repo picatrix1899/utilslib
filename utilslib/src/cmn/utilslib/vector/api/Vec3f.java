@@ -15,10 +15,8 @@ public interface Vec3f extends Vec3fBase
 	Vec3f invert();
 	
 	Vec3f reflect(Vec3fBase normal);
-	
-	Vec3f lerp(Vec3fBase v, float f);
-	
-	Vec3f slerp(Vec3fBase v, double f);
+
+
 	
 
 	Vec3f setZero();

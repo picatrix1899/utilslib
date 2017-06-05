@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import cmn.utilslib.essentials.Func;
 import cmn.utilslib.essentials.Maths;
 import cmn.utilslib.interfaces.Streamable;
 import cmn.utilslib.matrix.Matrix4f;
@@ -27,14 +28,6 @@ public class Quaternion implements Streamable
 	private double y;
 	private double z;
 	private double w;
-	
-	private double ePitch;
-	private double eYaw;
-	private double eRoll;
-	
-	private boolean uPitch;
-	private boolean uYaw;
-	private boolean uRoll;
 	
 	public Quaternion(double w, double x, double y, double z)
 	{
@@ -244,45 +237,23 @@ public class Quaternion implements Streamable
 	
 	public double getEulerPitch()
 	{
-		if(!this.uPitch)
-		{
 
-			Vec3f a = getForwardf();
-			Vec3f b = a.clone().setY(0);
+		Vec3f a = getForwardf();
+		Vec3f b = a.clone().setY(0);
 			
-			int i = a.getY() > 0 ? -1 : 1;
-			
-			this.ePitch = i * b.angleDeg(a);
-			
-			this.uPitch = true;
-		}
-
-		return this.ePitch;
+		int i = a.getY() > 0 ? -1 : 1;
+		
+		return i * b.angleDeg(a);
 	}
 	
 	public double getEulerYaw()
 	{
-		if(!this.uYaw)
-		{
-			this.eYaw = Maths.RAD_TO_DEG * Math.asin((2 * this.w * this.y + this.z * this.x));
-			
-			this.uYaw = true;
-		}
-
-		return this.eYaw;
+		return Maths.RAD_TO_DEG * Math.asin((2 * this.w * this.y + this.z * this.x));
 	}	
 	
 	public double getEulerRoll()
 	{
-		if(!this.uRoll)
-		{
-
-			this.eRoll = Maths.RAD_TO_DEG * Math.asin((2 * this.w * this.y + this.z * this.x));
-			
-			this.uRoll = true;
-		}
-
-		return this.eRoll;
+		return Maths.RAD_TO_DEG * Math.asin((2 * this.w * this.y + this.z * this.x));
 	}
 	
 	public Quaternion set(Quaternion q)
@@ -292,16 +263,12 @@ public class Quaternion implements Streamable
 	
 	public Quaternion set(double w, double x, double y, double z)
 	{
-		setW(w).setX(x).setY(y).setZ(z); return this;
+		return setW(w).setX(x).setY(y).setZ(z);
 	}
 	
 	public Quaternion setW(double w)
 	{
 		this.w = w;
-		
-		this.uPitch = false;
-		this.uYaw = false;
-		this.uRoll = false;
 		
 		return this;
 	}
@@ -310,16 +277,12 @@ public class Quaternion implements Streamable
 	{
 		this.x = x;
 		
-		this.uPitch = false;
-		
 		return this;
 	}
 	
 	public Quaternion setY(double y)
 	{
 		this.y = y;
-
-		this.uYaw = false;
 		
 		return this;
 	}
@@ -327,8 +290,6 @@ public class Quaternion implements Streamable
 	public Quaternion setZ(double z)
 	{
 		this.z = z;
-		
-		this.uRoll = false;
 		
 		return this;
 	}
@@ -342,7 +303,7 @@ public class Quaternion implements Streamable
 	
 	public Quaternion conjugated() { return clone().conjugate(); }
 	
-	public Quaternion add(Quaternion q) { set(this.w + q.w, this.x + q.x, this.y + q.y, this.z + q.z); return this; }
+	public Quaternion add(Quaternion q) { return set(this.w + q.w, this.x + q.x, this.y + q.y, this.z + q.z); }
 	
 	public Quaternion mul(Quaternion q)
 	{
@@ -381,7 +342,7 @@ public class Quaternion implements Streamable
 		return this;
 		
 	}
-	
+
 	public Quaternion mul(Vec4fBase v)
 	{
 		double w_ = -this.x * v.getX() - this.y * v.getY() - this.z * v.getZ(); // - v * v'
@@ -433,7 +394,6 @@ public class Quaternion implements Streamable
 	
 	public Vec3f getLeftf() { return Vec3f.aX.clone().rot(this).normalize(); }
 	
-
 	
 	public double length() { return Math.sqrt(this.w * this.w + this.x * this.x + this.y * this.y + this.z * this.z); }
 	

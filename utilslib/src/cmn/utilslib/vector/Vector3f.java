@@ -128,17 +128,20 @@ public class Vector3f implements Vec3f
 	
  	public Vector3f lerp(Vec3fBase v, float f)
 	{
-		setX(getX() + (v.getX() - getX()) * f);
-		setY(getY() + (v.getY() - getY()) * f);
-		setZ(getZ() + (v.getZ() - getZ()) * f);
+ 		Vector3f out = new Vector3f();
+ 		
+		out.setX(getX() + (v.getX() - getX()) * f);
+		out.setY(getY() + (v.getY() - getY()) * f);
+		out.setZ(getZ() + (v.getZ() - getZ()) * f);
 		
-		return this;
+		return out;
 	}
 	
  	public Vector3f slerp(Vec3fBase v, double f)
 	{
 		double angle = angleRad(v);
 		
+
 		double sinAngle = Math.sin(angle);
 
 		double x_1 = (1 - f)	* sinAngle / sinAngle * getX();
@@ -206,13 +209,6 @@ public class Vector3f implements Vec3f
 		
 		out.reflect(normal);
 		
-		return out;
-	}
-	
- 	public Vector3f lerped(Vec3fBase v, float f)
-	{
-		Vector3f out = clone();
-		out.lerp(v, f);
 		return out;
 	}
 	
