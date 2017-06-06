@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import cmn.utilslib.essentials.Func;
 import cmn.utilslib.essentials.Maths;
 import cmn.utilslib.interfaces.Streamable;
 import cmn.utilslib.matrix.Matrix4f;
@@ -47,12 +46,12 @@ public class Quaternion implements Streamable
 	//From Ken Shoemake's "Quaternion Calculus and Fast Animation" article
 	public Quaternion(Matrix4f rot)
 	{
-		float trace = rot.m0.x + rot.m1.y + rot.m2.z;
+		double trace = rot.m0.x + rot.m1.y + rot.m2.z;
 
 		if(trace > 0)
 		{
-			float s = 0.5f / (float)Math.sqrt(trace+ 1.0f);
-			w = 0.25f / s;
+			double s = 0.5d / Math.sqrt(trace + 1.0d);
+			w = 0.25d / s;
 			x = (rot.m1.z - rot.m2.y) * s;
 			y = (rot.m2.x - rot.m0.z) * s;
 			z = (rot.m0.y - rot.m1.x) * s;
@@ -61,31 +60,31 @@ public class Quaternion implements Streamable
 		{
 			if(rot.m0.x > rot.m1.y && rot.m0.x > rot.m2.z)
 			{
-				float s = 2.0f * (float)Math.sqrt(1.0f + rot.m0.x - rot.m1.y - rot.m2.z);
+				double s = 2.0d * Math.sqrt(1.0d + rot.m0.x - rot.m1.y - rot.m2.z);
 				w = (rot.m1.z - rot.m2.y) / s;
-				x = 0.25f * s;
+				x = 0.25d * s;
 				y = (rot.m1.x + rot.m0.y) / s;
 				z = (rot.m2.x + rot.m0.z) / s;
 			}
 			else if(rot.m1.y > rot.m2.z)
 			{
-				float s = 2.0f * (float)Math.sqrt(1.0f + rot.m1.y - rot.m0.x - rot.m2.z);
+				double s = 2.0d * Math.sqrt(1.0d + rot.m1.y - rot.m0.x - rot.m2.z);
 				w = (rot.m2.x - rot.m0.z) / s;
 				x = (rot.m1.x + rot.m0.y) / s;
-				y = 0.25f * s;
+				y = 0.25d * s;
 				z = (rot.m2.y + rot.m1.z) / s;
 			}
 			else
 			{
-				float s = 2.0f * (float)Math.sqrt(1.0f + rot.m2.z - rot.m0.x - rot.m1.y);
+				double s = 2.0d * Math.sqrt(1.0d + rot.m2.z - rot.m0.x - rot.m1.y);
 				w = (rot.m0.y - rot.m1.x ) / s;
 				x = (rot.m2.x + rot.m0.z ) / s;
 				y = (rot.m1.z + rot.m2.y ) / s;
-				z = 0.25f * s;
+				z = 0.25d * s;
 			}
 		}
 
-		float length = (float)Math.sqrt(x * x + y * y + z * z + w * w);
+		double length = Math.sqrt(x * x + y * y + z * z + w * w);
 		x /= length;
 		y /= length;
 		z /= length;
@@ -155,10 +154,10 @@ public class Quaternion implements Streamable
 	
 	public static Quaternion getFromVector(Vec3fBase v1)
 	{
-		Vec3f a = Vec3f.aZ.clone();
-		Vec3f b = v1.clone().normalize();
-		Vec3f axis = a.cross(b);
-		double angle = 1 + a.dot(b);
+		Vector3f a = Vec3f.aZ.clone();
+		Vector3f b = (Vector3f) v1.clone().normalize();
+		Vector3f axis = a.cross(b);
+		double angle = 1.0d + a.dot(b);
 		
 		axis.normalize();
 		
@@ -167,10 +166,10 @@ public class Quaternion implements Streamable
 	
 	public static Quaternion getFromVectors(Vec3fBase v1, Vec3fBase v2)
 	{
-		Vec3f a = v1.clone().normalize();
-		Vec3f b = v2.clone().normalize();
-		Vec3f axis = a.cross(b);
-		double angle = 1 + a.dot(b);
+		Vector3f a = (Vector3f) v1.clone().normalize();
+		Vector3f b = (Vector3f) v2.clone().normalize();
+		Vector3f axis = a.cross(b);
+		double angle = 1.0d + a.dot(b);
 		
 		axis.normalize();
 		return new Quaternion(angle, axis.getX(), axis.getY(), axis.getZ()).normalize();
@@ -215,11 +214,11 @@ public class Quaternion implements Streamable
 	
 	public Quaternion rotateTo(Vec3fBase v)
 	{
-		Vec3f a = getForwardf().clone().normalize();
-		Vec3f b = v.clone().normalize();
+		Vector3f a = getForwardf().clone().normalize();
+		Vector3f b = (Vector3f) v.clone().normalize();
 		
 		
-		Vec3f axis = a.cross(b);
+		Vector3f axis = a.cross(b);
 		double rot = a.dot(b);
 		
 		axis.normalize();
@@ -227,7 +226,7 @@ public class Quaternion implements Streamable
 		setX(axis.getX());
 		setY(axis.getY());
 		setZ(axis.getZ());
-		setW(1.0 + rot);
+		setW(1.0d + rot);
 		
 		normalize();
 		
@@ -238,8 +237,8 @@ public class Quaternion implements Streamable
 	public double getEulerPitch()
 	{
 
-		Vec3f a = getForwardf();
-		Vec3f b = a.clone().setY(0);
+		Vector3f a = getForwardf();
+		Vector3f b = (Vector3f) a.clone().setY(0);
 			
 		int i = a.getY() > 0 ? -1 : 1;
 		
@@ -248,12 +247,12 @@ public class Quaternion implements Streamable
 	
 	public double getEulerYaw()
 	{
-		return Maths.RAD_TO_DEG * Math.asin((2 * this.w * this.y + this.z * this.x));
+		return Maths.RAD_TO_DEG * Math.asin((2.0d * this.w * this.y + this.z * this.x));
 	}	
 	
 	public double getEulerRoll()
 	{
-		return Maths.RAD_TO_DEG * Math.asin((2 * this.w * this.y + this.z * this.x));
+		return Maths.RAD_TO_DEG * Math.asin((2.0d * this.w * this.y + this.z * this.x));
 	}
 	
 	public Quaternion set(Quaternion q)
@@ -266,33 +265,13 @@ public class Quaternion implements Streamable
 		return setW(w).setX(x).setY(y).setZ(z);
 	}
 	
-	public Quaternion setW(double w)
-	{
-		this.w = w;
-		
-		return this;
-	}
+	public Quaternion setW(double w) { this.w = w; return this; }
 	
-	public Quaternion setX(double x)
-	{
-		this.x = x;
-		
-		return this;
-	}
+	public Quaternion setX(double x) { this.x = x; return this; }
 	
-	public Quaternion setY(double y)
-	{
-		this.y = y;
-		
-		return this;
-	}
+	public Quaternion setY(double y) { this.y = y; return this; }
 	
-	public Quaternion setZ(double z)
-	{
-		this.z = z;
-		
-		return this;
-	}
+	public Quaternion setZ(double z) { this.z = z; return this; }
 	
 	public Quaternion conjugate()
 	{
@@ -382,17 +361,17 @@ public class Quaternion implements Streamable
 	public Quaternion mulN(Vec4dBase v) { return this.clone().mul(v); }
 	
 	
-	public Vec3f getForwardf() { return Vec3f.aZ.clone().rot(this).normalize(); }
+	public Vector3f getForwardf() { return Vec3f.aZ.clone().rot(this).normalize(); }
 	
-	public Vec3f getBackf() { return Vec3f.aNZ.clone().rot(this).normalize(); }
+	public Vector3f getBackf() { return Vec3f.aNZ.clone().rot(this).normalize(); }
 	
-	public Vec3f getUpf() { return Vec3f.aY.clone().rot(this).normalize(); }
+	public Vector3f getUpf() { return Vec3f.aY.clone().rot(this).normalize(); }
 	
-	public Vec3f getDownf() { return Vec3f.aNY.clone().rot(this).normalize(); }
+	public Vector3f getDownf() { return Vec3f.aNY.clone().rot(this).normalize(); }
 	
-	public Vec3f getRightf() { return Vec3f.aNX.clone().rot(this).normalize(); }
+	public Vector3f getRightf() { return Vec3f.aNX.clone().rot(this).normalize(); }
 	
-	public Vec3f getLeftf() { return Vec3f.aX.clone().rot(this).normalize(); }
+	public Vector3f getLeftf() { return Vec3f.aX.clone().rot(this).normalize(); }
 	
 	
 	public double length() { return Math.sqrt(this.w * this.w + this.x * this.x + this.y * this.y + this.z * this.z); }
