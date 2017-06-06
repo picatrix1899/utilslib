@@ -2,6 +2,7 @@
 import cmn.utilslib.vector.Quaternion;
 import cmn.utilslib.vector.Vector3f;
 import cmn.utilslib.vector.api.Vec3f;
+import cmn.utilslib.vector.api.Vec3fBase;
 
 public class Main
 {
@@ -26,8 +27,17 @@ public class Main
 		
 		//Vector3f s = new Vector3f(0.0f, 3.0f, 0.0f);//.normalize();
 		
+		System.out.println(onLine(Vec3f.ZERO, Vec3f.ONE, new Vector3f(2,2,1)));
 		
+	}
+	
+	public static boolean onLine(Vec3fBase q, Vec3fBase x, Vec3fBase p)
+	{
+		Vector3f v = (Vector3f) p.clone();
+		v.sub(q);
+		v.div(x);
 		
+		return v.getX() == v.getY() && v.getY() == v.getZ();
 	}
 	
 }
