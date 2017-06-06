@@ -23,6 +23,9 @@ public interface Vec2fBase extends Vecf
 	/** The inverted y-axis as unit vector stored as a {@link PVec2f persistent 2 dimensional float vector} */
 	static final PVector2f aNY = PVector2f.gen(0.0f, -1.0f);
 	
+	static final PVector2f ZERO = PVector2f.gen(0.0f, 0.0f);
+	static final PVector2f ONE = PVector2f.gen(1.0f, 1.0f);
+	
 	static int DIMENSIONS = 2;
 	
 	
