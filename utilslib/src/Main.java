@@ -27,17 +27,28 @@ public class Main
 		
 		//Vector3f s = new Vector3f(0.0f, 3.0f, 0.0f);//.normalize();
 		
-		System.out.println(onLine(Vec3f.ZERO, Vec3f.ONE, new Vector3f(2,2,1)));
+		System.out.println(onStraightLine(new Vector3f(0.0f, 0.0f, 1.0f), new Vector3f(2.0f, 1.0f, 1.0f), new Vector3f(2f, 2f, 1f)));
 		
 	}
 	
-	public static boolean onLine(Vec3fBase q, Vec3fBase x, Vec3fBase p)
+	public static boolean onStraightLine(Vec3fBase q, Vec3fBase x, Vec3fBase p)
 	{
 		Vector3f v = (Vector3f) p.clone();
 		v.sub(q);
 		v.div(x);
 		
+		
+		System.out.println(v.getX());
+		System.out.println(v.getY());
+		System.out.println(v.getZ());
+		
 		return v.getX() == v.getY() && v.getY() == v.getZ();
 	}
 	
+	public static boolean onLineSegment(Vec3fBase q, Vec3fBase x, Vector3f p)
+	{
+		
+		
+		return false;
+	}
 }
