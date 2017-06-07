@@ -1,8 +1,8 @@
 
-import cmn.utilslib.vector.Quaternion;
-import cmn.utilslib.vector.Vector3f;
-import cmn.utilslib.vector.api.Vec3f;
-import cmn.utilslib.vector.api.Vec3fBase;
+import cmn.utilslib.math.Quaternion;
+import cmn.utilslib.math.vector.Vector3f;
+import cmn.utilslib.math.vector.api.Vec3f;
+import cmn.utilslib.math.vector.api.Vec3fBase;
 
 public class Main
 {

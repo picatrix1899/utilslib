@@ -7,8 +7,7 @@ import java.io.Serializable;
 
 import cmn.utilslib.color.colors.api.IColor4Base;
 import cmn.utilslib.color.colors.api.ILDRColor4;
-
-import cmn.utilslib.essentials.Maths;
+import cmn.utilslib.math.Maths;
 
 
 

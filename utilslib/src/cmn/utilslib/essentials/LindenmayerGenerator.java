@@ -2,7 +2,8 @@ package cmn.utilslib.essentials;
 
 import java.util.ArrayList;
 
-import cmn.utilslib.vector.Vector2f;
+import cmn.utilslib.math.Maths;
+import cmn.utilslib.math.vector.Vector2f;
 
 public class LindenmayerGenerator
 {

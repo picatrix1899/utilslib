@@ -4,8 +4,7 @@ package cmn.utilslib.color.colors;
 
 
 import cmn.utilslib.color.colors.api.ILDRColor4Base;
-
-import cmn.utilslib.essentials.Maths;
+import cmn.utilslib.math.Maths;
 
 
 

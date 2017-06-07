@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.UUID;
 
-import cmn.utilslib.vector.Vector2f;
+import cmn.utilslib.math.Maths;
+import cmn.utilslib.math.vector.Vector2f;
 
 /**
  * 

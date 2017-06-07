@@ -9,12 +9,9 @@ import java.nio.IntBuffer;
 import java.nio.LongBuffer;
 import java.nio.ShortBuffer;
 
-import cmn.utilslib.vector.Vector2f;
-import cmn.utilslib.vector.Vector3f;
-import cmn.utilslib.vector.Vector4f;
-import cmn.utilslib.vector.api.Vec2fBase;
-import cmn.utilslib.vector.api.Vec3fBase;
-import cmn.utilslib.vector.api.Vec4fBase;
+import cmn.utilslib.math.vector.api.Vec2fBase;
+import cmn.utilslib.math.vector.api.Vec3fBase;
+import cmn.utilslib.math.vector.api.Vec4fBase;
 
 /**
  * 
@@ -106,7 +103,7 @@ public final class BufferUtils
 	
 	public final static FloatBuffer wrapVector2FBuffer(Vec2fBase... v)
 	{
-		float[] f = new float[v.length * Vector2f.DIMENSIONS];
+		float[] f = new float[v.length * Vec2fBase.DIMENSIONS];
 		
 		for(int i = 0; i < v.length; i++)
 		{
@@ -119,7 +116,7 @@ public final class BufferUtils
 	
 	public final static FloatBuffer wrapVector3FBuffer(Vec3fBase... v)
 	{
-		float[] f = new float[v.length * Vector3f.DIMENSIONS];
+		float[] f = new float[v.length * Vec3fBase.DIMENSIONS];
 		
 		for(int i = 0; i < v.length; i++)
 		{
@@ -133,7 +130,7 @@ public final class BufferUtils
 	
 	public final static FloatBuffer wrapVector4FBuffer(Vec4fBase... v)
 	{
-		float[] f = new float[v.length * Vector4f.DIMENSIONS];
+		float[] f = new float[v.length * Vec4fBase.DIMENSIONS];
 		
 		for(int i = 0; i < v.length; i++)
 		{
@@ -206,7 +203,7 @@ public final class BufferUtils
 	
 	public final static FloatBuffer wrapFlippedVector2FBuffer(Vec2fBase... v)
 	{
-		float[] f = new float[v.length * Vector2f.DIMENSIONS];
+		float[] f = new float[v.length * Vec2fBase.DIMENSIONS];
 		
 		for(int i = 0; i < v.length; i++)
 		{
@@ -219,7 +216,7 @@ public final class BufferUtils
 	
 	public final static FloatBuffer wrapFlippedVector3FBuffer(Vec3fBase... v)
 	{
-		float[] f = new float[v.length * Vector3f.DIMENSIONS];
+		float[] f = new float[v.length * Vec3fBase.DIMENSIONS];
 		
 		for(int i = 0; i < v.length; i++)
 		{
@@ -233,7 +230,7 @@ public final class BufferUtils
 	
 	public final static FloatBuffer wrapFlippedVector4FBuffer(Vec4fBase... v)
 	{
-		float[] f = new float[v.length * Vector4f.DIMENSIONS];
+		float[] f = new float[v.length * Vec4fBase.DIMENSIONS];
 		
 		for(int i = 0; i < v.length; i++)
 		{
