@@ -5,6 +5,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.UUID;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import cmn.utilslib.essentials.Auto;
 import cmn.utilslib.essentials.SimpleThread;
@@ -24,6 +26,8 @@ public class ServerCore
 	
 	private PacketFactory factory;
 	
+	ExecutorService threadPool; 
+			
 	
 	public ServerCore(String address, int port, int maxConnections)
 	{
@@ -31,6 +35,7 @@ public class ServerCore
 		{
 			this.socket = new ServerSocket(port, maxConnections, InetAddress.getByName(address));
 			this.factory = new PacketFactory();
+			this.threadPool = Executors.newCachedThreadPool();
 		}
 		catch (Exception e)
 		{

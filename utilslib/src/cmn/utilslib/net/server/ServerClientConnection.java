@@ -7,7 +7,6 @@ import java.util.Queue;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-import cmn.utilslib.essentials.SimpleThread;
 import cmn.utilslib.net.common.IngoingPacket;
 import cmn.utilslib.net.common.OutgoingPacket;
 import cmn.utilslib.net.common.PacketHandler;
@@ -42,8 +41,8 @@ public class ServerClientConnection
 	
 	public void start()
 	{
-		new SimpleThread(() -> runConnectionLoop(), "SC_Connection" + socket.getInetAddress().getCanonicalHostName(), true).start();
-		new SimpleThread(() -> runUpdate(), "SC_Update" + socket.getInetAddress().getCanonicalHostName(), true).start();
+		this.server.threadPool.execute(()->runConnectionLoop());
+		this.server.threadPool.execute(()->runUpdate());
 	}
 	
 	public void sendPacket(OutgoingPacket p) { this.packetQueue_out.add(p); }
@@ -76,9 +75,16 @@ public class ServerClientConnection
 				{
 					OutgoingPacket packet_out = this.packetQueue_out.poll();
 					
-					this.server.getPacketFactory().resolveOutgoingPacket(packet_out, out);
-					
-					out.flush();
+					try
+					{
+						this.server.getPacketFactory().resolveOutgoingPacket(packet_out, out);
+						
+						out.flush();						
+					}
+					catch(Exception e)
+					{
+						
+					}
 				}
 			}
 			
