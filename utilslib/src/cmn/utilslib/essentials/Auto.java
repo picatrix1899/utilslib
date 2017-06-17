@@ -124,6 +124,10 @@ public class Auto
 	
 	
 	
+	public static <A,B> Key2<A,B> Key2(A a, B b) { return new Key2<A,B>(a, b); }
+	public static <A,B,C> Key3<A,B,C> Key3(A a, B b, C c) { return new Key3<A,B,C>(a, b, c); }
+	
+	
 	public static <A> FieldRef<A> FieldRef(String field, Class<?> clazz, Object obj) throws Exception { return new FieldRef<A>(field, clazz, obj); }
 	
 	

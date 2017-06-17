@@ -65,6 +65,10 @@ public class DefaultPluginSystemFactory<Applicant extends PluginSystemApplicant<
 		list.add(master);
 	}
 
+	public void forceUpdate()
+	{
+		this.list.size();
+	}
 	
 	private boolean checkFactoryDependencies(Class<? extends PluginSystemPlugin<Applicant>> plugin)
 	{

@@ -5,6 +5,7 @@ import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 
 public class WeakList<T> extends AbstractList<T>
 {
@@ -27,7 +28,7 @@ public class WeakList<T> extends AbstractList<T>
 	@Override
 	public void add(int index, T element)
 	{
-		this.items.add(index, new WeakReference<T>(element));
+			this.items.add(index, new WeakReference<T>(element));
 	}
 	
 	@Override
@@ -39,7 +40,9 @@ public class WeakList<T> extends AbstractList<T>
 
 	private void removeReleased()
 	{
-		for (Iterator<WeakReference<T>> it = this.items.iterator(); it.hasNext(); )
+		List<WeakReference<T>> clone = Auto.ArrayList(this.items);
+		
+		for (Iterator<WeakReference<T>> it = clone.iterator(); it.hasNext(); )
 		{
 			WeakReference<T> ref = it.next();
 			if (ref.get() == null) this.items.remove(ref);
