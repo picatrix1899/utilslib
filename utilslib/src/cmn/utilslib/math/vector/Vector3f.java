@@ -194,7 +194,7 @@ public class Vector3f implements Vec3f
 		
 		return rot(rotation);
 	}
-	
+ 	
  	public Vector3f rot(Quaternion q)
 	{
 		Quaternion conjugate = q.conjugated();

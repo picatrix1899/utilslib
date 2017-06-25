@@ -4,67 +4,71 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cmn.utilslib.essentials.Auto;
-import cmn.utilslib.math.vector.Vector3f;
+import cmn.utilslib.math.geometry.Point3f;
+import cmn.utilslib.math.geometry.Shape3f;
 
-public class MinkowskiSum3f
+public class MinkowskiSum3f implements Shape3f
 {
-	private Vector3f[] points;
+	private Point3f[] points;
 	
-	public MinkowskiSum3f(Vector3f[] a, Vector3f[] b)
+	public MinkowskiSum3f(Shape3f a, Shape3f b)
 	{
 		this(a, b, false);
 	}
 	
-	public MinkowskiSum3f(Vector3f[] a, Vector3f[] b, boolean difference)
+	public MinkowskiSum3f(Shape3f a, Shape3f b, boolean difference)
 	{
 		
-		ArrayList<Vector3f> sumPoints = Auto.ArrayList();
+		Point3f[] pointsA = a.getPoints();
+		Point3f[] pointsB = b.getPoints();
+		
+		ArrayList<Point3f> sumPoints = Auto.ArrayList();
 		
 		if(difference)
 		{
-			for(Vector3f as : a)
+			for(Point3f as : pointsA)
 			{
-				sumPoints.addAll(calculatePointDifference(as, b));
+				sumPoints.addAll(calculatePointDifference(as, pointsB));
 			}
 		}
 		else
 		{
-			for(Vector3f as : a)
+			for(Point3f as : pointsA)
 			{
-				sumPoints.addAll(calculatePointSum(as, b));
+				sumPoints.addAll(calculatePointSum(as, pointsB));
 			}
 		}
 		
-		ArrayList<Vector3f> filtered = Auto.ArrayList();
+		ArrayList<Point3f> filtered = Auto.ArrayList();
 		
-		for(Vector3f v : sumPoints)
+		for(Point3f v : sumPoints)
 		{
 			if(!filtered.contains(v))
 				filtered.add(v);
 		}
 		
-		this.points = (Vector3f[]) filtered.toArray();
+		this.points = (Point3f[]) filtered.toArray();
 	}
 	
-	public Vector3f[] getPoints()
+	public Point3f[] getPoints()
 	{
 		return this.points;
 	}
 	
-	public List<Vector3f> getPointList()
+	public List<Point3f> getPointList()
 	{
 		return Auto.ArrayList(this.points);
 	}
 	
-	private List<Vector3f> calculatePointSum(Vector3f a, Vector3f[] b)
+	private List<Point3f> calculatePointSum(Point3f a, Point3f[] b)
 	{
-		ArrayList<Vector3f> out = Auto.ArrayList();
+		ArrayList<Point3f> out = Auto.ArrayList();
 		
-		Vector3f next;
+		Point3f next;
 		
-		for(Vector3f bs : b)
+		for(Point3f bs : b)
 		{
-			next = a.addN(bs);
+			next = new Point3f(a.add(bs));
 			if(!out.contains(next))
 				out.add(next);
 		}
@@ -72,19 +76,21 @@ public class MinkowskiSum3f
 		return out;
 	}
 	
-	private List<Vector3f> calculatePointDifference(Vector3f a, Vector3f[] b)
+	private List<Point3f> calculatePointDifference(Point3f a, Point3f[] b)
 	{
-		ArrayList<Vector3f> out = Auto.ArrayList();
+		ArrayList<Point3f> out = Auto.ArrayList();
 		
-		Vector3f next;
+		Point3f next;
 		
-		for(Vector3f bs : b)
+		for(Point3f bs : b)
 		{
-			next = a.subN(bs);
+			next = new Point3f(a.sub(bs));
 			if(!out.contains(next))
 				out.add(next);
 		}
 		
 		return out;
 	}
+	
+
 }
