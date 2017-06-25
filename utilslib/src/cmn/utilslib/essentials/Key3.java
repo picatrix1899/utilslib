@@ -1,12 +1,15 @@
 package cmn.utilslib.essentials;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Key3<A,B,C>
+public class Key3<A,B,C> implements Serializable
 {
-	private A a = null;
-	private B b = null;
-	private C c = null;
+	private static final long serialVersionUID = 1L;
+	
+	protected A a = null;
+	protected B b = null;
+	protected C c = null;
 	
 	public Key3(A a, B b, C c)
 	{

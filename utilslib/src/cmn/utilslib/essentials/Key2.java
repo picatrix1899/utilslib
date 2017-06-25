@@ -1,11 +1,14 @@
 package cmn.utilslib.essentials;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Key2<A,B>
+public class Key2<A,B> implements Serializable
 {
-	private A a = null;
-	private B b = null;
+	private static final long serialVersionUID = 1L;
+	
+	protected A a = null;
+	protected B b = null;
 	
 	public Key2(A a, B b)
 	{
