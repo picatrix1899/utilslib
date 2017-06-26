@@ -86,7 +86,7 @@ public class Plane3f
 		Vector3f n = getNormal();
 		Vector3f v = g.v;
 		
-		double lambda = (n.getX() * (p2.getX() -p1.getX()) + n.getY() * (p2.getY() - p1.getY()) + n.getZ() *(p2.getZ() - p1.getZ()))/(v.getX() * n.getX() + v.getY() * n.getY() + v.getZ() * n.getZ());
+		double lambda = (n.getX() * (p2.getX() - p1.getX()) + n.getY() * (p2.getY() - p1.getY()) + n.getZ() * (p2.getZ() - p1.getZ())) / (v.getX() * n.getX() + v.getY() * n.getY() + v.getZ() * n.getZ());
 		
 		return g.p.jumpN(g.v.mulN(lambda));
 	}

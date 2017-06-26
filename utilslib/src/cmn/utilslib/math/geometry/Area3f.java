@@ -19,7 +19,7 @@ public class Area3f
 	
 	public Plane3f asPlane()
 	{
-		return new Plane3f(this.p2, this.p3.asVector3f().subN(this.p2.asVector3f()).normalize() , this.p1.asVector3f().subN(this.p2.asVector3f()).normalize());
+		return new Plane3f(this.p2, this.p2.directionTo(this.p3) , this.p2.directionTo(p1));
 	}
 
 	
@@ -35,14 +35,14 @@ public class Area3f
 		Vector3f p2vp = vp.subN(p2.asVector3f());
 		
 		// calculate border line functions
-		Vector3f minXLine = p3.asVector3f().subN(p2.asVector3f());
+		Vector3f minXLine = p2.vectorTo(p3);
 		minXLine = minXLine.div(minXLine.getX());
-		Vector3f maxXLine = p4.asVector3f().subN(p1.asVector3f());
+		Vector3f maxXLine = p1.vectorTo(p4);
 		maxXLine = maxXLine.div(maxXLine.getX());
 		
-		Vector3f minYLine = p1.asVector3f().subN(p2.asVector3f());
+		Vector3f minYLine = p2.vectorTo(p1);
 		minYLine = minYLine.div(minYLine.getY());
-		Vector3f maxYLine = p4.asVector3f().subN(p3.asVector3f());
+		Vector3f maxYLine = p3.vectorTo(p4);
 		maxYLine = maxYLine.div(maxYLine.getY());
 		
 		Vector3f minPosX = p2.asVector3f().addN(minXLine.mulN(p2vp.getX()));
@@ -72,14 +72,14 @@ public class Area3f
 		Vector3f p2vp = vp.subN(p2.asVector3f());
 		
 		// calculate border line functions
-		Vector3f minXLine = p3.asVector3f().subN(p2.asVector3f());
+		Vector3f minXLine = p2.vectorTo(p3);
 		minXLine = minXLine.div(minXLine.getX());
-		Vector3f maxXLine = p4.asVector3f().subN(p1.asVector3f());
+		Vector3f maxXLine = p1.vectorTo(p4);
 		maxXLine = maxXLine.div(maxXLine.getX());
 		
-		Vector3f minYLine = p1.asVector3f().subN(p2.asVector3f());
+		Vector3f minYLine = p2.vectorTo(p1);
 		minYLine = minYLine.div(minYLine.getY());
-		Vector3f maxYLine = p4.asVector3f().subN(p3.asVector3f());
+		Vector3f maxYLine = p3.vectorTo(p4);
 		maxYLine = maxYLine.div(maxYLine.getY());
 		
 		Vector3f minPosX = p2.asVector3f().addN(minXLine.mulN(p2vp.getX()));

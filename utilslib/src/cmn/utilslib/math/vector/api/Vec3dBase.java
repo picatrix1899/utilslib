@@ -98,7 +98,7 @@ public interface Vec3dBase extends Vecd
 	
 	
 	
-	default double dot(Vec3dBase v) { return this.getX() * v.getX() + this.getY() * v.getY(); }
+	default double dot(Vec3dBase v) { return this.getX() * v.getX() + this.getY() * v.getY() + this.getZ() * v.getZ(); }
 	
 	default double angleRad(Vec3dBase v) { return Math.acos((dot(v)) / (length() * v.length())); }
 	default double angleDeg(Vec3dBase v) { return angleRad(v) * Maths.RAD_TO_DEG; }

@@ -1,6 +1,7 @@
 
 package cmn.utilslib.dmap.dmaps;
 
+
 import cmn.utilslib.dmap.dmaps.api.IDMap4;
 import cmn.utilslib.dmap.dmaps.api.IDMap4Base;
 
@@ -126,6 +127,19 @@ public class DMap4<A,B,C,D> implements IDMap4<A,B,C,D>
 		
 		return true;
 	}
+	
+	public int hashCode()
+	{
+		int hash = 1;
+		
+		hash = 37 * hash + (this.a != null ? this.a.hashCode() : 0);
+		hash = 37 * hash + (this.b != null ? this.b.hashCode() : 0);
+		hash = 37 * hash + (this.c != null ? this.c.hashCode() : 0);
+		hash = 37 * hash + (this.d != null ? this.d.hashCode() : 0);
+		
+		return hash;
+	}
+	
 	
 	/** {@inheritDoc} */
 	@Override

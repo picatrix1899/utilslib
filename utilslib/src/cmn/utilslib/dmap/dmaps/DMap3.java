@@ -92,6 +92,17 @@ public class DMap3<A,B,C> implements IDMap3<A,B,C>
 		return new DMap3<A,B,C>(this);
 	}
 	
+	public int hashCode()
+	{
+		int hash = 0;
+		
+		hash = 37 * hash + (this.a != null ? this.a.hashCode() : 0);
+		hash = 37 * hash + (this.b != null ? this.b.hashCode() : 0);
+		hash = 37 * hash + (this.c != null ? this.c.hashCode() : 0);
+		
+		return hash;
+	}
+	
 	/** {@inheritDoc} */
 	@Override
 	public boolean equals(Object obj)

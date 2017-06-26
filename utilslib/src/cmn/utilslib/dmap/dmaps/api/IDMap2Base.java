@@ -13,4 +13,5 @@ public interface IDMap2Base<A,B>
 	 * @return The value
 	 */
 	public abstract B getB();
+	
 }

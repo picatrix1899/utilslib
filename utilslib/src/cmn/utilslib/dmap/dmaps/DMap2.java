@@ -78,6 +78,16 @@ public class DMap2<A,B> implements IDMap2<A,B>
 		return new DMap2<A,B>(this);
 	}
 	
+	public int hashCode()
+	{
+		int hash = 0;
+		
+		hash = 37 * hash + (this.a != null ? this.a.hashCode() : 0);
+		hash = 37 * hash + (this.b != null ? this.b.hashCode() : 0);
+		
+		return hash;
+	}
+	
 	/** {@inheritDoc} */
 	@Override
 	public boolean equals(Object obj)

@@ -51,6 +51,10 @@ public class Point3f
 	public Vector3f vectorTo(Point3f p) { return p.asVector3f().sub(asVector3f()); }
 	public Vector3f vectorFrom(Point3f p) { return asVector3f().sub(p.asVector3f()); }
 	
+	public Vector3f directionTo(Point3f p) { return vectorTo(p).normalize(); }
+	public Vector3f directionFrom(Point3f p) { return vectorFrom(p).normalize(); }
+	
+	
 	public Point3f jump(Vector3f v) { return set(asVector3f().add(v)); }
 	public Point3f jumpN(Vector3f v) { return clone().jump(v); }
 	
