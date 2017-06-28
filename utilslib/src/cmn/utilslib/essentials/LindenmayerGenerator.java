@@ -3,7 +3,9 @@ package cmn.utilslib.essentials;
 import java.util.ArrayList;
 
 import cmn.utilslib.math.Maths;
+import cmn.utilslib.math.Quaternion;
 import cmn.utilslib.math.vector.Vector2f;
+import cmn.utilslib.math.vector.Vector3f;
 
 public class LindenmayerGenerator
 {
@@ -12,6 +14,8 @@ public class LindenmayerGenerator
 	public int initDepth = 5;
 	public double initRot = 27.1d;
 	public double initStepLength = 4.0d;
+	
+	public LindenmayerSettings init = new LindenmayerSettings(5, 4.0d, Vector3f.aY.clone(), new Quaternion());
 	
 	private double cDir;
 	private int cDepth;
