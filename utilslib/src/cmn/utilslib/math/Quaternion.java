@@ -2,6 +2,7 @@ package cmn.utilslib.math;
 
 
 import cmn.utilslib.math.vector.Vector3f;
+import cmn.utilslib.Allocator;
 import cmn.utilslib.math.matrix.Matrix4f;
 import cmn.utilslib.math.vector.api.Vec3dBase;
 import cmn.utilslib.math.vector.api.Vec3f;
@@ -17,14 +18,22 @@ import cmn.utilslib.math.vector.api.Vec4fBase;
  */
 public class Quaternion
 {
-	private double x;
-	private double y;
-	private double z;
-	private double w;
+	public double x;
+	public double y;
+	public double z;
+	public double w;
+	
+	private static Allocator<Quaternion> allocator = new Allocator<Quaternion>(Quaternion.class);
+	
+	public static Quaternion alloc() { return allocator.alloc(); }
+	
+	public static void dealloc(Quaternion q) { allocator.dealloc(q); }
+	
 	
 	public Quaternion(double w, double x, double y, double z)
 	{
 		set(w, x, y, z);
+		this.w = w; this.x = x; this.y = y; this.z = z;
 	}
 	
 	public Quaternion()
@@ -160,12 +169,17 @@ public class Quaternion
 	
 	public static Quaternion getFromVectors(Vec3fBase v1, Vec3fBase v2)
 	{
-		Vector3f a = (Vector3f) v1.clone().normalize();
-		Vector3f b = (Vector3f) v2.clone().normalize();
-		Vector3f axis = a.cross(b);
+		Vec3f a = Vector3f.alloc();
+		Vec3f b = Vector3f.alloc();
+		
+		a.set(v1).normalize();
+		b.set(v2).normalize();
+		
+		Vec3f axis = a.cross(b);
 		double angle = 1.0d + a.dot(b);
 		
 		axis.normalize();
+		
 		return new Quaternion(angle, axis.getX(), axis.getY(), axis.getZ()).normalize();
 	}
 	
@@ -208,21 +222,28 @@ public class Quaternion
 	
 	public Quaternion rotateTo(Vec3fBase v)
 	{
-		Vector3f a = getForwardf().clone().normalize();
-		Vector3f b = (Vector3f) v.clone().normalize();
+		
+		Vec3f a = Vector3f.alloc();
+		Vec3f b = Vector3f.alloc();
+		
+		getForwardf(a);
+		b.set(v).normalize();
 		
 		
-		Vector3f axis = a.cross(b);
+		Vec3f axis = a.cross(b);
 		double rot = a.dot(b);
 		
 		axis.normalize();
 		
-		setX(axis.getX());
-		setY(axis.getY());
-		setZ(axis.getZ());
-		setW(1.0d + rot);
+		this.x = axis.getX();
+		this.y = axis.getY();
+		this.z = axis.getZ();
+		this.w = 1.0d + rot;
 		
 		normalize();
+		
+		Vector3f.dealloc((Vector3f) a);
+		Vector3f.dealloc((Vector3f) b);
 		
 		return this;
 		
@@ -231,12 +252,21 @@ public class Quaternion
 	public double getEulerPitch()
 	{
 
-		Vector3f a = getForwardf();
-		Vector3f b = (Vector3f) a.clone().setY(0);
+		Vec3f a = Vector3f.alloc();
+		Vec3f b = Vector3f.alloc();
+		
+		getForwardf(a);
+		
+		b.set(a).setY(0);
 			
 		int i = a.getY() > 0 ? -1 : 1;
 		
-		return i * b.angleDeg(a);
+		double out = i * b.angleDeg(a);
+		
+		Vector3f.dealloc((Vector3f) a);
+		Vector3f.dealloc((Vector3f) b);
+		
+		return out;
 	}
 	
 	public double getEulerYaw()
@@ -249,15 +279,9 @@ public class Quaternion
 		return Maths.RAD_TO_DEG * Math.asin((2.0d * this.w * this.y + this.z * this.x));
 	}
 	
-	public Quaternion set(Quaternion q)
-	{
-		return set(q.getW(), q.getX(), q.getY(), q.getZ());
-	}
+	public Quaternion set(Quaternion q) { this.w = q.getW(); this.x = q.getX(); this.y = q.getY(); this.z = q.getZ(); return this; }
 	
-	public Quaternion set(double w, double x, double y, double z)
-	{
-		return setW(w).setX(x).setY(y).setZ(z);
-	}
+	public Quaternion set(double w, double x, double y, double z) { this.w = w; this.x = x; this.y = y; this.z = z; return this; }
 	
 	public Quaternion setW(double w) { this.w = w; return this; }
 	
@@ -267,12 +291,7 @@ public class Quaternion
 	
 	public Quaternion setZ(double z) { this.z = z; return this; }
 	
-	public Quaternion conjugate()
-	{
-		set(this.w, -this.x, -this.y, -this.z);
-		
-		return this;
-	}
+	public Quaternion conjugate() { this.x = -this.x; this.y = -this.y; this.z = -this.z; return this; }
 	
 	public Quaternion conjugated() { return clone().conjugate(); }
 	
@@ -280,12 +299,12 @@ public class Quaternion
 	
 	public Quaternion mul(Quaternion q)
 	{
-		double w_ = this.w * q.w - this.x * q.x - this.y * q.y - this.z * q.z; // w * w' - v * v'
-		double x_ = this.w * q.x + q.w * this.x + this.y * q.z - this.z * q.y; // s * v'.x + s' * v.x + (V x V').x
-		double y_ = this.w * q.y + q.w * this.y + this.z * q.x - this.x * q.z; // s * v'.y + s' * v.y + (V x V').y
-		double z_ = this.w * q.z + q.w * this.z + this.x * q.y - this.y * q.x; // s * v'.z + s' * v.z + (V x V').z
+		double w_ = this.w * q.getW() - this.x * q.getX() - this.y * q.getY() - this.z * q.getZ(); // w * w' - v * v'
+		double x_ = this.w * q.getX() + q.getW() * this.x + this.y * q.getZ() - this.z * q.getY(); // s * v'.x + s' * v.x + (V x V').x
+		double y_ = this.w * q.getY() + q.getW() * this.y + this.z * q.getX() - this.x * q.getZ(); // s * v'.y + s' * v.y + (V x V').y
+		double z_ = this.w * q.getZ() + q.getW() * this.z + this.x * q.getY() - this.y * q.getX(); // s * v'.z + s' * v.z + (V x V').z
 		
-		set(w_, x_, y_, z_);
+		this.w = w_; this.x = x_; this.y = y_; this.z = z_;
 		
 		return this;
 	}
@@ -296,11 +315,10 @@ public class Quaternion
 		double x_ =  this.w * v.getX() + this.y * v.getZ() - this.z * v.getY(); // s * v'.x ...
 		double y_ =  this.w * v.getY() + this.z * v.getX() - this.x * v.getZ(); // s * v'.y ...
 		double z_ =  this.w * v.getZ() + this.x * v.getY() - this.y * v.getX(); // s * v*.z ...
-		
-		set(w_, x_, y_, z_);
+
+		this.w = w_; this.x = x_; this.y = y_; this.z = z_;
 		
 		return this;
-		
 	}
 	
 	public Quaternion mul(Vec3dBase v)
@@ -310,7 +328,7 @@ public class Quaternion
 		double y_ =  this.w * v.getY() + this.z * v.getX() - this.x * v.getZ(); // s * v'.y ...
 		double z_ =  this.w * v.getZ() + this.x * v.getY() - this.y * v.getX(); // s * v*.z ...
 		
-		set(w_, x_, y_, z_);
+		this.w = w_; this.x = x_; this.y = y_; this.z = z_;
 		
 		return this;
 		
@@ -323,7 +341,7 @@ public class Quaternion
 		double y_ =  this.w * v.getY() + this.z * v.getX() - this.x * v.getZ(); // s * v'.y ...
 		double z_ =  this.w * v.getZ() + this.x * v.getY() - this.y * v.getX(); // s * v*.z ...
 		
-		set(w_, x_, y_, z_);
+		this.w = w_; this.x = x_; this.y = y_; this.z = z_;
 		
 		return this;
 		
@@ -336,7 +354,7 @@ public class Quaternion
 		double y_ =  this.w * v.getY() + this.z * v.getX() - this.x * v.getZ(); // s * v'.y ...
 		double z_ =  this.w * v.getZ() + this.x * v.getY() - this.y * v.getX(); // s * v*.z ...
 		
-		set(w_, x_, y_, z_);
+		this.w = w_; this.x = x_; this.y = y_; this.z = z_;
 		
 		return this;
 		
@@ -354,6 +372,8 @@ public class Quaternion
 	
 	public Quaternion mulN(Vec4dBase v) { return this.clone().mul(v); }
 	
+	
+	public Vec3f getForwardf(Vec3f dst) { return dst.set(Vec3f.aZ).rotate(this).normalize(); }
 	
 	public Vector3f getForwardf() { return Vec3f.aZ.clone().rot(this).normalize(); }
 	
@@ -374,10 +394,10 @@ public class Quaternion
 	{
 		double l = length();
 		
-		setW(this.w / l);
-		setX(this.x / l);
-		setY(this.y / l);
-		setZ(this.z / l);
+		this.w /= l;
+		this.x /= l;
+		this.y /= l;
+		this.z /= l;
 		
 		return this;
 	}

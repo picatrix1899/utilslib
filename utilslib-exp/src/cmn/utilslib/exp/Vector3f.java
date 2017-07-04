@@ -1,7 +1,7 @@
-package cmn.utilslib.math.vector;
+package cmn.utilslib.exp;
 
 
-import cmn.utilslib.Allocator;
+import cmn.utilslib.exp.Allocator;
 import cmn.utilslib.math.Maths;
 import cmn.utilslib.math.Quaternion;
 import cmn.utilslib.math.vector.api.Vec3dBase;
@@ -76,7 +76,7 @@ public class Vector3f implements Vec3f
 	
 	public Vector3f normalize() { return this.x + this.y + this.z != 0 ? div(length()) : this; }
 	
-	public Vector3f invert() { this.x = -this.x; this.y = -this.y; this.z = -this.z; return this; }
+	public Vector3f invert() { this.x *= -1; this.y *= -1; this.z *= -1; return this; }
 	
 	public Vector3f add(Vec3fBase v) { this.x += v.getX(); this.y += v.getY(); this.z += v.getZ(); return this; }
 	public Vector3f add(Vec3dBase v) { this.x += v.getX(); this.y += v.getY(); this.z += v.getZ(); return this; }
@@ -170,16 +170,16 @@ public class Vector3f implements Vec3f
 
 		double sinAngle = Math.sin(angle);
 
-		double x_1 = ((1 - f)	* sinAngle) / (sinAngle * this.x);
-		double x_2 = (f			* sinAngle) / (sinAngle * v.getX());
+		double x_1 = (1 - f)	* sinAngle / sinAngle * getX();
+		double x_2 = f			* sinAngle / sinAngle * v.getX();
 		float x = (float) (x_1 + x_2);
 		
-		double y_1 = ((1 - f)	* sinAngle) / (sinAngle * this.y);
-		double y_2 = (f			* sinAngle) / (sinAngle * v.getY());
+		double y_1 = (1 - f)	* sinAngle / sinAngle * getY();
+		double y_2 = f			* sinAngle / sinAngle * v.getY();
 		float y = (float) (y_1 + y_2);
 		
-		double z_1 = ((1 - f)	* sinAngle) / (sinAngle * this.z);
-		double z_2 = (f			* sinAngle) / (sinAngle * v.getZ());
+		double z_1 = (1 - f)	* sinAngle / sinAngle * getZ();
+		double z_2 = f			* sinAngle / sinAngle * v.getZ();
 		float z = (float) (z_1 + z_2);
 		
 		return new Vector3f(x, y, z);
@@ -230,17 +230,6 @@ public class Vector3f implements Vec3f
 		Quaternion w = q.mulN(this).mulN(q.conjugated());
 
 		return new Vector3f((float)w.getX(), (float)w.getY(), (float)w.getZ());
-	}
- 	
- 	public Vector3f rotate(Quaternion q)
-	{
-		Quaternion w = q.mulN(this).mulN(q.conjugated());
-
-		this.x = (float)w.getX();
-		this.y = (float)w.getY();
-		this.z = (float)w.getZ();
-		
-		return this;
 	}
 
 	

@@ -1,5 +1,7 @@
 package cmn.utilslib.math.vector.api;
 
+import cmn.utilslib.math.Quaternion;
+
 public interface Vec3f extends Vec3fBase
 {
 	
@@ -17,7 +19,7 @@ public interface Vec3f extends Vec3fBase
 	Vec3f reflect(Vec3fBase normal);
 
 
-	
+	Vec3f rotate(Quaternion q);
 
 	Vec3f setZero();
 	
