@@ -41,15 +41,18 @@ import javax.vecmath.Vector4f;
  *
  * @author jezek2
  */
-public class BoxShape extends PolyhedralConvexShape {
+public class BoxShape extends PolyhedralConvexShape
+{
 
-	public BoxShape(Vector3f boxHalfExtents) {
+	public BoxShape(Vector3f boxHalfExtents)
+	{
 		Vector3f margin = new Vector3f(getMargin(), getMargin(), getMargin());
 		VectorUtil.mul(implicitShapeDimensions, boxHalfExtents, localScaling);
 		implicitShapeDimensions.sub(margin);
 	}
 
-	public Vector3f getHalfExtentsWithMargin(Vector3f out) {
+	public Vector3f getHalfExtentsWithMargin(Vector3f out)
+	{
 		Vector3f halfExtents = getHalfExtentsWithoutMargin(out);
 		Vector3f margin = Stack.alloc(Vector3f.class);
 		margin.set(getMargin(), getMargin(), getMargin());
@@ -57,7 +60,8 @@ public class BoxShape extends PolyhedralConvexShape {
 		return out;
 	}
 
-	public Vector3f getHalfExtentsWithoutMargin(Vector3f out) {
+	public Vector3f getHalfExtentsWithoutMargin(Vector3f out)
+	{
 		out.set(implicitShapeDimensions); // changed in Bullet 2.63: assume the scaling and margin are included
 		return out;
 	}
@@ -68,7 +72,8 @@ public class BoxShape extends PolyhedralConvexShape {
 	}
 
 	@Override
-	public Vector3f localGetSupportingVertex(Vector3f vec, Vector3f out) {
+	public Vector3f localGetSupportingVertex(Vector3f vec, Vector3f out)
+	{
 		Vector3f halfExtents = getHalfExtentsWithoutMargin(out);
 		
 		float margin = getMargin();
@@ -84,7 +89,8 @@ public class BoxShape extends PolyhedralConvexShape {
 	}
 
 	@Override
-	public Vector3f localGetSupportingVertexWithoutMargin(Vector3f vec, Vector3f out) {
+	public Vector3f localGetSupportingVertexWithoutMargin(Vector3f vec, Vector3f out)
+	{
 		Vector3f halfExtents = getHalfExtentsWithoutMargin(out);
 
 		out.set(
@@ -95,10 +101,12 @@ public class BoxShape extends PolyhedralConvexShape {
 	}
 
 	@Override
-	public void batchedUnitVectorGetSupportingVertexWithoutMargin(Vector3f[] vectors, Vector3f[] supportVerticesOut, int numVectors) {
+	public void batchedUnitVectorGetSupportingVertexWithoutMargin(Vector3f[] vectors, Vector3f[] supportVerticesOut, int numVectors)
+	{
 		Vector3f halfExtents = getHalfExtentsWithoutMargin(Stack.alloc(Vector3f.class));
 
-		for (int i = 0; i < numVectors; i++) {
+		for (int i = 0; i < numVectors; i++)
+		{
 			Vector3f vec = vectors[i];
 			supportVerticesOut[i].set(ScalarUtil.fsel(vec.x, halfExtents.x, -halfExtents.x),
 					ScalarUtil.fsel(vec.y, halfExtents.y, -halfExtents.y),
@@ -107,7 +115,8 @@ public class BoxShape extends PolyhedralConvexShape {
 	}
 
 	@Override
-	public void setMargin(float margin) {
+	public void setMargin(float margin)
+	{
 		// correct the implicitShapeDimensions for the margin
 		Vector3f oldMargin = Stack.alloc(Vector3f.class);
 		oldMargin.set(getMargin(), getMargin(), getMargin());
@@ -121,7 +130,8 @@ public class BoxShape extends PolyhedralConvexShape {
 	}
 
 	@Override
-	public void setLocalScaling(Vector3f scaling) {
+	public void setLocalScaling(Vector3f scaling)
+	{
 		Vector3f oldMargin = Stack.alloc(Vector3f.class);
 		oldMargin.set(getMargin(), getMargin(), getMargin());
 		Vector3f implicitShapeDimensionsWithMargin = Stack.alloc(Vector3f.class);
@@ -136,12 +146,14 @@ public class BoxShape extends PolyhedralConvexShape {
 	}
 
 	@Override
-	public void getAabb(Transform t, Vector3f aabbMin, Vector3f aabbMax) {
+	public void getAabb(Transform t, Vector3f aabbMin, Vector3f aabbMax)
+	{
 		AabbUtil2.transformAabb(getHalfExtentsWithoutMargin(Stack.alloc(Vector3f.class)), getMargin(), t, aabbMin, aabbMax);
 	}
 
 	@Override
-	public void calculateLocalInertia(float mass, Vector3f inertia) {
+	public void calculateLocalInertia(float mass, Vector3f inertia)
+	{
 		//btScalar margin = btScalar(0.);
 		Vector3f halfExtents = getHalfExtentsWithMargin(Stack.alloc(Vector3f.class));
 
@@ -155,7 +167,8 @@ public class BoxShape extends PolyhedralConvexShape {
 	}
 
 	@Override
-	public void getPlane(Vector3f planeNormal, Vector3f planeSupport, int i) {
+	public void getPlane(Vector3f planeNormal, Vector3f planeSupport, int i)
+	{
 		// this plane might not be aligned...
 		Vector4f plane = Stack.alloc(Vector4f.class);
 		getPlaneEquation(plane, i);
@@ -166,22 +179,26 @@ public class BoxShape extends PolyhedralConvexShape {
 	}
 
 	@Override
-	public int getNumPlanes() {
+	public int getNumPlanes()
+	{
 		return 6;
 	}
 
 	@Override
-	public int getNumVertices() {
+	public int getNumVertices()
+	{
 		return 8;
 	}
 
 	@Override
-	public int getNumEdges() {
+	public int getNumEdges()
+	{
 		return 12;
 	}
 
 	@Override
-	public void getVertex(int i, Vector3f vtx) {
+	public void getVertex(int i, Vector3f vtx)
+	{
 		Vector3f halfExtents = getHalfExtentsWithoutMargin(Stack.alloc(Vector3f.class));
 
 		vtx.set(halfExtents.x * (1 - (i & 1)) - halfExtents.x * (i & 1),
@@ -189,7 +206,8 @@ public class BoxShape extends PolyhedralConvexShape {
 				halfExtents.z * (1 - ((i & 4) >> 2)) - halfExtents.z * ((i & 4) >> 2));
 	}
 	
-	public void getPlaneEquation(Vector4f plane, int i) {
+	public void getPlaneEquation(Vector4f plane, int i)
+	{
 		Vector3f halfExtents = getHalfExtentsWithoutMargin(Stack.alloc(Vector3f.class));
 
 		switch (i) {
@@ -217,7 +235,8 @@ public class BoxShape extends PolyhedralConvexShape {
 	}
 
 	@Override
-	public void getEdge(int i, Vector3f pa, Vector3f pb) {
+	public void getEdge(int i, Vector3f pa, Vector3f pb)
+	{
 		int edgeVert0 = 0;
 		int edgeVert1 = 0;
 
@@ -281,7 +300,8 @@ public class BoxShape extends PolyhedralConvexShape {
 	}
 
 	@Override
-	public boolean isInside(Vector3f pt, float tolerance) {
+	public boolean isInside(Vector3f pt, float tolerance)
+	{
 		Vector3f halfExtents = getHalfExtentsWithoutMargin(Stack.alloc(Vector3f.class));
 
 		//btScalar minDist = 2*tolerance;
@@ -298,18 +318,22 @@ public class BoxShape extends PolyhedralConvexShape {
 	}
 
 	@Override
-	public String getName() {
+	public String getName()
+	{
 		return "Box";
 	}
 
 	@Override
-	public int getNumPreferredPenetrationDirections() {
+	public int getNumPreferredPenetrationDirections()
+	{
 		return 6;
 	}
 
 	@Override
-	public void getPreferredPenetrationDirection(int index, Vector3f penetrationVector) {
-		switch (index) {
+	public void getPreferredPenetrationDirection(int index, Vector3f penetrationVector)
+	{
+		switch (index)
+		{
 			case 0:
 				penetrationVector.set(1f, 0f, 0f);
 				break;

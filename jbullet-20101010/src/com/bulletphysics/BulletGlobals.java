@@ -32,7 +32,8 @@ import cz.advel.stack.Stack;
  * 
  * @author jezek2
  */
-public class BulletGlobals {
+public class BulletGlobals
+{
 	
 	public static final boolean DEBUG = false;
 	
@@ -49,9 +50,11 @@ public class BulletGlobals {
 
 	////////////////////////////////////////////////////////////////////////////
 
-	private static ThreadLocal<BulletGlobals> threadLocal = new ThreadLocal<BulletGlobals>() {
+	private static ThreadLocal<BulletGlobals> threadLocal = new ThreadLocal<BulletGlobals>()
+	{
 		@Override
-		protected BulletGlobals initialValue() {
+		protected BulletGlobals initialValue()
+		{
 			return new BulletGlobals();
 		}
 	};

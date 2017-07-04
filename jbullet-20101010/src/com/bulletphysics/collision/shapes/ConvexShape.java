@@ -33,7 +33,8 @@ import javax.vecmath.Vector3f;
  * 
  * @author jezek2
  */
-public abstract class ConvexShape extends CollisionShape {
+public abstract class ConvexShape extends CollisionShape
+{
 
 	public static final int MAX_PREFERRED_PENETRATION_DIRECTIONS = 10;
 	

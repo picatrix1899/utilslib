@@ -5,7 +5,6 @@
 	<classpathentry kind="lib" path="dist/jbullet-demos.jar"/>
 	<classpathentry kind="lib" path="dist/jbullet.jar"/>
 	<classpathentry kind="lib" path="lib/ASM3.1/asm-all-3.1.jar"/>
-	<classpathentry kind="lib" path="lib/jstackalloc/jstackalloc-20080716/dist/stack-alloc.jar"/>
 	<classpathentry kind="lib" path="lib/jstackalloc/stack-alloc.jar"/>
 	<classpathentry kind="lib" path="lib/lwjgl/jinput.jar"/>
 	<classpathentry kind="lib" path="lib/lwjgl/lwjgl_util.jar"/>
