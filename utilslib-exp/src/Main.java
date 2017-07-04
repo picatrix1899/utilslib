@@ -1,28 +1,29 @@
-import cmn.utilslib.exp.vector.PVec3f;
-import cmn.utilslib.exp.vector.api.Vector3f;
-import cmn.utilslib.exp.vector.api.Vector3fBaseE;
-import cmn.utilslib.exp.vector.api.Vector3fE;
-import cmn.utilslib.exp.vector.Vec3f;
+
 
 public class Main
 {
 
 	public static void main(String[] args)
 	{
-		PVec3f pv = PVec3f.gen(0.0f, 1.0f, 2.0f);
+		//         xxxxxxxxxxxxxxx x
+		double a = 987654321987654.1;
 		
-		Vec3f v = pv.addN(4.0f);
+		//         xx xxxxxxxxxxxxxx
+		double b = 15.123465789123456789123456789;
+		double c = a + b;
 		
-		Vector3fE<?> v2 = v;
+		double d = 4.54345434543;
 		
-		v2.add(1);
+		double r1 = c / d;
+		double _r21 = a / d;
+		double _r22 = b / d;
+		double r2 = _r21 + _r22; 
 		
-		print(v);
-		print(pv);
+		System.out.println(a);
+		System.out.println(b);
+		System.out.println(c);
+		System.out.println(r1);
+		System.out.println(r2);
 	}
 
-	public static void print(Vector3fBaseE<?> v)
-	{
-		System.out.println(v.getX() + ", " + v.getY() + ", " + v.getZ());
-	}
 }
