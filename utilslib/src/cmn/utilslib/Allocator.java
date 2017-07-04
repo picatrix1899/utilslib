@@ -35,6 +35,6 @@ public class Allocator<T>
 	
 	public void dealloc(T t)
 	{
-		this.store.add(t);
+		this.store.push(t);
 	}
 }
