@@ -95,11 +95,11 @@ public interface Vec3fBase extends Vecf
 	
 	Vec3f slerp(Vec3fBase v, double f);
 	
-	default double dot(Vec3fBase v) { return (double) this.getX() * v.getX() + this.getY() * v.getY() + this.getZ() * v.getZ(); }
+	double dot(Vec3fBase v);
 	
-	default double angleRad(Vec3fBase v) { return Math.acos((dot(v)) / (length() * v.length())); }
-	default double angleDeg(Vec3fBase v) { return angleRad(v) * Maths.RAD_TO_DEG; }
+	double angleRad(Vec3fBase v);
+	double angleDeg(Vec3fBase v);
 
-	default double length() { return Math.sqrt(squaredLength()); }
-	default double squaredLength() { return getX() * getX() + getY() * getY() + getZ() * getZ(); }
+	double length();
+	double squaredLength();
 }
