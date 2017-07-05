@@ -1,7 +1,6 @@
 package cmn.utilslib.math.vector.api;
 
 import cmn.utilslib.math.vector.PVector3f;
-import cmn.utilslib.math.Maths;
 import cmn.utilslib.math.Quaternion;
 
 public interface Vec3fBase extends Vecf

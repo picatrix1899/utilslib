@@ -1,6 +1,5 @@
 package cmn.utilslib.math.vector.api;
 
-import cmn.utilslib.math.Maths;
 import cmn.utilslib.math.Quaternion;
 
 public interface Vec3dBase extends Vecd
@@ -38,17 +37,7 @@ public interface Vec3dBase extends Vecd
 
 	default double max() { return Math.max(getX(), Math.max(getY(), getZ())); }
 	default double min() { return Math.min(getX(), Math.min(getY(), getZ())); }
-	
-	
 
-
-
-
-
-
-
-
-	
 	Vec3d clone();
 
 	
@@ -96,13 +85,11 @@ public interface Vec3dBase extends Vecd
 	
 	Vec3d lerped(Vec3dBase v, float f);
 	
+	double dot(Vec3dBase v);
 	
-	
-	default double dot(Vec3dBase v) { return this.getX() * v.getX() + this.getY() * v.getY() + this.getZ() * v.getZ(); }
-	
-	default double angleRad(Vec3dBase v) { return Math.acos((dot(v)) / (length() * v.length())); }
-	default double angleDeg(Vec3dBase v) { return angleRad(v) * Maths.RAD_TO_DEG; }
+	double angleRad(Vec3dBase v);
+	double angleDeg(Vec3dBase v);
 
-	default double length() { return Math.sqrt(squaredLength()); }
-	default double squaredLength() { return getX() * getX() + getY() * getY() + getZ() * getZ(); }
+	double length();
+	double squaredLength();
 }

@@ -149,6 +149,14 @@ public abstract class PVector3f implements Vec3fBase
 			/** {@inheritDoc} */
 			@Override
 			public String toString() { return "PVec3f(" + getX() + "f, " + getY() + "f, " + getZ() + "f)"; }
+			
+			public double dot(Vec3fBase v) { return (double) getX() * v.getX() + getY() * v.getY() + getZ() * v.getZ(); }
+			
+			public double angleRad(Vec3fBase v) { return Math.acos((dot(v)) / (length() * v.length())); }
+			public double angleDeg(Vec3fBase v) { return angleRad(v) * Maths.RAD_TO_DEG; }
+			
+			public double length() { return Math.sqrt(squaredLength()); }
+			public double squaredLength() { return getX() * getX() + getY() * getY() + getZ() * getZ(); }
 		};
 	}
 	
