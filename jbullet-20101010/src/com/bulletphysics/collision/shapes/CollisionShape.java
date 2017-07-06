@@ -45,7 +45,7 @@ public abstract class CollisionShape
 	///getAabb returns the axis aligned bounding box in the coordinate frame of the given transform t.
 	public abstract void getAabb(Transform t, Vector3f aabbMin, Vector3f aabbMax);
 
-	public void getBoundingSphere(Vector3f center, float[] radius)
+	public float getBoundingSphere(Vector3f center)
 	{
 		Vector3f tmp = new Vector3f();
 
@@ -58,10 +58,12 @@ public abstract class CollisionShape
 		getAabb(tr, aabbMin, aabbMax);
 
 		tmp.sub(aabbMax, aabbMin);
-		radius[0] = tmp.length() * 0.5f;
+		float radius = tmp.length() * 0.5f;
 
 		tmp.add(aabbMin, aabbMax);
 		center.scale(0.5f, tmp);
+		
+		return radius;
 	}
 
 	///getAngularMotionDisc returns the maximus radius needed for Conservative Advancement to handle time-of-impact with rotations.
@@ -69,11 +71,10 @@ public abstract class CollisionShape
 	{
 		Vector3f center = new Vector3f();
 		
-		float[] disc = new float[1]; // TODO: stack
-		getBoundingSphere(center, disc);
+		float disc = getBoundingSphere(center);
 		
-		disc[0] += center.length();
-		return disc[0];
+		disc += center.length();
+		return disc;
 	}
 
 	///calculateTemporalAabb calculates the enclosing aabb for the moving object over interval [0..timeStep)
