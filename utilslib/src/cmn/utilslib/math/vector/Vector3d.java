@@ -223,6 +223,14 @@ public class Vector3d implements Vec3d
 	}
 	
 	
+	public double dot(Vec3dBase v) { return this.getX() * v.getX() + this.getY() * v.getY() + this.getZ() * v.getZ(); }
+	
+	public double angleRad(Vec3dBase v) { return Math.acos((dot(v)) / (length() * v.length())); }
+	public double angleDeg(Vec3dBase v) { return angleRad(v) * Maths.RAD_TO_DEG; }
+
+	public double length() { return Math.sqrt(squaredLength()); }
+	public double squaredLength() { return getX() * getX() + getY() * getY() + getZ() * getZ(); }
+ 	
 	/*
 	 * ===========================
 	 * OBJECT-OVERRIDES
