@@ -13,19 +13,17 @@ import com.mod.Dock.DockMode;
 
 import cmn.utilslib.essentials.Auto;
 
-public class Test extends Container
+public abstract class Element extends DragableElement
 {
 	private static final long serialVersionUID = 1L;
 
 	private JPanel panBody = new JPanel();
 	
-	@SuppressWarnings("unused")
-	private ArrayList<Dock> inputs = Auto.ArrayList();
-	@SuppressWarnings("unused")
-	private ArrayList<Dock> outputs = Auto.ArrayList();
-	
 	private Container inputStrip = new Container();
-	private Container outputStrip = new Container();
+	private Container outputStrip = new Container();	
+	
+	private ArrayList<Dock> inputs = Auto.ArrayList();
+	private ArrayList<Dock> outputs = Auto.ArrayList();
 	
 	private int countInputs = 0;
 	private int countOutputs = 0;
@@ -37,22 +35,20 @@ public class Test extends Container
 	
 	public final int id;
 	
-	public final DrawArea parent;
-	
 	public int getInputStripX() { return this.inputStrip.getX(); }
 	public int getInputStripY() { return this.inputStrip.getY(); }
 	
 	public int getOutputStripX() { return this.outputStrip.getX(); }
 	public int getOutputStripY() { return this.outputStrip.getY(); }
 	
-	public Test(int id, DrawArea parent, int inputs, int outputs)
+	public Element(int id, int inputs, int outputs)
 	{
 		this.id = id;
-		this.parent = parent;
-		setLayout(null);
 		
 		this.countInputs = inputs;
 		this.countOutputs = outputs;
+		
+		setLayout(null);
 		
 		int sizeY1 = generateInputs();
 		int sizeY2 = generateOutputs();
@@ -61,8 +57,8 @@ public class Test extends Container
 		int totalCenterY = totalHeight / 2;
 		int totalWidth = bodyX;
 		
-		if(this.countInputs > 0) totalWidth += dockSizeX;
-		if(this.countOutputs > 0) totalWidth += dockSizeX;
+		if(this.countInputs > 0) totalWidth += this.dockSizeX;
+		if(this.countOutputs > 0) totalWidth += this.dockSizeX;
 		
 		if(this.countInputs > 0)
 		{
@@ -107,7 +103,7 @@ public class Test extends Container
 			dock.ClickEvent.addHandler((src, ref) -> onInputDockClick(src));
 			
 			this.inputStrip.add(dock);
-			
+			this.inputs.add(dock);
 			nextPosY += 2 * this.dockSizeY;
 		}
 		
@@ -115,6 +111,16 @@ public class Test extends Container
 		this.inputStrip.setVisible(true);
 		
 		return sizeContainerY;
+	}
+	
+	public Dock getInputDock(int id)
+	{
+		return this.inputs.get(id);
+	}
+	
+	public Dock getOutputDock(int id)
+	{
+		return this.outputs.get(id);
 	}
 	
 	private int generateOutputs()
@@ -137,7 +143,7 @@ public class Test extends Container
 			dock.ClickEvent.addHandler((src, ref) -> onOutputDockClick(src));
 			
 			this.outputStrip.add(dock);
-			
+			this.outputs.add(dock);
 			nextPosY += 2 * this.dockSizeY;
 		}
 		
@@ -149,25 +155,45 @@ public class Test extends Container
 	
 	public void onInputDockClick(DockClickEventArgs args)
 	{
-		if(this.parent.startSelected == null)
+		if(args.d.c == null)
 		{
-			if(args.button == MouseEvent.BUTTON1)
+			if(this.drawArea.hasActiveSelection())
 			{
-				this.parent.startSelected = args.d;				
+				if(this.drawArea.getSelection().parent != this)
+					if (args.button == MouseEvent.BUTTON1) this.drawArea.connectTo(args.d);
 			}
-
+			else
+			{
+				if(args.button == MouseEvent.BUTTON1) this.drawArea.select(args.d);			
+			}
 		}
-		
-		System.out.println("Object: "+ args.d.parent.id + "; Input: " + args.d.id);
+		else
+		{
+			if(args.button == MouseEvent.BUTTON3) this.drawArea.removeConnection(args.d.c);
+		}
 	}
 	
 	public void onOutputDockClick(DockClickEventArgs args)
 	{
-		System.out.println("Object: "+ args.d.parent.id + "; Output: " + args.d.id);
+		if(args.d.c == null)
+		{
+			if(this.drawArea.hasActiveSelection())
+			{
+				if(this.drawArea.getSelection().parent != this)
+					if (args.button == MouseEvent.BUTTON1) this.drawArea.connectTo(args.d);
+			}
+			else
+			{
+				if(args.button == MouseEvent.BUTTON1) this.drawArea.select(args.d);			
+			}
+		}
+		else
+		{
+			if(args.button == MouseEvent.BUTTON3) this.drawArea.removeConnection(args.d.c);
+		}
 	}
-	
 
-	
-	
 	public void setSize(Dimension d) { }
+	
+	public abstract double getDataFromDock(Dock d);
 }

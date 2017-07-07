@@ -1,4 +1,4 @@
-package com.mod;
+package demo;
 
 import javax.swing.JFrame;
 

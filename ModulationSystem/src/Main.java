@@ -1,4 +1,4 @@
-import com.mod.ModSystem;
+import demo.ModSystem;
 
 public class Main
 {

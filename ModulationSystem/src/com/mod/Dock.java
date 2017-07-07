@@ -17,11 +17,15 @@ public class Dock extends JPanel implements MouseListener
 	
 	public final int id;
 	
-	public final Test parent;
+	public final Element parent;
 	
 	public final DockMode mode;
 	
-	public Dock(int id, DockMode mode, Test parent)
+	public Connection c;
+	
+	public Data d;
+	
+	public Dock(int id, DockMode mode, Element parent)
 	{
 		this.id = id;
 		this.parent = parent;
@@ -76,35 +80,8 @@ public class Dock extends JPanel implements MouseListener
 		this.ClickEvent.raise(new DockClickEventArgs(this, e.getButton()));
 	}
 
-
-
-
-
-	public void mouseEntered(MouseEvent e)
-	{
-	}
-
-
-
-
-
-	public void mouseExited(MouseEvent e)
-	{
-	}
-
-
-
-
-
-	public void mousePressed(MouseEvent e)
-	{
-	}
-
-
-
-
-
-	public void mouseReleased(MouseEvent e)
-	{
-	}
+	public void mouseEntered(MouseEvent e) { }
+	public void mouseExited(MouseEvent e) { }
+	public void mousePressed(MouseEvent e) { }
+	public void mouseReleased(MouseEvent e) { }
 }

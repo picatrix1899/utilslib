@@ -1,36 +1,49 @@
 package com.mod;
 
-import java.awt.Component;
+import java.awt.Container;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 import cmn.utilslib.math.Maths;
 
-public class DragableElement implements MouseListener, MouseMotionListener
+public class DragableElement extends Container implements MouseListener, MouseMotionListener
 {
+
+	private static final long serialVersionUID = 1L;
+	
 	public int MouseOffsetX = 0;
 	public int MouseOffsetY = 0;
 	
-	public Component c;
+	protected DrawArea drawArea;
 	
-	public DrawArea parent;
-	
-	public DragableElement(Component c)
+	public DragableElement()
 	{
-		this.c = c;
-		this.c.addMouseListener(this);
-		this.c.addMouseMotionListener(this);
+		
+		addMouseListener(this);
+		addMouseMotionListener(this);
+	}
+	
+	public void setDrawArea(DrawArea area)
+	{
+		this.drawArea = area;
+	}
+	
+	public DrawArea getDrawArea()
+	{
+		return this.drawArea;
 	}
 	
 	public void mouseDragged(MouseEvent e)
 	{
-		int posX = e.getXOnScreen() - this.parent.getLocation().x - this.MouseOffsetX;
-		int posY = e.getYOnScreen() - this.parent.getLocation().y - this.MouseOffsetY;
+		int posX = e.getXOnScreen() - this.drawArea.getLocation().x - this.MouseOffsetX;
+		int posY = e.getYOnScreen() - this.drawArea.getLocation().y - this.MouseOffsetY;
 		
-		posX = Maths.clamp(posX, this.parent.getLocation().x, this.parent.getLocation().x + this.parent.getSize().width - this.c.getSize().width);
-		posY = Maths.clamp(posY, this.parent.getLocation().y, this.parent.getLocation().y + this.parent.getSize().height- this.c.getSize().height);
-		this.c.setLocation(posX, posY);
+		posX = Maths.clamp(posX, this.drawArea.getLocation().x, this.drawArea.getLocation().x + this.drawArea.getSize().width - getSize().width);
+		posY = Maths.clamp(posY, this.drawArea.getLocation().y, this.drawArea.getLocation().y + this.drawArea.getSize().height- getSize().height);
+		setLocation(posX, posY);
+		
+		this.drawArea.repaint();
 	}
 
 	public void mouseMoved(MouseEvent e)
@@ -51,8 +64,8 @@ public class DragableElement implements MouseListener, MouseMotionListener
 
 	public void mousePressed(MouseEvent e)
 	{
-		this.MouseOffsetX = e.getXOnScreen() - this.parent.getLocation().x - this.c.getLocation().x;
-		this.MouseOffsetY = e.getYOnScreen() - this.parent.getLocation().y - this.c.getLocation().y;
+		this.MouseOffsetX = e.getXOnScreen() - this.drawArea.getLocation().x - getLocation().x;
+		this.MouseOffsetY = e.getYOnScreen() - this.drawArea.getLocation().y - getLocation().y;
 	}
 
 	public void mouseReleased(MouseEvent e)

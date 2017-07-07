@@ -2,29 +2,57 @@ package com.mod;
 
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
+import cmn.utilslib.essentials.Auto;
 import cmn.utilslib.math.Maths;
 
-public class DrawArea extends JPanel implements MouseMotionListener, MouseListener
+public class DrawArea extends JPanel implements MouseMotionListener, MouseListenerAdapter
 {
 	private static final long serialVersionUID = 1L;
 	
-	public Dock startSelected;
-	
-	public Dock endSelected;
+	public Dock selected;
 	
 	private int MouseX = 0;
 	private int MouseY = 0;
 	
+	
+	public ArrayList<Connection> connections = Auto.ArrayList();
+	
+	
+	
+	public void addConnection(Connection c)
+	{
+		this.connections.add(c);
+		repaint();
+	}
+	
+	public void removeConnection(Connection c)
+	{
+		this.connections.remove(c);
+		c.input.c = null;
+		c.output.c = null;
+		repaint();
+	}
+	
+	public void connectTo(Dock d)
+	{
+		if(this.selected != null)
+		{
+			addConnection(new Connection(this.selected, d));
+			unselect();
+			repaint();
+		}
+	}
+	
 	public void addDragable(DragableElement e)
 	{
-		e.parent = this;
+		e.setDrawArea(this);
 
-		add(e.c);
+		add(e);
 		addMouseMotionListener(this);
 		addMouseListener(this);
 	}
@@ -35,7 +63,7 @@ public class DrawArea extends JPanel implements MouseMotionListener, MouseListen
 
 	public void mouseMoved(MouseEvent e)
 	{
-		if(this.startSelected != null)
+		if(this.selected != null)
 		{
 			int posX = e.getXOnScreen() - getLocation().x;
 			int posY = e.getYOnScreen() - getLocation().y;
@@ -47,45 +75,52 @@ public class DrawArea extends JPanel implements MouseMotionListener, MouseListen
 		
 	}
 	
+	public boolean hasActiveSelection()
+	{
+		return this.selected != null;
+	}
+	
+	public void select(Dock d)
+	{
+		this.selected = d;
+	}
+	
+	public void unselect()
+	{
+		this.selected = null;
+	}
+	
+	public Dock getSelection()
+	{
+		return this.selected;
+	}
+	
 	protected void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);
 		
-		if(startSelected != null)
+		for(Connection c : this.connections)
 		{
-			
-			g.drawLine(startSelected.getCenterLocationX(), startSelected.getCenterLocationY(), MouseX, MouseY);			
+			g.drawLine(c.input.getCenterLocationX(), c.input.getCenterLocationY(), c.output.getCenterLocationX(), c.output.getCenterLocationY());
+		}
+		
+		if(hasActiveSelection())
+		{
+			g.drawLine(this.selected.getCenterLocationX(), this.selected.getCenterLocationY(), MouseX, MouseY -32);			
 		}
 
 	}
 
 	public void mouseClicked(MouseEvent e)
 	{
-		
-		if(this.startSelected != null)
+		if(hasActiveSelection())
 		{
 			if(e.getButton() == MouseEvent.BUTTON3)
 			{
-				this.startSelected = null;
+				unselect();
 				repaint();
 			}			
 		}
 
-	}
-
-	public void mouseEntered(MouseEvent e)
-	{
-	}
-
-	public void mouseExited(MouseEvent e)
-	{
-	}
-
-	public void mousePressed(MouseEvent e)
-	{
-	}
-
-	public void mouseReleased(MouseEvent e)
-	{
 	}
 }
