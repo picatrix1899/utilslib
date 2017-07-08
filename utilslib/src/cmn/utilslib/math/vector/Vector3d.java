@@ -4,6 +4,7 @@ package cmn.utilslib.math.vector;
 import cmn.utilslib.Allocator;
 import cmn.utilslib.math.Maths;
 import cmn.utilslib.math.Quaternion;
+import cmn.utilslib.math.tuple.api.Tup3dBase;
 import cmn.utilslib.math.tuple.api.Tup3fBase;
 import cmn.utilslib.math.vector.api.Vec3d;
 import cmn.utilslib.math.vector.api.Vec3dBase;
@@ -28,9 +29,9 @@ public class Vector3d implements Vec3d
 	##################
 	 */
 	
-	public float x = 0.0f;
-	public float y = 0.0f;
-	public float z = 0.0f;
+	public double x = 0.0;
+	public double y = 0.0;
+	public double z = 0.0;
 	
 	/*
 	#########################
@@ -66,6 +67,7 @@ public class Vector3d implements Vec3d
 	public static Vector3d alloc(Vec3fBase v) { return allocator.alloc().set(v); }
 	public static Vector3d alloc(Vec3dBase v) { return allocator.alloc().set(v); }
 	public static Vector3d alloc(Tup3fBase t) { return allocator.alloc().set(t); }
+	public static Vector3d alloc(Tup3dBase t) { return allocator.alloc().set(t); }
 	public static Vector3d alloc(float scalar) { return allocator.alloc().set(scalar); }
 	public static Vector3d alloc(double scalar) { return allocator.alloc().set(scalar); }
 	public static Vector3d alloc(float x, float y, float z) { return allocator.alloc().set(x, y, z); }
@@ -91,7 +93,8 @@ public class Vector3d implements Vec3d
 	
 	public Vector3d(Vec3fBase v) { this.x = v.getX(); this.y = v.getY(); this.z = v.getZ(); }
 	public Vector3d(Vec3dBase v) { this.x = (float)v.getX(); this.y = (float)v.getY(); this.z = (float)v.getZ(); }
-	public Vector3d(Tup3fBase t) { this.x = t.getX(); this.y = t.getY(); this.z = t.getZ(); }
+	public Vector3d(Tup3fBase t) { this.x = t.getA(); this.y = t.getB(); this.z = t.getC(); }
+	public Vector3d(Tup3dBase t) { this.x = t.getA(); this.y = t.getB(); this.z = t.getC(); }
 	
 	/*
 	###############
@@ -110,6 +113,17 @@ public class Vector3d implements Vec3d
 	/** {@inheritDoc} */
 	public double getZ() { return this.z; }
 	
+	
+	
+	/** {@inheritDoc} */
+	public double getA() { return this.x; }
+	
+	/** {@inheritDoc} */
+	public double getB() { return this.y; }
+	
+	/** {@inheritDoc} */
+	public double getC() { return this.z; }
+	
 	/*
 	###############
 	##           ##
@@ -127,10 +141,13 @@ public class Vector3d implements Vec3d
 	public Vector3d set(Vec3fBase v) { this.x = v.getX(); this.y = v.getY(); this.z = v.getZ(); return this; }
 	
 	/** {@inheritDoc} */
-	public Vector3d set(Vec3dBase v) { this.x = (float)v.getX(); this.y = (float)v.getY(); this.z = (float)v.getZ(); return this; }
+	public Vector3d set(Vec3dBase v) { this.x = v.getX(); this.y = v.getY(); this.z = v.getZ(); return this; }
 	
 	/** {@inheritDoc} */
-	public Vector3d set(Tup3fBase t) { this.x = t.getX(); this.y = t.getY(); this.z = t.getZ(); return this; }
+	public Vector3d set(Tup3fBase t) { this.x = t.getA(); this.y = t.getB(); this.z = t.getC(); return this; }
+	
+	/** {@inheritDoc} */
+	public Vector3d set(Tup3dBase t) { this.x = t.getA(); this.y = t.getB(); this.z = t.getC(); return this; }
 	
 	
 	
@@ -138,13 +155,13 @@ public class Vector3d implements Vec3d
 	public Vector3d set(float scalar) { this.x = scalar; this.y = scalar; this.z = scalar; return this; }
 	
 	/** {@inheritDoc} */
-	public Vector3d set(double scalar) { this.x = (float)scalar; this.y = (float)scalar; this.z = (float)scalar; return this; }
+	public Vector3d set(double scalar) { this.x = scalar; this.y = scalar; this.z = scalar; return this; }
 	
 	/** {@inheritDoc} */
 	public Vector3d set(float x, float y, float z) { this.x = x; this.y = y; this.z = z; return this; }
 	
 	/** {@inheritDoc} */
-	public Vector3d set(double x, double y, double z) { this.x = (float)x; this.y = (float)y; this.z = (float)z; return this;  }
+	public Vector3d set(double x, double y, double z) { this.x = x; this.y = y; this.z = z; return this;  }
 	
 	
 	
@@ -152,19 +169,39 @@ public class Vector3d implements Vec3d
 	public Vector3d setX(float x) { this.x = x; return this; }
 	
 	/** {@inheritDoc} */
-	public Vector3d setX(double x) { this.x = (float)x; return this; }
+	public Vector3d setX(double x) { this.x = x; return this; }
 	
 	/** {@inheritDoc} */
 	public Vector3d setY(float y) { this.y = y; return this; }
 	
 	/** {@inheritDoc} */
-	public Vector3d setY(double y) { this.y = (float)y; return this; }
+	public Vector3d setY(double y) { this.y = y; return this; }
 	
 	/** {@inheritDoc} */
 	public Vector3d setZ(float z) { this.z = z; return this; }
 	
 	/** {@inheritDoc} */
-	public Vector3d setZ(double z) { this.z = (float)z; return this; }
+	public Vector3d setZ(double z) { this.z = z; return this; }
+	
+	
+	
+	/** {@inheritDoc} */
+	public Vector3d setA(float a) { this.x = a; return this; }
+	
+	/** {@inheritDoc} */
+	public Vector3d setA(double a) { this.x = a; return this; }
+	
+	/** {@inheritDoc} */
+	public Vector3d setB(float b) { this.y = b; return this; }
+	
+	/** {@inheritDoc} */
+	public Vector3d setB(double b) { this.y = b; return this; }
+	
+	/** {@inheritDoc} */
+	public Vector3d setC(float c) { this.z = c; return this; }
+	
+	/** {@inheritDoc} */
+	public Vector3d setC(double c) { this.z = c; return this; }
 	
 	/*
 	#########################
@@ -181,7 +218,10 @@ public class Vector3d implements Vec3d
 	public Vector3d add(Vec3dBase v) { this.x += v.getX(); this.y += v.getY(); this.z += v.getZ(); return this; }
 	
 	/** {@inheritDoc} */
-	public Vector3d add(Tup3fBase t) { this.x += t.getX(); this.y += t.getY(); this.z += t.getZ(); return this; }
+	public Vector3d add(Tup3fBase t) { this.x += t.getA(); this.y += t.getB(); this.z += t.getC(); return this; }
+	
+	/** {@inheritDoc} */
+	public Vector3d add(Tup3dBase t) { this.x += t.getA(); this.y += t.getB(); this.z += t.getC(); return this; }
 	
 	/** {@inheritDoc} */
 	public Vector3d add(float scalar) { this.x += scalar; this.y += scalar; this.z += scalar; return this; }
@@ -204,7 +244,10 @@ public class Vector3d implements Vec3d
 	public Vector3d sub(Vec3dBase v) { this.x -= v.getX(); this.y -= v.getY(); this.z -= v.getZ(); return this; }
 	
 	/** {@inheritDoc} */
-	public Vector3d sub(Tup3fBase t) { this.x -= t.getX(); this.y -= t.getY(); this.z -= t.getZ(); return this; }
+	public Vector3d sub(Tup3fBase t) { this.x -= t.getA(); this.y -= t.getB(); this.z -= t.getC(); return this; }
+	
+	/** {@inheritDoc} */
+	public Vector3d sub(Tup3dBase t) { this.x -= t.getA(); this.y -= t.getB(); this.z -= t.getC(); return this; }
 	
 	/** {@inheritDoc} */
 	public Vector3d sub(float scalar) { this.x -= scalar; this.y -= scalar; this.z -= scalar; return this; }
@@ -227,7 +270,10 @@ public class Vector3d implements Vec3d
 	public Vector3d mul(Vec3dBase v) { this.x *= v.getX(); this.y *= v.getY(); this.z *= v.getZ(); return this; }
 	
 	/** {@inheritDoc} */
-	public Vector3d mul(Tup3fBase t) { this.x *= t.getX(); this.y *= t.getY(); this.z *= t.getZ(); return this; }
+	public Vector3d mul(Tup3fBase t) { this.x *= t.getA(); this.y *= t.getB(); this.z *= t.getC(); return this; }
+	
+	/** {@inheritDoc} */
+	public Vector3d mul(Tup3dBase t) { this.x *= t.getA(); this.y *= t.getB(); this.z *= t.getC(); return this; }
 	
 	/** {@inheritDoc} */
 	public Vector3d mul(float scalar) { this.x *= scalar; this.y *= scalar; this.z *= scalar; return this; }
@@ -246,11 +292,14 @@ public class Vector3d implements Vec3d
 	/** {@inheritDoc} */
 	public Vector3d div(Vec3fBase v) { this.x /= v.getX(); this.y /= v.getY(); this.z /= v.getZ(); return this; }
 	
-	/** {@inheritDoc} *//** {@inheritDoc} */
+	/** {@inheritDoc} */
 	public Vector3d div(Vec3dBase v) { this.x /= v.getX(); this.y /= v.getY(); this.z /= v.getZ(); return this; }
 	
 	/** {@inheritDoc} */
-	public Vector3d div(Tup3fBase t) { this.x /= t.getX(); this.y /= t.getY(); this.z /= t.getZ(); return this; }
+	public Vector3d div(Tup3fBase t) { this.x /= t.getA(); this.y /= t.getB(); this.z /= t.getC(); return this; }
+	
+	/** {@inheritDoc} */
+	public Vector3d div(Tup3dBase t) { this.x /= t.getA(); this.y /= t.getB(); this.z /= t.getC(); return this; }
 	
 	/** {@inheritDoc} */
 	public Vector3d div(float scalar) { this.x /= scalar; this.y /= scalar; this.z /= scalar; return this; }
@@ -270,22 +319,25 @@ public class Vector3d implements Vec3d
 	public Vector3d invertFrom(Vec3fBase v) { this.x = v.getX() - this.x; this.y = v.getY() - this.y; this.z = v.getZ() - this.z; return this; }
 	
 	/** {@inheritDoc} */
-	public Vector3d invertFrom(Vec3dBase v) { this.x = (float)v.getX() - this.x; this.y = (float)v.getY() - this.y; this.z = (float)v.getZ() - this.z; return this; }
+	public Vector3d invertFrom(Vec3dBase v) { this.x = v.getX() - this.x; this.y = v.getY() - this.y; this.z = v.getZ() - this.z; return this; }
 	
 	/** {@inheritDoc} */
-	public Vector3d invertFrom(Tup3fBase t) { this.x = t.getX() - this.x; this.y = t.getY() - this.y; this.z = t.getZ() - this.z; return this; }
+	public Vector3d invertFrom(Tup3fBase t) { this.x = t.getA() - this.x; this.y = t.getB() - this.y; this.z = t.getC() - this.z; return this; }
 
+	/** {@inheritDoc} */
+	public Vector3d invertFrom(Tup3dBase t) { this.x = t.getA() - this.x; this.y = t.getB() - this.y; this.z = t.getC() - this.z; return this; }
+	
 	/** {@inheritDoc} */
 	public Vector3d invertFrom(float max) { this.x = max - this.x; this.y = max - this.y; this.z = max - this.z; return this; }
 	
 	/** {@inheritDoc} */
-	public Vector3d invertFrom(double max) { this.x = (float)max - this.x; this.y = (float)max - this.y; this.z = (float)max - this.z; return this; }
+	public Vector3d invertFrom(double max) { this.x = max - this.x; this.y = max - this.y; this.z = max - this.z; return this; }
 	
 	/** {@inheritDoc} */
 	public Vector3d invertFrom(float x, float y, float z) { this.x = x - this.x; this.y = y - this.y; this.z = z - this.z; return this; }
 	
 	/** {@inheritDoc} */
-	public Vector3d invertFrom(double x, double y, double z) { this.x = (float)x - this.x; this.y = (float)y - this.y; this.z = (float)z - this.z; return this; }
+	public Vector3d invertFrom(double x, double y, double z) { this.x = x - this.x; this.y = y - this.y; this.z = z - this.z; return this; }
 	
 	
 	
@@ -309,6 +361,9 @@ public class Vector3d implements Vec3d
  	
  	/** {@inheritDoc} */
  	public Vector3d addN(Tup3fBase t) { return clone().add(t); }
+ 	
+ 	/** {@inheritDoc} */
+ 	public Vector3d addN(Tup3dBase t) { return clone().add(t); }
 
  	/** {@inheritDoc} */
  	public Vector3d addN(float scalar) { return clone().add(scalar); }
@@ -334,6 +389,9 @@ public class Vector3d implements Vec3d
  	public Vector3d subN(Tup3fBase t) { return clone().sub(t); }
  	
  	/** {@inheritDoc} */
+ 	public Vector3d subN(Tup3dBase t) { return clone().sub(t); }
+ 	
+ 	/** {@inheritDoc} */
  	public Vector3d subN(float scalar) { return clone().sub(scalar); }
  	
  	/** {@inheritDoc} */
@@ -355,6 +413,9 @@ public class Vector3d implements Vec3d
  	
  	/** {@inheritDoc} */
  	public Vector3d mulN(Tup3fBase t) { return clone().mul(t); }
+ 	
+ 	/** {@inheritDoc} */
+ 	public Vector3d mulN(Tup3dBase t) { return clone().mul(t); }
  	
  	/** {@inheritDoc} */
  	public Vector3d mulN(float scalar) { return clone().mul(scalar); }
@@ -380,6 +441,9 @@ public class Vector3d implements Vec3d
  	public Vector3d divN(Tup3fBase t) { return clone().div(t); }
  	
  	/** {@inheritDoc} */
+ 	public Vector3d divN(Tup3dBase t) { return clone().div(t); }
+ 	
+ 	/** {@inheritDoc} */
  	public Vector3d divN(float scalar) { return clone().div(scalar); }
  	
  	/** {@inheritDoc} */
@@ -401,6 +465,9 @@ public class Vector3d implements Vec3d
 	
 	/** {@inheritDoc} */
 	public Vector3d invertFromN(Tup3fBase t) { return clone().invertFrom(t); }
+	
+	/** {@inheritDoc} */
+	public Vector3d invertFromN(Tup3dBase t) { return clone().invertFrom(t); }
 	
 	/** {@inheritDoc} */
 	public Vector3d invertFromN(float max) { return clone().invertFrom(max); }
@@ -482,9 +549,9 @@ public class Vector3d implements Vec3d
  	/** {@inheritDoc} */
  	public Vector3d cross(Vec3dBase v)
  	{
- 		this.x = this.y * (float)v.getZ() - this.z * (float)v.getY();
- 		this.y = this.z * (float)v.getX() - this.x * (float)v.getZ();
- 		this.z = this.x * (float)v.getY() - this.y * (float)v.getX();
+ 		this.x = this.y * v.getZ() - this.z * (float)v.getY();
+ 		this.y = this.z * v.getX() - this.x * (float)v.getZ();
+ 		this.z = this.x * v.getY() - this.y * (float)v.getX();
  		
  		return this;
  	}
@@ -542,9 +609,9 @@ public class Vector3d implements Vec3d
 		
 		w.mul(this).mul(rotation.conjugate());
 		
-		this.x = (float)w.getX();
-		this.y = (float)w.getY();
-		this.z = (float)w.getZ();
+		this.x = w.getX();
+		this.y = w.getY();
+		this.z = w.getZ();
 		
 		Quaternion.dealloc(rotation);
 		Quaternion.dealloc(w);
@@ -575,9 +642,9 @@ public class Vector3d implements Vec3d
 		
 		w.mul(this).mul(rotation.conjugate());
 		
-		this.x = (float)w.getX();
-		this.y = (float)w.getY();
-		this.z = (float)w.getZ();
+		this.x = w.getX();
+		this.y = w.getY();
+		this.z = w.getZ();
 		
 		Quaternion.dealloc(rotation);
 		Quaternion.dealloc(w);
@@ -608,9 +675,9 @@ public class Vector3d implements Vec3d
 		
 		w.mul(this).mul(rotation.conjugate());
 		
-		this.x = (float)w.getX();
-		this.y = (float)w.getY();
-		this.z = (float)w.getZ();
+		this.x = w.getX();
+		this.y = w.getY();
+		this.z = w.getZ();
 		
 		Quaternion.dealloc(rotation);
 		Quaternion.dealloc(w);
@@ -641,9 +708,9 @@ public class Vector3d implements Vec3d
 		
 		w.mul(this).mul(rotation.conjugate());
 		
-		this.x = (float)w.getX();
-		this.y = (float)w.getY();
-		this.z = (float)w.getZ();
+		this.x = w.getX();
+		this.y = w.getY();
+		this.z = w.getZ();
 		
 		Quaternion.dealloc(rotation);
 		Quaternion.dealloc(w);
@@ -663,9 +730,9 @@ public class Vector3d implements Vec3d
 		
 		w.mul(this).mul(_q.conjugate());
 		
-		this.x = (float)w.getX();
-		this.y = (float)w.getY();
-		this.z = (float)w.getZ();
+		this.x = w.getX();
+		this.y = w.getY();
+		this.z = w.getZ();
 		
 		Quaternion.dealloc(w);
 		Quaternion.dealloc(_q);
@@ -764,9 +831,9 @@ public class Vector3d implements Vec3d
  	/** {@inheritDoc} */
 	public Vector3d lerp(Vec3dBase v, float f)
 	{
-		this.x = this.x + ((float)v.getX() - this.x) * f;
-		this.y = this.y + ((float)v.getY() - this.y) * f;
-		this.z = this.z + ((float)v.getZ() - this.z) * f;
+		this.x = this.x + (v.getX() - this.x) * f;
+		this.y = this.y + (v.getY() - this.y) * f;
+		this.z = this.z + (v.getZ() - this.z) * f;
 
 		return this;
 	}
@@ -774,9 +841,9 @@ public class Vector3d implements Vec3d
 	/** {@inheritDoc} */
 	public Vector3d lerp(Vec3fBase v, double f)
 	{
-		this.x = this.x + (v.getX() - this.x) * (float)f;
-		this.y = this.y + (v.getY() - this.y) * (float)f;
-		this.z = this.z + (v.getZ() - this.z) * (float)f;
+		this.x = this.x + (v.getX() - this.x) * f;
+		this.y = this.y + (v.getY() - this.y) * f;
+		this.z = this.z + (v.getZ() - this.z) * f;
 
 		return this;
 	}
@@ -784,9 +851,9 @@ public class Vector3d implements Vec3d
 	/** {@inheritDoc} */
 	public Vector3d lerp(Vec3dBase v, double f)
 	{
-		this.x = this.x + ((float)v.getX() - this.x) * (float)f;
-		this.y = this.y + ((float)v.getY() - this.y) * (float)f;
-		this.z = this.z + ((float)v.getZ() - this.z) * (float)f;
+		this.x = this.x + (v.getX() - this.x) * f;
+		this.y = this.y + (v.getY() - this.y) * f;
+		this.z = this.z + (v.getZ() - this.z) * f;
 
 		return this;
 	}
@@ -802,15 +869,15 @@ public class Vector3d implements Vec3d
 
 		double x_1 = ((1 - f)	* sinAngle) / (sinAngle * this.x);
 		double x_2 = (f			* sinAngle) / (sinAngle * v.getX());
-		float x = (float) (x_1 + x_2);
+		double x =  (x_1 + x_2);
 		
 		double y_1 = ((1 - f)	* sinAngle) / (sinAngle * this.y);
 		double y_2 = (f			* sinAngle) / (sinAngle * v.getY());
-		float y = (float) (y_1 + y_2);
+		double y =  (y_1 + y_2);
 		
 		double z_1 = ((1 - f)	* sinAngle) / (sinAngle * this.z);
 		double z_2 = (f			* sinAngle) / (sinAngle * v.getZ());
-		float z = (float) (z_1 + z_2);
+		double z =  (z_1 + z_2);
 		
 		this.x = x;
 		this.y = y; 
@@ -828,15 +895,15 @@ public class Vector3d implements Vec3d
 
 		double x_1 = ((1 - f)	* sinAngle) / (sinAngle * this.x);
 		double x_2 = (f			* sinAngle) / (sinAngle * v.getX());
-		float x = (float) (x_1 + x_2);
+		double x =  (x_1 + x_2);
 		
 		double y_1 = ((1 - f)	* sinAngle) / (sinAngle * this.y);
 		double y_2 = (f			* sinAngle) / (sinAngle * v.getY());
-		float y = (float) (y_1 + y_2);
+		double y =  (y_1 + y_2);
 		
 		double z_1 = ((1 - f)	* sinAngle) / (sinAngle * this.z);
 		double z_2 = (f			* sinAngle) / (sinAngle * v.getZ());
-		float z = (float) (z_1 + z_2);
+		double z =  (z_1 + z_2);
 		
 		this.x = x;
 		this.y = y; 
@@ -854,15 +921,15 @@ public class Vector3d implements Vec3d
 
 		double x_1 = ((1 - f)	* sinAngle) / (sinAngle * this.x);
 		double x_2 = (f			* sinAngle) / (sinAngle * v.getX());
-		float x = (float) (x_1 + x_2);
+		double x =  (x_1 + x_2);
 		
 		double y_1 = ((1 - f)	* sinAngle) / (sinAngle * this.y);
 		double y_2 = (f			* sinAngle) / (sinAngle * v.getY());
-		float y = (float) (y_1 + y_2);
+		double y =  (y_1 + y_2);
 		
 		double z_1 = ((1 - f)	* sinAngle) / (sinAngle * this.z);
 		double z_2 = (f			* sinAngle) / (sinAngle * v.getZ());
-		float z = (float) (z_1 + z_2);
+		double z =  (z_1 + z_2);
 		
 		this.x = x;
 		this.y = y; 
@@ -880,15 +947,15 @@ public class Vector3d implements Vec3d
 
 		double x_1 = ((1 - f)	* sinAngle) / (sinAngle * this.x);
 		double x_2 = (f			* sinAngle) / (sinAngle * v.getX());
-		float x = (float) (x_1 + x_2);
+		double x =  (x_1 + x_2);
 		
 		double y_1 = ((1 - f)	* sinAngle) / (sinAngle * this.y);
 		double y_2 = (f			* sinAngle) / (sinAngle * v.getY());
-		float y = (float) (y_1 + y_2);
+		double y =  (y_1 + y_2);
 		
 		double z_1 = ((1 - f)	* sinAngle) / (sinAngle * this.z);
 		double z_2 = (f			* sinAngle) / (sinAngle * v.getZ());
-		float z = (float) (z_1 + z_2);
+		double z =  (z_1 + z_2);
 		
 		this.x = x;
 		this.y = y; 

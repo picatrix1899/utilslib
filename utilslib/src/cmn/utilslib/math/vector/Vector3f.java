@@ -4,6 +4,7 @@ package cmn.utilslib.math.vector;
 import cmn.utilslib.Allocator;
 import cmn.utilslib.math.Maths;
 import cmn.utilslib.math.Quaternion;
+import cmn.utilslib.math.tuple.api.Tup3dBase;
 import cmn.utilslib.math.tuple.api.Tup3fBase;
 import cmn.utilslib.math.vector.api.Vec3dBase;
 import cmn.utilslib.math.vector.api.Vec3f;
@@ -65,6 +66,7 @@ public class Vector3f implements Vec3f
 	public static Vector3f alloc(Vec3fBase v) { return allocator.alloc().set(v); }
 	public static Vector3f alloc(Vec3dBase v) { return allocator.alloc().set(v); }
 	public static Vector3f alloc(Tup3fBase t) { return allocator.alloc().set(t); }
+	public static Vector3f alloc(Tup3dBase t) { return allocator.alloc().set(t); }
 	public static Vector3f alloc(float scalar) { return allocator.alloc().set(scalar); }
 	public static Vector3f alloc(double scalar) { return allocator.alloc().set(scalar); }
 	public static Vector3f alloc(float x, float y, float z) { return allocator.alloc().set(x, y, z); }
@@ -90,7 +92,8 @@ public class Vector3f implements Vec3f
 	
 	public Vector3f(Vec3fBase v) { this.x = v.getX(); this.y = v.getY(); this.z = v.getZ(); }
 	public Vector3f(Vec3dBase v) { this.x = (float)v.getX(); this.y = (float)v.getY(); this.z = (float)v.getZ(); }
-	public Vector3f(Tup3fBase t) { this.x = t.getX(); this.y = t.getY(); this.z = t.getZ(); }
+	public Vector3f(Tup3fBase t) { this.x = t.getA(); this.y = t.getB(); this.z = t.getC(); }
+	public Vector3f(Tup3dBase t) { this.x = (float)t.getA(); this.y = (float)t.getB(); this.z = (float)t.getC(); }
 	
 	/*
 	###############
@@ -108,6 +111,15 @@ public class Vector3f implements Vec3f
 	
 	/** {@inheritDoc} */
 	public float getZ() { return this.z; }
+	
+	/** {@inheritDoc} */
+	public float getA() { return this.x; }
+	
+	/** {@inheritDoc} */
+	public float getB() { return this.y; }
+	
+	/** {@inheritDoc} */
+	public float getC() { return this.z; }
 	
 	/*
 	###############
@@ -129,8 +141,10 @@ public class Vector3f implements Vec3f
 	public Vector3f set(Vec3dBase v) { this.x = (float)v.getX(); this.y = (float)v.getY(); this.z = (float)v.getZ(); return this; }
 	
 	/** {@inheritDoc} */
-	public Vector3f set(Tup3fBase t) { this.x = t.getX(); this.y = t.getY(); this.z = t.getZ(); return this; }
+	public Vector3f set(Tup3fBase t) { this.x = t.getA(); this.y = t.getB(); this.z = t.getC(); return this; }
 	
+	/** {@inheritDoc} */
+	public Vector3f set(Tup3dBase t) { this.x = (float)t.getA(); this.y = (float)t.getB(); this.z = (float)t.getC(); return this; }
 	
 	
 	/** {@inheritDoc} */
@@ -165,6 +179,26 @@ public class Vector3f implements Vec3f
 	/** {@inheritDoc} */
 	public Vector3f setZ(double z) { this.z = (float)z; return this; }
 	
+	
+	
+	/** {@inheritDoc} */
+	public Vector3f setA(float a) { this.x = a; return this; }
+	
+	/** {@inheritDoc} */
+	public Vector3f setA(double a) { this.x = (float)a; return this; }
+	
+	/** {@inheritDoc} */
+	public Vector3f setB(float b) { this.y = b; return this; }
+	
+	/** {@inheritDoc} */
+	public Vector3f setB(double b) { this.y = (float)b; return this; }
+	
+	/** {@inheritDoc} */
+	public Vector3f setC(float c) { this.z = c; return this; }
+	
+	/** {@inheritDoc} */
+	public Vector3f setC(double c) { this.z = (float)c; return this; }
+	
 	/*
 	#########################
 	##                     ##
@@ -180,7 +214,10 @@ public class Vector3f implements Vec3f
 	public Vector3f add(Vec3dBase v) { this.x += v.getX(); this.y += v.getY(); this.z += v.getZ(); return this; }
 	
 	/** {@inheritDoc} */
-	public Vector3f add(Tup3fBase t) { this.x += t.getX(); this.y += t.getY(); this.z += t.getZ(); return this; }
+	public Vector3f add(Tup3fBase t) { this.x += t.getA(); this.y += t.getB(); this.z += t.getC(); return this; }
+	
+	/** {@inheritDoc} */
+	public Vector3f add(Tup3dBase t) { this.x += t.getA(); this.y += t.getB(); this.z += t.getC(); return this; }
 	
 	/** {@inheritDoc} */
 	public Vector3f add(float scalar) { this.x += scalar; this.y += scalar; this.z += scalar; return this; }
@@ -203,7 +240,10 @@ public class Vector3f implements Vec3f
 	public Vector3f sub(Vec3dBase v) { this.x -= v.getX(); this.y -= v.getY(); this.z -= v.getZ(); return this; }
 	
 	/** {@inheritDoc} */
-	public Vector3f sub(Tup3fBase t) { this.x -= t.getX(); this.y -= t.getY(); this.z -= t.getZ(); return this; }
+	public Vector3f sub(Tup3fBase t) { this.x -= t.getA(); this.y -= t.getB(); this.z -= t.getC(); return this; }
+	
+	/** {@inheritDoc} */
+	public Vector3f sub(Tup3dBase t) { this.x -= t.getA(); this.y -= t.getB(); this.z -= t.getC(); return this; }
 	
 	/** {@inheritDoc} */
 	public Vector3f sub(float scalar) { this.x -= scalar; this.y -= scalar; this.z -= scalar; return this; }
@@ -226,7 +266,10 @@ public class Vector3f implements Vec3f
 	public Vector3f mul(Vec3dBase v) { this.x *= v.getX(); this.y *= v.getY(); this.z *= v.getZ(); return this; }
 	
 	/** {@inheritDoc} */
-	public Vector3f mul(Tup3fBase t) { this.x *= t.getX(); this.y *= t.getY(); this.z *= t.getZ(); return this; }
+	public Vector3f mul(Tup3fBase t) { this.x *= t.getA(); this.y *= t.getB(); this.z *= t.getC(); return this; }
+	
+	/** {@inheritDoc} */
+	public Vector3f mul(Tup3dBase t) { this.x *= t.getA(); this.y *= t.getB(); this.z *= t.getC(); return this; }
 	
 	/** {@inheritDoc} */
 	public Vector3f mul(float scalar) { this.x *= scalar; this.y *= scalar; this.z *= scalar; return this; }
@@ -245,11 +288,14 @@ public class Vector3f implements Vec3f
 	/** {@inheritDoc} */
 	public Vector3f div(Vec3fBase v) { this.x /= v.getX(); this.y /= v.getY(); this.z /= v.getZ(); return this; }
 	
-	/** {@inheritDoc} *//** {@inheritDoc} */
+	/** {@inheritDoc} */
 	public Vector3f div(Vec3dBase v) { this.x /= v.getX(); this.y /= v.getY(); this.z /= v.getZ(); return this; }
 	
 	/** {@inheritDoc} */
-	public Vector3f div(Tup3fBase t) { this.x /= t.getX(); this.y /= t.getY(); this.z /= t.getZ(); return this; }
+	public Vector3f div(Tup3fBase t) { this.x /= t.getA(); this.y /= t.getB(); this.z /= t.getC(); return this; }
+	
+	/** {@inheritDoc} */
+	public Vector3f div(Tup3dBase t) { this.x /= t.getA(); this.y /= t.getB(); this.z /= t.getC(); return this; }
 	
 	/** {@inheritDoc} */
 	public Vector3f div(float scalar) { this.x /= scalar; this.y /= scalar; this.z /= scalar; return this; }
@@ -272,8 +318,11 @@ public class Vector3f implements Vec3f
 	public Vector3f invertFrom(Vec3dBase v) { this.x = (float)v.getX() - this.x; this.y = (float)v.getY() - this.y; this.z = (float)v.getZ() - this.z; return this; }
 	
 	/** {@inheritDoc} */
-	public Vector3f invertFrom(Tup3fBase t) { this.x = t.getX() - this.x; this.y = t.getY() - this.y; this.z = t.getZ() - this.z; return this; }
+	public Vector3f invertFrom(Tup3fBase t) { this.x = t.getA() - this.x; this.y = t.getB() - this.y; this.z = t.getC() - this.z; return this; }
 
+	/** {@inheritDoc} */
+	public Vector3f invertFrom(Tup3dBase t) { this.x = (float)t.getA() - this.x; this.y = (float)t.getB() - this.y; this.z = (float)t.getC() - this.z; return this; }
+	
 	/** {@inheritDoc} */
 	public Vector3f invertFrom(float max) { this.x = max - this.x; this.y = max - this.y; this.z = max - this.z; return this; }
 	
@@ -308,6 +357,9 @@ public class Vector3f implements Vec3f
  	
  	/** {@inheritDoc} */
  	public Vector3f addN(Tup3fBase t) { return clone().add(t); }
+ 	
+ 	/** {@inheritDoc} */
+ 	public Vector3f addN(Tup3dBase t) { return clone().add(t); }
 
  	/** {@inheritDoc} */
  	public Vector3f addN(float scalar) { return clone().add(scalar); }
@@ -333,6 +385,9 @@ public class Vector3f implements Vec3f
  	public Vector3f subN(Tup3fBase t) { return clone().sub(t); }
  	
  	/** {@inheritDoc} */
+ 	public Vector3f subN(Tup3dBase t) { return clone().sub(t); }
+ 	
+ 	/** {@inheritDoc} */
  	public Vector3f subN(float scalar) { return clone().sub(scalar); }
  	
  	/** {@inheritDoc} */
@@ -354,6 +409,9 @@ public class Vector3f implements Vec3f
  	
  	/** {@inheritDoc} */
  	public Vector3f mulN(Tup3fBase t) { return clone().mul(t); }
+ 	
+ 	/** {@inheritDoc} */
+ 	public Vector3f mulN(Tup3dBase t) { return clone().mul(t); }
  	
  	/** {@inheritDoc} */
  	public Vector3f mulN(float scalar) { return clone().mul(scalar); }
@@ -379,6 +437,9 @@ public class Vector3f implements Vec3f
  	public Vector3f divN(Tup3fBase t) { return clone().div(t); }
  	
  	/** {@inheritDoc} */
+ 	public Vector3f divN(Tup3dBase t) { return clone().div(t); }
+ 	
+ 	/** {@inheritDoc} */
  	public Vector3f divN(float scalar) { return clone().div(scalar); }
  	
  	/** {@inheritDoc} */
@@ -400,6 +461,9 @@ public class Vector3f implements Vec3f
 	
 	/** {@inheritDoc} */
 	public Vector3f invertFromN(Tup3fBase t) { return clone().invertFrom(t); }
+	
+	/** {@inheritDoc} */
+	public Vector3f invertFromN(Tup3dBase t) { return clone().invertFrom(t); }
 	
 	/** {@inheritDoc} */
 	public Vector3f invertFromN(float max) { return clone().invertFrom(max); }

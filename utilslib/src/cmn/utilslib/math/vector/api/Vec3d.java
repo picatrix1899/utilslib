@@ -1,9 +1,11 @@
 package cmn.utilslib.math.vector.api;
 
 import cmn.utilslib.math.Quaternion;
+import cmn.utilslib.math.tuple.api.Tup3d;
+import cmn.utilslib.math.tuple.api.Tup3dBase;
 import cmn.utilslib.math.tuple.api.Tup3fBase;
 
-public interface Vec3d extends Vec3dBase
+public interface Vec3d extends Vec3dBase, Tup3d
 {
 	
 	/* 
@@ -27,6 +29,9 @@ public interface Vec3d extends Vec3dBase
 	
 	/** Sets the Dimensions based on the Tuple t and returns the Vector */
 	Vec3d set(Tup3fBase t);
+	
+	/** Sets the Dimensions based on the Tuple t and returns the Vector */
+	Vec3d set(Tup3dBase t);
 	
 	/** Sets the Dimensions based on the Value scalar and returns the Vector */
 	Vec3d set(float scalar);
@@ -76,6 +81,9 @@ public interface Vec3d extends Vec3dBase
 	
 	/** Returns the Vector with addition of the Tuple t */
 	Vec3d add(Tup3fBase v);
+
+	/** Returns the Vector with addition of the Tuple t */
+	Vec3d add(Tup3dBase v);
 	
 	/** Returns the Vector with addition of the Value scalar */
 	Vec3d add(float scalar);
@@ -100,6 +108,9 @@ public interface Vec3d extends Vec3dBase
 	/** Returns the Vector with subtraction of the Tuple t */
 	Vec3d sub(Tup3fBase t);
 	
+	/** Returns the Vector with subtraction of the Tuple t */
+	Vec3d sub(Tup3dBase t);
+	
 	/** Returns the Vector with subtraction of the Value scalar */
 	Vec3d sub(float scalar);
 	
@@ -122,6 +133,9 @@ public interface Vec3d extends Vec3dBase
 	
 	/** Returns the Vector with multiplication of the Tuple t */
 	Vec3d mul(Tup3fBase t);
+	
+	/** Returns the Vector with multiplication of the Tuple t */
+	Vec3d mul(Tup3dBase t);
 	
 	/** Returns the Vector with multiplication of the Value scalar */
 	Vec3d mul(float scalar);
@@ -146,6 +160,9 @@ public interface Vec3d extends Vec3dBase
 	/** Returns the Vector with division of the Tuple t */
 	Vec3d div(Tup3fBase t);
 	
+	/** Returns the Vector with division of the Tuple t */
+	Vec3d div(Tup3dBase t);
+	
 	/** Returns the Vector with division of the Value scalar */
 	Vec3d div(float scalar);
 	
@@ -168,6 +185,9 @@ public interface Vec3d extends Vec3dBase
 	
 	/** inverses the Vector based on the Tuple t and returns it(i.e. out.x = t.x - this.x) */
 	Vec3d invertFrom(Tup3fBase t);
+	
+	/** inverses the Vector based on the Tuple t and returns it(i.e. out.x = t.x - this.x) */
+	Vec3d invertFrom(Tup3dBase t);
 	
 	/** inverses the Vector based on the Value max and returns it(i.e. out.x = max - this.x) */
 	Vec3d invertFrom(float max);
