@@ -375,17 +375,17 @@ public class Quaternion
 	
 	public Vec3f getForwardf(Vec3f dst) { return dst.set(Vec3f.aZ).rotate(this).normalize(); }
 	
-	public Vector3f getForwardf() { return Vec3f.aZ.clone().rot(this).normalize(); }
+	public Vector3f getForwardf() { return Vec3f.aZ.clone().rotate(this).normalize(); }
 	
-	public Vector3f getBackf() { return Vec3f.aNZ.clone().rot(this).normalize(); }
+	public Vector3f getBackf() { return Vec3f.aNZ.clone().rotate(this).normalize(); }
 	
-	public Vector3f getUpf() { return Vec3f.aY.clone().rot(this).normalize(); }
+	public Vector3f getUpf() { return Vec3f.aY.clone().rotate(this).normalize(); }
 	
-	public Vector3f getDownf() { return Vec3f.aNY.clone().rot(this).normalize(); }
+	public Vector3f getDownf() { return Vec3f.aNY.clone().rotate(this).normalize(); }
 	
-	public Vector3f getRightf() { return Vec3f.aNX.clone().rot(this).normalize(); }
+	public Vector3f getRightf() { return Vec3f.aNX.clone().rotate(this).normalize(); }
 	
-	public Vector3f getLeftf() { return Vec3f.aX.clone().rot(this).normalize(); }
+	public Vector3f getLeftf() { return Vec3f.aX.clone().rotate(this).normalize(); }
 	
 	
 	public double length() { return Math.sqrt(this.w * this.w + this.x * this.x + this.y * this.y + this.z * this.z); }

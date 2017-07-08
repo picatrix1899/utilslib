@@ -32,7 +32,7 @@ public interface Shape3f
 	static Point3f getSupportPointInDirection(Shape3f a, Shape3f b, Vector3f v)
 	{
 		Point3f p1 = getFarthestPointInDirection(a, v);
-		Point3f p2 = getFarthestPointInDirection(b, v.inverted());
+		Point3f p2 = getFarthestPointInDirection(b, v.negateN());
 		
 		return p2.jump(p1.vectorFrom(p2));
 	}

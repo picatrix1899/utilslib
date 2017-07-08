@@ -145,15 +145,15 @@ public class Matrix4f
 	
 	public Matrix4f initRotation(Vec3fBase forward, Vec3fBase up)
 	{
-		Vec3f f = forward.normalized();
-		Vec3f r = up.normalized();
+		Vec3f f = forward.normalizeN();
+		Vec3f r = up.normalizeN();
 		r = r.cross(f);
 		
 		Vec3f u = f.cross(r);
 		
 		u.normalize();
 		
-		return initRotation(forward.normalized(), u, r);
+		return initRotation(forward.normalizeN(), u, r);
 	}
 	
 	public static Matrix4f rotation(Vec3fBase axis, float angle) { return new Matrix4f().initRotation(axis, angle); }
@@ -231,7 +231,7 @@ public class Matrix4f
 	{
 		initIdendity();
 		
-		translate(pos.inverted());
+		translate(pos.negateN());
 		rotate(rot.conjugated());
 		
 		return this;
