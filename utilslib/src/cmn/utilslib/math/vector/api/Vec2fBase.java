@@ -2,7 +2,6 @@ package cmn.utilslib.math.vector.api;
 
 
 
-import cmn.utilslib.math.Maths;
 import cmn.utilslib.math.vector.PVector2f;
 
 public interface Vec2fBase extends Vecf
@@ -54,43 +53,47 @@ public interface Vec2fBase extends Vecf
 	
 	
 	Vec2f addN(Vec2fBase v);
+	Vec2f addN(Vec2dBase v);
 	Vec2f addN(float scalar);
 	Vec2f addN(double scalar);
 	Vec2f addN(float x, float y);
 	Vec2f addN(double x, double y);
 	
 	Vec2f subN(Vec2fBase v);
+	Vec2f subN(Vec2dBase v);
 	Vec2f subN(float scalar);
 	Vec2f subN(double scalar);
 	Vec2f subN(float x, float y);
 	Vec2f subN(double x, double y);
 	
 	Vec2f mulN(Vec2fBase v);
+	Vec2f mulN(Vec2dBase v);
 	Vec2f mulN(float scalar);
 	Vec2f mulN(double scalar);
 	Vec2f mulN(float x, float y);
 	Vec2f mulN(double x, double y);
 	
 	Vec2f divN(Vec2fBase v);
+	Vec2f divN(Vec2dBase v);
 	Vec2f divN(float scalar);
 	Vec2f divN(double scalar);
 	Vec2f divN(float x, float y);
 	Vec2f divN(double x, double y);
 	
-	Vec2f inverted();
+	Vec2f invertN();
 	
-	Vec2f normalized();
+	Vec2f normalizeN();
 	
+	Vec2f reflectN(Vec2fBase v);
+	Vec2f reflectN(Vec2dBase v);
 	
-	default float dot(Vec2fBase v) { return this.getX() * v.getX() + this.getY() * v.getY(); }
+	float dot(Vec2fBase v);
+	float dot(Vec2dBase v);
 	
-	default double angleRad(Vec2fBase v) { return Math.acos((dot(v)) / (length() * v.length())); }
-	default double angleDeg(Vec2fBase v) { return angleRad(v) * Maths.RAD_TO_DEG; }
+	double angleRad(Vec2fBase v);
+	double angleDeg(Vec2fBase v);
 	
-	default float max() { return Math.max(this.getX(), this.getY()); }
-	default float min() { return Math.min(this.getX(), this.getY()); }
-	
-	default float length() { return (float)Math.sqrt(squaredLength()); }
-	default float squaredLength() { return getX() * getX() + getY() * getY(); }
+	float length();
+	float squaredLength();
 	
 }

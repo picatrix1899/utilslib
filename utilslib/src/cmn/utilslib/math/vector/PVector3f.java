@@ -3,6 +3,8 @@ package cmn.utilslib.math.vector;
 
 import cmn.utilslib.math.Maths;
 import cmn.utilslib.math.Quaternion;
+import cmn.utilslib.math.tuple.api.Tup3fBase;
+import cmn.utilslib.math.vector.api.Vec3dBase;
 import cmn.utilslib.math.vector.api.Vec3fBase;
 
 /** 
@@ -21,142 +23,287 @@ public abstract class PVector3f implements Vec3fBase
 		return new PVector3f()
 		{
 			
-
+			/*
+			###############
+			##           ##
+			##  GETTERS  ##
+			##           ##
+			###############
+			 */
+			
+			/** {@inheritDoc} */
 			public float getX() { return x; }
+			
+			/** {@inheritDoc} */
 			public float getY() { return y; }
+			
+			/** {@inheritDoc} */
 			public float getZ() { return z; }
-			
 
-			@Override
-			public Vector3f clone()
-			{
-				return new Vector3f(this);
-			}
-			
-		 	public Vector3f inverted() { return clone().invert(); }
-			
-		 	public Vector3f normalized() { return clone().normalize(); }
-			
-		 	public Vector3f addN(Vec3fBase v) { return addN(v.getX(), v.getY(), v.getZ()); }
-		 	public Vector3f addN(float scalar) { return addN(scalar, scalar, scalar); }
-		 	public Vector3f addN(double scalar) { return addN(scalar, scalar, scalar); }
+			/*
+			#########################
+			##                     ##
+			##  BASIC ARITHMETICS  ##
+			##                     ##
+			#########################
+			*/
+
+			/** {@inheritDoc} */
+		 	public Vector3f addN(Vec3fBase v) { return clone().add(v); }
+		 	
+		 	/** {@inheritDoc} */
+		 	public Vector3f addN(Vec3dBase v) { return clone().add(v); }
+		 	
+		 	/** {@inheritDoc} */
+		 	public Vector3f addN(Tup3fBase t) { return clone().add(t); }
+
+		 	/** {@inheritDoc} */
+		 	public Vector3f addN(float scalar) { return clone().add(scalar); }
+		 	
+		 	/** {@inheritDoc} */
+		 	public Vector3f addN(double scalar) { return clone().add(scalar); }
+		 	
+		 	/** {@inheritDoc} */
 		 	public Vector3f addN(float x, float y, float z) { return clone().add(x, y, z); }
+		 	
+		 	/** {@inheritDoc} */
 		 	public Vector3f addN(double x, double y, double z) { return clone().add(x, y, z); }
 			
-		 	public Vector3f subN(Vec3fBase v) { return subN(v.getX(), v.getY(), v.getZ()); }
-		 	public Vector3f subN(float scalar) { return subN(scalar, scalar, scalar); }
-		 	public Vector3f subN(double scalar) { return subN(scalar, scalar, scalar); }	
+		 	
+		 	
+		 	/** {@inheritDoc} */
+		 	public Vector3f subN(Vec3fBase v) { return clone().sub(v); }
+		 	
+		 	/** {@inheritDoc} */
+		 	public Vector3f subN(Vec3dBase v) { return clone().sub(v); }
+		 	
+		 	/** {@inheritDoc} */
+		 	public Vector3f subN(Tup3fBase t) { return clone().sub(t); }
+		 	
+		 	/** {@inheritDoc} */
+		 	public Vector3f subN(float scalar) { return clone().sub(scalar); }
+		 	
+		 	/** {@inheritDoc} */
+		 	public Vector3f subN(double scalar) { return clone().sub(scalar); }	
+		 	
+		 	/** {@inheritDoc} */
 		 	public Vector3f subN(float x, float y, float z) { return clone().sub(x, y, z); }
+		 	
+		 	/** {@inheritDoc} */
 		 	public Vector3f subN(double x, double y, double z) { return clone().sub(x, y, z); }
 			
-		 	public Vector3f mulN(Vec3fBase v) { return mulN(v.getX(), v.getY(), v.getZ()); }
-		 	public Vector3f mulN(float scalar) { return mulN(scalar, scalar, scalar); }
-		 	public Vector3f mulN(double scalar) { return mulN(scalar, scalar, scalar); }	
+		 	
+		 	
+		 	/** {@inheritDoc} */
+		 	public Vector3f mulN(Vec3fBase v) { return clone().mul(v); }
+		 	
+		 	/** {@inheritDoc} */
+		 	public Vector3f mulN(Vec3dBase v) { return clone().mul(v); }
+		 	
+		 	/** {@inheritDoc} */
+		 	public Vector3f mulN(Tup3fBase t) { return clone().mul(t); }
+		 	
+		 	/** {@inheritDoc} */
+		 	public Vector3f mulN(float scalar) { return clone().mul(scalar); }
+		 	
+		 	/** {@inheritDoc} */
+		 	public Vector3f mulN(double scalar) { return clone().mul(scalar); }	
+		 	
+		 	/** {@inheritDoc} */
 		 	public Vector3f mulN(float x, float y, float z) { return clone().mul(x, y, z); }
+		 	
+		 	/** {@inheritDoc} */
 		 	public Vector3f mulN(double x, double y, double z) { return clone().mul(x, y, z); }
 			
-		 	public Vector3f divN(Vec3fBase v) { return divN(v.getX(), v.getY(), v.getZ()); }
-		 	public Vector3f divN(float scalar) { return divN(scalar, scalar, scalar); }
-		 	public Vector3f divN(double scalar) { return divN(scalar, scalar, scalar); }
-		 	public Vector3f divN(float x, float y, float z) { return clone().div(x, y, z); }
-		 	public Vector3f divN(double x, double y, double z) { return clone().div(x, y, z); }
-			
-			
-			
-		 	public Vector3f cross(Vec3fBase v) 
-			{
-				return new Vector3f(getY() * v.getZ() - getZ() * v.getY(), getZ() * v.getX() - getX() * v.getZ(), getX() * v.getY() - getY() * v.getX());
-			}
-			
-		 	public Vector3f project(Vec3fBase v)
-			{	
-				Vector3f vn = (Vector3f) v.normalized();
-				 double f = this.dot(vn);
-				 
-				 return vn.mul((float)f);
-			}
-			
-			
-		 	public Vector3f rot(Vec3fBase axis, float angle)
-			{
-				
-				angle *= 0.5f;
-				angle *= Maths.DEG_TO_RAD;
-				
-				double sinHalfAngle = Math.sin(angle);
-				double cosHalfAngle = Math.cos(angle);
-				
-				double rX = axis.getX() * sinHalfAngle;
-				double rY = axis.getY() * sinHalfAngle;
-				double rZ = axis.getZ() * sinHalfAngle;
-				double rW = cosHalfAngle;
-				
-				Quaternion rotation = new Quaternion(rW, rX, rY, rZ);
-				
-				return rot(rotation);
-			}
-			
-		 	public Vector3f rot(Quaternion q)
-			{
-				Quaternion conjugate = q.conjugated();
-				Quaternion w = q.mulN(this).mulN(conjugate);
-
-				return new Vector3f((float)w.getX(), (float)w.getY(), (float)w.getZ());
-			}
-
-			
-		 	public Vector3f reflected(Vec3fBase normal)
-			{
-				Vector3f out = clone();
-				
-				out.reflect(normal);
-				
-				return out;
-			}
-			
-		 	public Vector3f lerp(Vec3fBase v, float f)
-			{
-		 		Vector3f out = new Vector3f();
-		 		
-				out.setX(getX() + (v.getX() - getX()) * f);
-				out.setY(getY() + (v.getY() - getY()) * f);
-				out.setZ(getZ() + (v.getZ() - getZ()) * f);
-				
-				return out;
-			}
-			
-		 	public Vector3f slerp(Vec3fBase v, double f)
-			{
-				double angle = angleRad(v);
-				
-				double sinAngle = Math.sin(angle);
-
-				double x_1 = (1 - f)	* sinAngle / sinAngle * getX();
-				double x_2 = f			* sinAngle / sinAngle * v.getX();
-				float x = (float) (x_1 + x_2);
-				
-				double y_1 = (1 - f)	* sinAngle / sinAngle * getY();
-				double y_2 = f			* sinAngle / sinAngle * v.getY();
-				float y = (float) (y_1 + y_2);
-				
-				double z_1 = (1 - f)	* sinAngle / sinAngle * getZ();
-				double z_2 = f			* sinAngle / sinAngle * v.getZ();
-				float z = (float) (z_1 + z_2);
-				
-				return new Vector3f(x, y, z);
-			}
 		 	
+		 	
+		 	/** {@inheritDoc} */
+		 	public Vector3f divN(Vec3fBase v) { return clone().div(v); }
+		 	
+		 	/** {@inheritDoc} */
+		 	public Vector3f divN(Vec3dBase v) { return clone().div(v); }
+		 	
+		 	/** {@inheritDoc} */
+		 	public Vector3f divN(Tup3fBase t) { return clone().div(t); }
+		 	
+		 	/** {@inheritDoc} */
+		 	public Vector3f divN(float scalar) { return clone().div(scalar); }
+		 	
+		 	/** {@inheritDoc} */
+		 	public Vector3f divN(double scalar) { return clone().div(scalar); }
+		 	
+		 	/** {@inheritDoc} */
+		 	public Vector3f divN(float x, float y, float z) { return clone().div(x, y, z); }
+		 	
+		 	/** {@inheritDoc} */
+		 	public Vector3f divN(double x, double y, double z) { return clone().div(x, y, z); }
+		 	
+		 	
+		 	
+		 	/** {@inheritDoc} */
+			public Vector3f invertFromN(Vec3fBase v) { return clone().invertFrom(v); }
+			
+			/** {@inheritDoc} */
+			public Vector3f invertFromN(Vec3dBase v) { return clone().invertFrom(v); }
+			
+			/** {@inheritDoc} */
+			public Vector3f invertFromN(Tup3fBase t) { return clone().invertFrom(t); }
+			
+			/** {@inheritDoc} */
+			public Vector3f invertFromN(float max) { return clone().invertFrom(max); }
+			
+			/** {@inheritDoc} */
+			public Vector3f invertFromN(double max) { return clone().invertFrom(max); }
+			
+			/** {@inheritDoc} */
+			public Vector3f invertFromN(float x, float y, float z) { return clone().invertFrom(x, y, z); }
+			
+			/** {@inheritDoc} */
+			public Vector3f invertFromN(double x, double y, double z) { return clone().invertFrom(x, y, z); }
+
+			
+			
+			/** {@inheritDoc} */
+			public Vector3f negateN() { return clone().negate(); }
+			
+			
+			
+			/** {@inheritDoc} */
+			public Vector3f inverseN() { return clone().inverse(); }
+			
+			/*
+			##########################
+			##                      ##
+			##  VECTOR ARITHMETICS  ##
+			##                      ##
+			##########################
+			 */
+
+		 	/** {@inheritDoc} */
+			public double dot(Vec3fBase v) { return (double) getX() * v.getX() + getY() * v.getY() + getZ() * v.getZ(); }
+			
+			/** {@inheritDoc} */
+			public double dot(Vec3dBase v) { return (double) getX() * v.getX() + getY() * v.getY() + getZ() * v.getZ(); }
+			
+			
+			
+			/** {@inheritDoc} */
+			public double angleRad(Vec3fBase v) { return Math.acos((dot(v)) / (length() * v.length())); }
+			
+			/** {@inheritDoc} */
+			public double angleRad(Vec3dBase v) { return Math.acos((dot(v)) / (length() * v.length())); }
+			
+			
+			
+			/** {@inheritDoc} */
+			public double angleDeg(Vec3fBase v) { return angleRad(v) * Maths.RAD_TO_DEG; }
+			
+			/** {@inheritDoc} */
+			public double angleDeg(Vec3dBase v) { return angleRad(v) * Maths.RAD_TO_DEG; }
+			
+		 	
+			
+			/** {@inheritDoc} */
+			public Vector3f normalizeN() { return clone().normalize(); }
+
+			
+		 	
+		 	/** {@inheritDoc} */
+		 	public Vector3f crossN(Vec3fBase v) { return clone().cross(v); }
+			
+			/** {@inheritDoc} */
+			public Vector3f crossN(Vec3dBase v) { return clone().cross(v); }
+
+			
+			
+			/** {@inheritDoc} */
+			public Vector3f projectN(Vec3fBase v) { return clone().project(v); }
+			
+			/** {@inheritDoc} */
+			public Vector3f projectN(Vec3dBase v) { return clone().project(v); }
+			
+			
+			
+			/** {@inheritDoc} */
+			public Vector3f reflectN(Vec3fBase normal) { return clone().reflect(normal); }
+			
+			/** {@inheritDoc} */
+			public Vector3f reflectN(Vec3dBase normal) { return clone().reflect(normal); }
+
+			
+			
+		 	/** {@inheritDoc} */
+			public double length() { return Math.sqrt(squaredLength()); }
+			
+			/** {@inheritDoc} */
+			public double squaredLength() { return getX() * getX() + getY() * getY() + getZ() * getZ(); }
+			
+			
+			
+			/** {@inheritDoc} */
+			public Vector3f rotateN(Vec3fBase axis, float angle) { return clone().rotate(axis, angle); }
+			
+			/** {@inheritDoc} */
+			public Vector3f rotateN(Vec3dBase axis, float angle) { return clone().rotate(axis, angle); }
+			
+			/** {@inheritDoc} */
+			public Vector3f rotateN(Vec3fBase axis, double angle) { return clone().rotate(axis, angle); }
+			
+			/** {@inheritDoc} */
+			public Vector3f rotateN(Vec3dBase axis, double angle) { return clone().rotate(axis, angle); }
+			
+			/** {@inheritDoc} */
+			public Vector3f rotateN(Quaternion q) { return clone().rotate(q); }
+		 	
+			/*
+			############################
+			##                        ##
+			##  VECTOR INTERPOLATION  ##
+			##                        ##
+			############################
+			 */
+
+			/** {@inheritDoc} */
+			public Vector3f lerpN(Vec3fBase v, float f) { return clone().lerp(v, f); }
+			
+			/** {@inheritDoc} */
+			public Vector3f lerpN(Vec3dBase v, float f) { return clone().lerp(v, f); }
+			
+			/** {@inheritDoc} */
+			public Vector3f lerpN(Vec3fBase v, double f) { return clone().lerp(v, f); }
+			
+			/** {@inheritDoc} */
+			public Vector3f lerpN(Vec3dBase v, double f) { return clone().lerp(v, f); }
+
+			
+			
+			/** {@inheritDoc} */
+			public Vector3f slerpN(Vec3fBase v, float f) { return clone().slerp(v, f); }
+			
+			/** {@inheritDoc} */
+			public Vector3f slerpN(Vec3dBase v, float f) { return clone().slerp(v, f); }
+			
+			/** {@inheritDoc} */
+			public Vector3f slerpN(Vec3fBase v, double f) { return clone().slerp(v, f); }
+			
+			/** {@inheritDoc} */
+			public Vector3f slerpN(Vec3dBase v, double f) { return clone().slerp(v, f); }
+			
+			/*
+			#######################
+			##                   ##
+			##  OBJECT OVERRIDE  ##
+			##                   ##
+			#######################
+			 */
+			
+			/** {@inheritDoc} */
+			@Override
+			public Vector3f clone() { return new Vector3f(this); }
+
 			/** {@inheritDoc} */
 			@Override
 			public String toString() { return "PVec3f(" + getX() + "f, " + getY() + "f, " + getZ() + "f)"; }
-			
-			public double dot(Vec3fBase v) { return (double) getX() * v.getX() + getY() * v.getY() + getZ() * v.getZ(); }
-			
-			public double angleRad(Vec3fBase v) { return Math.acos((dot(v)) / (length() * v.length())); }
-			public double angleDeg(Vec3fBase v) { return angleRad(v) * Maths.RAD_TO_DEG; }
-			
-			public double length() { return Math.sqrt(squaredLength()); }
-			public double squaredLength() { return getX() * getX() + getY() * getY() + getZ() * getZ(); }
 		};
 	}
 	
