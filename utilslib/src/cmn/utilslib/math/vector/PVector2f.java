@@ -3,8 +3,6 @@ package cmn.utilslib.math.vector;
 
 import cmn.utilslib.math.Maths;
 import cmn.utilslib.math.Quaternion;
-import cmn.utilslib.math.tuple.api.Tup2dBase;
-import cmn.utilslib.math.tuple.api.Tup2fBase;
 import cmn.utilslib.math.vector.api.Vec2dBase;
 import cmn.utilslib.math.vector.api.Vec2fBase;
 
@@ -42,13 +40,18 @@ public abstract class PVector2f implements Vec2fBase
 
 			
 			
-			
 			/** {@inheritDoc} */
-			public float getA() { return x; }
+			public float get(int index)
+			{
+				switch(index)
+				{
+					case 0: return x;
+					case 1: return y;
+				}
+				
+				return Float.NaN;
+			}
 			
-			/** {@inheritDoc} */
-			public float getB() { return y; }
-
 			/*
 			#########################
 			##                     ##
@@ -62,14 +65,7 @@ public abstract class PVector2f implements Vec2fBase
 		 	
 		 	/** {@inheritDoc} */
 		 	public Vector2f addN(Vec2dBase v) { return clone().add(v); }
-		 	
-		 	/** {@inheritDoc} */
-		 	public Vector2f addN(Tup2fBase t) { return clone().add(t); }
 
-		 	/** {@inheritDoc} */
-		 	public Vector2f addN(Tup2dBase t) { return clone().add(t); }
-
-		 	
 		 	/** {@inheritDoc} */
 		 	public Vector2f addN(float scalar) { return clone().add(scalar); }
 		 	
@@ -91,12 +87,6 @@ public abstract class PVector2f implements Vec2fBase
 		 	public Vector2f subN(Vec2dBase v) { return clone().sub(v); }
 		 	
 		 	/** {@inheritDoc} */
-		 	public Vector2f subN(Tup2fBase t) { return clone().sub(t); }
-		 	
-		 	/** {@inheritDoc} */
-		 	public Vector2f subN(Tup2dBase t) { return clone().sub(t); }
-		 	
-		 	/** {@inheritDoc} */
 		 	public Vector2f subN(float scalar) { return clone().sub(scalar); }
 		 	
 		 	/** {@inheritDoc} */
@@ -115,13 +105,7 @@ public abstract class PVector2f implements Vec2fBase
 		 	
 		 	/** {@inheritDoc} */
 		 	public Vector2f mulN(Vec2dBase v) { return clone().mul(v); }
-		 	
-		 	/** {@inheritDoc} */
-		 	public Vector2f mulN(Tup2fBase t) { return clone().mul(t); }
-		 	
-		 	/** {@inheritDoc} */
-		 	public Vector2f mulN(Tup2dBase t) { return clone().mul(t); }
-		 	
+
 		 	/** {@inheritDoc} */
 		 	public Vector2f mulN(float scalar) { return clone().mul(scalar); }
 		 	
@@ -141,13 +125,7 @@ public abstract class PVector2f implements Vec2fBase
 		 	
 		 	/** {@inheritDoc} */
 		 	public Vector2f divN(Vec2dBase v) { return clone().div(v); }
-		 	
-		 	/** {@inheritDoc} */
-		 	public Vector2f divN(Tup2fBase t) { return clone().div(t); }
-		 	
-		 	/** {@inheritDoc} */
-		 	public Vector2f divN(Tup2dBase t) { return clone().div(t); }
-		 	
+
 		 	/** {@inheritDoc} */
 		 	public Vector2f divN(float scalar) { return clone().div(scalar); }
 		 	
@@ -167,12 +145,6 @@ public abstract class PVector2f implements Vec2fBase
 			
 			/** {@inheritDoc} */
 			public Vector2f invertFromN(Vec2dBase v) { return clone().invertFrom(v); }
-			
-			/** {@inheritDoc} */
-			public Vector2f invertFromN(Tup2fBase t) { return clone().invertFrom(t); }
-			
-			/** {@inheritDoc} */
-			public Vector2f invertFromN(Tup2dBase t) { return clone().invertFrom(t); }
 			
 			/** {@inheritDoc} */
 			public Vector2f invertFromN(float max) { return clone().invertFrom(max); }

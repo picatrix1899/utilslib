@@ -59,19 +59,27 @@ public interface Vec2f extends Vec2fBase, Tup2f
 	/** Sets the Y-Dimension based on the Value y and returns the Vector */
 	Vec2f setY(double y); 
 	
+	default Vec2f set(int index, float value)
+	{
+		switch(index)
+		{
+			case 0: setX(value); break;
+			case 1: setY(value); break;
+		}
+		
+		return this;
+	}
 	
-	
-	/** Sets the X-Dimension based on the Value x and returns the Vector */
-	Vec2f setA(float a);
-	
-	/** Sets the X-Dimension based on the Value x and returns the Vector */
-	Vec2f setA(double a); 
-	
-	/** Sets the Y-Dimension based on the Value y and returns the Vector */
-	Vec2f setB(float b);
-	
-	/** Sets the Y-Dimension based on the Value y and returns the Vector */
-	Vec2f setB(double b); 
+	default Vec2f set(int index, double value)
+	{
+		switch(index)
+		{
+			case 0: setX(value); break;
+			case 1: setY(value); break;
+		}
+		
+		return this;
+	}
 
 	/*
 	#########################
@@ -86,12 +94,6 @@ public interface Vec2f extends Vec2fBase, Tup2f
 	
 	/** Returns the Vector with addition of the Vector v */
 	Vec2f add(Vec2dBase v);
-	
-	/** Returns the Vector with addition of the Tuple t */
-	Vec2f add(Tup2fBase v);
-	
-	/** Returns the Vector with addition of the Tuple t */
-	Vec2f add(Tup2dBase v);
 	
 	/** Returns the Vector with addition of the Value scalar */
 	Vec2f add(float scalar);
@@ -112,12 +114,6 @@ public interface Vec2f extends Vec2fBase, Tup2f
 	
 	/** Returns the Vector with subtraction of the Vector v */
 	Vec2f sub(Vec2dBase v);
-
-	/** Returns the Vector with subtraction of the Tuple t */
-	Vec2f sub(Tup2fBase t);
-	
-	/** Returns the Vector with subtraction of the Tuple t */
-	Vec2f sub(Tup2dBase t);
 	
 	/** Returns the Vector with subtraction of the Value scalar */
 	Vec2f sub(float scalar);
@@ -139,12 +135,6 @@ public interface Vec2f extends Vec2fBase, Tup2f
 	/** Returns the Vector with multiplication of the Vector v */
 	Vec2f mul(Vec2dBase v);
 	
-	/** Returns the Vector with multiplication of the Tuple t */
-	Vec2f mul(Tup2fBase t);
-	
-	/** Returns the Vector with multiplication of the Tuple t */
-	Vec2f mul(Tup2dBase t);
-	
 	/** Returns the Vector with multiplication of the Value scalar */
 	Vec2f mul(float scalar);
 	
@@ -165,12 +155,6 @@ public interface Vec2f extends Vec2fBase, Tup2f
 	/** Returns the Vector with division of the Vector v */
 	Vec2f div(Vec2dBase v);
 	
-	/** Returns the Vector with division of the Tuple t */
-	Vec2f div(Tup2fBase t);
-	
-	/** Returns the Vector with division of the Tuple t */
-	Vec2f div(Tup2dBase t);
-	
 	/** Returns the Vector with division of the Value scalar */
 	Vec2f div(float scalar);
 	
@@ -190,12 +174,6 @@ public interface Vec2f extends Vec2fBase, Tup2f
 	
 	/** inverses the Vector based on the Vector v and returns it(i.e. out.x = v.x - this.x) */
 	Vec2f invertFrom(Vec2dBase v);
-	
-	/** inverses the Vector based on the Tuple t and returns it(i.e. out.x = t.x - this.x) */
-	Vec2f invertFrom(Tup2fBase t);
-	
-	/** inverses the Vector based on the Tuple t and returns it(i.e. out.x = t.x - this.x) */
-	Vec2f invertFrom(Tup2dBase t);
 	
 	/** inverses the Vector based on the Value max and returns it(i.e. out.x = max - this.x) */
 	Vec2f invertFrom(float max);

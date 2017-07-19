@@ -9,41 +9,10 @@ package cmn.utilslib.math.vector.api;
 import cmn.utilslib.math.vector.PVector3f;
 import cmn.utilslib.math.Maths;
 import cmn.utilslib.math.Quaternion;
-import cmn.utilslib.math.tuple.api.Tup3dBase;
 import cmn.utilslib.math.tuple.api.Tup3fBase;
 
-public interface Vec3fBase extends Vecf, Tup3fBase
+public interface Vec3fBase extends Tup3fBase
 {
-	
-	/*
-	#################
-	##             ##
-	##  ITERATION  ##
-	##             ##
-	#################
-	 */
-	
-	/** The Count of Dimensions of the Vector. Used for Iterations. */
-	static int DIMENSIONS = 3;
-	
-	
-	
-	/** Returns the count of Dimensions of the Vector. */
-	default int getDimensions() { return DIMENSIONS; }
-	
-	
-	
-	/** Returns the Dimension by Index. */
-	default float get(int index)
-	{
-		switch(index)
-		{
-			case 0: return getX();
-			case 1: return getY();
-			case 2: return getZ();
-			default: return 0.0f;
-		}
-	}
 
 	/*
 	########################
@@ -176,16 +145,18 @@ public interface Vec3fBase extends Vecf, Tup3fBase
 	/** Returns the Z-Dimension */
 	float getZ();
 	
-	
-	
-	/** Returns the X-Dimension */
-	float getA();
-	
-	/** Returns the Y-Dimension */
-	float getB();
-	
-	/** Returns the Z-Dimension */
-	float getC();
+
+	/** Returns the Dimension by Index. */
+	default float get(int index)
+	{
+		switch(index)
+		{
+			case 0: return getX();
+			case 1: return getY();
+			case 2: return getZ();
+			default: return Float.NaN;
+		}
+	}
 
 	/*
 	#########################
@@ -200,13 +171,7 @@ public interface Vec3fBase extends Vecf, Tup3fBase
 	
 	/** Returns a clone of the Vector with addition of the Vector v */
 	Vec3f addN(Vec3dBase v);
-	
-	/** Returns a clone of the Vector with addition of the Tuple t */
-	Vec3f addN(Tup3fBase t);
-	
-	/** Returns a clone of the Vector with addition of the Tuple t */
-	Vec3f addN(Tup3dBase t);
-	
+
 	/** Returns a clone of the Vector with addition of the Value scalar */
 	Vec3f addN(float scalar);
 	
@@ -226,13 +191,7 @@ public interface Vec3fBase extends Vecf, Tup3fBase
 	
 	/** Returns a clone of the Vector with subtraction of the Vector v */
 	Vec3f subN(Vec3dBase v);
-	
-	/** Returns a clone of the Vector with subtraction of the Tuple t */
-	Vec3f subN(Tup3fBase t);
-	
-	/** Returns a clone of the Vector with subtraction of the Tuple t */
-	Vec3f subN(Tup3dBase t);
-	
+
 	/** Returns a clone of the Vector with subtraction of the Value scalar */
 	Vec3f subN(float scalar);
 	
@@ -252,13 +211,7 @@ public interface Vec3fBase extends Vecf, Tup3fBase
 	
 	/** Returns a clone of the Vector with multiplication of the Vector v */
 	Vec3f mulN(Vec3dBase v);
-	
-	/** Returns a clone of the Vector with multiplication of the Tuple t */
-	Vec3f mulN(Tup3fBase v);
-	
-	/** Returns a clone of the Vector with multiplication of the Tuple t */
-	Vec3f mulN(Tup3dBase v);
-	
+
 	/** Returns a clone of the Vector with multiplication of the Value scalar */
 	Vec3f mulN(float scalar);
 	
@@ -278,13 +231,7 @@ public interface Vec3fBase extends Vecf, Tup3fBase
 	
 	/** Returns a clone of the Vector with division of the Vector v */
 	Vec3f divN(Vec3dBase v);
-	
-	/** Returns a clone of the Vector with division of the Tuple t */
-	Vec3f divN(Tup3fBase v);
-	
-	/** Returns a clone of the Vector with division of the Tuple t */
-	Vec3f divN(Tup3dBase v);
-	
+
 	/** Returns a clone of the Vector with division of the Value scalar */
 	Vec3f divN(float scalar);
 	
@@ -304,13 +251,7 @@ public interface Vec3fBase extends Vecf, Tup3fBase
 	
 	/** Returns a clone of the Vector with invertion based on the Vector v (i.e. out.x = v.x - this.x) */
 	Vec3f invertFromN(Vec3dBase v);
-	
-	/** Returns a clone of the Vector with invertion based on the Tuple t (i.e. out.x = t.x - this.x) */
-	Vec3f invertFromN(Tup3fBase t);
-	
-	/** Returns a clone of the Vector with invertion based on the Tuple t (i.e. out.x = t.x - this.x) */
-	Vec3f invertFromN(Tup3dBase t);
-	
+
 	/** Returns a clone of the Vector with invertion based on the Value max (i.e. out.x = max - this.x) */
 	Vec3f invertFromN(float max);
 	

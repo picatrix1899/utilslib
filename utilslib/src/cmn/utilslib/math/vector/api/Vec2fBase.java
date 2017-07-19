@@ -4,41 +4,11 @@ package cmn.utilslib.math.vector.api;
 
 import cmn.utilslib.math.Maths;
 import cmn.utilslib.math.Quaternion;
-import cmn.utilslib.math.tuple.api.Tup2dBase;
 import cmn.utilslib.math.tuple.api.Tup2fBase;
 import cmn.utilslib.math.vector.PVector2f;
 
-public interface Vec2fBase extends Vecf, Tup2fBase
+public interface Vec2fBase extends Tup2fBase
 {
-	
-	/*
-	#################
-	##             ##
-	##  ITERATION  ##
-	##             ##
-	#################
-	 */
-	
-	/** The Count of Dimensions of the Vector. Used for Iterations. */
-	static int DIMENSIONS = 2;
-	
-	
-	
-	/** Returns the count of Dimensions of the Vector. */
-	default int getDimensions() { return DIMENSIONS; }
-	
-	
-	
-	/** Returns the Dimension by Index. */
-	default float get(int index)
-	{
-		switch(index)
-		{
-			case 0: return getX();
-			case 1: return getY();
-			default: return 0.0f;
-		}
-	}
 
 	/*
 	########################
@@ -105,15 +75,18 @@ public interface Vec2fBase extends Vecf, Tup2fBase
 	
 	/** Returns the Y-Dimension */
 	float getY();
-	
-	
-	
-	/** Returns the X-Dimension */
-	float getA();
-	
-	/** Returns the Y-Dimension */
-	float getB();
 
+	/** Returns the Dimension by Index. */
+	default float get(int index)
+	{
+		switch(index)
+		{
+			case 0: return getX();
+			case 1: return getY();
+			default: return Float.NaN;
+		}
+	}
+	
 	/*
 	#########################
 	##                     ##
@@ -127,12 +100,6 @@ public interface Vec2fBase extends Vecf, Tup2fBase
 	
 	/** Returns a clone of the Vector with addition of the Vector v */
 	Vec2f addN(Vec2dBase v);
-	
-	/** Returns a clone of the Vector with addition of the Tuple t */
-	Vec2f addN(Tup2fBase t);
-	
-	/** Returns a clone of the Vector with addition of the Tuple t */
-	Vec2f addN(Tup2dBase t);
 	
 	/** Returns a clone of the Vector with addition of the Value scalar */
 	Vec2f addN(float scalar);
@@ -154,12 +121,6 @@ public interface Vec2fBase extends Vecf, Tup2fBase
 	/** Returns a clone of the Vector with subtraction of the Vector v */
 	Vec2f subN(Vec2dBase v);
 	
-	/** Returns a clone of the Vector with subtraction of the Tuple t */
-	Vec2f subN(Tup2fBase t);
-	
-	/** Returns a clone of the Vector with subtraction of the Tuple t */
-	Vec2f subN(Tup2dBase t);
-	
 	/** Returns a clone of the Vector with subtraction of the Value scalar */
 	Vec2f subN(float scalar);
 	
@@ -179,12 +140,6 @@ public interface Vec2fBase extends Vecf, Tup2fBase
 	
 	/** Returns a clone of the Vector with multiplication of the Vector v */
 	Vec2f mulN(Vec2dBase v);
-	
-	/** Returns a clone of the Vector with multiplication of the Tuple t */
-	Vec2f mulN(Tup2fBase v);
-	
-	/** Returns a clone of the Vector with multiplication of the Tuple t */
-	Vec2f mulN(Tup2dBase v);
 	
 	/** Returns a clone of the Vector with multiplication of the Value scalar */
 	Vec2f mulN(float scalar);
@@ -206,12 +161,6 @@ public interface Vec2fBase extends Vecf, Tup2fBase
 	/** Returns a clone of the Vector with division of the Vector v */
 	Vec2f divN(Vec2dBase v);
 	
-	/** Returns a clone of the Vector with division of the Tuple t */
-	Vec2f divN(Tup2fBase v);
-	
-	/** Returns a clone of the Vector with division of the Tuple t */
-	Vec2f divN(Tup2dBase v);
-	
 	/** Returns a clone of the Vector with division of the Value scalar */
 	Vec2f divN(float scalar);
 	
@@ -231,12 +180,6 @@ public interface Vec2fBase extends Vecf, Tup2fBase
 	
 	/** Returns a clone of the Vector with invertion based on the Vector v (i.e. out.x = v.x - this.x) */
 	Vec2f invertFromN(Vec2dBase v);
-	
-	/** Returns a clone of the Vector with invertion based on the Tuple t (i.e. out.x = t.x - this.x) */
-	Vec2f invertFromN(Tup2fBase t);
-	
-	/** Returns a clone of the Vector with invertion based on the Tuple t (i.e. out.x = t.x - this.x) */
-	Vec2f invertFromN(Tup2dBase t);
 	
 	/** Returns a clone of the Vector with invertion based on the Value max (i.e. out.x = max - this.x) */
 	Vec2f invertFromN(float max);

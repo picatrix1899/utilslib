@@ -91,8 +91,8 @@ public class Vector2f implements Vec2f
 
 	public Vector2f(Vec2fBase v) { this.x = v.getX(); this.y = v.getY(); }
 	public Vector2f(Vec2dBase v) { this.x = (float)v.getX(); this.y = (float)v.getY(); }
-	public Vector2f(Tup2fBase t) { this.x = t.getA(); this.y = t.getB(); }
-	public Vector2f(Tup2dBase t) { this.x = (float)t.getA(); this.y = (float)t.getB(); }
+	public Vector2f(Tup2fBase t) { this.x = t.get(0); this.y = t.get(1); }
+	public Vector2f(Tup2dBase t) { this.x = (float)t.get(0); this.y = (float)t.get(1); }
 	
 	/*
 	###############
@@ -111,11 +111,15 @@ public class Vector2f implements Vec2f
 	
 	
 	/** {@inheritDoc} */
-	public float getA() { return this.x; }
-	
-	/** {@inheritDoc} */
-	public float getB() { return this.y; }
-
+	public float get(int index)
+	{
+		switch(index)
+		{
+			case 0: return this.x;
+			case 1: return this.y;
+		}
+		return Float.NaN;
+	}
 	
 	/*
 	###############
@@ -137,10 +141,10 @@ public class Vector2f implements Vec2f
 	public Vector2f set(Vec2dBase v) { this.x = (float)v.getX(); this.y = (float)v.getY(); return this; }
 	
 	/** {@inheritDoc} */
-	public Vector2f set(Tup2fBase t) { this.x = t.getA(); this.y = t.getB(); return this; }
+	public Vector2f set(Tup2fBase t) { this.x = t.get(0); this.y = t.get(1); return this; }
 	
 	/** {@inheritDoc} */
-	public Vector2f set(Tup2dBase t) { this.x = (float)t.getA(); this.y = (float)t.getB(); return this; }
+	public Vector2f set(Tup2dBase t) { this.x = (float)t.get(0); this.y = (float)t.get(1); return this; }
 	
 	
 	/** {@inheritDoc} */
@@ -154,6 +158,12 @@ public class Vector2f implements Vec2f
 	
 	/** {@inheritDoc} */
 	public Vector2f set(double x, double y) { this.x = (float)x; this.y = (float)y; return this;  }
+	
+	/** {@inheritDoc} */
+	public Vector2f set(float... values) { this.x = values[0]; this.y = values[1]; return this; }
+	
+	/** {@inheritDoc} */
+	public Vector2f set(double... values) { this.x = (float)values[0]; this.y = (float)values[1]; return this;  }
 	
 	
 	
@@ -172,16 +182,27 @@ public class Vector2f implements Vec2f
 	
 	
 	/** {@inheritDoc} */
-	public Vector2f setA(float a) { this.x = a; return this; }
+	public Vector2f set(int index, float value)
+	{
+		switch(index)
+		{
+			case 0: this.x = value; break;
+			case 1: this.y = value; break;
+		}
+		return this;
+	}
 	
 	/** {@inheritDoc} */
-	public Vector2f setA(double a) { this.x = (float)a; return this; }
-	
-	/** {@inheritDoc} */
-	public Vector2f setB(float b) { this.y = b; return this; }
-	
-	/** {@inheritDoc} */
-	public Vector2f setB(double b) { this.y = (float)b; return this; }
+	public Vector2f set(int index, double value)
+	{
+		switch(index)
+		{
+			case 0: this.x = (float)value; break;
+			case 1: this.y = (float)value; break;
+		}
+		return this;
+	}
+
 	
 	/*
 	#########################
@@ -196,12 +217,6 @@ public class Vector2f implements Vec2f
 	
 	/** {@inheritDoc} */
 	public Vector2f add(Vec2dBase v) { this.x += v.getX(); this.y += v.getY(); return this; }
-	
-	/** {@inheritDoc} */
-	public Vector2f add(Tup2fBase t) { this.x += t.getA(); this.y += t.getB(); return this; }
-	
-	/** {@inheritDoc} */
-	public Vector2f add(Tup2dBase t) { this.x += t.getA(); this.y += t.getB(); return this; }
 	
 	/** {@inheritDoc} */
 	public Vector2f add(float scalar) { this.x += scalar; this.y += scalar; return this; }
@@ -224,12 +239,6 @@ public class Vector2f implements Vec2f
 	public Vector2f sub(Vec2dBase v) { this.x -= v.getX(); this.y -= v.getY(); return this; }
 	
 	/** {@inheritDoc} */
-	public Vector2f sub(Tup2fBase t) { this.x -= t.getA(); this.y -= t.getB(); return this; }
-	
-	/** {@inheritDoc} */
-	public Vector2f sub(Tup2dBase t) { this.x -= t.getA(); this.y -= t.getB(); return this; }
-	
-	/** {@inheritDoc} */
 	public Vector2f sub(float scalar) { this.x -= scalar; this.y -= scalar; return this; }
 	
 	/** {@inheritDoc} */
@@ -248,12 +257,6 @@ public class Vector2f implements Vec2f
 	
 	/** {@inheritDoc} */
 	public Vector2f mul(Vec2dBase v) { this.x *= v.getX(); this.y *= v.getY(); return this; }
-	
-	/** {@inheritDoc} */
-	public Vector2f mul(Tup2fBase t) { this.x *= t.getA(); this.y *= t.getB(); return this; }
-	
-	/** {@inheritDoc} */
-	public Vector2f mul(Tup2dBase t) { this.x *= t.getA(); this.y *= t.getB(); return this; }
 	
 	/** {@inheritDoc} */
 	public Vector2f mul(float scalar) { this.x *= scalar; this.y *= scalar; return this; }
@@ -276,12 +279,6 @@ public class Vector2f implements Vec2f
 	public Vector2f div(Vec2dBase v) { this.x /= v.getX(); this.y /= v.getY(); return this; }
 	
 	/** {@inheritDoc} */
-	public Vector2f div(Tup2fBase t) { this.x /= t.getA(); this.y /= t.getB(); return this; }
-	
-	/** {@inheritDoc} */
-	public Vector2f div(Tup2dBase t) { this.x /= t.getA(); this.y /= t.getB(); return this; }
-	
-	/** {@inheritDoc} */
 	public Vector2f div(float scalar) { this.x /= scalar; this.y /= scalar; return this; }
 	
 	/** {@inheritDoc} */
@@ -300,12 +297,6 @@ public class Vector2f implements Vec2f
 	
 	/** {@inheritDoc} */
 	public Vector2f invertFrom(Vec2dBase v) { this.x = (float)v.getX() - this.x; this.y = (float)v.getY() - this.y; return this; }
-	
-	/** {@inheritDoc} */
-	public Vector2f invertFrom(Tup2fBase t) { this.x = t.getA() - this.x; this.y = t.getB() - this.y; return this; }
-
-	/** {@inheritDoc} */
-	public Vector2f invertFrom(Tup2dBase t) { this.x = (float)t.getA() - this.x; this.y = (float)t.getB() - this.y; return this; }
 	
 	/** {@inheritDoc} */
 	public Vector2f invertFrom(float max) { this.x = max - this.x; this.y = max - this.y; return this; }
@@ -338,12 +329,6 @@ public class Vector2f implements Vec2f
  	
  	/** {@inheritDoc} */
  	public Vector2f addN(Vec2dBase v) { return clone().add(v); }
- 	
- 	/** {@inheritDoc} */
- 	public Vector2f addN(Tup2fBase t) { return clone().add(t); }
- 	
- 	/** {@inheritDoc} */
- 	public Vector2f addN(Tup2dBase t) { return clone().add(t); }
 
  	/** {@inheritDoc} */
  	public Vector2f addN(float scalar) { return clone().add(scalar); }
@@ -366,12 +351,6 @@ public class Vector2f implements Vec2f
  	public Vector2f subN(Vec2dBase v) { return clone().sub(v); }
  	
  	/** {@inheritDoc} */
- 	public Vector2f subN(Tup2fBase t) { return clone().sub(t); }
- 	
- 	/** {@inheritDoc} */
- 	public Vector2f subN(Tup2dBase t) { return clone().sub(t); }
- 	
- 	/** {@inheritDoc} */
  	public Vector2f subN(float scalar) { return clone().sub(scalar); }
  	
  	/** {@inheritDoc} */
@@ -390,12 +369,6 @@ public class Vector2f implements Vec2f
  	
  	/** {@inheritDoc} */
  	public Vector2f mulN(Vec2dBase v) { return clone().mul(v); }
- 	
- 	/** {@inheritDoc} */
- 	public Vector2f mulN(Tup2fBase t) { return clone().mul(t); }
- 	
- 	/** {@inheritDoc} */
- 	public Vector2f mulN(Tup2dBase t) { return clone().mul(t); }
  	
  	/** {@inheritDoc} */
  	public Vector2f mulN(float scalar) { return clone().mul(scalar); }
@@ -418,12 +391,6 @@ public class Vector2f implements Vec2f
  	public Vector2f divN(Vec2dBase v) { return clone().div(v); }
  	
  	/** {@inheritDoc} */
- 	public Vector2f divN(Tup2fBase t) { return clone().div(t); }
- 	
- 	/** {@inheritDoc} */
- 	public Vector2f divN(Tup2dBase t) { return clone().div(t); }
- 	
- 	/** {@inheritDoc} */
  	public Vector2f divN(float scalar) { return clone().div(scalar); }
  	
  	/** {@inheritDoc} */
@@ -442,12 +409,6 @@ public class Vector2f implements Vec2f
 	
 	/** {@inheritDoc} */
 	public Vector2f invertFromN(Vec2dBase v) { return clone().invertFrom(v); }
-	
-	/** {@inheritDoc} */
-	public Vector2f invertFromN(Tup2fBase t) { return clone().invertFrom(t); }
-	
-	/** {@inheritDoc} */
-	public Vector2f invertFromN(Tup2dBase t) { return clone().invertFrom(t); }
 	
 	/** {@inheritDoc} */
 	public Vector2f invertFromN(float max) { return clone().invertFrom(max); }

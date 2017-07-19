@@ -67,23 +67,29 @@ public interface Vec3f extends Vec3fBase, Tup3f
 	
 	
 	
-	/** Sets the X-Dimension based on the Value x and returns the Vector */
-	Vec3f setA(float a);
+	default Vec3f set(int index, float value)
+	{
+		switch(index)
+		{
+			case 0: setX(value); break;
+			case 1: setY(value); break;
+			case 2: setZ(value); break;
+		}
+		
+		return this;
+	}
 	
-	/** Sets the X-Dimension based on the Value x and returns the Vector */
-	Vec3f setA(double a); 
-	
-	/** Sets the Y-Dimension based on the Value y and returns the Vector */
-	Vec3f setB(float b);
-	
-	/** Sets the Y-Dimension based on the Value y and returns the Vector */
-	Vec3f setB(double b); 
-	
-	/** Sets the Z-Dimension based on the Value z and returns the Vector */
-	Vec3f setC(float c);
-	
-	/** Sets the Z-Dimension based on the Value z and returns the Vector */
-	Vec3f setC(double c);
+	default Vec3f set(int index, double value)
+	{
+		switch(index)
+		{
+			case 0: setX(value); break;
+			case 1: setY(value); break;
+			case 2: setZ(value); break;
+		}
+		
+		return this;
+	}
 
 	/*
 	#########################
@@ -98,13 +104,7 @@ public interface Vec3f extends Vec3fBase, Tup3f
 	
 	/** Returns the Vector with addition of the Vector v */
 	Vec3f add(Vec3dBase v);
-	
-	/** Returns the Vector with addition of the Tuple t */
-	Vec3f add(Tup3fBase v);
-	
-	/** Returns the Vector with addition of the Tuple t */
-	Vec3f add(Tup3dBase v);
-	
+
 	/** Returns the Vector with addition of the Value scalar */
 	Vec3f add(float scalar);
 	
@@ -124,13 +124,7 @@ public interface Vec3f extends Vec3fBase, Tup3f
 	
 	/** Returns the Vector with subtraction of the Vector v */
 	Vec3f sub(Vec3dBase v);
-	
-	/** Returns the Vector with subtraction of the Tuple t */
-	Vec3f sub(Tup3fBase t);
-	
-	/** Returns the Vector with subtraction of the Tuple t */
-	Vec3f sub(Tup3dBase t);
-	
+
 	/** Returns the Vector with subtraction of the Value scalar */
 	Vec3f sub(float scalar);
 	
@@ -150,13 +144,7 @@ public interface Vec3f extends Vec3fBase, Tup3f
 	
 	/** Returns the Vector with multiplication of the Vector v */
 	Vec3f mul(Vec3dBase v);
-	
-	/** Returns the Vector with multiplication of the Tuple t */
-	Vec3f mul(Tup3fBase t);
-	
-	/** Returns the Vector with multiplication of the Tuple t */
-	Vec3f mul(Tup3dBase t);
-	
+
 	/** Returns the Vector with multiplication of the Value scalar */
 	Vec3f mul(float scalar);
 	
@@ -176,13 +164,7 @@ public interface Vec3f extends Vec3fBase, Tup3f
 	
 	/** Returns the Vector with division of the Vector v */
 	Vec3f div(Vec3dBase v);
-	
-	/** Returns the Vector with division of the Tuple t */
-	Vec3f div(Tup3fBase t);
-	
-	/** Returns the Vector with division of the Tuple t */
-	Vec3f div(Tup3dBase t);
-	
+
 	/** Returns the Vector with division of the Value scalar */
 	Vec3f div(float scalar);
 	
@@ -202,13 +184,7 @@ public interface Vec3f extends Vec3fBase, Tup3f
 	
 	/** inverses the Vector based on the Vector v and returns it(i.e. out.x = v.x - this.x) */
 	Vec3f invertFrom(Vec3dBase v);
-	
-	/** inverses the Vector based on the Tuple t and returns it(i.e. out.x = t.x - this.x) */
-	Vec3f invertFrom(Tup3fBase t);
-	
-	/** inverses the Vector based on the Tuple t and returns it(i.e. out.x = t.x - this.x) */
-	Vec3f invertFrom(Tup3dBase t);
-	
+
 	/** inverses the Vector based on the Value max and returns it(i.e. out.x = max - this.x) */
 	Vec3f invertFrom(float max);
 	
