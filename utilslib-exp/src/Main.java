@@ -1,23 +1,13 @@
-import cmn.utilslib.math.vector.Vector3f;
-import cmn.utilslib.math.vector.Vector3fUtils;
 
 public class Main
 {
 
 	public static void main(String[] args)
 	{
-		Vector3f a = new Vector3f();
+		float a = Float.NEGATIVE_INFINITY;
+		float b = -1;
 		
-		Vector3f b = Vector3fUtils.add(a, 1, 1, 1, a);
+		System.out.println(a < b);
 	}
 
-	static class A
-	{
-		public int a;
-	}
-	
-	static class B
-	{
-		public A a;
-	}
 }
