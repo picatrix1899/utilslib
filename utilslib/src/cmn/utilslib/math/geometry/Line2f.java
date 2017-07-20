@@ -2,13 +2,16 @@ package cmn.utilslib.math.geometry;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-public class Line2f implements Shape2f
+public class Line2f
 {
 
-	@Override
-	public Point2f[] getPoints()
+	public final Point2f a = new Point2f();
+	public final Point2f b = new Point2f();
+	
+	public Line2f()
 	{
-		throw new NotImplementedException();
+		
 	}
+	
 
 }

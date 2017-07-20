@@ -37,10 +37,23 @@ public class Point2f implements Tup2f
 	public static void dealloc(Point2f v) { allocator.dealloc(v); }
 	
 	
+	public static final Point2f TEMP = new Point2f();
+	public static final Point2f TEMP0 = new Point2f();
+	public static final Point2f TEMP1 = new Point2f();
+	public static final Point2f TEMP2 = new Point2f();
+	public static final Point2f TEMP3 = new Point2f();
+	public static final Point2f TEMP4 = new Point2f();
+	public static final Point2f TEMP5 = new Point2f();
+	public static final Point2f TEMP6 = new Point2f();
+	public static final Point2f TEMP7 = new Point2f();
+	public static final Point2f TEMP8 = new Point2f();
+	public static final Point2f TEMP9 = new Point2f();
+	
+	
 	public Point2f() { }
-	public Point2f(Vector2f v) { this.x = v.x; this.y = v.y; }
+	public Point2f(Vec2fBase v) { this.x = v.getX(); this.y = v.getY(); }
 	public Point2f(Point2f p) { this.x = p.x; this.y = p.y; }
-	public Point2f(float x, float y, float z) { this.x = x; this.y = y; }
+	public Point2f(float x, float y) { this.x = x; this.y = y; }
 	
 	
 	
@@ -56,8 +69,8 @@ public class Point2f implements Tup2f
 	
 	public Point2f set(Vec2fBase v) { this.x = v.getX(); this.y = v.getY(); return this; }
 	public Point2f set(Point2f p) { this.x = p.x; this.y = p.y; return this; }
-	public Point2f set(float x, float y, float z) { this.x = x; this.y = y; return this; }
-	public Point2f set(double x, double y, double z) { this.x = (float)x; this.y = (float)y; return this; }
+	public Point2f set(float x, float y) { this.x = x; this.y = y; return this; }
+	public Point2f set(double x, double y) { this.x = (float)x; this.y = (float)y; return this; }
 	
 	public Vector2f vectorTo(Point2f p, Vector2f v) { return p.asVector2f(v).sub(asVector2f(Vector2f.TEMP)); }
 	public Vector2f vectorFrom(Point2f p, Vector2f v) { return asVector2f(v).sub(p.asVector2f(Vector2f.TEMP)); }
@@ -65,9 +78,36 @@ public class Point2f implements Tup2f
 	public Vector2f directionTo(Point2f p, Vector2f v) { return vectorTo(p, v).normalize(); }
 	public Vector2f directionFrom(Point2f p, Vector2f v) { return vectorFrom(p, v).normalize(); }
 	
+	public Point2f add(Vec2fBase v) { this.x += v.getX(); this.y += v.getY(); return this; }
+	public Point2f addN(Vec2fBase v) { return clone().add(v); }
 	
-	public Point2f jump(Vec2fBase v) { return set(asVector2f(Vector2f.TEMP).add(v)); }
-	public Point2f jumpN(Vec2fBase v) { return clone().jump(v); }
+	public Point2f sub(Vec2fBase v) { this.x -= v.getX(); this.y -= v.getY(); return this; }
+	public Point2f subN(Vec2fBase v) { return clone().sub(v); }
+	
+	public Point2f mul(Vec2fBase v) { this.x *= v.getX(); this.y *= v.getY(); return this; }
+	public Point2f mulN(Vec2fBase v) { return clone().mul(v); }	
+	
+	public Point2f div(Vec2fBase v) { this.x /= v.getX(); this.y /= v.getY(); return this; }
+	public Point2f divN(Vec2fBase v) { return clone().div(v); }
+	
+
+	
+	public Vector2f addVector(Vec2fBase v, Vector2f dest) { return asVector2f(dest).add(v); }
+	public Vector2f addVectorN(Vec2fBase v, Vector2f dest) { return clone().addVector(v, dest); }
+	
+	public Vector2f subVector(Vec2fBase v, Vector2f dest) { return asVector2f(dest).sub(v); }
+	public Vector2f subVectorN(Vec2fBase v, Vector2f dest) { return clone().subVector(v, dest); }
+	
+	public Vector2f mulVector(Vec2fBase v, Vector2f dest) { return asVector2f(dest).mul(v); }
+	public Vector2f mulVectorN(Vec2fBase v, Vector2f dest) { return clone().mulVector(v, dest); }
+	
+	public Vector2f divVector(Vec2fBase v, Vector2f dest) { return asVector2f(dest).div(v); }
+	public Vector2f divVectorN(Vec2fBase v, Vector2f dest) { return clone().divVector(v, dest); }
+	
+	
+	
+	public Point2f move(Vec2fBase v) { return set(asVector2f(Vector2f.TEMP).add(v)); }
+	public Point2f moveN(Vec2fBase v) { return clone().move(v); }
 	
 	public String toString() { return String.format("point2f({0},{1})", getX(), getY()); }
 	

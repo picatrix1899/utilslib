@@ -1,11 +1,9 @@
-package cmn.utilslib.math;
+package cmn.utilslib.math.geometry;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import cmn.utilslib.essentials.Auto;
-import cmn.utilslib.math.geometry.Point3f;
-import cmn.utilslib.math.geometry.Shape3f;
 import cmn.utilslib.math.vector.Vector3f;
 
 public class MinkowskiSum3f implements Shape3f
