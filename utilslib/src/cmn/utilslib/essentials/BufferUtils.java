@@ -103,7 +103,7 @@ public final class BufferUtils
 	
 	public final static FloatBuffer wrapVector2FBuffer(Vec2fBase... v)
 	{
-		float[] f = new float[v.length * Vec2fBase.DIMENSIONS];
+		float[] f = new float[v.length * v[0].getDimensions()];
 		
 		for(int i = 0; i < v.length; i++)
 		{
@@ -116,7 +116,7 @@ public final class BufferUtils
 	
 	public final static FloatBuffer wrapVector3FBuffer(Vec3fBase... v)
 	{
-		float[] f = new float[v.length * Vec3fBase.DIMENSIONS];
+		float[] f = new float[v.length * v[0].getDimensions()];
 		
 		for(int i = 0; i < v.length; i++)
 		{
@@ -203,7 +203,7 @@ public final class BufferUtils
 	
 	public final static FloatBuffer wrapFlippedVector2FBuffer(Vec2fBase... v)
 	{
-		float[] f = new float[v.length * Vec2fBase.DIMENSIONS];
+		float[] f = new float[v.length * v[0].getDimensions()];
 		
 		for(int i = 0; i < v.length; i++)
 		{
@@ -216,7 +216,7 @@ public final class BufferUtils
 	
 	public final static FloatBuffer wrapFlippedVector3FBuffer(Vec3fBase... v)
 	{
-		float[] f = new float[v.length * Vec3fBase.DIMENSIONS];
+		float[] f = new float[v.length * v[0].getDimensions()];
 		
 		for(int i = 0; i < v.length; i++)
 		{

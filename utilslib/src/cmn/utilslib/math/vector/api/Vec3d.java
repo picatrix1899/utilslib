@@ -65,6 +65,32 @@ public interface Vec3d extends Vec3dBase, Tup3d
 	/** Sets the Z-Dimension based on the Value z and returns the Vector */
 	Vec3d setZ(double z);
 
+	
+	
+	default Vec3d set(int index, float value)
+	{
+		switch(index)
+		{
+			case 0: setX(value); break;
+			case 1: setY(value); break;
+			case 2: setZ(value); break;
+		}
+		
+		return this;
+	}
+	
+	default Vec3d set(int index, double value)
+	{
+		switch(index)
+		{
+			case 0: setX(value); break;
+			case 1: setY(value); break;
+			case 2: setZ(value); break;
+		}
+		
+		return this;
+	}
+	
 	/*
 	#########################
 	##                     ##
@@ -78,13 +104,7 @@ public interface Vec3d extends Vec3dBase, Tup3d
 	
 	/** Returns the Vector with addition of the Vector v */
 	Vec3d add(Vec3dBase v);
-	
-	/** Returns the Vector with addition of the Tuple t */
-	Vec3d add(Tup3fBase v);
 
-	/** Returns the Vector with addition of the Tuple t */
-	Vec3d add(Tup3dBase v);
-	
 	/** Returns the Vector with addition of the Value scalar */
 	Vec3d add(float scalar);
 	
@@ -104,13 +124,7 @@ public interface Vec3d extends Vec3dBase, Tup3d
 	
 	/** Returns the Vector with subtraction of the Vector v */
 	Vec3d sub(Vec3dBase v);
-	
-	/** Returns the Vector with subtraction of the Tuple t */
-	Vec3d sub(Tup3fBase t);
-	
-	/** Returns the Vector with subtraction of the Tuple t */
-	Vec3d sub(Tup3dBase t);
-	
+
 	/** Returns the Vector with subtraction of the Value scalar */
 	Vec3d sub(float scalar);
 	
@@ -130,13 +144,7 @@ public interface Vec3d extends Vec3dBase, Tup3d
 	
 	/** Returns the Vector with multiplication of the Vector v */
 	Vec3d mul(Vec3dBase v);
-	
-	/** Returns the Vector with multiplication of the Tuple t */
-	Vec3d mul(Tup3fBase t);
-	
-	/** Returns the Vector with multiplication of the Tuple t */
-	Vec3d mul(Tup3dBase t);
-	
+
 	/** Returns the Vector with multiplication of the Value scalar */
 	Vec3d mul(float scalar);
 	
@@ -156,13 +164,7 @@ public interface Vec3d extends Vec3dBase, Tup3d
 	
 	/** Returns the Vector with division of the Vector v */
 	Vec3d div(Vec3dBase v);
-	
-	/** Returns the Vector with division of the Tuple t */
-	Vec3d div(Tup3fBase t);
-	
-	/** Returns the Vector with division of the Tuple t */
-	Vec3d div(Tup3dBase t);
-	
+
 	/** Returns the Vector with division of the Value scalar */
 	Vec3d div(float scalar);
 	
@@ -182,13 +184,7 @@ public interface Vec3d extends Vec3dBase, Tup3d
 	
 	/** inverses the Vector based on the Vector v and returns it(i.e. out.x = v.x - this.x) */
 	Vec3d invertFrom(Vec3dBase v);
-	
-	/** inverses the Vector based on the Tuple t and returns it(i.e. out.x = t.x - this.x) */
-	Vec3d invertFrom(Tup3fBase t);
-	
-	/** inverses the Vector based on the Tuple t and returns it(i.e. out.x = t.x - this.x) */
-	Vec3d invertFrom(Tup3dBase t);
-	
+
 	/** inverses the Vector based on the Value max and returns it(i.e. out.x = max - this.x) */
 	Vec3d invertFrom(float max);
 	

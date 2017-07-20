@@ -3,8 +3,6 @@ package cmn.utilslib.math.vector;
 
 import cmn.utilslib.math.Maths;
 import cmn.utilslib.math.Quaternion;
-import cmn.utilslib.math.tuple.api.Tup3dBase;
-import cmn.utilslib.math.tuple.api.Tup3fBase;
 import cmn.utilslib.math.vector.api.Vec3dBase;
 import cmn.utilslib.math.vector.api.Vec3fBase;
 
@@ -41,16 +39,17 @@ public abstract class PVector3f implements Vec3fBase
 			/** {@inheritDoc} */
 			public float getZ() { return z; }
 			
-			
-			
 			/** {@inheritDoc} */
-			public float getA() { return x; }
-			
-			/** {@inheritDoc} */
-			public float getB() { return y; }
-			
-			/** {@inheritDoc} */
-			public float getC() { return z; }
+			public float get(int index)
+			{
+				switch(index)
+				{
+					case 0: return x;
+					case 1: return y;
+				}
+				
+				return Float.NaN;
+			}
 
 			/*
 			#########################
@@ -65,12 +64,6 @@ public abstract class PVector3f implements Vec3fBase
 		 	
 		 	/** {@inheritDoc} */
 		 	public Vector3f addN(Vec3dBase v) { return clone().add(v); }
-		 	
-		 	/** {@inheritDoc} */
-		 	public Vector3f addN(Tup3fBase t) { return clone().add(t); }
-
-		 	/** {@inheritDoc} */
-		 	public Vector3f addN(Tup3dBase t) { return clone().add(t); }
 
 		 	
 		 	/** {@inheritDoc} */
@@ -92,13 +85,7 @@ public abstract class PVector3f implements Vec3fBase
 		 	
 		 	/** {@inheritDoc} */
 		 	public Vector3f subN(Vec3dBase v) { return clone().sub(v); }
-		 	
-		 	/** {@inheritDoc} */
-		 	public Vector3f subN(Tup3fBase t) { return clone().sub(t); }
-		 	
-		 	/** {@inheritDoc} */
-		 	public Vector3f subN(Tup3dBase t) { return clone().sub(t); }
-		 	
+
 		 	/** {@inheritDoc} */
 		 	public Vector3f subN(float scalar) { return clone().sub(scalar); }
 		 	
@@ -120,12 +107,6 @@ public abstract class PVector3f implements Vec3fBase
 		 	public Vector3f mulN(Vec3dBase v) { return clone().mul(v); }
 		 	
 		 	/** {@inheritDoc} */
-		 	public Vector3f mulN(Tup3fBase t) { return clone().mul(t); }
-		 	
-		 	/** {@inheritDoc} */
-		 	public Vector3f mulN(Tup3dBase t) { return clone().mul(t); }
-		 	
-		 	/** {@inheritDoc} */
 		 	public Vector3f mulN(float scalar) { return clone().mul(scalar); }
 		 	
 		 	/** {@inheritDoc} */
@@ -144,13 +125,7 @@ public abstract class PVector3f implements Vec3fBase
 		 	
 		 	/** {@inheritDoc} */
 		 	public Vector3f divN(Vec3dBase v) { return clone().div(v); }
-		 	
-		 	/** {@inheritDoc} */
-		 	public Vector3f divN(Tup3fBase t) { return clone().div(t); }
-		 	
-		 	/** {@inheritDoc} */
-		 	public Vector3f divN(Tup3dBase t) { return clone().div(t); }
-		 	
+
 		 	/** {@inheritDoc} */
 		 	public Vector3f divN(float scalar) { return clone().div(scalar); }
 		 	
@@ -170,13 +145,7 @@ public abstract class PVector3f implements Vec3fBase
 			
 			/** {@inheritDoc} */
 			public Vector3f invertFromN(Vec3dBase v) { return clone().invertFrom(v); }
-			
-			/** {@inheritDoc} */
-			public Vector3f invertFromN(Tup3fBase t) { return clone().invertFrom(t); }
-			
-			/** {@inheritDoc} */
-			public Vector3f invertFromN(Tup3dBase t) { return clone().invertFrom(t); }
-			
+
 			/** {@inheritDoc} */
 			public Vector3f invertFromN(float max) { return clone().invertFrom(max); }
 			

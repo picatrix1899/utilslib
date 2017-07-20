@@ -1,4 +1,4 @@
-package cmn.utilslib.math.geometry;
+package cmn.utilslib.math;
 
 import java.util.ArrayList;
 

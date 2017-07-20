@@ -6,6 +6,7 @@ import java.util.List;
 import cmn.utilslib.essentials.Auto;
 import cmn.utilslib.math.geometry.Point3f;
 import cmn.utilslib.math.geometry.Shape3f;
+import cmn.utilslib.math.vector.Vector3f;
 
 public class MinkowskiSum3f implements Shape3f
 {
@@ -68,7 +69,7 @@ public class MinkowskiSum3f implements Shape3f
 		
 		for(Point3f bs : b)
 		{
-			next = new Point3f(a.add(bs));
+			next = new Point3f(a.asVector3f(Vector3f.TEMP0).add(bs.asVector3f(Vector3f.TEMP1)));
 			if(!out.contains(next))
 				out.add(next);
 		}
@@ -84,7 +85,7 @@ public class MinkowskiSum3f implements Shape3f
 		
 		for(Point3f bs : b)
 		{
-			next = new Point3f(a.sub(bs));
+			next = new Point3f(a.asVector3f(Vector3f.TEMP0).sub(bs.asVector3f(Vector3f.TEMP1)));
 			if(!out.contains(next))
 				out.add(next);
 		}

@@ -1,11 +1,11 @@
 package cmn.utilslib.math.tuple.api;
 
-public interface Tup3dBase
+public interface Tup2dBase
 {
 	/** Returns the count of Dimensions of the Vector. */
-	default int getDimensions() { return 3; }
+	default int getDimensions() { return 2; }
 	
 	double get(int index);
 	
-	Tup3d clone();
+	Tup2d clone();
 }
