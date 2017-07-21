@@ -235,7 +235,7 @@ public abstract class PVector2f implements Vec2fBase
 			
 			/** {@inheritDoc} */
 			public Vector2f rotateN(Quaternion q) { return clone().rotate(q); }
-		 	
+			
 			/*
 			############################
 			##                        ##

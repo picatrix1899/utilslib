@@ -506,6 +506,25 @@ public class Vector2f implements Vec2f
 	}
  	
  	
+	public Vector2f rotate90CCW()
+	{
+		Vector2f t = Vector2f.TEMP.set(this);
+		
+		this.x = -t.y;
+		this.y = t.x;
+		
+		return this;
+	}
+ 	
+	public Vector2f rotate90CW()
+	{
+		Vector2f t = Vector2f.TEMP.set(this);
+		
+		this.x = t.y;
+		this.y = -t.x;
+		
+		return this;
+	}
  	
  	/** {@inheritDoc} */
 	public double dot(Vec2fBase v) { return (double) this.x * v.getX() + this.y * v.getY(); }
