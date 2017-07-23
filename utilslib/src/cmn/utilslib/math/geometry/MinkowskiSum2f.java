@@ -4,65 +4,64 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cmn.utilslib.essentials.Auto;
-import cmn.utilslib.math.vector.Vector2f;
 
-public class MinkowskiSum2f
+public class MinkowskiSum2f implements ConvexPolygonalShape2f
 {
-	private Vector2f[] points;
+	private Point2f[] points;
 	
-	public MinkowskiSum2f(Vector2f[] a, Vector2f[] b)
+	public MinkowskiSum2f(ConvexPolygonalShape2f a, ConvexPolygonalShape2f b)
 	{
 		this(a, b, false);
 	}
 	
-	public MinkowskiSum2f(Vector2f[] a, Vector2f[] b, boolean difference)
+	public MinkowskiSum2f(ConvexPolygonalShape2f a, ConvexPolygonalShape2f b, boolean difference)
 	{
 		
-		ArrayList<Vector2f> sumPoints = Auto.ArrayList();
+		ArrayList<Point2f> sumPoints = Auto.ArrayList();
 		
 		if(difference)
 		{
-			for(Vector2f as : a)
+			for(Point2f as : a.getPoints())
 			{
 				sumPoints.addAll(calculatePointDifference(as, b));
 			}
 		}
 		else
 		{
-			for(Vector2f as : a)
+			for(Point2f as : a.getPoints())
 			{
 				sumPoints.addAll(calculatePointSum(as, b));
 			}
 		}
 		
-		ArrayList<Vector2f> filtered = Auto.ArrayList();
+		ArrayList<Point2f> filtered = Auto.ArrayList();
 		
-		for(Vector2f v : sumPoints)
+		for(Point2f v : sumPoints)
 		{
 			if(!filtered.contains(v))
 				filtered.add(v);
 		}
 		
-		this.points = (Vector2f[]) filtered.toArray();
+		this.points = (Point2f[]) filtered.toArray();
 	}
 	
-	public Vector2f[] getPoints()
+	public Point2f[] getPoints()
 	{
 		return this.points;
 	}
 	
-	public List<Vector2f> getPointList()
+	public List<Point2f> getPointList()
 	{
 		return Auto.ArrayList(this.points);
 	}
 	
-	private List<Vector2f> calculatePointSum(Vector2f a, Vector2f[] b)
+	private List<Point2f> calculatePointSum(Point2f a, ConvexPolygonalShape2f b)
 	{
-		ArrayList<Vector2f> out = Auto.ArrayList();
+		ArrayList<Point2f> out = Auto.ArrayList();
 		
-		Vector2f next;
+		Point2f next;
 		
-		for(Vector2f bs : b)
+		for(Point2f bs : b.getPoints())
 		{
 			next = a.addN(bs);
 			if(!out.contains(next))
@@ -72,13 +71,13 @@ public class MinkowskiSum2f
 		return out;
 	}
 	
-	private List<Vector2f> calculatePointDifference(Vector2f a, Vector2f[] b)
+	private List<Point2f> calculatePointDifference(Point2f a, ConvexPolygonalShape2f b)
 	{
-		ArrayList<Vector2f> out = Auto.ArrayList();
+		ArrayList<Point2f> out = Auto.ArrayList();
 		
-		Vector2f next;
+		Point2f next;
 		
-		for(Vector2f bs : b)
+		for(Point2f bs : b.getPoints())
 		{
 			next = a.subN(bs);
 			if(!out.contains(next))
@@ -86,5 +85,13 @@ public class MinkowskiSum2f
 		}
 		
 		return out;
+	}
+
+	public AABB2f getAABB()
+	{
+		Point2f min = Point2f.TEMP0.set(getMinX(), getMinY());
+		Point2f max = Point2f.TEMP0.set(getMaxX(), getMaxY());
+		
+		return new AABB2f(min, max);
 	}
 }
