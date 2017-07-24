@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.file.Paths;
+import java.util.Enumeration;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -64,8 +66,34 @@ public class Main
 	    out.close();
 		
 	    in.close();
+	
 	    
 	}
+	
+	public static void copyDir(ZipFile zip, String srcPath, String dstPath) throws Exception
+	{
+		Enumeration<? extends ZipEntry> entries = zip.entries();
+		
+		ZipEntry entry;
+		
+		File dir = new File(root, dstPath);
+		
+		if(!dir.exists()) dir.mkdirs();
+		
+		while(entries.hasMoreElements())
+		{
+			entry = entries.nextElement();
+			
+			if(!entry.isDirectory())
+			{
+				if(entry.getName().startsWith(srcPath))
+				{
+					copyFile(zip, entry, dstPath + new File(entry.getName()).getName());
+				}
+			}
+		}
+	}
+	
 	
 	public static void deleteFile(String path)
 	{
@@ -121,10 +149,17 @@ public class Main
 					deleteDir(parts[1]);
 					System.out.println("finished");
 				}
-				else if(line.startsWith("mov: "))
+				else if(line.startsWith("movf: "))
 				{
 					String[] parts = line.split(": ")[1].split(" ; ");
-					System.out.print("move \"" + parts[0] + "\" to \"" + parts[1] + "\"....");
+					System.out.print("move file \"" + parts[0] + "\" to \"" + parts[1] + "\"....");
+					copyFile(zip, zip.getEntry(parts[0]), parts[1]);
+					System.out.println("finished");
+				}
+				else if(line.startsWith("movd: "))
+				{
+					String[] parts = line.split(": ")[1].split(" ; ");
+					System.out.print("move directory \"" + parts[0] + "\" to \"" + parts[1] + "\"....");
 					copyFile(zip, zip.getEntry(parts[0]), parts[1]);
 					System.out.println("finished");
 				}
