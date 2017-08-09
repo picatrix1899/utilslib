@@ -18,7 +18,12 @@ public class SimpleMemoryIterator<T> implements MemoryIterator<T>
 		this.f_get = f_get;
 	}
 	
-	public boolean hasNext() { return this.index < this.f_size.apply(null); }
+	public boolean hasNext()
+	{
+		int i = this.f_size.apply(null);
+		
+		return i > 0 && this.index < i;
+	}
 
 	public T next() { return hasNext() ? this.c = this.f_get.apply(this.index++) : null; }
 

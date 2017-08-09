@@ -7,6 +7,7 @@ import java.util.List;
 
 import cmn.utilslib.dmap.LinkedValue;
 import cmn.utilslib.dmap.dmappings.api.IDMapping3;
+import cmn.utilslib.dmap.dmaps.DMap2;
 import cmn.utilslib.dmap.dmaps.LinkedDMap3;
 import cmn.utilslib.dmap.dmaps.api.IDMap3Base;
 import cmn.utilslib.essentials.Auto;
@@ -25,6 +26,11 @@ public class DMapping3<A,B,C> implements IDMapping3<A,B,C>
 	private final IteratorConverter<A,IDMap3Base<A,B,C>> converter_ToA = i -> i.getA();
 	private final IteratorConverter<B,IDMap3Base<A,B,C>> converter_ToB = i -> i.getB();
 	private final IteratorConverter<C,IDMap3Base<A,B,C>> converter_ToC = i -> i.getC();
+	
+	private final IteratorConverter<DMap2<A,B>,IDMap3Base<A,B,C>> converter_ToAB = i -> Auto.DMap2(i.getA(), i.getB());
+	private final IteratorConverter<DMap2<A,C>,IDMap3Base<A,B,C>> converter_ToAC = i -> Auto.DMap2(i.getA(), i.getC());
+	private final IteratorConverter<DMap2<B,C>,IDMap3Base<A,B,C>> converter_ToBC = i -> Auto.DMap2(i.getB(), i.getC());
+	
 	
 	private final IteratorConverter<LinkedValue<A,IDMap3Base<A,B,C>>,IDMap3Base<A,B,C>> converter_ToLinkedA = i -> ((LinkedDMap3<A,B,C>) i).getLinkedA();
 	private final IteratorConverter<LinkedValue<B,IDMap3Base<A,B,C>>,IDMap3Base<A,B,C>> converter_ToLinkedB = i -> ((LinkedDMap3<A,B,C>) i).getLinkedB();
@@ -105,6 +111,51 @@ public class DMapping3<A,B,C> implements IDMapping3<A,B,C>
 	
 	
 	
+	public IDMap3Base<A,B,C> getFirstByAB(A a, B b)
+	{
+		int[] indices = indicesOfA(a);
+
+		for(int i : indices)
+		{
+			if(get0(i).getB().equals(b))
+			{
+				return get0(i);
+			}
+		}
+		
+		return null;
+	}
+	public IDMap3Base<A,B,C> getFirstByAC(A a, C c)
+	{
+		int[] indices = indicesOfA(a);
+
+		for(int i : indices)
+		{
+			if(get0(i).getC().equals(c))
+			{
+				return get0(i);
+			}
+		}
+		
+		return null;
+	}
+	public IDMap3Base<A,B,C> getFirstByBC(B b, C c)
+	{
+		int[] indices = indicesOfB(b);
+
+		for(int i : indices)
+		{
+			if(get0(i).getC().equals(c))
+			{
+				return get0(i);
+			}
+		}
+		
+		return null;
+	}
+	
+	
+	
 	public A getFirstAByB(B b)
 	{
 		int index = firstIndexOfB(b);
@@ -141,7 +192,30 @@ public class DMapping3<A,B,C> implements IDMapping3<A,B,C>
 		
 		return index != -1 ? getC0(index) : null;
 	}
-
+	
+	
+	
+	public A getFirstAByBC(B b, C c)
+	{
+		int index = firstIndexOfBC(b, c);
+		
+		return index != -1 ? getA0(index) : null;
+	}
+	
+	public B getFirstBByAC(A a, C c)
+	{
+		int index = firstIndexOfAC(a, c);
+		
+		return index != -1 ? getB0(index) : null;
+	}
+	
+	public C getFirstCByAB(A a, B b)
+	{
+		int index = firstIndexOfAB(a, b);
+		
+		return index != -1 ? getC0(index) : null;
+	}
+	
 	
 	
 	public List<IDMap3Base<A,B,C>> getByA(A a)
@@ -164,6 +238,29 @@ public class DMapping3<A,B,C> implements IDMapping3<A,B,C>
 	}
 	
 
+	
+	public List<IDMap3Base<A,B,C>> getByAB(A a, B b)
+	{
+		int[] indices = indicesOfAB(a, b);
+		
+		return get(indices);
+	}
+	
+	public List<IDMap3Base<A,B,C>> getByAC(A a, C c)
+	{
+		int[] indices = indicesOfAC(a, c);
+		
+		return get(indices);
+	}
+	
+	public List<IDMap3Base<A,B,C>> getByBC(B b, C c)
+	{
+		int[] indices = indicesOfBC(b, c);
+		
+		return get(indices);
+	}
+	
+	
 	
 	public List<A> getAByB(B b)
 	{
@@ -201,21 +298,64 @@ public class DMapping3<A,B,C> implements IDMapping3<A,B,C>
 		
 		return getC0(indices);
 	}
+
 	
 	
+	public List<A> getAByBC(B b, C c)
+	{
+		int[] indices = indicesOfBC(b, c);
+		
+		return getA0(indices);
+	}
+	public List<B> getBByAC(A a, C c)
+	{
+		int[] indices = indicesOfAC(a, c);
+		
+		return getB0(indices);
+	}	
+	public List<C> getCByAB(A a, B b)
+	{
+		int[] indices = indicesOfAB(a, b);
+		
+		return getC0(indices);
+	}
+
+
 	
 	public int firstIndexOf(A a, B b, C c) { return firstIndexOf(Auto.DMap3(a, b, c)); }	
 	public int firstIndexOf(IDMap3Base<A,B,C> entry)
 	{
 		MemoryIterator<IDMap3Base<A,B,C>> i = iterator();
 		
-		while(i.hasNext()) if(i.next().equals(entry)) return i.index();
+		while(i.hasNext())
+		{
+			if(i.next().equals(entry))
+			{
+				return i.index();
+			}
+		}
 		
 		return -1;
 	}
 	public int firstIndexOfA(A a) { return this.a().indexOf(a); }
 	public int firstIndexOfB(B b) { return this.b().indexOf(b); }
 	public int firstIndexOfC(C c) { return this.c().indexOf(c); }
+	
+	
+	public int firstIndexOfAB(A a, B b)
+	{
+		return indicesOfAB(a, b).length > 0 ? indicesOfAB(a, b)[0] : -1;
+	}
+	
+	public int firstIndexOfAC(A a, C c)
+	{
+		return indicesOfAC(a, c).length > 0 ? indicesOfAC(a, c)[0] : -1;
+	}
+	
+	public int firstIndexOfBC(B b, C c)
+	{
+		return indicesOfBC(b, c).length > 0 ? indicesOfBC(b, c)[0] : -1;
+	}
 	
 	
 	
@@ -232,6 +372,20 @@ public class DMapping3<A,B,C> implements IDMapping3<A,B,C>
 	public boolean containsB(B b) { return converter_ToB.toList(iterator()).contains(b); }
 	public boolean containsC(C c) { return converter_ToC.toList(iterator()).contains(c); }
 	
+	
+	public boolean containsAB(A a, B b)
+	{
+		return occurrencesOfAB(a, b) > 0;
+	}
+	public boolean containsAC(A a, C c)
+	{
+		return occurrencesOfAC(a, c) > 0;
+	}
+	public boolean containsBC(B b, C c)
+	{
+		return occurrencesOfBC(b, c) > 0;
+	}
+
 	
 	
 	public int[] indicesOf(A a, B b, C c) { return indicesOf(Auto.DMap3(a, b, c)); }
@@ -277,7 +431,45 @@ public class DMapping3<A,B,C> implements IDMapping3<A,B,C>
 	}
 	
 	
+	
+	public int[] indicesOfAB(A a, B b)
+	{
+		ArrayList<Integer> out = Auto.ArrayList();
+		
+		MemoryIterator<IDMap3Base<A,B,C>> i = iterator();
+		
+		while(i.hasNext()) if(i.next().getA().equals(a) && i.current().getB().equals(b)) out.add(i.index());
 
+		return ListUtils.toIntArray(out);
+	}
+	
+	
+	
+	public int[] indicesOfAC(A a, C c)
+	{
+		ArrayList<Integer> out = Auto.ArrayList();
+		
+		MemoryIterator<IDMap3Base<A,B,C>> i = iterator();
+		
+		while(i.hasNext()) if(i.next().getA().equals(a) && i.current().getC().equals(c)) out.add(i.index());
+
+		return ListUtils.toIntArray(out);
+	}
+	
+	
+	
+	public int[] indicesOfBC(B b, C c)
+	{
+		ArrayList<Integer> out = Auto.ArrayList();
+		
+		MemoryIterator<IDMap3Base<A,B,C>> i = iterator();
+		
+		while(i.hasNext()) if(i.next().getB().equals(b) && i.current().getC().equals(c)) out.add(i.index());
+
+		return ListUtils.toIntArray(out);
+	}
+
+	
 	public int occurrencesOf(A a, B b, C c) { return occurrencesOf(Auto.DMap3(a, b, c)); }
 	public int occurrencesOf(IDMap3Base<A,B,C> entry)
 	{
@@ -319,6 +511,37 @@ public class DMapping3<A,B,C> implements IDMapping3<A,B,C>
 		
 		return out;
 	}
+	
+	public int occurrencesOfAB(A a, B b)
+	{
+		int out = 0;
+		
+		MemoryIterator<IDMap3Base<A,B,C>> i = iterator();
+		
+		while(i.hasNext()) if(i.next().getA().equals(a) && i.current().getB().equals(b)) out++;
+		
+		return out;
+	}
+	public int occurrencesOfAC(A a, C c)
+	{
+		int out = 0;
+		
+		MemoryIterator<IDMap3Base<A,B,C>> i = iterator();
+		
+		while(i.hasNext()) if(i.next().getA().equals(a) && i.current().getC().equals(c)) out++;
+		
+		return out;
+	}
+	public int occurrencesOfBC(B b, C c)
+	{
+		int out = 0;
+		
+		MemoryIterator<IDMap3Base<A,B,C>> i = iterator();
+		
+		while(i.hasNext()) if(i.next().getB().equals(b) && i.current().getC().equals(c)) out++;
+		
+		return out;
+	}
 
 
 	
@@ -330,6 +553,8 @@ public class DMapping3<A,B,C> implements IDMapping3<A,B,C>
 	{
 		return Auto.SimpleMemoryIterator(v -> size(), i -> this.content.get(i));
 	}
+	
+	
 	public MemoryIterator<A> iteratorA()
 	{
 		return Auto.SimpleMemoryIterator(v -> size(), i -> this.content.get(i).getA());
@@ -342,20 +567,80 @@ public class DMapping3<A,B,C> implements IDMapping3<A,B,C>
 	{
 		return Auto.SimpleMemoryIterator(v -> size(), i -> this.content.get(i).getC());
 	}
-
 	
 	
-	public MemoryIterator<LinkedValue<A, IDMap3Base<A,B,C>>> iteratorLinkedA()
+	
+	public MemoryIterator<DMap2<A,B>> iteratorAB()
+	{
+		return Auto.SimpleMemoryIterator(v -> size(), i ->
+		{
+			LinkedDMap3<A,B,C> c = this.content.get(i);
+			
+			return Auto.DMap2(c.getA(), c.getB());
+		});
+	}
+	public MemoryIterator<DMap2<A,C>> iteratorAC()
+	{
+		return Auto.SimpleMemoryIterator(v -> size(), i ->
+		{
+			LinkedDMap3<A,B,C> c = this.content.get(i);
+			
+			return Auto.DMap2(c.getA(), c.getC());
+		});
+	}
+	public MemoryIterator<DMap2<B,C>> iteratorBC()
+	{
+		return Auto.SimpleMemoryIterator(v -> size(), i ->
+		{
+			LinkedDMap3<A,B,C> c = this.content.get(i);
+			
+			return Auto.DMap2(c.getB(), c.getC());
+		});
+	}
+	
+	
+	
+	public MemoryIterator<LinkedValue<A,IDMap3Base<A,B,C>>> iteratorLinkedA()
 	{
 		return Auto.SimpleMemoryIterator(v -> size(), i -> this.content.get(i).getLinkedA());
 	}
-	public MemoryIterator<LinkedValue<B, IDMap3Base<A,B,C>>> iteratorLinkedB()
+	public MemoryIterator<LinkedValue<B,IDMap3Base<A,B,C>>> iteratorLinkedB()
 	{
 		return Auto.SimpleMemoryIterator(v -> size(), i -> this.content.get(i).getLinkedB());
 	}
-	public MemoryIterator<LinkedValue<C, IDMap3Base<A,B,C>>> iteratorLinkedC()
+	public MemoryIterator<LinkedValue<C,IDMap3Base<A,B,C>>> iteratorLinkedC()
 	{
 		return Auto.SimpleMemoryIterator(v -> size(), i -> this.content.get(i).getLinkedC());
+	}
+	
+	
+	
+	public MemoryIterator<DMap2<LinkedValue<A,IDMap3Base<A,B,C>>,LinkedValue<B,IDMap3Base<A,B,C>>>> iteratorLinkedAB()
+	{
+		return Auto.SimpleMemoryIterator(v -> size(), i ->
+		{
+			LinkedDMap3<A,B,C> c = this.content.get(i);
+			
+			return Auto.DMap2(c.getLinkedA(), c.getLinkedB());
+		});
+	}
+	public MemoryIterator<DMap2<LinkedValue<A,IDMap3Base<A,B,C>>,LinkedValue<C,IDMap3Base<A,B,C>>>> iteratorLinkedAC()
+	{
+		return Auto.SimpleMemoryIterator(v -> size(), i ->
+		{
+			LinkedDMap3<A,B,C> c = this.content.get(i);
+			
+			return Auto.DMap2(c.getLinkedA(), c.getLinkedC());
+		});
+	}
+	public MemoryIterator<DMap2<LinkedValue<B,IDMap3Base<A,B,C>>,LinkedValue<C,IDMap3Base<A,B,C>>>> iteratorLinkedBC()
+	{
+		return Auto.SimpleMemoryIterator(v -> size(), i ->
+		{
+			LinkedDMap3<A,B,C> c = this.content.get(i);
+			
+			return Auto.DMap2(c.getLinkedB(), c.getLinkedC());
+		});
 	}
 	
 	
@@ -665,6 +950,6 @@ public class DMapping3<A,B,C> implements IDMapping3<A,B,C>
 	{
 		this.content.remove(index);
 	}
-
+	
 }
 
