@@ -36,24 +36,38 @@ public class LinkedDMap3<A,B,C> implements IDMap3<A,B,C>
 	}
 
 	
-	
+	/** {@inheritDoc} **/
 	@Override
 	public A getA() { return this.a.value(); }
 
+	/** {@inheritDoc} **/
 	@Override
 	public B getB() { return this.b.value(); }
 	
+	/** {@inheritDoc} **/
 	@Override
 	public C getC() { return this.c.value(); }
 
 	
+	/** {@inheritDoc} **/
+	@Override
+	public LinkedDMap3<A,B,C> set(A a, B b, C c) { this.a.value(a); this.b.value(b); this.c.value(c); return this; }
 	
+	/** {@inheritDoc} **/
+	@Override
+	public LinkedDMap3<A,B,C> set(IDMap3Base<A,B,C> dmap) { this.a.value(dmap.getA()); this.b.value(dmap.getB()); this.c.value(dmap.getC()); return this; }
+	
+	public LinkedDMap3<A,B,C> set(LinkedDMap3<A,B,C> dmap) { this.a = dmap.a; this.b = dmap.b; this.c = dmap.c; return this; }
+	
+	/** {@inheritDoc} **/
 	@Override
 	public LinkedDMap3<A,B,C> setA(A a) { this.a.value(a); return this; }
 
+	/** {@inheritDoc} **/
 	@Override
 	public LinkedDMap3<A,B,C> setB(B b) { this.b.value(b); return this; }
 	
+	/** {@inheritDoc} **/
 	@Override
 	public LinkedDMap3<A,B,C> setC(C c) { this.c.value(c); return this; }
 

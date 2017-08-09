@@ -15,7 +15,7 @@ public class Tests
 		try
 		{
 
-			printTest(TestDMapping2.class, System.out);
+			printTest(TestDMap2.class, System.out);
 			
 		}
 		catch (Exception e)

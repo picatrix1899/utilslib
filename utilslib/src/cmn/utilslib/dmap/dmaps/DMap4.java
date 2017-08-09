@@ -4,6 +4,7 @@ package cmn.utilslib.dmap.dmaps;
 
 import cmn.utilslib.dmap.dmaps.api.IDMap4;
 import cmn.utilslib.dmap.dmaps.api.IDMap4Base;
+import cmn.utilslib.essentials.Check;
 
 /**
  * Packet system with 3 entries
@@ -13,10 +14,10 @@ import cmn.utilslib.dmap.dmaps.api.IDMap4Base;
 public class DMap4<A,B,C,D> implements IDMap4<A,B,C,D>
 {
 
-	private A a = null;
-	private B b = null;
-	private C c = null;
-	private D d = null;
+	public volatile A a;
+	public volatile B b;
+	public volatile C c;
+	public volatile D d;
 	
 	
 	
@@ -26,7 +27,10 @@ public class DMap4<A,B,C,D> implements IDMap4<A,B,C,D>
 	 */
 	public DMap4()
 	{
-		this(null, null, null, null);
+		this.a = null;
+		this.b = null;
+		this.c = null;
+		this.d = null;
 	}
 	/**
 	 * Constructor with initial values
@@ -45,65 +49,56 @@ public class DMap4<A,B,C,D> implements IDMap4<A,B,C,D>
 	 */
 	public DMap4(IDMap4Base<A,B,C,D> dmap)
 	{
-		this(dmap.getA(), dmap.getB(), dmap.getC(), dmap.getD());
+		this.a = dmap.getA();
+		this.b = dmap.getB();
+		this.c = dmap.getC();
+		this.d = dmap.getD();
 	}
 	
 	
 	
-	/**
-	 * Sets entry A
-	 * 
-	 * @param a : The new value
-	 * @return The current packet
-	 */
+	/** {@inheritDoc} **/
+	@Override
+	public DMap4<A,B,C,D> set(A a, B b, C c, D d) { this.a = a; this.b = b; return this; }
+	
+	/** {@inheritDoc} **/
+	@Override
+	public DMap4<A,B,C,D> set(IDMap4Base<A,B,C,D> dmap) { this.a = dmap.getA(); this.b = dmap.getB(); this.c = dmap.getC(); this.d = dmap.getD(); return this; }
+	
+	public DMap4<A,B,C,D> set(DMap4<A,B,C,D> dmap) { this.a = dmap.a; this.b = dmap.b; this.c = dmap.c; this.d = dmap.d; return this; }
+	
+	/** {@inheritDoc} **/
+	@Override
 	public DMap4<A,B,C,D> setA(A a) { this.a = a; return this; }
-	/**
-	 * Set entry B
-	 * 
-	 * @param b : The new value
-	 * @return The current packet
-	 */
+	
+	/** {@inheritDoc} **/
+	@Override
 	public DMap4<A,B,C,D> setB(B b) { this.b = b; return this; }
-	/**
-	 * Set entry C
-	 * 
-	 * @param c : The new value
-	 * @return The current packet
-	 */
+	
+	/** {@inheritDoc} **/
+	@Override
 	public DMap4<A,B,C,D> setC(C c) { this.c = c; return this; }
-	/**
-	 * Set entry D
-	 * 
-	 * @param d : The new value
-	 * @return The current packet
-	 */
+	
+	/** {@inheritDoc} **/
+	@Override
 	public DMap4<A,B,C,D> setD(D d) { this.d = d; return this; }
 	
 	
 	
-	/**
-	 * Gets entry A
-	 * 
-	 * @return The value
-	 */
+	/** {@inheritDoc} **/
+	@Override
 	public A getA() { return this.a; }
-	/**
-	 * Gets entry B
-	 * 
-	 * @return The value
-	 */
+	
+	/** {@inheritDoc} **/
+	@Override
 	public B getB() { return this.b; }
-	/**
-	 * Gets entry C
-	 * 
-	 * @return The value
-	 */
+	
+	/** {@inheritDoc} **/
+	@Override
 	public C getC() { return this.c; }
-	/**
-	 * Gets entry D
-	 * 
-	 * @return The value
-	 */
+	
+	/** {@inheritDoc} **/
+	@Override
 	public D getD() { return this.d; }
 	
 	
@@ -118,16 +113,20 @@ public class DMap4<A,B,C,D> implements IDMap4<A,B,C,D>
 	@Override
 	public boolean equals(Object obj)
 	{
-		if(!(obj instanceof DMap4<?,?,?,?>)) return false;
-		DMap4<?,?,?,?> d = (DMap4<?,?,?,?>)obj;
+		if(!(obj instanceof IDMap4Base<?,?,?,?>)) return false;
+		IDMap4Base<?,?,?,?> d = (IDMap4Base<?,?,?,?>)obj;
 		
-		if(!(d.a.equals(this.a))) return false;
-		if(!(d.b.equals(this.b))) return false;
-		if(!(d.c.equals(this.c))) return false;	
+		if(!(Check.isSaveEqual(this.a, d.getA()))) return false;
+		if(!(Check.isSaveEqual(this.b, d.getB()))) return false;
+		if(!(Check.isSaveEqual(this.c, d.getC()))) return false;
+		if(!(Check.isSaveEqual(this.d, d.getD()))) return false;
+
 		
 		return true;
 	}
 	
+	/** {@inheritDoc} **/
+	@Override
 	public int hashCode()
 	{
 		int hash = 1;
@@ -145,7 +144,7 @@ public class DMap4<A,B,C,D> implements IDMap4<A,B,C,D>
 	@Override
 	public String toString()
 	{
-		return "dmap2(\n" +
+		return "DMap4(\n" +
 				this.a.toString() +
 				"\n,\n" +
 				this.b.toString() + 

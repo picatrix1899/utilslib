@@ -3,6 +3,7 @@ package cmn.utilslib.dmap.dmaps;
 
 import cmn.utilslib.dmap.dmaps.api.IDMap3;
 import cmn.utilslib.dmap.dmaps.api.IDMap3Base;
+import cmn.utilslib.essentials.Check;
 
 /**
  * Packet system with 3 entries
@@ -12,9 +13,9 @@ import cmn.utilslib.dmap.dmaps.api.IDMap3Base;
 public class DMap3<A,B,C> implements IDMap3<A,B,C>
 {
 	
-	private A a = null;
-	private B b = null;
-	private C c = null;
+	public volatile A a;
+	public volatile B b;
+	public volatile C c;
 	
 	
 	
@@ -25,7 +26,9 @@ public class DMap3<A,B,C> implements IDMap3<A,B,C>
 	public DMap3()
 	{
 		
-		this(null, null, null);
+		this.a = null;
+		this.b = null;
+		this.c = null;
 	}
 	/**
 	 * Constructor with initial values
@@ -43,31 +46,32 @@ public class DMap3<A,B,C> implements IDMap3<A,B,C>
 	 */
 	public DMap3(IDMap3Base<A,B,C> dmap)
 	{
-		this(dmap.getA(), dmap.getB(), dmap.getC());
+		this.a = dmap.getA();
+		this.b = dmap.getB();
+		this.c = dmap.getC();
 	}
 	
 	
+	/** {@inheritDoc} **/
+	@Override
+	public DMap3<A,B,C> set(A a, B b, C c) { this.a = a; this.b = b; this.c = c; return this; }
 	
-	/**
-	 * Sets entry A
-	 * 
-	 * @param a : The new value
-	 * @return The current packet
-	 */
+	/** {@inheritDoc} **/
+	@Override
+	public DMap3<A,B,C> set(IDMap3Base<A,B,C> dmap) { this.a = dmap.getA(); this.b = dmap.getB(); this.c = dmap.getC(); return this; }
+	
+	public DMap3<A,B,C> set(DMap3<A,B,C> dmap) { this.a = dmap.a; this.b = dmap.b; this.c = dmap.c; return this; }
+	
+	/** {@inheritDoc} **/
+	@Override
 	public DMap3<A,B,C> setA(A a) { this.a = a; return this; }
-	/**
-	 * Set entry B
-	 * 
-	 * @param b : The new value
-	 * @return The current packet
-	 */
+	
+	/** {@inheritDoc} **/
+	@Override
 	public DMap3<A,B,C> setB(B b) { this.b = b; return this; }
-	/**
-	 * Set entry C
-	 * 
-	 * @param c : The new value
-	 * @return The current packet
-	 */
+	
+	/** {@inheritDoc} **/
+	@Override
 	public DMap3<A,B,C> setC(C c) { this.c = c; return this; }
 	
 	
@@ -92,6 +96,8 @@ public class DMap3<A,B,C> implements IDMap3<A,B,C>
 		return new DMap3<A,B,C>(this);
 	}
 	
+	/** {@inheritDoc} **/
+	@Override
 	public int hashCode()
 	{
 		int hash = 0;
@@ -107,12 +113,12 @@ public class DMap3<A,B,C> implements IDMap3<A,B,C>
 	@Override
 	public boolean equals(Object obj)
 	{
-		if(!(obj instanceof DMap3<?,?,?>)) return false;
-		DMap3<?,?,?> d = (DMap3<?,?,?>)obj;
+		if(!(obj instanceof IDMap3Base<?,?,?>)) return false;
+		IDMap3Base<?,?,?> d = (IDMap3Base<?,?,?>)obj;
 		
-		if(!(d.a.equals(this.a))) return false;
-		if(!(d.b.equals(this.b))) return false;
-		if(!(d.c.equals(this.c))) return false;	
+		if(!(Check.isSaveEqual(this.a, d.getA()))) return false;
+		if(!(Check.isSaveEqual(this.b, d.getB()))) return false;
+		if(!(Check.isSaveEqual(this.c, d.getC()))) return false;	
 		
 		return true;
 	}
@@ -121,7 +127,7 @@ public class DMap3<A,B,C> implements IDMap3<A,B,C>
 	@Override
 	public String toString()
 	{
-		return "dmap2(\n" +
+		return "DMap3(\n" +
 				this.a.toString() +
 				"\n,\n" +
 				this.b.toString() + 

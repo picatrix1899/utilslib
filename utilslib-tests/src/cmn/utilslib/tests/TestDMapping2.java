@@ -486,4 +486,42 @@ public class TestDMapping2 implements IUnitTest
 		
 		return map.contains(new DMap2<Integer,Integer>(2,7));
 	}
+	
+	@IUnitTest.Test("contains(A)")
+	public boolean testContainsA()
+	{
+		IDMapping2<Integer,Integer> map = new DMapping2<Integer,Integer>();
+		
+		map.add(0, 9);
+		map.add(1, 8);
+		map.add(2, 7);
+		map.add(3, 6);
+		map.add(4, 5);
+		map.add(5, 4);
+		map.add(6, 3);
+		map.add(7, 2);
+		map.add(8, 1);
+		map.add(9, 0);
+		
+		return map.containsA(3);
+	}
+	
+	@IUnitTest.Test("contains(B)")
+	public boolean testContainsB()
+	{
+		IDMapping2<Integer,Integer> map = new DMapping2<Integer,Integer>();
+		
+		map.add(0, 9);
+		map.add(1, 8);
+		map.add(2, 7);
+		map.add(3, 6);
+		map.add(4, 5);
+		map.add(5, 4);
+		map.add(6, 3);
+		map.add(7, 2);
+		map.add(8, 1);
+		map.add(9, 0);
+		
+		return map.containsB(7);
+	}
 }

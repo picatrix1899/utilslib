@@ -55,6 +55,14 @@ public class Check
 	
 	
 	
+	public static <A> boolean isSaveEqual(A expected, A value)
+	{
+		if(expected == null) return value == null;
+		
+		return expected.equals(value) || expected == value;
+	}
+	
+	
 	public static boolean isEqual(boolean expected, boolean value) { return value == expected; }
 	public static boolean isEqual(int expected, int value) { return value == expected; }
 	public static boolean isEqual(long expected, long value) { return value == expected; }

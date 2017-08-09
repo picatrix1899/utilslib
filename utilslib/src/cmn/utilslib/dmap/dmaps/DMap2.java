@@ -5,6 +5,7 @@ package cmn.utilslib.dmap.dmaps;
 
 import cmn.utilslib.dmap.dmaps.api.IDMap2;
 import cmn.utilslib.dmap.dmaps.api.IDMap2Base;
+import cmn.utilslib.essentials.Check;
 
 /**
  * Packet system with 2 entries
@@ -14,8 +15,8 @@ import cmn.utilslib.dmap.dmaps.api.IDMap2Base;
 public class DMap2<A,B> implements IDMap2<A,B>
 {
 	
-	private volatile A a = null;
-	private volatile B b = null;
+	public volatile A a;
+	public volatile B b;
 	
 	
 	
@@ -25,7 +26,8 @@ public class DMap2<A,B> implements IDMap2<A,B>
 	 */
 	public DMap2()
 	{
-		this(null, null);
+		this.a = null;
+		this.b = null;
 	}
 	/**
 	 * Constructor with initial values
@@ -43,22 +45,28 @@ public class DMap2<A,B> implements IDMap2<A,B>
 	 */
 	public DMap2(IDMap2Base<A,B> dmap)
 	{
-		this(dmap.getA(), dmap.getB());
+		this.a = dmap.getA();
+		this.b = dmap.getB();
 	}
 	
 	
 	
-	/**
-	 * Sets entry A
-	 * @param a : The new value
-	 * @return The current packet
-	 */
+	/** {@inheritDoc} **/
+	@Override
+	public DMap2<A,B> set(A a, B b) { this.a = a; this.b = b; return this; }
+	
+	/** {@inheritDoc} **/
+	@Override
+	public DMap2<A,B> set(IDMap2Base<A,B> dmap) { this.a = dmap.getA(); this.b = dmap.getB(); return this; }
+	
+	public DMap2<A,B> set(DMap2<A,B> dmap) { this.a = dmap.a; this.b = dmap.b; return this; }
+	
+	/** {@inheritDoc} **/
+	@Override
 	public DMap2<A,B> setA(A a) { this.a = a; return this; }
-	/**
-	 * Set entry B
-	 * @param b : The new value
-	 * @return The current packet
-	 */
+	
+	/** {@inheritDoc} **/
+	@Override
 	public DMap2<A,B> setB(B b) { this.b = b; return this; }
 	
 	
@@ -66,6 +74,7 @@ public class DMap2<A,B> implements IDMap2<A,B>
 	/** {@inheritDoc} */
 	@Override
 	public A getA() { return this.a; }
+	
 	/** {@inheritDoc} */
 	@Override
 	public B getB() { return this.b; }
@@ -78,6 +87,8 @@ public class DMap2<A,B> implements IDMap2<A,B>
 		return new DMap2<A,B>(this);
 	}
 	
+	/** {@inheritDoc} **/
+	@Override
 	public int hashCode()
 	{
 		int hash = 0;
@@ -92,11 +103,12 @@ public class DMap2<A,B> implements IDMap2<A,B>
 	@Override
 	public boolean equals(Object obj)
 	{
-		if(!(obj instanceof DMap2<?,?>)) return false;
-		DMap2<?,?> d = (DMap2<?,?>)obj;
+		if(!(obj instanceof IDMap2Base<?,?>)) return false;
 		
-		if(!(d.a.equals(this.a))) return false;
-		if(!(d.b.equals(this.b))) return false;
+		IDMap2Base<?,?> d = (IDMap2Base<?,?>)obj;
+		
+		if(!(Check.isSaveEqual(this.a, d.getA()))) return false;
+		if(!(Check.isSaveEqual(this.b, d.getB()))) return false;
 			
 		return true;
 	}
@@ -105,7 +117,7 @@ public class DMap2<A,B> implements IDMap2<A,B>
 	@Override
 	public String toString()
 	{
-		return "dmap2(\n" +
+		return "DMap2(\n" +
 				this.a.toString() +
 				"\n,\n" +
 				this.b.toString() + 

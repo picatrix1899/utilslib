@@ -149,7 +149,10 @@ public class DMapping2<A,B> implements IDMapping2<A,B>
 	
 	
 	
-	public boolean contains(A a, B b) { return contains(Auto.DMap2(a,b)); }
+	public boolean contains(A a, B b)
+	{
+		return contains(Auto.DMap2(a,b));
+	}
 	public boolean contains(IDMap2Base<A,B> entry)
 	{
 		Iterator<IDMap2Base<A,B>> i = iterator();
