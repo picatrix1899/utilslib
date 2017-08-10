@@ -122,10 +122,10 @@ public class LinkedDMap4<A,B,C,D> implements IDMap4<A,B,C,D>
 		
 		IDMap4Base<?,?,?,?> d = (IDMap4Base<?,?,?,?>)obj;
 		
-		if(!(Check.isSaveEqual(this.a, d.getA()))) return false;
-		if(!(Check.isSaveEqual(this.b, d.getB()))) return false;
-		if(!(Check.isSaveEqual(this.c, d.getC()))) return false;
-		if(!(Check.isSaveEqual(this.d, d.getD()))) return false;	
+		if(!(Check.isSaveEqual(this.a.value(), d.getA()))) return false;
+		if(!(Check.isSaveEqual(this.b.value(), d.getB()))) return false;
+		if(!(Check.isSaveEqual(this.c.value(), d.getC()))) return false;
+		if(!(Check.isSaveEqual(this.d.value(), d.getD()))) return false;	
 		
 		return true;
 	}

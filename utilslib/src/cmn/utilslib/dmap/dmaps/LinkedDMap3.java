@@ -106,9 +106,9 @@ public class LinkedDMap3<A,B,C> implements IDMap3<A,B,C>
 		
 		IDMap3Base<?,?,?> d = (IDMap3Base<?,?,?>)obj;
 		
-		if(!(Check.isSaveEqual(this.a, d.getA()))) return false;
-		if(!(Check.isSaveEqual(this.b, d.getB()))) return false;
-		if(!(Check.isSaveEqual(this.c, d.getC()))) return false;
+		if(!(Check.isSaveEqual(this.a.value(), d.getA()))) return false;
+		if(!(Check.isSaveEqual(this.b.value(), d.getB()))) return false;
+		if(!(Check.isSaveEqual(this.c.value(), d.getC()))) return false;
 			
 		return true;
 	}

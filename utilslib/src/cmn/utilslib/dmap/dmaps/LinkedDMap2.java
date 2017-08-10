@@ -93,8 +93,8 @@ public class LinkedDMap2<A,B> implements IDMap2<A,B>
 		
 		IDMap2Base<?,?> d = (IDMap2Base<?,?>)obj;
 		
-		if(!(Check.isSaveEqual(this.a, d.getA()))) return false;
-		if(!(Check.isSaveEqual(this.b, d.getB()))) return false;
+		if(!(Check.isSaveEqual(this.a.value(), d.getA()))) return false;
+		if(!(Check.isSaveEqual(this.b.value(), d.getB()))) return false;
 			
 		return true;
 	}

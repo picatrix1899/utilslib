@@ -359,7 +359,8 @@ public class DMapping3<A,B,C> implements IDMapping3<A,B,C>
 	
 	
 	
-	public boolean contains(A a, B b, C c) { return contains(Auto.DMap3(a,b,c)); }
+	public boolean contains(A a, B b, C c) {
+		return contains(Auto.DMap3(a,b,c)); }
 	public boolean contains(IDMap3Base<A,B,C> entry)
 	{
 		Iterator<IDMap3Base<A,B,C>> i = iterator();
