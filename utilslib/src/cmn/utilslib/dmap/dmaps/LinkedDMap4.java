@@ -134,7 +134,7 @@ public class LinkedDMap4<A,B,C,D> implements IDMap4<A,B,C,D>
 	@Override
 	public String toString()
 	{
-		return "linkedDMap3(\n" +
+		return "linkedDMap4(\n" +
 				this.a.toString() +
 				"\n,\n" +
 				this.b.toString() + 

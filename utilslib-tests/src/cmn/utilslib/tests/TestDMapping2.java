@@ -1,5 +1,6 @@
 package cmn.utilslib.tests;
 
+import java.util.Iterator;
 import java.util.List;
 
 import cmn.utilslib.dmap.dmappings.DMapping2;
@@ -521,6 +522,42 @@ public class TestDMapping2 implements IUnitTest
 		map.add(7, 2);
 		map.add(8, 1);
 		map.add(9, 0);
+		
+		return map.containsB(7);
+	}
+	
+	
+	@IUnitTest.Test("iterator()")
+	public boolean testIterator()
+	{
+		IDMapping2<Integer,Integer> map = new DMapping2<Integer,Integer>();
+		
+		map.add(0, 9);
+		map.add(1, 8);
+		map.add(2, 7);
+		map.add(3, 6);
+		map.add(4, 5);
+		map.add(5, 4);
+		map.add(6, 3);
+		map.add(7, 2);
+		map.add(8, 1);
+		map.add(9, 0);
+		
+		int index = 0;
+		
+		Iterator<IDMap2Base<Integer,Integer>> it = map.iterator();
+		
+		IDMap2Base<Integer,Integer> element;
+		
+		while(it.hasNext())
+		{
+			
+			element = it.next();
+			
+			if(!(element.getA() == map.getA(index) && element.getB() == map.getB(index))) return false;
+			
+			index++;
+		}
 		
 		return map.containsB(7);
 	}

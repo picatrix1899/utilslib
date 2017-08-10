@@ -28,6 +28,7 @@ import java.util.function.Function;
 
 import javax.swing.JList;
 
+import cmn.utilslib.Utilslib;
 import cmn.utilslib.dmap.LinkedValue;
 import cmn.utilslib.dmap.dmappings.DMapping2;
 import cmn.utilslib.dmap.dmappings.DMapping3;
@@ -42,7 +43,6 @@ import cmn.utilslib.dmap.dmaps.api.IDMap2Base;
 import cmn.utilslib.dmap.dmaps.api.IDMap3Base;
 import cmn.utilslib.dmap.dmaps.api.IDMap4Base;
 import cmn.utilslib.exceptions.ErrorHandler;
-import cmn.utilslib.exceptions.SimpleErrorHandler;
 import cmn.utilslib.reflection.FieldRef;
 import cmn.utilslib.reflection.ManagedFieldRef;
 import cmn.utilslib.reflection.ManagedMethodRef;
@@ -53,12 +53,12 @@ import cmn.utilslib.reflection.MethodRef;
 public class Auto
 {
 	
-	private static ErrorHandler handler = new SimpleErrorHandler();
+	private static ErrorHandler handler = Utilslib.SIMPLE_ERROR_HANDLER;
 	
 	
 	
 	public static void setErrorHandler(ErrorHandler h) { Auto.handler = h; }
-	public static void resetErrorHandler() { Auto.handler = new SimpleErrorHandler(); }
+	public static void resetErrorHandler() { Auto.handler = Utilslib.SIMPLE_ERROR_HANDLER; }
 	
 	
 	
@@ -120,7 +120,8 @@ public class Auto
 	public static <V> ArrayList<V> ArrayList() { return new ArrayList<V>(); }
 	public static <V> ArrayList<V> ArrayList(Collection<? extends V> c) { return new ArrayList<V>(c); }
 	@SuppressWarnings("unchecked")
-	public static <V> ArrayList<V> ArrayList(V... args) { ArrayList<V> out = ArrayList(); Collections.addAll(out, args); return out; }
+	public static <V> ArrayList<V> ArrayList(V arg0, V... args) { ArrayList<V> out = new ArrayList<V>(); out.add(arg0); Collections.addAll(out, args); return out; }
+	public static <V> ArrayList<V> ArrayList(V[] args) { ArrayList<V> out = new ArrayList<V>(); Collections.addAll(out, args); return out; }
 	
 	
 	

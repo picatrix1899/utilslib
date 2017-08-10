@@ -15,9 +15,10 @@ import cmn.utilslib.essentials.Check;
 public class DMap2<A,B> implements IDMap2<A,B>
 {
 	
+	
 	public volatile A a;
 	public volatile B b;
-	
+
 	
 	
 	/**

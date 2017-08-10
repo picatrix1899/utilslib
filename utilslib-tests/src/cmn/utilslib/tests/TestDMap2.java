@@ -1,6 +1,7 @@
 package cmn.utilslib.tests;
 
 import cmn.utilslib.dmap.dmaps.DMap2;
+import cmn.utilslib.dmap.dmaps.LinkedDMap2;
 import cmn.utilslib.dmap.dmaps.api.IDMap2Base;
 import cmn.utilslib.testing.IUnitTest;
 
@@ -9,51 +10,28 @@ public class TestDMap2 implements IUnitTest
 	@IUnitTest.Test("new DMap2()")
 	public boolean testConstructor1()
 	{
-		try
-		{
-			@SuppressWarnings("unused")
-			DMap2<Integer,Integer> map = new DMap2<Integer,Integer>();
-		}
-		catch(Exception e)
-		{
-			return false;
-		}
-		
-		return true;
+		DMap2<Integer,Integer> map = new DMap2<Integer,Integer>();
+			
+		return map.getA() == null && map.getB() == null;
 	}
 	
 	@IUnitTest.Test("new DMap2(A,B)")
 	public boolean testConstructor2()
 	{
-		try
-		{
-			@SuppressWarnings("unused")
-			DMap2<Integer,Integer> map = new DMap2<Integer,Integer>(1,2);
-		}
-		catch(Exception e)
-		{
-			return false;
-		}
-		
-		return true;
+		DMap2<Integer,Integer> map = new DMap2<Integer,Integer>(1,2);
+			
+		return map.getA() == 1 && map.getB() == 2;
 	}
 	
 	@IUnitTest.Test("new DMap2(IDMap2Base<A,B>)")
 	public boolean testConstructor3()
 	{
 		DMap2<Integer,Integer> mapA = new DMap2<Integer,Integer>(1,2);
+
+		DMap2<Integer,Integer> map = new DMap2<Integer,Integer>(mapA);
 		
-		try
-		{
-			@SuppressWarnings("unused")
-			DMap2<Integer,Integer> map = new DMap2<Integer,Integer>(mapA);
-		}
-		catch(Exception e)
-		{
-			return false;
-		}
-		
-		return true;
+		return map.getA() == 1 && map.getB() == 2;
+
 	}
 	
 	@IUnitTest.Test("getA()")
@@ -228,6 +206,15 @@ public class TestDMap2 implements IUnitTest
 		};
 		
 		return !mapA.equals(mapB);
+	}
+	
+	@IUnitTest.Test("IDMap2Base.equals(DMap2)")
+	public boolean testEquals5()
+	{
+		DMap2<Integer,Integer> mapA = new DMap2<Integer,Integer>(1,2);
+		IDMap2Base<Integer,Integer> mapB = new LinkedDMap2<Integer,Integer>(1,2);
+		
+		return mapB.equals(mapA);
 	}
 	
 	@IUnitTest.Test("hashcode() - null,null")

@@ -7,6 +7,7 @@ import java.util.List;
 
 import cmn.utilslib.dmap.LinkedValue;
 import cmn.utilslib.dmap.dmappings.api.IDMapping2;
+import cmn.utilslib.dmap.dmaps.DMap2;
 import cmn.utilslib.dmap.dmaps.LinkedDMap2;
 import cmn.utilslib.dmap.dmaps.api.IDMap2Base;
 import cmn.utilslib.essentials.Auto;
@@ -151,7 +152,14 @@ public class DMapping2<A,B> implements IDMapping2<A,B>
 	
 	public boolean contains(A a, B b)
 	{
-		return contains(Auto.DMap2(a,b));
+		Iterator<IDMap2Base<A,B>> i = iterator();
+		
+		while(i.hasNext())
+		{
+			if(i.next().equals(new DMap2<A,B>(a,b))) return true;	
+		}
+		
+		return false;
 	}
 	public boolean contains(IDMap2Base<A,B> entry)
 	{
