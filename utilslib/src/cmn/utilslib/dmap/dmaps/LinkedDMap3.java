@@ -4,6 +4,7 @@ import cmn.utilslib.dmap.LinkedValue;
 import cmn.utilslib.dmap.dmaps.api.IDMap3;
 import cmn.utilslib.dmap.dmaps.api.IDMap3Base;
 import cmn.utilslib.essentials.Auto;
+import cmn.utilslib.essentials.Check;
 
 public class LinkedDMap3<A,B,C> implements IDMap3<A,B,C>
 {
@@ -57,8 +58,6 @@ public class LinkedDMap3<A,B,C> implements IDMap3<A,B,C>
 	@Override
 	public LinkedDMap3<A,B,C> set(IDMap3Base<A,B,C> dmap) { this.a.value(dmap.getA()); this.b.value(dmap.getB()); this.c.value(dmap.getC()); return this; }
 	
-	public LinkedDMap3<A,B,C> set(LinkedDMap3<A,B,C> dmap) { this.a = dmap.a; this.b = dmap.b; this.c = dmap.c; return this; }
-	
 	/** {@inheritDoc} **/
 	@Override
 	public LinkedDMap3<A,B,C> setA(A a) { this.a.value(a); return this; }
@@ -78,5 +77,53 @@ public class LinkedDMap3<A,B,C> implements IDMap3<A,B,C>
 	public LinkedValue<B,IDMap3Base<A,B,C>> getLinkedB() { return this.b; }
 
 	public LinkedValue<C,IDMap3Base<A,B,C>> getLinkedC() { return this.c; }
+
+	/** {@inheritDoc} */
+	@Override
+	public LinkedDMap3<A,B,C> clone()
+	{		
+		return new LinkedDMap3<A,B,C>(this);
+	}
+	
+	/** {@inheritDoc} **/
+	@Override
+	public int hashCode()
+	{
+		int hash = 0;
+		
+		hash = 37 * hash + (this.a != null ? this.a.value().hashCode() : 0);
+		hash = 37 * hash + (this.b != null ? this.b.value().hashCode() : 0);
+		hash = 37 * hash + (this.c != null ? this.c.value().hashCode() : 0);
+		
+		return hash;
+	}
+	
+	/** {@inheritDoc} */
+	@Override
+	public boolean equals(Object obj)
+	{
+		if(!(obj instanceof IDMap3Base<?,?,?>)) return false;
+		
+		IDMap3Base<?,?,?> d = (IDMap3Base<?,?,?>)obj;
+		
+		if(!(Check.isSaveEqual(this.a, d.getA()))) return false;
+		if(!(Check.isSaveEqual(this.b, d.getB()))) return false;
+		if(!(Check.isSaveEqual(this.c, d.getC()))) return false;
+			
+		return true;
+	}
+	
+	/** {@inheritDoc} */
+	@Override
+	public String toString()
+	{
+		return "linkedDMap3(\n" +
+				this.a.toString() +
+				"\n,\n" +
+				this.b.toString() + 
+				"\n,\n" +
+				this.c.toString() + 
+				"\n)";
+	}
 	
 }

@@ -59,7 +59,7 @@ public class DMap4<A,B,C,D> implements IDMap4<A,B,C,D>
 	
 	/** {@inheritDoc} **/
 	@Override
-	public DMap4<A,B,C,D> set(A a, B b, C c, D d) { this.a = a; this.b = b; return this; }
+	public DMap4<A,B,C,D> set(A a, B b, C c, D d) { this.a = a; this.b = b; this.c = c; this.d = d; return this; }
 	
 	/** {@inheritDoc} **/
 	@Override

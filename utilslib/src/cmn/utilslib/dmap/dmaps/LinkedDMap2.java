@@ -50,8 +50,6 @@ public class LinkedDMap2<A,B> implements IDMap2<A,B>
 	@Override
 	public LinkedDMap2<A,B> set(IDMap2Base<A,B> dmap) { this.a.value(dmap.getA()); this.b.value(dmap.getB()); return this; }
 	
-	public LinkedDMap2<A,B> set(LinkedDMap2<A,B> dmap) { this.a = dmap.a; this.b = dmap.b; return this; }
-	
 	/** {@inheritDoc} **/
 	@Override
 	public LinkedDMap2<A,B> setA(A a) { this.a.value(a); return this; }
