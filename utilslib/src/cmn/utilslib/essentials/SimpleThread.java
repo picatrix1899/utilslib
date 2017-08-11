@@ -3,7 +3,7 @@ package cmn.utilslib.essentials;
 public class SimpleThread
 {
 	
-	Thread th;
+	private Thread th;
 	
 	public SimpleThread()
 	{

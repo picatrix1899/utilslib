@@ -7,7 +7,6 @@ import java.util.List;
 
 import cmn.utilslib.dmap.LinkedValue;
 import cmn.utilslib.dmap.dmappings.api.IDMapping2;
-import cmn.utilslib.dmap.dmaps.DMap2;
 import cmn.utilslib.dmap.dmaps.LinkedDMap2;
 import cmn.utilslib.dmap.dmaps.api.IDMap2Base;
 import cmn.utilslib.essentials.Auto;
@@ -136,7 +135,21 @@ public class DMapping2<A,B> implements IDMapping2<A,B>
 	
 	
 	
-	public int firstIndexOf(A a, B b) { return firstIndexOf(Auto.DMap2(a, b)); }	
+	public int firstIndexOf(A a, B b)
+	{
+		MemoryIterator<IDMap2Base<A,B>> i = iterator();
+		
+		IDMap2Base<A,B> element;
+		
+		while(i.hasNext())
+		{
+			element = i.next();
+			
+			if(element.getA().equals(a) && element.getB().equals(b)) return i.index();
+		}
+		
+		return -1;
+	}	
 	public int firstIndexOf(IDMap2Base<A,B> entry)
 	{
 		MemoryIterator<IDMap2Base<A,B>> i = iterator();
@@ -154,9 +167,13 @@ public class DMapping2<A,B> implements IDMapping2<A,B>
 	{
 		Iterator<IDMap2Base<A,B>> i = iterator();
 		
+		IDMap2Base<A,B> element;
+		
 		while(i.hasNext())
 		{
-			if(i.next().equals(new DMap2<A,B>(a,b))) return true;	
+			element = i.next();
+			
+			if(element.getA().equals(a) && element.getB().equals(b)) return true;	
 		}
 		
 		return false;
@@ -174,7 +191,22 @@ public class DMapping2<A,B> implements IDMapping2<A,B>
 	
 	
 	
-	public int[] indicesOf(A a, B b) { return indicesOf(Auto.DMap2(a, b)); }
+	public int[] indicesOf(A a, B b)
+	{
+		ArrayList<Integer> out = Auto.ArrayList();
+		
+		MemoryIterator<IDMap2Base<A,B>> i = iterator();
+		
+		IDMap2Base<A,B> element;
+		
+		while(i.hasNext())
+		{
+			element = i.next();
+			if(element.getA().equals(a) && element.getB().equals(b)) out.add(i.index());
+		}
+		
+		return ListUtils.toIntArray(out);
+	}
 	public int[] indicesOf(IDMap2Base<A,B> entry)
 	{
 		ArrayList<Integer> out = Auto.ArrayList();
@@ -208,7 +240,22 @@ public class DMapping2<A,B> implements IDMapping2<A,B>
 	
 	
 
-	public int occurrencesOf(A a, B b) { return occurrencesOf(Auto.DMap2(a, b)); }
+	public int occurrencesOf(A a, B b)
+	{
+		int out = 0;
+		
+		Iterator<IDMap2Base<A,B>> i = iterator();
+		
+		IDMap2Base<A,B> element;
+		
+		while(i.hasNext())
+		{
+			element = i.next();
+			if(element.getA().equals(a) && element.getB().equals(b)) out++;
+		}
+		
+		return out;
+	}
 	public int occurrencesOf(IDMap2Base<A,B> entry)
 	{
 		int out = 0;
@@ -328,7 +375,19 @@ public class DMapping2<A,B> implements IDMapping2<A,B>
 		return this;
 	}
 	
-	public DMapping2<A,B> remove(A a, B b) { return remove(Auto.DMap2(a, b)); }
+	public DMapping2<A,B> remove(A a, B b) 
+	{
+		int index = -1;
+		
+		while(contains(a, b))
+		{
+			index = firstIndexOf(a, b);
+			
+			remove0(index);
+		}
+		
+		return this;
+	}
 	public DMapping2<A,B> remove(IDMap2Base<A,B> entry)
 	{
 		int index = -1;
