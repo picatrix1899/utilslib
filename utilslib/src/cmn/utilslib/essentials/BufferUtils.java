@@ -28,27 +28,27 @@ public final class BufferUtils
 	
 	public final static ShortBuffer createShortBuffer(int size)
 	{
-		return createByteBuffer(size << 1).asShortBuffer();
+		return ByteBuffer.allocateDirect(size << 1).order(ByteOrder.nativeOrder()).asShortBuffer();
 	}
 	
 	public final static IntBuffer createIntBuffer(int size)
 	{
-		return createByteBuffer(size << 2).asIntBuffer();
+		return ByteBuffer.allocateDirect(size << 2).order(ByteOrder.nativeOrder()).asIntBuffer();
 	}
 	
 	public final static LongBuffer createLongBuffer(int size)
 	{
-		return createByteBuffer(size << 3).asLongBuffer();
+		return ByteBuffer.allocateDirect(size << 3).order(ByteOrder.nativeOrder()).asLongBuffer();
 	}	
 	
 	public final static FloatBuffer createFloatBuffer(int size)
 	{
-		return createByteBuffer(size << 2).asFloatBuffer();
+		return ByteBuffer.allocateDirect(size << 2).order(ByteOrder.nativeOrder()).asFloatBuffer();
 	}		
 	
 	public final static DoubleBuffer createDoubleBuffer(int size)
 	{
-		return createByteBuffer(size << 3).asDoubleBuffer();
+		return ByteBuffer.allocateDirect(size << 3).order(ByteOrder.nativeOrder()).asDoubleBuffer();
 	}
 	
 
@@ -58,7 +58,7 @@ public final class BufferUtils
 	
 	public final static ByteBuffer wrapByteBuffer(byte... b)
 	{
-		ByteBuffer buffer = BufferUtils.createByteBuffer(b.length);
+		ByteBuffer buffer = ByteBuffer.allocateDirect(b.length).order(ByteOrder.nativeOrder());
 		
 		buffer.put(b);
 		
@@ -67,7 +67,7 @@ public final class BufferUtils
 	
 	public final static ShortBuffer wrapShortBuffer(short... b)
 	{
-		ShortBuffer buffer = BufferUtils.createShortBuffer(b.length);
+		ShortBuffer buffer = ByteBuffer.allocateDirect(b.length << 1).order(ByteOrder.nativeOrder()).asShortBuffer();
 		
 		buffer.put(b);
 		
@@ -76,7 +76,7 @@ public final class BufferUtils
 	
 	public final static IntBuffer wrapIntBuffer(int... b)
 	{
-		IntBuffer buffer = BufferUtils.createIntBuffer(b.length);
+		IntBuffer buffer = ByteBuffer.allocateDirect(b.length << 2).order(ByteOrder.nativeOrder()).asIntBuffer();
 		
 		buffer.put(b);
 		
@@ -85,7 +85,7 @@ public final class BufferUtils
 	
 	public final static LongBuffer wrapLongBuffer(long... b)
 	{
-		LongBuffer buffer = BufferUtils.createLongBuffer(b.length);
+		LongBuffer buffer = ByteBuffer.allocateDirect(b.length << 3).order(ByteOrder.nativeOrder()).asLongBuffer();
 		
 		buffer.put(b);
 		
@@ -94,7 +94,7 @@ public final class BufferUtils
 	
 	public final static FloatBuffer wrapFloatBuffer(float... b)
 	{
-		FloatBuffer buffer = BufferUtils.createFloatBuffer(b.length);
+		FloatBuffer buffer = ByteBuffer.allocateDirect(b.length << 2).order(ByteOrder.nativeOrder()).asFloatBuffer();
 		
 		buffer.put(b);
 		
@@ -103,49 +103,92 @@ public final class BufferUtils
 	
 	public final static FloatBuffer wrapVector2FBuffer(Vec2fBase... v)
 	{
-		float[] f = new float[v.length * v[0].getDimensions()];
+		
+		int dim = v[0].getDimensions();
+		
+		float[] f = new float[v.length * dim];
+		
+		int block = 0;
+		
+		Vec2fBase current;
 		
 		for(int i = 0; i < v.length; i++)
 		{
-			f[i + 0] = v[i].getX();
-			f[i + 1] = v[i].getY();
+			current = v[i];
+			
+			f[block] = current.getX();
+			f[block + 1] = current.getY();
+			
+			block = i * dim;
 		}
 		
-		return wrapFloatBuffer(f);
+		FloatBuffer buffer = ByteBuffer.allocateDirect(f.length << 2).order(ByteOrder.nativeOrder()).asFloatBuffer();
+		
+		buffer.put(f);
+		
+		return buffer;
 	}
 	
 	public final static FloatBuffer wrapVector3FBuffer(Vec3fBase... v)
 	{
-		float[] f = new float[v.length * v[0].getDimensions()];
+		int dim = v[0].getDimensions();
+		
+		float[] f = new float[v.length * dim];
+		
+		int block = 0;
+		
+		Vec3fBase current;
 		
 		for(int i = 0; i < v.length; i++)
 		{
-			f[i + 0] = v[i].getX();
-			f[i + 1] = v[i].getY();
-			f[i + 2] = v[i].getZ();
+			current = v[i];
+			
+			f[block + 0] = current.getX();
+			f[block + 1] = current.getY();
+			f[block + 2] = current.getZ();
+			
+			block = i * dim;
 		}
 		
-		return wrapFloatBuffer(f);
+		FloatBuffer buffer = ByteBuffer.allocateDirect(f.length << 2).order(ByteOrder.nativeOrder()).asFloatBuffer();
+		
+		buffer.put(f);
+		
+		return buffer;
 	}
 	
 	public final static FloatBuffer wrapVector4FBuffer(Vec4fBase... v)
 	{
-		float[] f = new float[v.length * Vec4fBase.DIMENSIONS];
+		int dim = v[0].getDimensions();
+		
+		float[] f = new float[v.length * dim];
+		
+		int block = 0;
+		
+		Vec4fBase current;
 		
 		for(int i = 0; i < v.length; i++)
 		{
-			f[i + 0] = v[i].getX();
-			f[i + 1] = v[i].getY();
-			f[i + 2] = v[i].getZ();
-			f[i + 3] = v[i].getA();
+			current = v[i];
+			
+			f[block + 0] = current.getX();
+			f[block + 1] = current.getY();
+			f[block + 2] = current.getZ();
+			f[block + 3] = current.getA();
+			
+			block = i * dim;
 		}
 		
-		return wrapFloatBuffer(f);
+		FloatBuffer buffer = ByteBuffer.allocateDirect(f.length << 2).order(ByteOrder.nativeOrder()).asFloatBuffer();
+		
+		buffer.put(f);
+		
+		return buffer;
 	}
 	
 	public final static DoubleBuffer wrapDoubleBuffer(double... b)
 	{
-		DoubleBuffer buffer = BufferUtils.createDoubleBuffer(b.length);
+		DoubleBuffer buffer = ByteBuffer.allocateDirect(b.length << 3).order(ByteOrder.nativeOrder()).asDoubleBuffer();
 		
 		buffer.put(b);
 		
@@ -158,7 +201,7 @@ public final class BufferUtils
 	
 	public final static ByteBuffer wrapFlippedByteBuffer(byte... b)
 	{
-		ByteBuffer buffer = BufferUtils.createByteBuffer(b.length);
+		ByteBuffer buffer = ByteBuffer.allocateDirect(b.length).order(ByteOrder.nativeOrder());
 		
 		buffer.put(b);
 		buffer.flip();
@@ -167,7 +210,7 @@ public final class BufferUtils
 	
 	public final static ShortBuffer wrapFlippedShortBuffer(short... b)
 	{
-		ShortBuffer buffer = BufferUtils.createShortBuffer(b.length);
+		ShortBuffer buffer = ByteBuffer.allocateDirect(b.length << 1).order(ByteOrder.nativeOrder()).asShortBuffer();
 		
 		buffer.put(b);
 		buffer.flip();
@@ -176,7 +219,7 @@ public final class BufferUtils
 	
 	public final static IntBuffer wrapFlippedIntBuffer(int... b)
 	{
-		IntBuffer buffer = BufferUtils.createIntBuffer(b.length);
+		IntBuffer buffer = ByteBuffer.allocateDirect(b.length << 2).order(ByteOrder.nativeOrder()).asIntBuffer();
 		
 		buffer.put(b);
 		buffer.flip();
@@ -185,7 +228,7 @@ public final class BufferUtils
 	
 	public final static LongBuffer wrapFlippedLongBuffer(long... b)
 	{
-		LongBuffer buffer = BufferUtils.createLongBuffer(b.length);
+		LongBuffer buffer = ByteBuffer.allocateDirect(b.length << 3).order(ByteOrder.nativeOrder()).asLongBuffer();
 		
 		buffer.put(b);
 		buffer.flip();
@@ -194,7 +237,7 @@ public final class BufferUtils
 	
 	public final static FloatBuffer wrapFlippedFloatBuffer(float... b)
 	{
-		FloatBuffer buffer = BufferUtils.createFloatBuffer(b.length);
+		FloatBuffer buffer = ByteBuffer.allocateDirect(b.length << 2).order(ByteOrder.nativeOrder()).asFloatBuffer();
 		
 		buffer.put(b);
 		buffer.flip();
@@ -203,49 +246,92 @@ public final class BufferUtils
 	
 	public final static FloatBuffer wrapFlippedVector2FBuffer(Vec2fBase... v)
 	{
-		float[] f = new float[v.length * v[0].getDimensions()];
+		int dim = v[0].getDimensions();
+		
+		float[] f = new float[v.length * dim];
+		
+		int block = 0;
+		
+		Vec2fBase current;
 		
 		for(int i = 0; i < v.length; i++)
 		{
-			f[i * 2 + 0] = v[i].getX();
-			f[i * 2 + 1] = v[i].getY();
+			current = v[i];
+			
+			f[block + 0] = current.getX();
+			f[block + 1] = current.getY();
+			
+			block = i * dim;
 		}
 		
-		return wrapFlippedFloatBuffer(f);
+		FloatBuffer buffer = ByteBuffer.allocateDirect(f.length << 2).order(ByteOrder.nativeOrder()).asFloatBuffer();
+		
+		buffer.put(f);
+		buffer.flip();
+		return buffer;
 	}
 	
 	public final static FloatBuffer wrapFlippedVector3FBuffer(Vec3fBase... v)
 	{
-		float[] f = new float[v.length * v[0].getDimensions()];
+		
+		int dim = v[0].getDimensions();
+		
+		float[] f = new float[v.length * dim];
+		
+		int block = 0;
+		
+		Vec3fBase current;
 		
 		for(int i = 0; i < v.length; i++)
 		{
-			f[i * 3 + 0] = v[i].getX();
-			f[i * 3 + 1] = v[i].getY();
-			f[i * 3 + 2] = v[i].getZ();
+			current = v[0];
+			
+			f[block + 0] = current.getX();
+			f[block + 1] = current.getY();
+			f[block + 2] = current.getZ();
+			
+			block = i * dim;
 		}
 		
-		return wrapFlippedFloatBuffer(f);
+		FloatBuffer buffer = ByteBuffer.allocateDirect(f.length << 2).order(ByteOrder.nativeOrder()).asFloatBuffer();
+		
+		buffer.put(f);
+		buffer.flip();
+		return buffer;
 	}
 	
 	public final static FloatBuffer wrapFlippedVector4FBuffer(Vec4fBase... v)
 	{
-		float[] f = new float[v.length * Vec4fBase.DIMENSIONS];
+		int dim = v[0].getDimensions();
+		
+		float[] f = new float[v.length * dim];
+		
+		int block = 0;
+		
+		Vec4fBase current;
 		
 		for(int i = 0; i < v.length; i++)
 		{
-			f[i * 4 + 0] = v[i].getX();
-			f[i * 4 + 1] = v[i].getY();
-			f[i * 4 + 2] = v[i].getZ();
-			f[i * 4 + 3] = v[i].getA();
+			current = v[i];
+			
+			f[block + 0] = current.getX();
+			f[block + 1] = current.getY();
+			f[block + 2] = current.getZ();
+			f[block + 3] = current.getA();
+			
+			block = i * dim;
 		}
 		
-		return wrapFlippedFloatBuffer(f);
+		FloatBuffer buffer = ByteBuffer.allocateDirect(f.length << 2).order(ByteOrder.nativeOrder()).asFloatBuffer();
+		
+		buffer.put(f);
+		buffer.flip();
+		return buffer;
 	}
 	
 	public final static DoubleBuffer wrapFlippedDoubleBuffer(double... b)
 	{
-		DoubleBuffer buffer = BufferUtils.createDoubleBuffer(b.length);
+		DoubleBuffer buffer = ByteBuffer.allocateDirect(b.length << 3).order(ByteOrder.nativeOrder()).asDoubleBuffer();
 		
 		buffer.put(b);
 		buffer.flip();
