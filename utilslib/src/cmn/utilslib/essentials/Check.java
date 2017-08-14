@@ -752,9 +752,9 @@ public class Check
 	}
 	
 	
-	public static <A> boolean notNull(Vec3fBase object) { return !isNull(object); }
+	public static <A> boolean notNull(Vec3fBase object) { return object != null; }
 	
-	public static <A> boolean notNull(A object) { return !isNull(object); }
+	public static <A> boolean notNull(A object) { return object != null; }
 	
 	
 	
@@ -762,7 +762,7 @@ public class Check
 	public static <A> boolean notNull(A... objects)
 	{
 		for(A object : objects)
-			if(Check.isNull(object)) return false;
+			if(object == null) return false;
 		
 		return true;
 	}
@@ -773,24 +773,24 @@ public class Check
 	public static <A> boolean notNullOOO(A... objects)
 	{
 		for(A object : objects)
-			if(Check.notNull(object)) return true;
+			if(object != null) return true;
 		
 		return false;
 	}
 
 	
 
-	public static boolean notInBetween(int min, int max, int value) { return !isInBetween(min, max, value); }
-	public static boolean notInBetween(long min, long max, long value) { return !isInBetween(min, max, value); }
-	public static boolean notInBetween(float min, float max, float value) { return !isInBetween(min, max, value); }	
-	public static boolean notInBetween(double min, double max, double value) { return !isInBetween(min, max, value); }
+	public static boolean notInBetween(int min, int max, int value) { return min >= value || value >= max; }
+	public static boolean notInBetween(long min, long max, long value) { return min >= value || value >= max; }
+	public static boolean notInBetween(float min, float max, float value) { return min >= value || value >= max; }	
+	public static boolean notInBetween(double min, double max, double value) { return min >= value || value >= max; }
 	
 	
 	
 	public static boolean notInBetween(int min, int max, int... values)
 	{
 		for(int value : values)
-			if(Check.isInBetween(min, max, value)) return false;
+			if(min < value && value < max) return false;
 		
 		return true;
 	}
@@ -798,7 +798,7 @@ public class Check
 	public static boolean notInBetween(long min, long max, long... values)
 	{
 		for(long value : values)
-			if(Check.isInBetween(min, max, value)) return false;
+			if(min < value && value < max) return false;
 		
 		return true;
 	}
@@ -806,7 +806,7 @@ public class Check
 	public static boolean notInBetween(float min, float max, float... values)
 	{
 		for(float value : values)
-			if(Check.isInBetween(min, max, value)) return false;
+			if(min < value && value < max) return false;
 		
 		return true;
 	}
@@ -814,7 +814,7 @@ public class Check
 	public static boolean notInBetween(double min, double max, double... values)
 	{
 		for(double value : values)
-			if(Check.isInBetween(min, max, value)) return false;
+			if(min < value && value < max) return false;
 		
 		return true;
 	}
@@ -824,7 +824,7 @@ public class Check
 	public static boolean notInBetweenOOO(int min, int max, int... values)
 	{
 		for(int value : values)
-			if(Check.notInBetween(min, max, value)) return true;
+			if(min >= value || value >= max) return true;
 		
 		return false;
 	}
@@ -832,7 +832,7 @@ public class Check
 	public static boolean notInBetweenOOO(long min, long max, long... values)
 	{
 		for(long value : values)
-			if(Check.notInBetween(min, max, value)) return true;
+			if(min >= value || value >= max) return true;
 		
 		return false;
 	}
@@ -840,7 +840,7 @@ public class Check
 	public static boolean notInBetweenOOO(float min, float max, float... values)
 	{
 		for(float value : values)
-			if(Check.notInBetween(min, max, value)) return true;
+			if(min >= value || value >= max) return true;
 		
 		return false;
 	}
@@ -848,24 +848,24 @@ public class Check
 	public static boolean notInBetweenOOO(double min, double max, double... values)
 	{
 		for(double value : values)
-			if(Check.notInBetween(min, max, value)) return true;
+			if(min >= value || value >= max) return true;
 		
 		return false;
 	}
 
 	
 	
-	public static boolean notInRange(int min, int max, int value) { return !isInRange(min, max, value); }
-	public static boolean notInRange(long min, long max, long value) { return !isInRange(min, max, value); }
-	public static boolean notInRange(float min, float max, float value) { return !isInRange(min, max, value); }	
-	public static boolean notInRange(double min, double max, double value) { return !isInRange(min, max, value); }
+	public static boolean notInRange(int min, int max, int value) { return min > value || value > max; }
+	public static boolean notInRange(long min, long max, long value) { return min > value || value > max; }
+	public static boolean notInRange(float min, float max, float value) { return min > value || value > max; }	
+	public static boolean notInRange(double min, double max, double value) { return min > value || value > max; }
 	
 
 	
 	public static boolean notInRange(int min, int max, int... values)
 	{
 		for(int value : values)
-			if(Check.isInRange(min, max, value)) return false;
+			if(min <= value && value <= max) return false;
 		
 		return true;
 	}
@@ -873,7 +873,7 @@ public class Check
 	public static boolean notInRange(long min, long max, long... values)
 	{
 		for(long value : values)
-			if(Check.isInRange(min, max, value)) return false;
+			if(min <= value && value <= max) return false;
 		
 		return true;
 	}
@@ -881,7 +881,7 @@ public class Check
 	public static boolean notInRange(float min, float max, float... values)
 	{
 		for(float value : values)
-			if(Check.isInRange(min, max, value)) return false;
+			if(min <= value && value <= max) return false;
 		
 		return true;
 	}
@@ -889,7 +889,7 @@ public class Check
 	public static boolean notInRange(double min, double max, double... values)
 	{
 		for(double value : values)
-			if(Check.isInRange(min, max, value)) return false;
+			if(min <= value && value <= max) return false;
 		
 		return true;
 	}
@@ -899,7 +899,7 @@ public class Check
 	public static boolean notInRangeOOO(int min, int max, int... values)
 	{
 		for(int value : values)
-			if(Check.notInRange(min, max, value)) return true;
+			if(min > value || value > max) return true;
 		
 		return false;
 	}
@@ -907,7 +907,7 @@ public class Check
 	public static boolean notInRangeOOO(long min, long max, long... values)
 	{
 		for(long value : values)
-			if(Check.notInRange(min, max, value)) return true;
+			if(min > value || value > max) return true;
 		
 		return false;
 	}
@@ -915,7 +915,7 @@ public class Check
 	public static boolean notInRangeOOO(float min, float max, float... values)
 	{
 		for(float value : values)
-			if(Check.notInRange(min, max, value)) return true;
+			if(min > value || value > max) return true;
 		
 		return false;
 	}
@@ -923,24 +923,24 @@ public class Check
 	public static boolean notInRangeOOO(double min, double max, double... values)
 	{
 		for(double value : values)
-			if(Check.notInRange(min, max, value)) return true;
+			if(min > value || value > max) return true;
 		
 		return false;
 	}
 	
 	
 	
-	public static boolean notBelow(int max, int value) { return !isBelow(max, value); }
-	public static boolean notBelow(long max, long value) { return !isBelow(max, value); }
-	public static boolean notBelow(float max, float value) { return !isBelow(max, value); }
-	public static boolean notBelow(double max, double value) { return !isBelow(max, value); }
+	public static boolean notBelow(int max, int value) { return value >= max; }
+	public static boolean notBelow(long max, long value) { return value >= max; }
+	public static boolean notBelow(float max, float value) { return value >= max; }
+	public static boolean notBelow(double max, double value) { return value >= max; }
 	
 
 	
 	public static boolean notBelow(int max, int... values)
 	{
 		for(int value : values)
-			if(Check.isBelow(max, value)) return false;
+			if(value < max) return false;
 		
 		return true;
 	}
@@ -948,7 +948,7 @@ public class Check
 	public static boolean notBelow(long max, long... values)
 	{
 		for(long value : values)
-			if(Check.isBelow(max, value)) return false;
+			if(value < max) return false;
 		
 		return true;
 	}
@@ -956,7 +956,7 @@ public class Check
 	public static boolean notBelow(float max, float... values)
 	{
 		for(float value : values)
-			if(Check.isBelow(max, value)) return false;
+			if(value < max) return false;
 		
 		return true;
 	}
@@ -964,7 +964,7 @@ public class Check
 	public static boolean notBelow(double max, double... values)
 	{
 		for(double value : values)
-			if(Check.isBelow(max, value)) return false;
+			if(value < max) return false;
 		
 		return true;
 	}
@@ -974,7 +974,7 @@ public class Check
 	public static boolean notBelowOOO(int max, int... values)
 	{
 		for(int value : values)
-			if(Check.notBelow(max, value)) return true;
+			if(value >= max) return true;
 		
 		return false;
 	}
@@ -982,7 +982,7 @@ public class Check
 	public static boolean notBelowOOO(long max, long... values)
 	{
 		for(long value : values)
-			if(Check.notBelow(max, value)) return true;
+			if(value >= max) return true;
 		
 		return false;
 	}
@@ -990,7 +990,7 @@ public class Check
 	public static boolean notBelowOOO(float max, float... values)
 	{
 		for(float value : values)
-			if(Check.notBelow(max, value)) return true;
+			if(value >= max) return true;
 		
 		return false;
 	}
@@ -998,24 +998,24 @@ public class Check
 	public static boolean notBelowOOO(double max, double... values)
 	{
 		for(double value : values)
-			if(Check.notBelow(max, value)) return true;
+			if(value >= max) return true;
 		
 		return false;
 	}
 	
 	
 	
-	public static boolean notAbove(int min, int value) { return !isAbove(min, value); }
-	public static boolean notAbove(long min, long value) { return !isAbove(min, value); }
-	public static boolean notAbove(float min, float value) { return !isAbove(min, value); }
-	public static boolean notAbove(double min, double value) { return !isAbove(min, value); }
+	public static boolean notAbove(int min, int value) { return min >= value; }
+	public static boolean notAbove(long min, long value) { return min >= value; }
+	public static boolean notAbove(float min, float value) { return min >= value; }
+	public static boolean notAbove(double min, double value) { return min >= value; }
 	
 	
 	
 	public static boolean notAbove(int min, int... values)
 	{
 		for(int value : values)
-			if(Check.isAbove(min, value)) return false;
+			if(min < value) return false;
 		
 		return true;
 	}
@@ -1023,7 +1023,7 @@ public class Check
 	public static boolean notAbove(long min, long... values)
 	{
 		for(long value : values)
-			if(Check.isAbove(min, value)) return false;
+			if(min < value) return false;
 		
 		return true;
 	}
@@ -1031,7 +1031,7 @@ public class Check
 	public static boolean notAbove(float min, float... values)
 	{
 		for(float value : values)
-			if(Check.isAbove(min, value)) return false;
+			if(min < value) return false;
 		
 		return true;
 	}
@@ -1039,7 +1039,7 @@ public class Check
 	public static boolean notAbove(double min, double... values)
 	{
 		for(double value : values)
-			if(Check.isAbove(min, value)) return false;
+			if(min < value) return false;
 		
 		return true;
 	}
@@ -1049,7 +1049,7 @@ public class Check
 	public static boolean notAboveOOO(int min, int... values)
 	{
 		for(int value : values)
-			if(Check.notAbove(min, value)) return true;
+			if(min >= value) return true;
 		
 		return false;
 	}
@@ -1057,7 +1057,7 @@ public class Check
 	public static boolean notAboveOOO(long min, long... values)
 	{
 		for(long value : values)
-			if(Check.notAbove(min, value)) return true;
+			if(min >= value) return true;
 		
 		return false;
 	}
@@ -1065,7 +1065,7 @@ public class Check
 	public static boolean notAboveOOO(float min, float... values)
 	{
 		for(float value : values)
-			if(Check.notAbove(min, value)) return true;
+			if(min >= value) return true;
 		
 		return false;
 	}
@@ -1073,15 +1073,45 @@ public class Check
 	public static boolean notAboveOOO(double min, double... values)
 	{
 		for(double value : values)
-			if(Check.notAbove(min, value)) return true;
+			if(min >= value) return true;
 		
 		return false;
 	}
 	
 	
 
-	public static boolean notNullOrEmpty(String str) { return !isNullOrEmpty(str); }
-	public static <A> boolean notNullOrEmpty(A[] arg) { return !isNullOrEmpty(arg); }
-	public static <A> boolean notEmpty(List<A> list) { return !isEmpty(list); }
+	public static boolean notNullOrEmpty(String str)
+	{
+		if(str == null) return false;
 		
+		return !str.equals("") && str != "";
+	}
+	
+	public static <A> boolean notNullOrEmpty(A[] arg)
+	{
+		if(arg == null) return false;
+		
+		return arg.length > 0;
+	}
+	public static <A> boolean notNullOrEmpty(List<A> list)
+	{
+		if(list == null) return false;
+		
+		return list.size() > 0;
+	}
+		
+	public static <A> boolean notEmpty(List<A> list)
+	{
+		return list.size() > 0;
+	}
+	
+	public static <A> boolean notEmpty(A[] arg)
+	{
+		return arg.length > 0;
+	}
+	
+	public static boolean notEmpty(String str)
+	{
+		return !str.equals("") && str != "";
+	}
 }
