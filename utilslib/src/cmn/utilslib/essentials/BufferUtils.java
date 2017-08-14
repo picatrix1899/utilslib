@@ -143,7 +143,7 @@ public final class BufferUtils
 		{
 			current = v[i];
 			
-			f[block + 0] = current.getX();
+			f[block] = current.getX();
 			f[block + 1] = current.getY();
 			f[block + 2] = current.getZ();
 			
@@ -171,7 +171,7 @@ public final class BufferUtils
 		{
 			current = v[i];
 			
-			f[block + 0] = current.getX();
+			f[block] = current.getX();
 			f[block + 1] = current.getY();
 			f[block + 2] = current.getZ();
 			f[block + 3] = current.getA();
@@ -258,7 +258,7 @@ public final class BufferUtils
 		{
 			current = v[i];
 			
-			f[block + 0] = current.getX();
+			f[block] = current.getX();
 			f[block + 1] = current.getY();
 			
 			block = i * dim;
@@ -286,7 +286,7 @@ public final class BufferUtils
 		{
 			current = v[0];
 			
-			f[block + 0] = current.getX();
+			f[block] = current.getX();
 			f[block + 1] = current.getY();
 			f[block + 2] = current.getZ();
 			
@@ -314,7 +314,7 @@ public final class BufferUtils
 		{
 			current = v[i];
 			
-			f[block + 0] = current.getX();
+			f[block] = current.getX();
 			f[block + 1] = current.getY();
 			f[block + 2] = current.getZ();
 			f[block + 3] = current.getA();
