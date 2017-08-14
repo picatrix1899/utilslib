@@ -27,10 +27,6 @@ public class DMapping3<A,B,C> implements IDMapping3<A,B,C>
 	private final IteratorConverter<B,IDMap3Base<A,B,C>> converter_ToB = i -> i.getB();
 	private final IteratorConverter<C,IDMap3Base<A,B,C>> converter_ToC = i -> i.getC();
 	
-	private final IteratorConverter<DMap2<A,B>,IDMap3Base<A,B,C>> converter_ToAB = i -> Auto.DMap2(i.getA(), i.getB());
-	private final IteratorConverter<DMap2<A,C>,IDMap3Base<A,B,C>> converter_ToAC = i -> Auto.DMap2(i.getA(), i.getC());
-	private final IteratorConverter<DMap2<B,C>,IDMap3Base<A,B,C>> converter_ToBC = i -> Auto.DMap2(i.getB(), i.getC());
-	
 	
 	private final IteratorConverter<LinkedValue<A,IDMap3Base<A,B,C>>,IDMap3Base<A,B,C>> converter_ToLinkedA = i -> ((LinkedDMap3<A,B,C>) i).getLinkedA();
 	private final IteratorConverter<LinkedValue<B,IDMap3Base<A,B,C>>,IDMap3Base<A,B,C>> converter_ToLinkedB = i -> ((LinkedDMap3<A,B,C>) i).getLinkedB();

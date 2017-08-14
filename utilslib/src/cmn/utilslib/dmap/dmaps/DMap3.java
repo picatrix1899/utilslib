@@ -116,9 +116,9 @@ public class DMap3<A,B,C> implements IDMap3<A,B,C>
 		if(!(obj instanceof IDMap3Base<?,?,?>)) return false;
 		IDMap3Base<?,?,?> d = (IDMap3Base<?,?,?>)obj;
 		
-		if(!(Check.isSaveEqual(this.a, d.getA()))) return false;
-		if(!(Check.isSaveEqual(this.b, d.getB()))) return false;
-		if(!(Check.isSaveEqual(this.c, d.getC()))) return false;	
+		if(!(Check.isEqual(this.a, d.getA()))) return false;
+		if(!(Check.isEqual(this.b, d.getB()))) return false;
+		if(!(Check.isEqual(this.c, d.getC()))) return false;	
 		
 		return true;
 	}

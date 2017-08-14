@@ -116,10 +116,10 @@ public class DMap4<A,B,C,D> implements IDMap4<A,B,C,D>
 		if(!(obj instanceof IDMap4Base<?,?,?,?>)) return false;
 		IDMap4Base<?,?,?,?> d = (IDMap4Base<?,?,?,?>)obj;
 		
-		if(!(Check.isSaveEqual(this.a, d.getA()))) return false;
-		if(!(Check.isSaveEqual(this.b, d.getB()))) return false;
-		if(!(Check.isSaveEqual(this.c, d.getC()))) return false;
-		if(!(Check.isSaveEqual(this.d, d.getD()))) return false;
+		if(!(Check.isEqual(this.a, d.getA()))) return false;
+		if(!(Check.isEqual(this.b, d.getB()))) return false;
+		if(!(Check.isEqual(this.c, d.getC()))) return false;
+		if(!(Check.isEqual(this.d, d.getD()))) return false;
 
 		
 		return true;
