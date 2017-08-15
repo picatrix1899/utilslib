@@ -1,6 +1,8 @@
 package cmn.utilslib.math.tuple;
 
-public class Tuple7f
+import cmn.utilslib.math.tuple.api.Tup7f;
+
+public class Tuple7f implements Tup7f
 {
 	public float[] values = new float[7];
 	
