@@ -165,11 +165,6 @@ public class Vector3d implements Vec3d
 	/** {@inheritDoc} */
 	public Vector3d set(double x, double y, double z) { this.x = x; this.y = y; this.z = z; return this;  }
 	
-	/** {@inheritDoc} */
-	public Vector3d set(float... values) { this.x = values[0]; this.y = values[1]; this.z = values[2]; return this; }
-	
-	/** {@inheritDoc} */
-	public Vector3d set(double... values) { this.x = (float)values[0]; this.y = (float)values[1]; this.z = (float)values[2]; return this;  }
 	
 	
 	/** {@inheritDoc} */

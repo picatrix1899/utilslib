@@ -159,12 +159,6 @@ public class Vector2f implements Vec2f
 	/** {@inheritDoc} */
 	public Vector2f set(double x, double y) { this.x = (float)x; this.y = (float)y; return this;  }
 	
-	/** {@inheritDoc} */
-	public Vector2f set(float... values) { this.x = values[0]; this.y = values[1]; return this; }
-	
-	/** {@inheritDoc} */
-	public Vector2f set(double... values) { this.x = (float)values[0]; this.y = (float)values[1]; return this;  }
-	
 	
 	
 	/** {@inheritDoc} */

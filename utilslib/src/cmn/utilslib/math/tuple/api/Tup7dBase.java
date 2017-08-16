@@ -5,7 +5,7 @@ public interface Tup7dBase
 	/** Returns the count of Dimensions of the Vector. */
 	default int getDimensions() { return 7; }
 	
-	float get(int index);
+	double get(int index);
 	
 	Tup7d clone();
 }

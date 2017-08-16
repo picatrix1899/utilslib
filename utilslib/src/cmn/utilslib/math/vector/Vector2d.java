@@ -159,12 +159,6 @@ public class Vector2d implements Vec2d
 	/** {@inheritDoc} */
 	public Vector2d set(double x, double y) { this.x = (float)x; this.y = (float)y; return this;  }
 	
-	/** {@inheritDoc} */
-	public Vector2d set(float... values) { this.x = values[0]; this.y = values[1]; return this; }
-	
-	/** {@inheritDoc} */
-	public Vector2d set(double... values) { this.x = (float)values[0]; this.y = (float)values[1]; return this;  }
-	
 	
 	
 	/** {@inheritDoc} */

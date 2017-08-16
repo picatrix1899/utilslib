@@ -5,7 +5,7 @@ public interface Tup5dBase
 	/** Returns the count of Dimensions of the Vector. */
 	default int getDimensions() { return 5; }
 	
-	float get(int index);
+	double get(int index);
 	
 	Tup5d clone();
 }

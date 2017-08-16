@@ -4,6 +4,7 @@ import java.nio.FloatBuffer;
 
 import cmn.utilslib.essentials.BufferUtils;
 import cmn.utilslib.math.Quaternion;
+import cmn.utilslib.math.tuple.Tuple3f;
 import cmn.utilslib.math.vector.Vector3f;
 import cmn.utilslib.math.vector.api.Vec3f;
 import cmn.utilslib.math.vector.api.Vec3fBase;
@@ -21,25 +22,29 @@ public class Matrix3f
 	public static final int COLS = 3;
 	public static final int ENTS = 9;
 	
-	public final Vector3f m0 = new Vector3f();
-	public final Vector3f m1 = new Vector3f();
-	public final Vector3f m2 = new Vector3f();
+	public final Tuple3f m0 = new Tuple3f();
+	public final Tuple3f m1 = new Tuple3f();
+	public final Tuple3f m2 = new Tuple3f();
 	
 	public Matrix3f()
 	{
-		initZero();
+		this.m0.v[0] = 1; this.m0.v[1] = 0; this.m0.v[2] = 0;
+		this.m1.v[0] = 0; this.m1.v[1] = 1; this.m1.v[2] = 0;
+		this.m2.v[0] = 0; this.m2.v[1] = 0; this.m2.v[2] = 1;
 	}
 	
 	private Matrix3f(Matrix3f m)
 	{
-		new Matrix3f().set(m);
+		this.m0.v[0] = m.m0.v[0]; this.m0.v[1] = m.m0.v[1]; this.m0.v[2] = m.m0.v[2];
+		this.m1.v[0] = m.m1.v[0]; this.m1.v[1] = m.m1.v[1]; this.m1.v[2] = m.m1.v[2];
+		this.m2.v[0] = m.m2.v[0]; this.m2.v[1] = m.m2.v[1]; this.m2.v[2] = m.m2.v[2];
 	}
 	
 	public Matrix3f set(Matrix3f m)
 	{
-		this.m0.set(m.m0);
-		this.m1.set(m.m1);
-		this.m2.set(m.m2);
+		this.m0.v[0] = m.m0.v[0]; this.m0.v[1] = m.m0.v[1]; this.m0.v[2] = m.m0.v[2];
+		this.m1.v[0] = m.m1.v[0]; this.m1.v[1] = m.m1.v[1]; this.m1.v[2] = m.m1.v[2];
+		this.m2.v[0] = m.m2.v[0]; this.m2.v[1] = m.m2.v[1]; this.m2.v[2] = m.m2.v[2];
 		
 		return this;
 	}
@@ -48,9 +53,9 @@ public class Matrix3f
 	
 	public Matrix3f initZero()
 	{
-		this.m0.set(0.0f, 0.0f, 0.0f);
-		this.m1.set(0.0f, 0.0f, 0.0f);
-		this.m2.set(0.0f, 0.0f, 0.0f);
+		this.m0.v[0] = 0; this.m0.v[1] = 0; this.m0.v[2] = 0;
+		this.m1.v[0] = 0; this.m1.v[1] = 0; this.m1.v[2] = 0;
+		this.m2.v[0] = 0; this.m2.v[1] = 0; this.m2.v[2] = 0;
 		
 		return this;
 	}
@@ -64,9 +69,9 @@ public class Matrix3f
 	
 	public Matrix3f initIdendity()
 	{
-		this.m0.set(1.0f, 0.0f, 0.0f);
-		this.m1.set(0.0f, 1.0f, 0.0f);
-		this.m2.set(0.0f, 0.0f, 1.0f);
+		this.m0.v[0] = 1; this.m0.v[1] = 0; this.m0.v[2] = 0;
+		this.m1.v[0] = 0; this.m1.v[1] = 1; this.m1.v[2] = 0;
+		this.m2.v[0] = 0; this.m2.v[1] = 0; this.m2.v[2] = 1;
 		
 		return this;
 	}

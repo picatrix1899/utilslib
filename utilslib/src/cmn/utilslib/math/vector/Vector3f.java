@@ -164,12 +164,6 @@ public class Vector3f implements Vec3f
 	/** {@inheritDoc} */
 	public Vector3f set(double x, double y, double z) { this.x = (float)x; this.y = (float)y; this.z = (float)z; return this;  }
 	
-	/** {@inheritDoc} */
-	public Vector3f set(float... values) { this.x = values[0]; this.y = values[1]; this.z = values[2]; return this; }
-	
-	/** {@inheritDoc} */
-	public Vector3f set(double... values) { this.x = (float)values[0]; this.y = (float)values[1]; this.z = (float)values[2]; return this;  }
-	
 	
 	
 	/** {@inheritDoc} */
