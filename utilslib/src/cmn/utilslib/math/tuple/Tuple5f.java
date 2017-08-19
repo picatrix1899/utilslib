@@ -1,5 +1,6 @@
 package cmn.utilslib.math.tuple;
 
+import cmn.utilslib.Allocator;
 import cmn.utilslib.math.tuple.api.Tup5dBase;
 import cmn.utilslib.math.tuple.api.Tup5f;
 import cmn.utilslib.math.tuple.api.Tup5fBase;
@@ -7,6 +8,149 @@ import cmn.utilslib.math.tuple.api.Tup5fBase;
 public class Tuple5f implements Tup5f
 {
 	public float[] v = new float[5];
+	
+	/*
+	#########################
+	##                     ##
+	##  TEMPORARY VECTORS  ##
+	##                     ##
+	#########################
+	 */
+	
+	public static final Tuple5f TEMP = new Tuple5f();
+	public static final Tuple5f TEMP0 = new Tuple5f();
+	public static final Tuple5f TEMP1 = new Tuple5f();
+	public static final Tuple5f TEMP2 = new Tuple5f();
+	public static final Tuple5f TEMP3 = new Tuple5f();
+	public static final Tuple5f TEMP4 = new Tuple5f();
+	public static final Tuple5f TEMP5 = new Tuple5f();
+	public static final Tuple5f TEMP6 = new Tuple5f();
+	public static final Tuple5f TEMP7 = new Tuple5f();
+	public static final Tuple5f TEMP8 = new Tuple5f();
+	public static final Tuple5f TEMP9 = new Tuple5f();
+	
+	/*
+	##################
+	##              ##
+	##  ALLOCATION  ##
+	##              ##
+	##################
+	 */
+	
+	private static Allocator<Tuple5f> allocator = new Allocator<Tuple5f>(Tuple5f.class);
+	
+	public static Tuple5f alloc()
+	{
+		return allocator.alloc();
+	}
+	
+	public static Tuple5f alloc(Tuple5f t)
+	{
+		Tuple5f t0 = allocator.alloc();
+		
+		t0.v[0] = t.v[0];
+		t0.v[1] = t.v[1];
+		t0.v[2] = t.v[2];
+		t0.v[3] = t.v[3];
+		t0.v[4] = t.v[4];
+		
+		return t0;
+	}
+	
+	public static Tuple5f alloc(Tuple5d t)
+	{
+		Tuple5f t0 = allocator.alloc();
+		
+		t0.v[0] = (float)t.v[0];
+		t0.v[1] = (float)t.v[1];
+		t0.v[2] = (float)t.v[2];
+		t0.v[3] = (float)t.v[3];
+		t0.v[4] = (float)t.v[4];
+		
+		return t0;
+	}
+	
+	public static Tuple5f alloc(Tup5fBase t)
+	{
+		Tuple5f t0 = allocator.alloc();
+		
+		t0.v[0] = t.get(0);
+		t0.v[1] = t.get(1);
+		t0.v[2] = t.get(2);
+		t0.v[3] = t.get(3);
+		t0.v[4] = t.get(4);
+		
+		return t0;
+	}
+	
+	public static Tuple5f alloc(Tup5dBase t)
+	{
+		Tuple5f t0 = allocator.alloc();
+		
+		t0.v[0] = (float)t.get(0);
+		t0.v[1] = (float)t.get(1);
+		t0.v[2] = (float)t.get(2);
+		t0.v[3] = (float)t.get(3);
+		t0.v[4] = (float)t.get(4);
+		
+		return t0;
+	}
+	
+	public static Tuple5f alloc(float scalar)
+	{
+		Tuple5f t = allocator.alloc();
+		
+		t.v[0] = scalar;
+		t.v[1] = scalar;
+		t.v[2] = scalar;
+		t.v[3] = scalar;
+		t.v[4] = scalar;
+		
+		return t;
+	}
+	
+	public static Tuple5f alloc(double scalar)
+	{
+		Tuple5f t = allocator.alloc();
+		
+		float scl = (float)scalar;
+		
+		t.v[0] = scl;
+		t.v[1] = scl;
+		t.v[2] = scl;
+		t.v[3] = scl;
+		t.v[4] = scl;
+		
+		return t;
+	}
+	
+	public static Tuple5f alloc(float v0, float v1, float v2, float v3, float v4)
+	{
+		Tuple5f t = allocator.alloc();
+		
+		t.v[0] = v0;
+		t.v[1] = v1;
+		t.v[2] = v2;
+		t.v[3] = v3;
+		t.v[4] = v4;
+		
+		return t;
+	}
+	
+	public static Tuple5f alloc(double v0, double v1, double v2, double v3 ,double v4)
+	{
+		Tuple5f t = allocator.alloc();
+		
+		t.v[0] = (float)v0;
+		t.v[1] = (float)v1;
+		t.v[2] = (float)v2;
+		t.v[3] = (float)v3;
+		t.v[4] = (float)v4;
+		
+		return t;
+	}
+	
+	public static void dealloc(Tuple5f t) { allocator.dealloc(t); }
 	
 	public Tuple5f()
 	{
@@ -17,6 +161,24 @@ public class Tuple5f implements Tup5f
 		this.v[4] = 0;
 	}
 	
+	public Tuple5f(Tuple5f t)
+	{
+		this.v[0] = t.v[0];
+		this.v[1] = t.v[1];
+		this.v[2] = t.v[2];
+		this.v[3] = t.v[3];
+		this.v[4] = t.v[4];
+	}
+	
+	public Tuple5f(Tuple5d t)
+	{
+		this.v[0] = (float)t.v[0];
+		this.v[1] = (float)t.v[1];
+		this.v[2] = (float)t.v[2];
+		this.v[3] = (float)t.v[3];
+		this.v[4] = (float)t.v[4];
+	}
+	
 	public Tuple5f(Tup5fBase t)
 	{
 		this.v[0] = t.get(0);
@@ -24,6 +186,15 @@ public class Tuple5f implements Tup5f
 		this.v[2] = t.get(2);
 		this.v[3] = t.get(3);
 		this.v[4] = t.get(4);
+	}
+	
+	public Tuple5f(Tup5dBase t)
+	{
+		this.v[0] = (float)t.get(0);
+		this.v[1] = (float)t.get(1);
+		this.v[2] = (float)t.get(2);
+		this.v[3] = (float)t.get(3);
+		this.v[4] = (float)t.get(4);
 	}
 	
 	public Tuple5f(float scalar)
@@ -37,11 +208,14 @@ public class Tuple5f implements Tup5f
 	
 	public Tuple5f(double scalar)
 	{
-		this.v[0] = (float)scalar;
-		this.v[1] = (float)scalar;
-		this.v[2] = (float)scalar;
-		this.v[3] = (float)scalar;
-		this.v[4] = (float)scalar;
+		
+		float scl = (float)scalar;
+		
+		this.v[0] = scl;
+		this.v[1] = scl;
+		this.v[2] = scl;
+		this.v[3] = scl;
+		this.v[4] = scl;
 	}
 	
 	public Tuple5f(float v0, float v1, float v2, float v3, float v4)
@@ -76,6 +250,26 @@ public class Tuple5f implements Tup5f
 		return this;
 	}
 
+	public Tuple5f set(Tuple5f t)
+	{
+		this.v[0] = t.v[0];
+		this.v[1] = t.v[1];
+		this.v[2] = t.v[2];
+		this.v[3] = t.v[3];
+		this.v[4] = t.v[4];
+		return this;
+	}
+	
+	public Tuple5f set(Tuple5d t)
+	{
+		this.v[0] = (float)t.v[0];
+		this.v[1] = (float)t.v[1];
+		this.v[2] = (float)t.v[2];
+		this.v[3] = (float)t.v[3];
+		this.v[4] = (float)t.v[4];
+		return this;
+	}
+	
 	public Tuple5f set(Tup5fBase t)
 	{
 		this.v[0] = t.get(0);
@@ -108,11 +302,13 @@ public class Tuple5f implements Tup5f
 
 	public Tuple5f set(double scalar)
 	{
-		this.v[0] = (float)scalar;
-		this.v[1] = (float)scalar;
-		this.v[2] = (float)scalar;
-		this.v[3] = (float)scalar;
-		this.v[4] = (float)scalar;
+		float scl = (float)scalar;
+		
+		this.v[0] = scl;
+		this.v[1] = scl;
+		this.v[2] = scl;
+		this.v[3] = scl;
+		this.v[4] = scl;
 		return this;
 	}
 

@@ -1,5 +1,6 @@
 package cmn.utilslib.math.tuple;
 
+import cmn.utilslib.Allocator;
 import cmn.utilslib.math.tuple.api.Tup4dBase;
 import cmn.utilslib.math.tuple.api.Tup4f;
 import cmn.utilslib.math.tuple.api.Tup4fBase;
@@ -8,11 +9,163 @@ public class Tuple4f implements Tup4f
 {
 	public float[] v = new float[4];
 	
+	/*
+	#########################
+	##                     ##
+	##  TEMPORARY VECTORS  ##
+	##                     ##
+	#########################
+	 */
+	
+	public static final Tuple4f TEMP = new Tuple4f();
+	public static final Tuple4f TEMP0 = new Tuple4f();
+	public static final Tuple4f TEMP1 = new Tuple4f();
+	public static final Tuple4f TEMP2 = new Tuple4f();
+	public static final Tuple4f TEMP3 = new Tuple4f();
+	public static final Tuple4f TEMP4 = new Tuple4f();
+	public static final Tuple4f TEMP5 = new Tuple4f();
+	public static final Tuple4f TEMP6 = new Tuple4f();
+	public static final Tuple4f TEMP7 = new Tuple4f();
+	public static final Tuple4f TEMP8 = new Tuple4f();
+	public static final Tuple4f TEMP9 = new Tuple4f();
+	
+	/*
+	##################
+	##              ##
+	##  ALLOCATION  ##
+	##              ##
+	##################
+	 */
+	
+	private static Allocator<Tuple4f> allocator = new Allocator<Tuple4f>(Tuple4f.class);
+	
+	public static Tuple4f alloc()
+	{
+		return allocator.alloc();
+	}
+	
+	public static Tuple4f alloc(Tuple4f t)
+	{
+		Tuple4f t0 = allocator.alloc();
+		
+		t0.v[0] = t.v[0];
+		t0.v[1] = t.v[1];
+		t0.v[2] = t.v[2];
+		t0.v[3] = t.v[3];
+		
+		return t0;
+	}
+	
+	public static Tuple4f alloc(Tuple4d t)
+	{
+		Tuple4f t0 = allocator.alloc();
+		
+		t0.v[0] = (float)t.v[0];
+		t0.v[1] = (float)t.v[1];
+		t0.v[2] = (float)t.v[2];
+		t0.v[3] = (float)t.v[3];
+		
+		return t0;
+	}
+	
+	public static Tuple4f alloc(Tup4fBase t)
+	{
+		Tuple4f t0 = allocator.alloc();
+		
+		t0.v[0] = t.get(0);
+		t0.v[1] = t.get(1);
+		t0.v[2] = t.get(2);
+		t0.v[3] = t.get(3);
+		
+		return t0;
+	}
+	
+	public static Tuple4f alloc(Tup4dBase t)
+	{
+		Tuple4f t0 = allocator.alloc();
+		
+		t0.v[0] = (float)t.get(0);
+		t0.v[1] = (float)t.get(1);
+		t0.v[2] = (float)t.get(2);
+		t0.v[3] = (float)t.get(3);
+		
+		return t0;
+	}
+	
+	public static Tuple4f alloc(float scalar)
+	{
+		Tuple4f t = allocator.alloc();
+		
+		t.v[0] = scalar;
+		t.v[1] = scalar;
+		t.v[2] = scalar;
+		t.v[3] = scalar;
+		
+		return t;
+	}
+	
+	public static Tuple4f alloc(double scalar)
+	{
+		Tuple4f t = allocator.alloc();
+		
+		float scl = (float)scalar;
+		
+		t.v[0] = scl;
+		t.v[1] = scl;
+		t.v[2] = scl;
+		t.v[3] = scl;
+		
+		return t;
+	}
+	
+	public static Tuple4f alloc(float v0, float v1, float v2, float v3)
+	{
+		Tuple4f t = allocator.alloc();
+		
+		t.v[0] = v0;
+		t.v[1] = v1;
+		t.v[2] = v2;
+		t.v[3] = v3;
+		
+		return t;
+	}
+	
+	public static Tuple4f alloc(double v0, double v1, double v2, double v3)
+	{
+		Tuple4f t = allocator.alloc();
+		
+		t.v[0] = (float)v0;
+		t.v[1] = (float)v1;
+		t.v[2] = (float)v2;
+		t.v[3] = (float)v3;
+		
+		return t;
+	}
+	
+	public static void dealloc(Tuple4f t) { allocator.dealloc(t); }
+	
 	public Tuple4f()
 	{
 		this.v[0] = 0;
 		this.v[1] = 0;
 		this.v[2] = 0;
+		this.v[3] = 0;
+	}
+	
+	public Tuple4f(Tuple4f t)
+	{
+		this.v[0] = t.v[0];
+		this.v[1] = t.v[1];
+		this.v[2] = t.v[2];
+		this.v[3] = t.v[3];
+	}
+	
+	public Tuple4f(Tuple4d t)
+	{
+		this.v[0] = (float)t.v[0];
+		this.v[1] = (float)t.v[1];
+		this.v[2] = (float)t.v[2];
+		this.v[3] = (float)t.v[3];
 	}
 	
 	public Tuple4f(Tup4fBase t)
@@ -80,6 +233,24 @@ public class Tuple4f implements Tup4f
 		return this;
 	}
 
+	public Tuple4f set(Tuple4f t)
+	{
+		this.v[0] = t.v[0];
+		this.v[1] = t.v[1];
+		this.v[2] = t.v[2];
+		this.v[3] = t.v[3];
+		return this;
+	}
+	
+	public Tuple4f set(Tuple4d t)
+	{
+		this.v[0] = (float)t.v[0];
+		this.v[1] = (float)t.v[1];
+		this.v[2] = (float)t.v[2];
+		this.v[3] = (float)t.v[3];
+		return this;
+	}
+	
 	@Override
 	public Tuple4f set(Tup4fBase t)
 	{

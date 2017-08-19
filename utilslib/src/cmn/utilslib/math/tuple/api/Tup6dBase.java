@@ -7,5 +7,5 @@ public interface Tup6dBase
 	
 	double get(int index);
 	
-	Tup6f clone();
+	Tup6d clone();
 }
