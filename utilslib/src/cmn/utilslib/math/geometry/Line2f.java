@@ -1,7 +1,5 @@
 package cmn.utilslib.math.geometry;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 public class Line2f
 {
 

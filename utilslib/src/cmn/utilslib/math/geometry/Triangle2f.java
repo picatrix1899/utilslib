@@ -1,7 +1,5 @@
 package cmn.utilslib.math.geometry;
 
-import cmn.utilslib.math.vector.Vector3f;
-
 public class Triangle2f implements ConvexPolygonalShape2f
 {
 	public Point2f a = new Point2f();
