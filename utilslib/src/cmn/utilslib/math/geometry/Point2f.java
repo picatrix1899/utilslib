@@ -69,8 +69,6 @@ public class Point2f implements Tup2f
 	
 	public Point2f set(Vec2fBase v) { this.x = v.getX(); this.y = v.getY(); return this; }
 	public Point2f set(Point2f p) { this.x = p.x; this.y = p.y; return this; }
-	public Point2f set(float x, float y) { this.x = x; this.y = y; return this; }
-	public Point2f set(double x, double y) { this.x = (float)x; this.y = (float)y; return this; }
 	
 	public Vector2f vectorTo(Point2f p, Vector2f v) { return p.asVector2f(v).sub(asVector2f(Vector2f.TEMP)); }
 	public Vector2f vectorFrom(Point2f p, Vector2f v) { return asVector2f(v).sub(p.asVector2f(Vector2f.TEMP)); }
@@ -163,18 +161,18 @@ public class Point2f implements Tup2f
 		return this;
 	}
 	@Override
-	public Point2f set(float... values)
+	public Point2f set(float v0, float v1)
 	{
-		this.x = values[0];
-		this.y = values[1];
+		this.x = v0;
+		this.y = v1;
 		
 		return this;
 	}
 	@Override
-	public Point2f set(double... values)
+	public Point2f set(double v0, double v1)
 	{
-		this.x = (float)values[0];
-		this.y = (float)values[1];
+		this.x = (float)v0;
+		this.y = (float)v1;
 		
 		return this;
 	}

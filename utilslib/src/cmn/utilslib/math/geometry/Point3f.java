@@ -58,9 +58,6 @@ public class Point3f implements Tup3f
 	
 	public Point3f set(Vec3fBase v) { this.x = v.getX(); this.y = v.getY(); this.z = v.getZ(); return this; }
 	public Point3f set(Point3f p) { this.x = p.x; this.y = p.y; this.z = p.z; return this; }
-	public Point3f set(float x, float y, float z) { this.x = x; this.y = y; this.z = z; return this; }
-	public Point3f set(double x, double y, double z) { this.x = (float)x; this.y = (float)y; this.z = (float)z; return this; }
-	
 	public Vector3f vectorTo(Point3f p, Vector3f v) { return p.asVector3f(v).sub(asVector3f(Vector3f.TEMP)); }
 	public Vector3f vectorFrom(Point3f p, Vector3f v) { return asVector3f(v).sub(p.asVector3f(Vector3f.TEMP)); }
 	
@@ -131,23 +128,22 @@ public class Point3f implements Tup3f
 		return this;
 	}
 	@Override
-	public Point3f set(float... values)
+	public Point3f set(float v0, float v1, float v2)
 	{
-		this.x = values[0];
-		this.y = values[1];
-		this.z = values[2];
-		
+		this.x = v0;
+		this.y = v1;
+		this.z = v2;
 		return this;
 	}
 	@Override
-	public Point3f set(double... values)
+	public Point3f set(double v0, double v1, double v2)
 	{
-		this.x = (float)values[0];
-		this.y = (float)values[1];
-		this.z = (float)values[2];
-		
+		this.x = (float)v0;
+		this.y = (float)v1;
+		this.z = (float)v2;
 		return this;
 	}
+	
 	@Override
 	public Point3f set(int index, float value)
 	{
