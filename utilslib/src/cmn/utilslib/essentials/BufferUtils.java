@@ -114,12 +114,11 @@ public final class BufferUtils
 		
 		for(int i = 0; i < v.length; i++)
 		{
+			block = i * dim;
 			current = v[i];
 			
 			f[block] = current.getX();
 			f[block + 1] = current.getY();
-			
-			block = i * dim;
 		}
 		
 		FloatBuffer buffer = ByteBuffer.allocateDirect(f.length << 2).order(ByteOrder.nativeOrder()).asFloatBuffer();
@@ -141,13 +140,12 @@ public final class BufferUtils
 		
 		for(int i = 0; i < v.length; i++)
 		{
+			block = i * dim;
 			current = v[i];
 			
 			f[block] = current.getX();
 			f[block + 1] = current.getY();
 			f[block + 2] = current.getZ();
-			
-			block = i * dim;
 		}
 		
 		FloatBuffer buffer = ByteBuffer.allocateDirect(f.length << 2).order(ByteOrder.nativeOrder()).asFloatBuffer();
@@ -169,14 +167,13 @@ public final class BufferUtils
 		
 		for(int i = 0; i < v.length; i++)
 		{
+			block = i * dim;
 			current = v[i];
 			
 			f[block] = current.getX();
 			f[block + 1] = current.getY();
 			f[block + 2] = current.getZ();
 			f[block + 3] = current.getA();
-			
-			block = i * dim;
 		}
 		
 		FloatBuffer buffer = ByteBuffer.allocateDirect(f.length << 2).order(ByteOrder.nativeOrder()).asFloatBuffer();
@@ -246,7 +243,7 @@ public final class BufferUtils
 	
 	public final static FloatBuffer wrapFlippedVector2FBuffer(Vec2fBase... v)
 	{
-		int dim = v[0].getDimensions();
+		int dim = 2;
 		
 		float[] f = new float[v.length * dim];
 		
@@ -256,12 +253,11 @@ public final class BufferUtils
 		
 		for(int i = 0; i < v.length; i++)
 		{
+			block = i * dim;
 			current = v[i];
 			
 			f[block] = current.getX();
 			f[block + 1] = current.getY();
-			
-			block = i * dim;
 		}
 		
 		FloatBuffer buffer = ByteBuffer.allocateDirect(f.length << 2).order(ByteOrder.nativeOrder()).asFloatBuffer();
@@ -274,7 +270,7 @@ public final class BufferUtils
 	public final static FloatBuffer wrapFlippedVector3FBuffer(Vec3fBase... v)
 	{
 		
-		int dim = v[0].getDimensions();
+		int dim = 3;
 		
 		float[] f = new float[v.length * dim];
 		
@@ -284,13 +280,12 @@ public final class BufferUtils
 		
 		for(int i = 0; i < v.length; i++)
 		{
-			current = v[0];
+			block = i * dim;
+			current = v[i];
 			
 			f[block] = current.getX();
 			f[block + 1] = current.getY();
 			f[block + 2] = current.getZ();
-			
-			block = i * dim;
 		}
 		
 		FloatBuffer buffer = ByteBuffer.allocateDirect(f.length << 2).order(ByteOrder.nativeOrder()).asFloatBuffer();
@@ -312,14 +307,13 @@ public final class BufferUtils
 		
 		for(int i = 0; i < v.length; i++)
 		{
+			block = i * dim;
 			current = v[i];
 			
 			f[block] = current.getX();
 			f[block + 1] = current.getY();
 			f[block + 2] = current.getZ();
 			f[block + 3] = current.getA();
-			
-			block = i * dim;
 		}
 		
 		FloatBuffer buffer = ByteBuffer.allocateDirect(f.length << 2).order(ByteOrder.nativeOrder()).asFloatBuffer();

@@ -2,14 +2,12 @@ package cmn.utilslib.math.geometry;
 
 public class Triangle2f implements ConvexPolygonalShape2f
 {
-	public Point2f a = new Point2f();
-	public Point2f b = new Point2f();
-	public Point2f c = new Point2f();
+	public final Point2f[] p = new Point2f[3];
 	
 	@Override
 	public Point2f[] getPoints()
 	{
-		return new Point2f[] {this.a, this.b, this.c};
+		return p;
 	}
 
 	@Override
@@ -21,21 +19,21 @@ public class Triangle2f implements ConvexPolygonalShape2f
 		float maxX = Float.NEGATIVE_INFINITY;
 		float maxY = Float.NEGATIVE_INFINITY;
 		
-		if(a.x < minX) minX = a.x;
-		if(b.x < minX) minX = b.x;
-		if(c.x < minX) minX = c.x;
+		if(p[0].x < minX) minX = p[0].x;
+		if(p[1].x < minX) minX = p[1].x;
+		if(p[2].x < minX) minX = p[2].x;
 		
-		if(a.y < minY) minX = a.y;
-		if(b.y < minY) minX = b.y;
-		if(c.y < minY) minX = c.y;
+		if(p[0].y < minY) minX = p[0].y;
+		if(p[1].y < minY) minX = p[1].y;
+		if(p[2].y < minY) minX = p[2].y;
 		
-		if(a.x > maxX) minX = a.x;
-		if(b.x > maxX) minX = b.x;
-		if(c.x > maxX) minX = c.x;
+		if(p[0].x > maxX) minX = p[0].x;
+		if(p[1].x > maxX) minX = p[1].x;
+		if(p[2].x > maxX) minX = p[2].x;
 		
-		if(a.y > maxY) minY = a.y;
-		if(b.y > maxY) minY = b.y;
-		if(c.y > maxY) minY = c.y;
+		if(p[0].y > maxY) minY = p[0].y;
+		if(p[1].y > maxY) minY = p[1].y;
+		if(p[2].y > maxY) minY = p[2].y;
 		
 		return new AABB2f(new Point2f(minX, minY), new Point2f(maxX, maxY));
 	}

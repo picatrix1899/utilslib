@@ -3,7 +3,7 @@ package cmn.utilslib.math.geometry;
 import cmn.utilslib.math.vector.Vector3f;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-public class Cuboidf implements Shape3f
+public class Cuboidf implements ConvexPolygonalShape3f
 {
 	private Point3f center = new Point3f();
 	private Vector3f halfExtend = new Vector3f();
@@ -24,5 +24,10 @@ public class Cuboidf implements Shape3f
 	public Point3f[] getPoints()
 	{
 		throw new NotImplementedException();
+	}
+
+	public AABB3f getAABBf(Shape3f s)
+	{
+		return null;
 	}
 }

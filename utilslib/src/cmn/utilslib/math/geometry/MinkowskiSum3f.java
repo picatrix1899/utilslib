@@ -6,16 +6,16 @@ import java.util.List;
 import cmn.utilslib.essentials.Auto;
 import cmn.utilslib.math.vector.Vector3f;
 
-public class MinkowskiSum3f implements Shape3f
+public class MinkowskiSum3f implements ConvexPolygonalShape3f
 {
 	private Point3f[] points;
 	
-	public MinkowskiSum3f(Shape3f a, Shape3f b)
+	public MinkowskiSum3f(ConvexPolygonalShape3f a, ConvexPolygonalShape3f b)
 	{
 		this(a, b, false);
 	}
 	
-	public MinkowskiSum3f(Shape3f a, Shape3f b, boolean difference)
+	public MinkowskiSum3f(ConvexPolygonalShape3f a, ConvexPolygonalShape3f b, boolean difference)
 	{
 		
 		Point3f[] pointsA = a.getPoints();
@@ -89,6 +89,11 @@ public class MinkowskiSum3f implements Shape3f
 		}
 		
 		return out;
+	}
+
+	public AABB3f getAABBf(Shape3f s)
+	{
+		return null;
 	}
 	
 
