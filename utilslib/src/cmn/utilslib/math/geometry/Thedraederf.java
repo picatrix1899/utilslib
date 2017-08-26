@@ -14,7 +14,7 @@ public class Thedraederf implements ConvexPolygonalShape3f
 		return new Point3f[] { a, b, c, d };
 	}
 
-	public AABB3f getAABBf(Shape3f s)
+	public AABB3f getAABBf()
 	{
 		return null;
 	}

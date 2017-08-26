@@ -1,6 +1,7 @@
 package cmn.utilslib.math.geometry;
 
 import cmn.utilslib.math.vector.Vector3f;
+import cmn.utilslib.math.vector.api.Vec3fBase;
 
 public interface ConvexPolygonalShape3f extends Shape3f
 {
@@ -98,7 +99,7 @@ public interface ConvexPolygonalShape3f extends Shape3f
 		return min;
 	}
 	
-	static Point3f getFarthestPointInDirection(ConvexPolygonalShape3f s, Vector3f directionToMove)
+	static Point3f getFarthestPointInDirection(ConvexPolygonalShape3f s, Vec3fBase directionToMove)
     {
         
 		Point3f[] points = s.getPoints();
@@ -118,7 +119,7 @@ public interface ConvexPolygonalShape3f extends Shape3f
         return points[index];
     }
 	
-	static Point3f getSupportPointInDirection(ConvexPolygonalShape3f a, ConvexPolygonalShape3f b, Vector3f v)
+	static Point3f getSupportPointInDirection(ConvexPolygonalShape3f a, ConvexPolygonalShape3f b, Vec3fBase v)
 	{
 		Point3f p1 = getFarthestPointInDirection(a, v);
 		Point3f p2 = getFarthestPointInDirection(b, v.negateN());

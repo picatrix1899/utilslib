@@ -91,7 +91,7 @@ public class MinkowskiSum3f implements ConvexPolygonalShape3f
 		return out;
 	}
 
-	public AABB3f getAABBf(Shape3f s)
+	public AABB3f getAABBf()
 	{
 		return null;
 	}

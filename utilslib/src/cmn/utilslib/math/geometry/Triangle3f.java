@@ -12,7 +12,7 @@ public class Triangle3f implements ConvexPolygonalShape3f
 		return new Point3f[] {this.a, this.b, this.c};
 	}
 
-	public AABB3f getAABBf(Shape3f s)
+	public AABB3f getAABBf()
 	{
 		return null;
 	}

@@ -11,7 +11,7 @@ public class Square3f implements ConvexPolygonalShape3f
 		throw new NotImplementedException();
 	}
 
-	public AABB3f getAABBf(Shape3f s)
+	public AABB3f getAABBf()
 	{
 		return null;
 	}
