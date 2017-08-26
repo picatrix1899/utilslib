@@ -68,7 +68,7 @@ public class Point3f implements Tup3f
 	public Point3f jump(Vec3fBase v) { return set(asVector3f(Vector3f.TEMP).add(v)); }
 	public Point3f jumpN(Vec3fBase v) { return clone().jump(v); }
 	
-	public String toString() { return String.format("point3f({0},{1},{2})", getX(), getY(), getZ()); }
+	public String toString() { return String.format("point3f(%s,%s,%s)", getX(), getY(), getZ()); }
 	
 	@Override
 	public float get(int index)
