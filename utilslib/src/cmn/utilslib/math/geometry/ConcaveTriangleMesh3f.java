@@ -6,12 +6,12 @@ import java.util.List;
 import cmn.utilslib.essentials.Auto;
 import cmn.utilslib.math.matrix.Matrix4f;
 
-public class ConvexTriangleMesh3f implements ConvexPolygonalShape3f
+public class ConcaveTriangleMesh3f implements ConcavePolygonalShape3f
 {
 
 	private List<Triangle3f> triangles;
 	
-	public ConvexTriangleMesh3f(List<Triangle3f> triangles)
+	public ConcaveTriangleMesh3f(List<Triangle3f> triangles)
 	{
 		this.triangles = triangles;
 	}
@@ -32,10 +32,9 @@ public class ConvexTriangleMesh3f implements ConvexPolygonalShape3f
 
 	public AABB3f getAABBf(Matrix4f t, AABB3f aabb)
 	{
-		ConvexTriangleMesh3f mesh = transform(t);
+		ConcaveTriangleMesh3f mesh = transform(t);
 		
 		return mesh.getAABBf(aabb);
-
 	}
 
 	public OBB3f getOBBf(Matrix4f t)
@@ -46,6 +45,17 @@ public class ConvexTriangleMesh3f implements ConvexPolygonalShape3f
 		return new OBB3f(min, max, t);
 	}
 	
+	public OBB3f getOBBf(Matrix4f TS, Matrix4f R)
+	{
+
+		ConcaveTriangleMesh3f mesh = transform(TS);
+		
+		Point3f min = new Point3f(mesh.getMinX(), mesh.getMinY(), mesh.getMinZ());
+		Point3f max = new Point3f(mesh.getMaxX(), mesh.getMaxY(), mesh.getMaxZ());
+		
+		return new OBB3f(min, max, R);
+	}
+
 	public BoundingSpheref getBoundingSpheref(Matrix4f t)
 	{
 		
@@ -71,7 +81,7 @@ public class ConvexTriangleMesh3f implements ConvexPolygonalShape3f
 		Point3f min = new Point3f(getMinX(), getMinY(), getMinZ());
 		Point3f max = new Point3f(getMaxX(), getMaxY(), getMaxZ());
 		
-		return new OBB3f(min, max, new Matrix4f());
+		return new OBB3f(min, max, Matrix4f.identity());
 	}
 
 	public BoundingSpheref getBoundingSpheref()
@@ -89,7 +99,7 @@ public class ConvexTriangleMesh3f implements ConvexPolygonalShape3f
 		return null;
 	}
 
-	public ConvexTriangleMesh3f transform(Matrix4f t)
+	public ConcaveTriangleMesh3f transform(Matrix4f t)
 	{
 		
 		ArrayList<Triangle3f> tr = Auto.ArrayList();
@@ -99,7 +109,7 @@ public class ConvexTriangleMesh3f implements ConvexPolygonalShape3f
 			tr.add(triangle.transform(t, new Triangle3f()));
 		}
 		
-		return new ConvexTriangleMesh3f(tr);
+		return new ConcaveTriangleMesh3f(tr);
 	}
-
+	
 }

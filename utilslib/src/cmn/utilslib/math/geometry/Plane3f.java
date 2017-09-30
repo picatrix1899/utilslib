@@ -68,7 +68,7 @@ public class Plane3f
 	}
 	
 	
-	public Point3f intersectPointWithPlane(StraightLine3f g)
+	public Point3f intersectPointWithPlane(Ray3f g)
 	{
 		if(g.v.length() == 0.0f) return null;
 		if(this.x.length() == 0.0f) return null;

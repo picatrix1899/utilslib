@@ -4,7 +4,7 @@ import cmn.utilslib.math.matrix.Matrix4f;
 import cmn.utilslib.math.vector.Vector3f;
 import cmn.utilslib.math.vector.api.Vec3fBase;
 
-public interface ConvexPolygonalShape3f extends Shape3f
+public interface ConcavePolygonalShape3f extends Shape3f
 {
 	Point3f[] getPoints();
 	

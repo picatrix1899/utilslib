@@ -7,9 +7,9 @@ public class LineSegment3f
 	public Point3f p;
 	public Vector3f v;
 	
-	public StraightLine3f asStraightLine()
+	public Ray3f asStraightLine()
 	{
-		return new StraightLine3f(p, v);
+		return new Ray3f(p, v);
 	}
 	
 }

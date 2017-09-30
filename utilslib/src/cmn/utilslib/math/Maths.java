@@ -1,5 +1,6 @@
 package cmn.utilslib.math;
 
+
 /**
  * 
 
@@ -146,4 +147,5 @@ public class Maths
 	{
 		return (a >= (b - epsilon) && (epsilon + b) >= a) || (b >= (a - epsilon) && (epsilon + a) >= b);
 	}
+
 }

@@ -2,19 +2,8 @@ package cmn.utilslib.math.geometry;
 
 import cmn.utilslib.math.matrix.Matrix4f;
 
-public class Thedraederf implements ConvexPolygonalShape3f
+public class BoundingElipsoidf implements Shape3f
 {
-
-	public Point3f a = new Point3f();
-	public Point3f b = new Point3f();
-	public Point3f c = new Point3f();
-	public Point3f d = new Point3f();
-	
-	@Override
-	public Point3f[] getPoints()
-	{
-		return new Point3f[] { a, b, c, d };
-	}
 
 	public AABB3f getAABBf(Matrix4f t, AABB3f aabb)
 	{
@@ -56,14 +45,4 @@ public class Thedraederf implements ConvexPolygonalShape3f
 		return null;
 	}
 
-	public Point3f[] getPoints(Matrix4f t)
-	{
-		return null;
-	}
-
-	public ConvexPolygonalShape3f transform(Matrix4f t)
-	{
-		return null;
-	}
-	
 }

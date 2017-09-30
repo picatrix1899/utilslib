@@ -4,6 +4,8 @@ import java.nio.FloatBuffer;
 
 import cmn.utilslib.essentials.BufferUtils;
 import cmn.utilslib.math.Quaternion;
+import cmn.utilslib.math.geometry.Point3f;
+import cmn.utilslib.math.tuple.api.Tup3fBase;
 import cmn.utilslib.math.vector.Vector3f;
 import cmn.utilslib.math.vector.Vector4f;
 import cmn.utilslib.math.vector.api.Vec3f;
@@ -301,17 +303,65 @@ public class Matrix4f
 		return dest;
 	}
 	
-	public Vector3f transformN(Vec3fBase r) { return Matrix4f.transform(this, r, null); }
+	public Matrix4f add(Matrix4f m) { return Matrix4f.add(this, m, null); }
+	
+	public static Matrix4f add(Matrix4f l, Matrix4f r, Matrix4f dest)
+	{
+		if (dest == null) dest = new Matrix4f();
+		
+		float m0x_ = l.m0.x + r.m0.x;
+		float m0y_ = l.m0.y + r.m0.y;
+		float m0z_ = l.m0.z + r.m0.z;
+		float m0a_ = l.m0.a + r.m0.a;
+		
+		float m1x_ = l.m1.x + r.m1.x;
+		float m1y_ = l.m1.y + r.m1.y;
+		float m1z_ = l.m1.z + r.m1.z;
+		float m1a_ = l.m1.a + r.m1.a;
+		
+		float m2x_ = l.m2.x + r.m2.x;
+		float m2y_ = l.m2.y + r.m2.y;
+		float m2z_ = l.m2.z + r.m2.z;
+		float m2a_ = l.m2.a + r.m2.a;
+		
+		float m3x_ = l.m3.x + r.m3.x;
+		float m3y_ = l.m3.y + r.m3.y;
+		float m3z_ = l.m3.z + r.m3.z;
+		float m3a_ = l.m3.a + r.m3.a;
+		
+		dest.m0.set(m0x_, m0y_, m0z_, m0a_);
+		dest.m1.set(m1x_, m1y_, m1z_, m1a_);
+		dest.m2.set(m2x_, m2y_, m2z_, m2a_);
+		dest.m3.set(m3x_, m3y_, m3z_, m3a_);
+		
+		return dest;
+	}
+	
+	
+	public Vector3f transformN(Vec3fBase r) { return Matrix4f.transform(this, r, (Vector3f)null); }
 	
 	public Vector3f transform(Vector3f r) { return Matrix4f.transform(this, r, r); }
 	
-	public static Vector3f transform(Matrix4f l, Vec3fBase r, Vector3f dest)
+	public static Point3f transform(Matrix4f l, Tup3fBase r, Point3f dest)
+	{
+		if (dest == null) dest = new Point3f();
+
+		float x_ = l.m0.x * r.get(0) + l.m0.y * r.get(1) + l.m0.z * r.get(2) + l.m0.a * 1.0f;
+		float y_ = l.m1.x * r.get(0) + l.m1.y * r.get(1) + l.m1.z * r.get(2) + l.m1.a * 1.0f;
+		float z_ = l.m2.x * r.get(0) + l.m2.y * r.get(1) + l.m2.z * r.get(2) + l.m2.a * 1.0f;
+
+		dest.set(x_, y_, z_);
+		
+		return dest;
+	}
+	
+	public static Vector3f transform(Matrix4f l, Tup3fBase r, Vector3f dest)
 	{
 		if (dest == null) dest = new Vector3f();
 
-		float x_ = l.m0.x * r.getX() + l.m0.y * r.getY() + l.m0.z * r.getZ() + l.m0.a * 1.0f;
-		float y_ = l.m1.x * r.getX() + l.m1.y * r.getY() + l.m1.z * r.getZ() + l.m1.a * 1.0f;
-		float z_ = l.m2.x * r.getX() + l.m2.y * r.getY() + l.m2.z * r.getZ() + l.m2.a * 1.0f;
+		float x_ = l.m0.x * r.get(0) + l.m0.y * r.get(1) + l.m0.z * r.get(2) + l.m0.a * 1.0f;
+		float y_ = l.m1.x * r.get(0) + l.m1.y * r.get(1) + l.m1.z * r.get(2) + l.m1.a * 1.0f;
+		float z_ = l.m2.x * r.get(0) + l.m2.y * r.get(1) + l.m2.z * r.get(2) + l.m2.a * 1.0f;
 
 		dest.set(x_, y_, z_);
 		

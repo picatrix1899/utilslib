@@ -24,7 +24,7 @@ public class Area3f
 
 	
 	
-	public Point3f intersectPointWithPlane(StraightLine3f g)
+	public Point3f intersectPointWithPlane(Ray3f g)
 	{
 		Point3f p = asPlane().intersectPointWithPlane(g);
 		

@@ -87,11 +87,11 @@ public interface Vec2dBase extends Tup2dBase
 	}
 	
 	/*
-	#########################
-	##                     ##
-	##  BASIC ARITHMETICS  ##
-	##                     ##
-	#########################
+	#####################################
+	##                                 ##
+	##  BASIC ARITHMETICS WITH CLONING ##
+	##                                 ##
+	#####################################
 	 */
 	
 	/** Returns a clone of the Vector with addition of the Vector v */

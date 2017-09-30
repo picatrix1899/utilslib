@@ -75,9 +75,9 @@ public class Point3f implements Tup3f
 	{
 		switch(index)
 		{
-			case 1: return this.x;
-			case 2: return this.y;
-			case 3: return this.z;
+			case 0: return this.x;
+			case 1: return this.y;
+			case 2: return this.z;
 		}
 		
 		return Float.NaN;
