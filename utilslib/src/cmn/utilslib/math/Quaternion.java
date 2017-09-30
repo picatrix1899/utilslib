@@ -2,7 +2,7 @@ package cmn.utilslib.math;
 
 
 import cmn.utilslib.math.vector.Vector3f;
-import cmn.utilslib.Allocator;
+import cmn.utilslib.Pool;
 import cmn.utilslib.math.matrix.Matrix4f;
 import cmn.utilslib.math.vector.api.Vec3dBase;
 import cmn.utilslib.math.vector.api.Vec3f;
@@ -23,11 +23,11 @@ public class Quaternion
 	public double z;
 	public double w;
 	
-	private static Allocator<Quaternion> allocator = new Allocator<Quaternion>(Quaternion.class);
+	private static Pool<Quaternion> pool = new Pool<Quaternion>(Quaternion.class);
 	
-	public static Quaternion alloc() { return allocator.alloc(); }
+	public static Quaternion getInstance() { return pool.get(); }
 	
-	public static void dealloc(Quaternion q) { allocator.dealloc(q); }
+	public static void storeInstance(Quaternion q) { pool.store(q); }
 	
 	
 	public Quaternion(double w, double x, double y, double z)
@@ -169,8 +169,8 @@ public class Quaternion
 	
 	public static Quaternion getFromVectors(Vec3fBase v1, Vec3fBase v2)
 	{
-		Vec3f a = Vector3f.alloc();
-		Vec3f b = Vector3f.alloc();
+		Vec3f a = Vector3f.getInstance();
+		Vec3f b = Vector3f.getInstance();
 		
 		a.set(v1).normalize();
 		b.set(v2).normalize();
@@ -223,8 +223,8 @@ public class Quaternion
 	public Quaternion rotateTo(Vec3fBase v)
 	{
 		
-		Vec3f a = Vector3f.alloc();
-		Vec3f b = Vector3f.alloc();
+		Vec3f a = Vector3f.getInstance();
+		Vec3f b = Vector3f.getInstance();
 		
 		getForwardf(a);
 		b.set(v).normalize();
@@ -242,8 +242,8 @@ public class Quaternion
 		
 		normalize();
 		
-		Vector3f.dealloc((Vector3f) a);
-		Vector3f.dealloc((Vector3f) b);
+		Vector3f.storeInstance((Vector3f) a);
+		Vector3f.storeInstance((Vector3f) b);
 		
 		return this;
 		
@@ -252,8 +252,8 @@ public class Quaternion
 	public double getEulerPitch()
 	{
 
-		Vec3f a = Vector3f.alloc();
-		Vec3f b = Vector3f.alloc();
+		Vec3f a = Vector3f.getInstance();
+		Vec3f b = Vector3f.getInstance();
 		
 		getForwardf(a);
 		
@@ -263,8 +263,8 @@ public class Quaternion
 		
 		double out = i * b.angleDeg(a);
 		
-		Vector3f.dealloc((Vector3f) a);
-		Vector3f.dealloc((Vector3f) b);
+		Vector3f.storeInstance((Vector3f) a);
+		Vector3f.storeInstance((Vector3f) b);
 		
 		return out;
 	}

@@ -1,6 +1,6 @@
 package cmn.utilslib.math.geometry;
 
-import cmn.utilslib.Allocator;
+import cmn.utilslib.Pool;
 import cmn.utilslib.math.tuple.api.Tup2dBase;
 import cmn.utilslib.math.tuple.api.Tup2f;
 import cmn.utilslib.math.tuple.api.Tup2fBase;
@@ -22,19 +22,19 @@ public class Point2f implements Tup2f
 	##################
 	 */
 	
-	private static Allocator<Point2f> allocator = new Allocator<Point2f>(Point2f.class);
+	private static Pool<Point2f> pool = new Pool<Point2f>(Point2f.class);
 	
-	public static Point2f alloc() { return allocator.alloc().setZero(); }
-	public static Point2f alloc(Vec2fBase v) { return allocator.alloc().set(v); }
-	public static Point2f alloc(Vec2dBase v) { return allocator.alloc().set(v); }
-	public static Point2f alloc(Tup2fBase t) { return allocator.alloc().set(t); }
-	public static Point2f alloc(Tup2dBase t) { return allocator.alloc().set(t); }
-	public static Point2f alloc(float scalar) { return allocator.alloc().set(scalar); }
-	public static Point2f alloc(double scalar) { return allocator.alloc().set(scalar); }
-	public static Point2f alloc(float x, float y) { return allocator.alloc().set(x, y); }
-	public static Point2f alloc(double x, double y) { return allocator.alloc().set(x, y); }
+	public static Point2f getInstance() { return pool.get().setZero(); }
+	public static Point2f getInstance(Vec2fBase v) { return pool.get().set(v); }
+	public static Point2f getInstance(Vec2dBase v) { return pool.get().set(v); }
+	public static Point2f getInstance(Tup2fBase t) { return pool.get().set(t); }
+	public static Point2f getInstance(Tup2dBase t) { return pool.get().set(t); }
+	public static Point2f getInstance(float scalar) { return pool.get().set(scalar); }
+	public static Point2f getInstance(double scalar) { return pool.get().set(scalar); }
+	public static Point2f getInstance(float x, float y) { return pool.get().set(x, y); }
+	public static Point2f getInstance(double x, double y) { return pool.get().set(x, y); }
 	
-	public static void dealloc(Point2f v) { allocator.dealloc(v); }
+	public static void storeInstance(Point2f v) { pool.store(v); }
 	
 	
 	public static final Point2f TEMP = new Point2f();

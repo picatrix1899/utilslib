@@ -2,7 +2,7 @@
 package cmn.utilslib.math.vector;
 
 
-import cmn.utilslib.Allocator;
+import cmn.utilslib.Pool;
 import cmn.utilslib.math.Maths;
 import cmn.utilslib.math.Quaternion;
 import cmn.utilslib.math.tuple.api.Tup2dBase;
@@ -59,19 +59,19 @@ public class Vector2f implements Vec2f
 	##################
 	 */
 	
-	private static Allocator<Vector2f> allocator = new Allocator<Vector2f>(Vector2f.class);
+	private static Pool<Vector2f> pool = new Pool<Vector2f>(Vector2f.class);
 	
-	public static Vector2f alloc() { return allocator.alloc().setZero(); }
-	public static Vector2f alloc(Vec2fBase v) { return allocator.alloc().set(v); }
-	public static Vector2f alloc(Vec2dBase v) { return allocator.alloc().set(v); }
-	public static Vector2f alloc(Tup2fBase t) { return allocator.alloc().set(t); }
-	public static Vector2f alloc(Tup2dBase t) { return allocator.alloc().set(t); }
-	public static Vector2f alloc(float scalar) { return allocator.alloc().set(scalar); }
-	public static Vector2f alloc(double scalar) { return allocator.alloc().set(scalar); }
-	public static Vector2f alloc(float x, float y) { return allocator.alloc().set(x, y); }
-	public static Vector2f alloc(double x, double y) { return allocator.alloc().set(x, y); }
+	public static Vector2f getInstance() { return pool.get().setZero(); }
+	public static Vector2f getInstance(Vec2fBase v) { return pool.get().set(v); }
+	public static Vector2f getInstance(Vec2dBase v) { return pool.get().set(v); }
+	public static Vector2f getInstance(Tup2fBase t) { return pool.get().set(t); }
+	public static Vector2f getInstance(Tup2dBase t) { return pool.get().set(t); }
+	public static Vector2f getInstance(float scalar) { return pool.get().set(scalar); }
+	public static Vector2f getInstance(double scalar) { return pool.get().set(scalar); }
+	public static Vector2f getInstance(float x, float y) { return pool.get().set(x, y); }
+	public static Vector2f getInstance(double x, double y) { return pool.get().set(x, y); }
 	
-	public static void dealloc(Vector2f v) { allocator.dealloc(v); }
+	public static void storeInstance(Vector2f v) { pool.store(v); }
 
 	/*
 	####################

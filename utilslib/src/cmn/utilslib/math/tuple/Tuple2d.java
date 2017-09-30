@@ -1,6 +1,6 @@
 package cmn.utilslib.math.tuple;
 
-import cmn.utilslib.Allocator;
+import cmn.utilslib.Pool;
 import cmn.utilslib.math.tuple.api.Tup2d;
 import cmn.utilslib.math.tuple.api.Tup2dBase;
 import cmn.utilslib.math.tuple.api.Tup2fBase;
@@ -38,16 +38,16 @@ public class Tuple2d implements Tup2d
 	##################
 	 */
 	
-	private static Allocator<Tuple2d> allocator = new Allocator<Tuple2d>(Tuple2d.class);
+	private static Pool<Tuple2d> pool = new Pool<Tuple2d>(Tuple2d.class);
 	
-	public static Tuple2d alloc()
+	public static Tuple2d getInstance()
 	{
-		return allocator.alloc();
+		return pool.get();
 	}
 	
-	public static Tuple2d alloc(Tuple2f t)
+	public static Tuple2d getInstance(Tuple2f t)
 	{
-		Tuple2d t0 = allocator.alloc();
+		Tuple2d t0 = pool.get();
 		
 		t0.v[0] = t.v[0];
 		t0.v[1] = t.v[1];
@@ -55,9 +55,9 @@ public class Tuple2d implements Tup2d
 		return t0;
 	}
 	
-	public static Tuple2d alloc(Tuple2d t)
+	public static Tuple2d getInstance(Tuple2d t)
 	{
-		Tuple2d t0 = allocator.alloc();
+		Tuple2d t0 = pool.get();
 		
 		t0.v[0] = t.v[0];
 		t0.v[1] = t.v[1];
@@ -65,9 +65,9 @@ public class Tuple2d implements Tup2d
 		return t0;
 	}
 	
-	public static Tuple2d alloc(Tup2fBase t)
+	public static Tuple2d getInstance(Tup2fBase t)
 	{
-		Tuple2d t0 = allocator.alloc();
+		Tuple2d t0 = pool.get();
 		
 		t0.v[0] = t.get(0);
 		t0.v[1] = t.get(1);
@@ -75,9 +75,9 @@ public class Tuple2d implements Tup2d
 		return t0;
 	}
 	
-	public static Tuple2d alloc(Tup2dBase t)
+	public static Tuple2d getInstance(Tup2dBase t)
 	{
-		Tuple2d t0 = allocator.alloc();
+		Tuple2d t0 = pool.get();
 		
 		t0.v[0] = t.get(0);
 		t0.v[1] = t.get(1);
@@ -85,9 +85,9 @@ public class Tuple2d implements Tup2d
 		return t0;
 	}
 	
-	public static Tuple2d alloc(float scalar)
+	public static Tuple2d getInstance(float scalar)
 	{
-		Tuple2d t = allocator.alloc();
+		Tuple2d t = pool.get();
 		
 		t.v[0] = scalar;
 		t.v[1] = scalar;
@@ -95,9 +95,9 @@ public class Tuple2d implements Tup2d
 		return t;
 	}
 	
-	public static Tuple2d alloc(double scalar)
+	public static Tuple2d getInstance(double scalar)
 	{
-		Tuple2d t = allocator.alloc();
+		Tuple2d t = pool.get();
 		
 		t.v[0] = scalar;
 		t.v[1] = scalar;
@@ -105,9 +105,9 @@ public class Tuple2d implements Tup2d
 		return t;
 	}
 	
-	public static Tuple2d alloc(float v0, float v1)
+	public static Tuple2d getInstance(float v0, float v1)
 	{
-		Tuple2d t = allocator.alloc();
+		Tuple2d t = pool.get();
 		
 		t.v[0] = v0;
 		t.v[1] = v1;
@@ -115,9 +115,9 @@ public class Tuple2d implements Tup2d
 		return t;
 	}
 	
-	public static Tuple2d alloc(double v0, double v1)
+	public static Tuple2d getInstance(double v0, double v1)
 	{
-		Tuple2d t = allocator.alloc();
+		Tuple2d t = pool.get();
 		
 		t.v[0] = v0;
 		t.v[1] = v1;
@@ -125,7 +125,7 @@ public class Tuple2d implements Tup2d
 		return t;
 	}
 	
-	public static void dealloc(Tuple2d t) { allocator.dealloc(t); }
+	public static void storeInstance(Tuple2d t) { pool.store(t); }
 	
 	public Tuple2d()
 	{

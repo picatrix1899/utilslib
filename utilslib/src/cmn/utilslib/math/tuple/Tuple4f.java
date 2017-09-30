@@ -1,6 +1,6 @@
 package cmn.utilslib.math.tuple;
 
-import cmn.utilslib.Allocator;
+import cmn.utilslib.Pool;
 import cmn.utilslib.math.tuple.api.Tup4dBase;
 import cmn.utilslib.math.tuple.api.Tup4f;
 import cmn.utilslib.math.tuple.api.Tup4fBase;
@@ -37,16 +37,16 @@ public class Tuple4f implements Tup4f
 	##################
 	 */
 	
-	private static Allocator<Tuple4f> allocator = new Allocator<Tuple4f>(Tuple4f.class);
+	private static Pool<Tuple4f> pool = new Pool<Tuple4f>(Tuple4f.class);
 	
-	public static Tuple4f alloc()
+	public static Tuple4f getInstance()
 	{
-		return allocator.alloc();
+		return pool.get();
 	}
 	
-	public static Tuple4f alloc(Tuple4f t)
+	public static Tuple4f getInstance(Tuple4f t)
 	{
-		Tuple4f t0 = allocator.alloc();
+		Tuple4f t0 = pool.get();
 		
 		t0.v[0] = t.v[0];
 		t0.v[1] = t.v[1];
@@ -56,9 +56,9 @@ public class Tuple4f implements Tup4f
 		return t0;
 	}
 	
-	public static Tuple4f alloc(Tuple4d t)
+	public static Tuple4f getInstance(Tuple4d t)
 	{
-		Tuple4f t0 = allocator.alloc();
+		Tuple4f t0 = pool.get();
 		
 		t0.v[0] = (float)t.v[0];
 		t0.v[1] = (float)t.v[1];
@@ -68,9 +68,9 @@ public class Tuple4f implements Tup4f
 		return t0;
 	}
 	
-	public static Tuple4f alloc(Tup4fBase t)
+	public static Tuple4f getInstance(Tup4fBase t)
 	{
-		Tuple4f t0 = allocator.alloc();
+		Tuple4f t0 = pool.get();
 		
 		t0.v[0] = t.get(0);
 		t0.v[1] = t.get(1);
@@ -80,9 +80,9 @@ public class Tuple4f implements Tup4f
 		return t0;
 	}
 	
-	public static Tuple4f alloc(Tup4dBase t)
+	public static Tuple4f getInstance(Tup4dBase t)
 	{
-		Tuple4f t0 = allocator.alloc();
+		Tuple4f t0 = pool.get();
 		
 		t0.v[0] = (float)t.get(0);
 		t0.v[1] = (float)t.get(1);
@@ -92,9 +92,9 @@ public class Tuple4f implements Tup4f
 		return t0;
 	}
 	
-	public static Tuple4f alloc(float scalar)
+	public static Tuple4f getInstance(float scalar)
 	{
-		Tuple4f t = allocator.alloc();
+		Tuple4f t = pool.get();
 		
 		t.v[0] = scalar;
 		t.v[1] = scalar;
@@ -104,9 +104,9 @@ public class Tuple4f implements Tup4f
 		return t;
 	}
 	
-	public static Tuple4f alloc(double scalar)
+	public static Tuple4f getInstance(double scalar)
 	{
-		Tuple4f t = allocator.alloc();
+		Tuple4f t = pool.get();
 		
 		float scl = (float)scalar;
 		
@@ -118,9 +118,9 @@ public class Tuple4f implements Tup4f
 		return t;
 	}
 	
-	public static Tuple4f alloc(float v0, float v1, float v2, float v3)
+	public static Tuple4f getInstance(float v0, float v1, float v2, float v3)
 	{
-		Tuple4f t = allocator.alloc();
+		Tuple4f t = pool.get();
 		
 		t.v[0] = v0;
 		t.v[1] = v1;
@@ -130,9 +130,9 @@ public class Tuple4f implements Tup4f
 		return t;
 	}
 	
-	public static Tuple4f alloc(double v0, double v1, double v2, double v3)
+	public static Tuple4f getInstance(double v0, double v1, double v2, double v3)
 	{
-		Tuple4f t = allocator.alloc();
+		Tuple4f t = pool.get();
 		
 		t.v[0] = (float)v0;
 		t.v[1] = (float)v1;
@@ -142,7 +142,7 @@ public class Tuple4f implements Tup4f
 		return t;
 	}
 	
-	public static void dealloc(Tuple4f t) { allocator.dealloc(t); }
+	public static void storeInstance(Tuple4f t) { pool.store(t); }
 	
 	public Tuple4f()
 	{

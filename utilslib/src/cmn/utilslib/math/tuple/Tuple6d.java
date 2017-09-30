@@ -1,6 +1,6 @@
 package cmn.utilslib.math.tuple;
 
-import cmn.utilslib.Allocator;
+import cmn.utilslib.Pool;
 import cmn.utilslib.math.tuple.api.Tup6d;
 import cmn.utilslib.math.tuple.api.Tup6dBase;
 import cmn.utilslib.math.tuple.api.Tup6fBase;
@@ -37,16 +37,16 @@ public class Tuple6d implements Tup6d
 	##################
 	 */
 	
-	private static Allocator<Tuple6d> allocator = new Allocator<Tuple6d>(Tuple6d.class);
+	private static Pool<Tuple6d> pool = new Pool<Tuple6d>(Tuple6d.class);
 	
-	public static Tuple6d alloc()
+	public static Tuple6d getInstance()
 	{
-		return allocator.alloc();
+		return pool.get();
 	}
 	
-	public static Tuple6d alloc(Tuple6f t)
+	public static Tuple6d getInstance(Tuple6f t)
 	{
-		Tuple6d t0 = allocator.alloc();
+		Tuple6d t0 = pool.get();
 		
 		t0.v[0] = t.v[0];
 		t0.v[1] = t.v[1];
@@ -58,9 +58,9 @@ public class Tuple6d implements Tup6d
 		return t0;
 	}
 	
-	public static Tuple6d alloc(Tuple6d t)
+	public static Tuple6d getInstance(Tuple6d t)
 	{
-		Tuple6d t0 = allocator.alloc();
+		Tuple6d t0 = pool.get();
 		
 		t0.v[0] = t.v[0];
 		t0.v[1] = t.v[1];
@@ -72,9 +72,9 @@ public class Tuple6d implements Tup6d
 		return t0;
 	}
 	
-	public static Tuple6d alloc(Tup6fBase t)
+	public static Tuple6d getInstance(Tup6fBase t)
 	{
-		Tuple6d t0 = allocator.alloc();
+		Tuple6d t0 = pool.get();
 		
 		t0.v[0] = t.get(0);
 		t0.v[1] = t.get(1);
@@ -86,9 +86,9 @@ public class Tuple6d implements Tup6d
 		return t0;
 	}
 	
-	public static Tuple6d alloc(Tup6dBase t)
+	public static Tuple6d getInstance(Tup6dBase t)
 	{
-		Tuple6d t0 = allocator.alloc();
+		Tuple6d t0 = pool.get();
 		
 		t0.v[0] = t.get(0);
 		t0.v[1] = t.get(1);
@@ -100,9 +100,9 @@ public class Tuple6d implements Tup6d
 		return t0;
 	}
 	
-	public static Tuple6d alloc(float scalar)
+	public static Tuple6d getInstance(float scalar)
 	{
-		Tuple6d t = allocator.alloc();
+		Tuple6d t = pool.get();
 		
 		t.v[0] = scalar;
 		t.v[1] = scalar;
@@ -114,9 +114,9 @@ public class Tuple6d implements Tup6d
 		return t;
 	}
 	
-	public static Tuple6d alloc(double scalar)
+	public static Tuple6d getInstance(double scalar)
 	{
-		Tuple6d t = allocator.alloc();
+		Tuple6d t = pool.get();
 		
 		t.v[0] = scalar;
 		t.v[1] = scalar;
@@ -128,9 +128,9 @@ public class Tuple6d implements Tup6d
 		return t;
 	}
 	
-	public static Tuple6d alloc(float v0, float v1, float v2, float v3, float v4, float v5)
+	public static Tuple6d getInstance(float v0, float v1, float v2, float v3, float v4, float v5)
 	{
-		Tuple6d t = allocator.alloc();
+		Tuple6d t = pool.get();
 		
 		t.v[0] = v0;
 		t.v[1] = v1;
@@ -142,9 +142,9 @@ public class Tuple6d implements Tup6d
 		return t;
 	}
 	
-	public static Tuple6d alloc(double v0, double v1, double v2, double v3 ,double v4, double v5)
+	public static Tuple6d getInstance(double v0, double v1, double v2, double v3 ,double v4, double v5)
 	{
-		Tuple6d t = allocator.alloc();
+		Tuple6d t = pool.get();
 		
 		t.v[0] = v0;
 		t.v[1] = v1;
@@ -156,7 +156,7 @@ public class Tuple6d implements Tup6d
 		return t;
 	}
 	
-	public static void dealloc(Tuple6d t) { allocator.dealloc(t); }
+	public static void storeInstance(Tuple6d t) { pool.store(t); }
 	
 	public Tuple6d()
 	{

@@ -1,6 +1,6 @@
 package cmn.utilslib.math.tuple;
 
-import cmn.utilslib.Allocator;
+import cmn.utilslib.Pool;
 import cmn.utilslib.math.tuple.api.Tup7dBase;
 import cmn.utilslib.math.tuple.api.Tup7f;
 import cmn.utilslib.math.tuple.api.Tup7fBase;
@@ -37,16 +37,16 @@ public class Tuple7f implements Tup7f
 	##################
 	 */
 	
-	private static Allocator<Tuple7f> allocator = new Allocator<Tuple7f>(Tuple7f.class);
+	private static Pool<Tuple7f> pool = new Pool<Tuple7f>(Tuple7f.class);
 	
-	public static Tuple7f alloc()
+	public static Tuple7f getInstance()
 	{
-		return allocator.alloc();
+		return pool.get();
 	}
 	
-	public static Tuple7f alloc(Tuple7f t)
+	public static Tuple7f getInstance(Tuple7f t)
 	{
-		Tuple7f t0 = allocator.alloc();
+		Tuple7f t0 = pool.get();
 		
 		t0.v[0] = t.v[0];
 		t0.v[1] = t.v[1];
@@ -59,9 +59,9 @@ public class Tuple7f implements Tup7f
 		return t0;
 	}
 	
-	public static Tuple7f alloc(Tuple7d t)
+	public static Tuple7f getInstance(Tuple7d t)
 	{
-		Tuple7f t0 = allocator.alloc();
+		Tuple7f t0 = pool.get();
 		
 		t0.v[0] = (float)t.v[0];
 		t0.v[1] = (float)t.v[1];
@@ -74,9 +74,9 @@ public class Tuple7f implements Tup7f
 		return t0;
 	}
 	
-	public static Tuple7f alloc(Tup7fBase t)
+	public static Tuple7f getInstance(Tup7fBase t)
 	{
-		Tuple7f t0 = allocator.alloc();
+		Tuple7f t0 = pool.get();
 		
 		t0.v[0] = t.get(0);
 		t0.v[1] = t.get(1);
@@ -89,9 +89,9 @@ public class Tuple7f implements Tup7f
 		return t0;
 	}
 	
-	public static Tuple7f alloc(Tup7dBase t)
+	public static Tuple7f getInstance(Tup7dBase t)
 	{
-		Tuple7f t0 = allocator.alloc();
+		Tuple7f t0 = pool.get();
 		
 		t0.v[0] = (float)t.get(0);
 		t0.v[1] = (float)t.get(1);
@@ -104,9 +104,9 @@ public class Tuple7f implements Tup7f
 		return t0;
 	}
 	
-	public static Tuple7f alloc(float scalar)
+	public static Tuple7f getInstance(float scalar)
 	{
-		Tuple7f t = allocator.alloc();
+		Tuple7f t = pool.get();
 		
 		t.v[0] = scalar;
 		t.v[1] = scalar;
@@ -119,9 +119,9 @@ public class Tuple7f implements Tup7f
 		return t;
 	}
 	
-	public static Tuple7f alloc(double scalar)
+	public static Tuple7f getInstance(double scalar)
 	{
-		Tuple7f t = allocator.alloc();
+		Tuple7f t = pool.get();
 		
 		float scl = (float)scalar;
 		
@@ -136,9 +136,9 @@ public class Tuple7f implements Tup7f
 		return t;
 	}
 	
-	public static Tuple7f alloc(float v0, float v1, float v2, float v3, float v4, float v5, float v6)
+	public static Tuple7f getInstance(float v0, float v1, float v2, float v3, float v4, float v5, float v6)
 	{
-		Tuple7f t = allocator.alloc();
+		Tuple7f t = pool.get();
 		
 		t.v[0] = v0;
 		t.v[1] = v1;
@@ -151,9 +151,9 @@ public class Tuple7f implements Tup7f
 		return t;
 	}
 	
-	public static Tuple7f alloc(double v0, double v1, double v2, double v3 ,double v4, double v5, double v6)
+	public static Tuple7f getInstance(double v0, double v1, double v2, double v3 ,double v4, double v5, double v6)
 	{
-		Tuple7f t = allocator.alloc();
+		Tuple7f t = pool.get();
 		
 		t.v[0] = (float)v0;
 		t.v[1] = (float)v1;
@@ -166,7 +166,7 @@ public class Tuple7f implements Tup7f
 		return t;
 	}
 	
-	public static void dealloc(Tuple7f t) { allocator.dealloc(t); }
+	public static void storeInstance(Tuple7f t) { pool.store(t); }
 	
 	public Tuple7f()
 	{

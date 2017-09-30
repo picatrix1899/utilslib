@@ -1,6 +1,6 @@
 package cmn.utilslib.math.tuple;
 
-import cmn.utilslib.Allocator;
+import cmn.utilslib.Pool;
 import cmn.utilslib.math.tuple.api.Tup5d;
 import cmn.utilslib.math.tuple.api.Tup5dBase;
 import cmn.utilslib.math.tuple.api.Tup5fBase;
@@ -37,16 +37,16 @@ public class Tuple5d implements Tup5d
 	##################
 	 */
 	
-	private static Allocator<Tuple5d> allocator = new Allocator<Tuple5d>(Tuple5d.class);
+	private static Pool<Tuple5d> pool = new Pool<Tuple5d>(Tuple5d.class);
 	
-	public static Tuple5d alloc()
+	public static Tuple5d getInstance()
 	{
-		return allocator.alloc();
+		return pool.get();
 	}
 	
-	public static Tuple5d alloc(Tuple5f t)
+	public static Tuple5d getInstance(Tuple5f t)
 	{
-		Tuple5d t0 = allocator.alloc();
+		Tuple5d t0 = pool.get();
 		
 		t0.v[0] = t.v[0];
 		t0.v[1] = t.v[1];
@@ -57,9 +57,9 @@ public class Tuple5d implements Tup5d
 		return t0;
 	}
 	
-	public static Tuple5d alloc(Tuple5d t)
+	public static Tuple5d getInstance(Tuple5d t)
 	{
-		Tuple5d t0 = allocator.alloc();
+		Tuple5d t0 = pool.get();
 		
 		t0.v[0] = t.v[0];
 		t0.v[1] = t.v[1];
@@ -70,9 +70,9 @@ public class Tuple5d implements Tup5d
 		return t0;
 	}
 	
-	public static Tuple5d alloc(Tup5fBase t)
+	public static Tuple5d getInstance(Tup5fBase t)
 	{
-		Tuple5d t0 = allocator.alloc();
+		Tuple5d t0 = pool.get();
 		
 		t0.v[0] = t.get(0);
 		t0.v[1] = t.get(1);
@@ -83,9 +83,9 @@ public class Tuple5d implements Tup5d
 		return t0;
 	}
 	
-	public static Tuple5d alloc(Tup5dBase t)
+	public static Tuple5d getInstance(Tup5dBase t)
 	{
-		Tuple5d t0 = allocator.alloc();
+		Tuple5d t0 = pool.get();
 		
 		t0.v[0] = t.get(0);
 		t0.v[1] = t.get(1);
@@ -96,9 +96,9 @@ public class Tuple5d implements Tup5d
 		return t0;
 	}
 	
-	public static Tuple5d alloc(float scalar)
+	public static Tuple5d getInstance(float scalar)
 	{
-		Tuple5d t = allocator.alloc();
+		Tuple5d t = pool.get();
 		
 		t.v[0] = scalar;
 		t.v[1] = scalar;
@@ -109,9 +109,9 @@ public class Tuple5d implements Tup5d
 		return t;
 	}
 	
-	public static Tuple5d alloc(double scalar)
+	public static Tuple5d getInstance(double scalar)
 	{
-		Tuple5d t = allocator.alloc();
+		Tuple5d t = pool.get();
 		
 		t.v[0] = scalar;
 		t.v[1] = scalar;
@@ -122,9 +122,9 @@ public class Tuple5d implements Tup5d
 		return t;
 	}
 	
-	public static Tuple5d alloc(float v0, float v1, float v2, float v3, float v4)
+	public static Tuple5d getInstance(float v0, float v1, float v2, float v3, float v4)
 	{
-		Tuple5d t = allocator.alloc();
+		Tuple5d t = pool.get();
 		
 		t.v[0] = v0;
 		t.v[1] = v1;
@@ -135,9 +135,9 @@ public class Tuple5d implements Tup5d
 		return t;
 	}
 	
-	public static Tuple5d alloc(double v0, double v1, double v2, double v3 ,double v4)
+	public static Tuple5d getInstance(double v0, double v1, double v2, double v3 ,double v4)
 	{
-		Tuple5d t = allocator.alloc();
+		Tuple5d t = pool.get();
 		
 		t.v[0] = v0;
 		t.v[1] = v1;
@@ -148,7 +148,7 @@ public class Tuple5d implements Tup5d
 		return t;
 	}
 	
-	public static void dealloc(Tuple5d t) { allocator.dealloc(t); }
+	public static void storeInstance(Tuple5d t) { pool.store(t); }
 	
 	public Tuple5d()
 	{

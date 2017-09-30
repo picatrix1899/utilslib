@@ -1,6 +1,6 @@
 package cmn.utilslib.math.tuple;
 
-import cmn.utilslib.Allocator;
+import cmn.utilslib.Pool;
 import cmn.utilslib.math.tuple.api.Tup3d;
 import cmn.utilslib.math.tuple.api.Tup3dBase;
 import cmn.utilslib.math.tuple.api.Tup3fBase;
@@ -38,16 +38,16 @@ public class Tuple3d implements Tup3d
 	##################
 	 */
 	
-	private static Allocator<Tuple3d> allocator = new Allocator<Tuple3d>(Tuple3d.class);
+	private static Pool<Tuple3d> pool = new Pool<Tuple3d>(Tuple3d.class);
 	
-	public static Tuple3d alloc()
+	public static Tuple3d getInstance()
 	{
-		return allocator.alloc();
+		return pool.get();
 	}
 	
-	public static Tuple3d alloc(Tuple3f t)
+	public static Tuple3d getInstance(Tuple3f t)
 	{
-		Tuple3d t0 = allocator.alloc();
+		Tuple3d t0 = pool.get();
 		
 		t0.v[0] = t.v[0];
 		t0.v[1] = t.v[1];
@@ -56,9 +56,9 @@ public class Tuple3d implements Tup3d
 		return t0;
 	}
 	
-	public static Tuple3d alloc(Tuple3d t)
+	public static Tuple3d getInstance(Tuple3d t)
 	{
-		Tuple3d t0 = allocator.alloc();
+		Tuple3d t0 = pool.get();
 		
 		t0.v[0] = t.v[0];
 		t0.v[1] = t.v[1];
@@ -67,9 +67,9 @@ public class Tuple3d implements Tup3d
 		return t0;
 	}
 	
-	public static Tuple3d alloc(Tup3fBase t)
+	public static Tuple3d getInstance(Tup3fBase t)
 	{
-		Tuple3d t0 = allocator.alloc();
+		Tuple3d t0 = pool.get();
 		
 		t0.v[0] = t.get(0);
 		t0.v[1] = t.get(1);
@@ -78,9 +78,9 @@ public class Tuple3d implements Tup3d
 		return t0;
 	}
 	
-	public static Tuple3d alloc(Tup3dBase t)
+	public static Tuple3d getInstance(Tup3dBase t)
 	{
-		Tuple3d t0 = allocator.alloc();
+		Tuple3d t0 = pool.get();
 		
 		t0.v[0] = t.get(0);
 		t0.v[1] = t.get(1);
@@ -89,9 +89,9 @@ public class Tuple3d implements Tup3d
 		return t0;
 	}
 	
-	public static Tuple3d alloc(float scalar)
+	public static Tuple3d getInstance(float scalar)
 	{
-		Tuple3d t = allocator.alloc();
+		Tuple3d t = pool.get();
 		
 		t.v[0] = scalar;
 		t.v[1] = scalar;
@@ -100,9 +100,9 @@ public class Tuple3d implements Tup3d
 		return t;
 	}
 	
-	public static Tuple3d alloc(double scalar)
+	public static Tuple3d getInstance(double scalar)
 	{
-		Tuple3d t = allocator.alloc();
+		Tuple3d t = pool.get();
 		
 		t.v[0] = scalar;
 		t.v[1] = scalar;
@@ -111,9 +111,9 @@ public class Tuple3d implements Tup3d
 		return t;
 	}
 	
-	public static Tuple3d alloc(float v0, float v1, float v2)
+	public static Tuple3d getInstance(float v0, float v1, float v2)
 	{
-		Tuple3d t = allocator.alloc();
+		Tuple3d t = pool.get();
 		
 		t.v[0] = v0;
 		t.v[1] = v1;
@@ -122,9 +122,9 @@ public class Tuple3d implements Tup3d
 		return t;
 	}
 	
-	public static Tuple3d alloc(double v0, double v1, double v2)
+	public static Tuple3d getInstance(double v0, double v1, double v2)
 	{
-		Tuple3d t = allocator.alloc();
+		Tuple3d t = pool.get();
 		
 		t.v[0] = v0;
 		t.v[1] = v1;
@@ -133,7 +133,7 @@ public class Tuple3d implements Tup3d
 		return t;
 	}
 	
-	public static void dealloc(Tuple3d t) { allocator.dealloc(t); }
+	public static void storeInstance(Tuple3d t) { pool.store(t); }
 	
 	public Tuple3d()
 	{

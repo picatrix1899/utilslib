@@ -1,6 +1,6 @@
 package cmn.utilslib.math.tuple;
 
-import cmn.utilslib.Allocator;
+import cmn.utilslib.Pool;
 import cmn.utilslib.math.tuple.api.Tup3dBase;
 import cmn.utilslib.math.tuple.api.Tup3f;
 import cmn.utilslib.math.tuple.api.Tup3fBase;
@@ -38,16 +38,16 @@ public class Tuple3f implements Tup3f
 	##################
 	 */
 	
-	private static Allocator<Tuple3f> allocator = new Allocator<Tuple3f>(Tuple3f.class);
+	private static Pool<Tuple3f> pool = new Pool<Tuple3f>(Tuple3f.class);
 	
-	public static Tuple3f alloc()
+	public static Tuple3f getInstance()
 	{
-		return allocator.alloc();
+		return pool.get();
 	}
 	
-	public static Tuple3f alloc(Tuple3f t)
+	public static Tuple3f getInstance(Tuple3f t)
 	{
-		Tuple3f t0 = allocator.alloc();
+		Tuple3f t0 = pool.get();
 		
 		t0.v[0] = t.v[0];
 		t0.v[1] = t.v[1];
@@ -56,9 +56,9 @@ public class Tuple3f implements Tup3f
 		return t0;
 	}
 	
-	public static Tuple3f alloc(Tuple3d t)
+	public static Tuple3f getInstance(Tuple3d t)
 	{
-		Tuple3f t0 = allocator.alloc();
+		Tuple3f t0 = pool.get();
 		
 		t0.v[0] = (float)t.v[0];
 		t0.v[1] = (float)t.v[1];
@@ -67,9 +67,9 @@ public class Tuple3f implements Tup3f
 		return t0;
 	}
 	
-	public static Tuple3f alloc(Tup3fBase t)
+	public static Tuple3f getInstance(Tup3fBase t)
 	{
-		Tuple3f t0 = allocator.alloc();
+		Tuple3f t0 = pool.get();
 		
 		t0.v[0] = t.get(0);
 		t0.v[1] = t.get(1);
@@ -78,9 +78,9 @@ public class Tuple3f implements Tup3f
 		return t0;
 	}
 	
-	public static Tuple3f alloc(Tup3dBase t)
+	public static Tuple3f getInstance(Tup3dBase t)
 	{
-		Tuple3f t0 = allocator.alloc();
+		Tuple3f t0 = pool.get();
 		
 		t0.v[0] = (float)t.get(0);
 		t0.v[1] = (float)t.get(1);
@@ -89,9 +89,9 @@ public class Tuple3f implements Tup3f
 		return t0;
 	}
 	
-	public static Tuple3f alloc(float scalar)
+	public static Tuple3f getInstance(float scalar)
 	{
-		Tuple3f t = allocator.alloc();
+		Tuple3f t = pool.get();
 		
 		t.v[0] = scalar;
 		t.v[1] = scalar;
@@ -100,9 +100,9 @@ public class Tuple3f implements Tup3f
 		return t;
 	}
 	
-	public static Tuple3f alloc(double scalar)
+	public static Tuple3f getInstance(double scalar)
 	{
-		Tuple3f t = allocator.alloc();
+		Tuple3f t = pool.get();
 		
 		float scl = (float)scalar;
 		
@@ -113,9 +113,9 @@ public class Tuple3f implements Tup3f
 		return t;
 	}
 	
-	public static Tuple3f alloc(float v0, float v1, float v2)
+	public static Tuple3f getInstance(float v0, float v1, float v2)
 	{
-		Tuple3f t = allocator.alloc();
+		Tuple3f t = pool.get();
 		
 		t.v[0] = v0;
 		t.v[1] = v1;
@@ -124,9 +124,9 @@ public class Tuple3f implements Tup3f
 		return t;
 	}
 	
-	public static Tuple3f alloc(double v0, double v1, double v2)
+	public static Tuple3f getInstance(double v0, double v1, double v2)
 	{
-		Tuple3f t = allocator.alloc();
+		Tuple3f t = pool.get();
 		
 		t.v[0] = (float)v0;
 		t.v[1] = (float)v1;
@@ -135,7 +135,7 @@ public class Tuple3f implements Tup3f
 		return t;
 	}
 	
-	public static void dealloc(Tuple3f t) { allocator.dealloc(t); }
+	public static void storeInstance(Tuple3f t) { pool.store(t); }
 	
 	public Tuple3f()
 	{

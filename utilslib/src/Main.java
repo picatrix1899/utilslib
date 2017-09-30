@@ -5,13 +5,11 @@ import cmn.utilslib.math.vector.Vector3f;
 
 public class Main
 {
-
 	public static void main(String[] args)
 	{
 		
 		Vector3f v = new Vector3f(2,4,8);
 		
-
 		Matrix4f t = Matrix4f.translation(1,1,0);
 		Matrix4f s = Matrix4f.scaling(new Vector3f(0.5));
 		Matrix4f r = Matrix4f.rotation(Quaternion.getFromAxis(Vector3f.aY, 90));

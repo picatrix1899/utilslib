@@ -1,7 +1,7 @@
 package cmn.utilslib.math.vector;
 
 
-import cmn.utilslib.Allocator;
+import cmn.utilslib.Pool;
 import cmn.utilslib.math.Maths;
 import cmn.utilslib.math.Quaternion;
 import cmn.utilslib.math.tuple.api.Tup3dBase;
@@ -61,19 +61,19 @@ public class Vector3d implements Vec3d
 	##################
 	 */
 	
-	private static Allocator<Vector3d> allocator = new Allocator<Vector3d>(Vector3d.class);
+	private static Pool<Vector3d> pool = new Pool<Vector3d>(Vector3d.class);
 	
-	public static Vector3d alloc() { return allocator.alloc().setZero(); }
-	public static Vector3d alloc(Vec3fBase v) { return allocator.alloc().set(v); }
-	public static Vector3d alloc(Vec3dBase v) { return allocator.alloc().set(v); }
-	public static Vector3d alloc(Tup3fBase t) { return allocator.alloc().set(t); }
-	public static Vector3d alloc(Tup3dBase t) { return allocator.alloc().set(t); }
-	public static Vector3d alloc(float scalar) { return allocator.alloc().set(scalar); }
-	public static Vector3d alloc(double scalar) { return allocator.alloc().set(scalar); }
-	public static Vector3d alloc(float x, float y, float z) { return allocator.alloc().set(x, y, z); }
-	public static Vector3d alloc(double x, double y, double z) { return allocator.alloc().set(x, y, z); }
+	public static Vector3d getInstance() { return pool.get().setZero(); }
+	public static Vector3d getInstance(Vec3fBase v) { return pool.get().set(v); }
+	public static Vector3d getInstance(Vec3dBase v) { return pool.get().set(v); }
+	public static Vector3d getInstance(Tup3fBase t) { return pool.get().set(t); }
+	public static Vector3d getInstance(Tup3dBase t) { return pool.get().set(t); }
+	public static Vector3d getInstance(float scalar) { return pool.get().set(scalar); }
+	public static Vector3d getInstance(double scalar) { return pool.get().set(scalar); }
+	public static Vector3d getInstance(float x, float y, float z) { return pool.get().set(x, y, z); }
+	public static Vector3d getInstance(double x, double y, double z) { return pool.get().set(x, y, z); }
 	
-	public static void dealloc(Vector3d v) { allocator.dealloc(v); }
+	public static void storeInstance(Vector3d v) { pool.store(v); }
 
 	/*
 	####################
@@ -509,12 +509,12 @@ public class Vector3d implements Vec3d
  	/** {@inheritDoc} */
  	public Vector3d project(Vec3fBase v)
 	{	
-		Vec3d vn = Vector3d.alloc();
+		Vec3d vn = Vector3d.getInstance();
 		vn.set(v).normalize();
 
 		set(vn.mul(dot(vn)));
 		
-		Vector3d.dealloc((Vector3d) vn);
+		Vector3d.storeInstance((Vector3d) vn);
 		
 		return this;
 	}
@@ -522,12 +522,12 @@ public class Vector3d implements Vec3d
  	/** {@inheritDoc} */
 	public Vector3d project(Vec3dBase v)
 	{
-		Vec3d vn = Vector3d.alloc();
+		Vec3d vn = Vector3d.getInstance();
 		vn.set(v).normalize();
 
 		set(vn.mul(dot(vn)));
 		
-		Vector3d.dealloc((Vector3d) vn);
+		Vector3d.storeInstance((Vector3d) vn);
 		
 		return this;
 	}
@@ -537,8 +537,8 @@ public class Vector3d implements Vec3d
 	/** {@inheritDoc} */
 	public Vector3d rotate(Vec3dBase axis, float angle)
 	{
- 		Quaternion rotation = Quaternion.alloc();
- 		Quaternion w = Quaternion.alloc();
+ 		Quaternion rotation = Quaternion.getInstance();
+ 		Quaternion w = Quaternion.getInstance();
  		
 		angle *= 0.5f;
 		angle *= Maths.DEG_TO_RAD;
@@ -561,8 +561,8 @@ public class Vector3d implements Vec3d
 		this.y = w.getY();
 		this.z = w.getZ();
 		
-		Quaternion.dealloc(rotation);
-		Quaternion.dealloc(w);
+		Quaternion.storeInstance(rotation);
+		Quaternion.storeInstance(w);
 		
 		return this;
 	}
@@ -570,8 +570,8 @@ public class Vector3d implements Vec3d
 	/** {@inheritDoc} */
 	public Vector3d rotate(Vec3fBase axis, double angle)
 	{
- 		Quaternion rotation = Quaternion.alloc();
- 		Quaternion w = Quaternion.alloc();
+ 		Quaternion rotation = Quaternion.getInstance();
+ 		Quaternion w = Quaternion.getInstance();
  		
 		angle *= 0.5f;
 		angle *= Maths.DEG_TO_RAD;
@@ -594,8 +594,8 @@ public class Vector3d implements Vec3d
 		this.y = w.getY();
 		this.z = w.getZ();
 		
-		Quaternion.dealloc(rotation);
-		Quaternion.dealloc(w);
+		Quaternion.storeInstance(rotation);
+		Quaternion.storeInstance(w);
 		
 		return this;
 	}
@@ -603,8 +603,8 @@ public class Vector3d implements Vec3d
 	/** {@inheritDoc} */
 	public Vector3d rotate(Vec3dBase axis, double angle)
 	{
- 		Quaternion rotation = Quaternion.alloc();
- 		Quaternion w = Quaternion.alloc();
+ 		Quaternion rotation = Quaternion.getInstance();
+ 		Quaternion w = Quaternion.getInstance();
  		
 		angle *= 0.5f;
 		angle *= Maths.DEG_TO_RAD;
@@ -627,8 +627,8 @@ public class Vector3d implements Vec3d
 		this.y = w.getY();
 		this.z = w.getZ();
 		
-		Quaternion.dealloc(rotation);
-		Quaternion.dealloc(w);
+		Quaternion.storeInstance(rotation);
+		Quaternion.storeInstance(w);
 		
 		return this;
 	}
@@ -636,8 +636,8 @@ public class Vector3d implements Vec3d
 	/** {@inheritDoc} */
  	public Vector3d rotate(Vec3fBase axis, float angle)
 	{
- 		Quaternion rotation = Quaternion.alloc();
- 		Quaternion w = Quaternion.alloc();
+ 		Quaternion rotation = Quaternion.getInstance();
+ 		Quaternion w = Quaternion.getInstance();
  		
 		angle *= 0.5f;
 		angle *= Maths.DEG_TO_RAD;
@@ -660,8 +660,8 @@ public class Vector3d implements Vec3d
 		this.y = w.getY();
 		this.z = w.getZ();
 		
-		Quaternion.dealloc(rotation);
-		Quaternion.dealloc(w);
+		Quaternion.storeInstance(rotation);
+		Quaternion.storeInstance(w);
 		
 		return this;
 	}
@@ -669,8 +669,8 @@ public class Vector3d implements Vec3d
  	/** {@inheritDoc} */
  	public Vector3d rotate(Quaternion q)
 	{
- 		Quaternion w = Quaternion.alloc();
- 		Quaternion _q = Quaternion.alloc();
+ 		Quaternion w = Quaternion.getInstance();
+ 		Quaternion _q = Quaternion.getInstance();
  		
  		_q.set(q);
  		
@@ -682,8 +682,8 @@ public class Vector3d implements Vec3d
 		this.y = w.getY();
 		this.z = w.getZ();
 		
-		Quaternion.dealloc(w);
-		Quaternion.dealloc(_q);
+		Quaternion.storeInstance(w);
+		Quaternion.storeInstance(_q);
 		
 		return this;
 	}

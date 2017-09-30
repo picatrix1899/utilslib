@@ -1,6 +1,6 @@
 package cmn.utilslib.math.geometry;
 
-import cmn.utilslib.Allocator;
+import cmn.utilslib.Pool;
 import cmn.utilslib.math.tuple.api.Tup3dBase;
 import cmn.utilslib.math.tuple.api.Tup3f;
 import cmn.utilslib.math.tuple.api.Tup3fBase;
@@ -22,19 +22,19 @@ public class Point3f implements Tup3f
 	##################
 	 */
 	
-	private static Allocator<Point3f> allocator = new Allocator<Point3f>(Point3f.class);
+	private static Pool<Point3f> pool = new Pool<Point3f>(Point3f.class);
 	
-	public static Point3f alloc() { return allocator.alloc().setZero(); }
-	public static Point3f alloc(Vec3fBase v) { return allocator.alloc().set(v); }
-	public static Point3f alloc(Vec3dBase v) { return allocator.alloc().set(v); }
-	public static Point3f alloc(Tup3fBase t) { return allocator.alloc().set(t); }
-	public static Point3f alloc(Tup3dBase t) { return allocator.alloc().set(t); }
-	public static Point3f alloc(float scalar) { return allocator.alloc().set(scalar); }
-	public static Point3f alloc(double scalar) { return allocator.alloc().set(scalar); }
-	public static Point3f alloc(float x, float y, float z) { return allocator.alloc().set(x, y, z); }
-	public static Point3f alloc(double x, double y, double z) { return allocator.alloc().set(x, y, z); }
+	public static Point3f getInstance() { return pool.get().setZero(); }
+	public static Point3f getInstance(Vec3fBase v) { return pool.get().set(v); }
+	public static Point3f getInstance(Vec3dBase v) { return pool.get().set(v); }
+	public static Point3f getInstance(Tup3fBase t) { return pool.get().set(t); }
+	public static Point3f getInstance(Tup3dBase t) { return pool.get().set(t); }
+	public static Point3f getInstance(float scalar) { return pool.get().set(scalar); }
+	public static Point3f getInstance(double scalar) { return pool.get().set(scalar); }
+	public static Point3f getInstance(float x, float y, float z) { return pool.get().set(x, y, z); }
+	public static Point3f getInstance(double x, double y, double z) { return pool.get().set(x, y, z); }
 	
-	public static void dealloc(Point3f v) { allocator.dealloc(v); }
+	public static void storeInstance(Point3f v) { pool.store(v); }
 	
 	
 	public Point3f() { }

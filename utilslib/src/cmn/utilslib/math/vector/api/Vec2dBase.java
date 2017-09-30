@@ -87,6 +87,122 @@ public interface Vec2dBase extends Tup2dBase
 	}
 	
 	/*
+	####################################
+	##                                ##
+	##  BASIC ARITHMETICS WITH QUARRY ##
+	##                                ##
+	####################################
+	 */
+	
+	/** Returns the addition of this and the Vector v as the Vector r */
+	Vec2d add(Vec2fBase v, Vec2d r);
+	
+	/** Returns the addition of this and the Vector v as the Vector r */
+	Vec2d add(Vec2dBase v, Vec2d r);
+	
+	/** Returns the addition of this and the Scalar scalar as the Vector r */
+	Vec2d add(float scalar, Vec2d r);
+	
+	/** Returns the addition of this and the Scalar scalar as the Vector r */
+	Vec2d add(double scalar, Vec2d r);
+	
+	/** Returns the addition of this and the Values x and y as the Vector r */
+	Vec2d add(float x, float y, Vec2d r);
+	
+	/** Returns the addition of this and the Values x and y as the Vector r */
+	Vec2d add(double x, double y, Vec2d r);
+	
+	
+	
+	/** Returns the subtraction of this and the Vector v as the Vector r */
+	Vec2d sub(Vec2fBase v, Vec2d r);
+	
+	/** Returns the subtraction of this and the Vector v as the Vector r */
+	Vec2d sub(Vec2dBase v, Vec2d r);
+	
+	/** Returns the subtraction of this and the Scalar scalar as the Vector r */
+	Vec2d sub(float scalar, Vec2d r);
+	
+	/** Returns the subtraction of this and the Scalar scalar as the Vector r */
+	Vec2d sub(double scalar, Vec2d r);
+	
+	/** Returns the subtraction of this and the Values x and y as the Vector r */
+	Vec2d sub(float x, float y, Vec2d r);
+	
+	/** Returns the subtraction of this and the Values x and y as the Vector r */
+	Vec2d sub(double x, double y, Vec2d r);
+	
+	
+	
+	/** Returns the multiplication of this and the Vector v as the Vector r */
+	Vec2d mul(Vec2fBase v, Vec2d r);
+	
+	/** Returns the multiplication of this and the Vector v as the Vector r */
+	Vec2d mul(Vec2dBase v, Vec2d r);
+	
+	/** Returns the multiplication of this and the Scalar scalar as the Vector r */
+	Vec2d mul(float scalar, Vec2d r);
+	
+	/** Returns the multiplication of this and the Scalar scalar as the Vector r */
+	Vec2d mul(double scalar, Vec2d r);
+	
+	/** Returns the multiplication of this and the Values x and y as the Vector r */
+	Vec2d mul(float x, float y, Vec2d r);
+	
+	/** Returns the multiplication of this and the Values x and y as the Vector r */
+	Vec2d mul(double x, double y, Vec2d r);
+	
+	
+	
+	/** Returns the division of this and the Vector v as the Vector r */
+	Vec2d div(Vec2fBase v, Vec2d r);
+	
+	/** Returns the division of this and the Vector v as the Vector r */
+	Vec2d div(Vec2dBase v, Vec2d r);
+	
+	/** Returns the division of this and the Scalar scalar as the Vector r */
+	Vec2d div(float scalar, Vec2d r);
+	
+	/** Returns the division of this and the Scalar scalar as the Vector r */
+	Vec2d div(double scalar, Vec2d r);
+	
+	/** Returns the division of this and the Values x and y as the Vector r */
+	Vec2d div(float x, float y, Vec2d r);
+	
+	/** Returns the division of this and the Values x and y as the Vector r */
+	Vec2d div(double x, double y, Vec2d r);
+	
+	
+	
+	/** Returns the invertion of this based on the Vector v (i.e. out.x = v.x - this.x) as Vector r */
+	Vec2d invertFrom(Vec2fBase v, Vec2d r);
+	
+	/** Returns the invertion of this based on the Vector v (i.e. out.x = v.x - this.x) as Vector r */
+	Vec2d invertFrom(Vec2dBase v, Vec2d r);
+	
+	/** Returns the invertion of this based on the Value max (i.e. out.x = max - this.x) as Vector r */
+	Vec2d invertFrom(float max, Vec2d r);
+	
+	/** Returns the invertion of this based on the Value max (i.e. out.x = max - this.x) as Vector r */
+	Vec2d invertFrom(double max, Vec2d r);
+	
+	/** Returns the invertion of this based on the Values x, y and z (i.e. out.x = x - this.x) as Vector r */
+	Vec2d invertFrom(float x, float y, Vec2d r);
+	
+	/** Returns the invertion of this based on the Values x, y and z (i.e. out.x = x - this.x) as Vector r */
+	Vec2d invertFrom(double x ,double y, Vec2d r);
+	
+	
+	
+	/** Returns the inversed Vector as Vector r */
+	Vec2d inverse(Vec2d r);
+	
+	
+	
+	/** Returns the negated Vector as Vector r */
+	Vec2d negate(Vec2d r);
+	
+	/*
 	#####################################
 	##                                 ##
 	##  BASIC ARITHMETICS WITH CLONING ##
@@ -203,11 +319,79 @@ public interface Vec2dBase extends Tup2dBase
 	Vec2d negateN();
 	
 	/*
-	##########################
-	##                      ##
-	##  VECTOR ARITHMETICS  ##
-	##                      ##
-	##########################
+	#####################################
+	##                                 ##
+	##  VECTOR ARITHMETICS WITH QUARRY ##
+	##                                 ##
+	#####################################
+	 */
+	
+	/** Return a normalized clone of the Vector */
+	Vec2d normalize(Vec2d r);
+	
+	
+	
+	/** Returns a new Vector with the Reflection of this Vector on the Vector normal */
+	Vec2d reflect(Vec2fBase normal, Vec2d r);
+	
+	/** Returns a new Vector with the Reflection of this Vector on the Vector normal */
+	Vec2d reflect(Vec2dBase normal, Vec2d r);
+	
+	
+	
+	/** Return a clone of this Vector rotated around the Vector axis and the Amount of angle in Degrees */
+	Vec2d rotate(Vec2fBase axis, float angle, Vec2d r);
+	
+	/** Return a clone of this Vector rotated around the Vector axis and the Amount of angle in Degrees */
+	Vec2d rotate(Vec2dBase axis, float angle, Vec2d r);
+	
+	/** Return a clone of this Vector rotated around the Vector axis and the Amount of angle in Degrees */
+	Vec2d rotate(Vec2fBase axis, double angle, Vec2d r);
+	
+	/** Return a clone of this Vector rotated around the Vector axis and the Amount of angle in Degrees */
+	Vec2d rotate(Vec2dBase axis, double angle, Vec2d r);
+	
+	
+	
+	/** Return a clone of this Vector rotated by the Qauternion q */
+	Vec2d rotate(Quaternion q, Vec2d r);
+	
+	
+	
+	/** Returns the Dot-Product/Scalar-Product of this Vector with the Vector v */
+	double dot(Vec2fBase v, double[] r);
+	
+	/** Returns the Dot-Product/Scalar-Product of this Vector with the Vector v */
+	double dot(Vec2dBase v, double[] r);
+	
+	
+	
+	/** Returns the angle in Radians between this Vector and the Vector v */
+	double angleRad(Vec2fBase v, double[] r);
+	
+	/** Returns the angle in Radians between this Vector and the Vector v */
+	double angleRad(Vec2dBase v, double[] r);
+	
+	/** Returns the angle in Degrees between this Vector and the Vector v */
+	double angleDeg(Vec2fBase v, double[] r);
+	
+	/** Returns the angle in Degrees between this Vector and the Vector v */
+	double angleDeg(Vec2dBase v, double[] r);
+
+	
+	
+	/** Returns the length of the Vector */
+	double length(double[] r);
+	
+	/** Returns the squared length of the Vector */
+	double squaredLength(double[] r);
+	
+	/*
+	######################################
+	##                                  ##
+	##  VECTOR ARITHMETICS WITH CLONING ##
+	##                                  ##
+	######################################
 	 */
 	
 	/** Return a normalized clone of the Vector */
@@ -271,11 +455,45 @@ public interface Vec2dBase extends Tup2dBase
 	double squaredLength();
 	
 	/*
-	############################
-	##                        ##
-	##  VECTOR INTERPOLATION  ##
-	##                        ##
-	############################
+	#######################################
+	##                                   ##
+	##  VECTOR INTERPOLATION WITH QUARRY ##
+	##                                   ##
+	#######################################
+	 */
+	
+	/** Returns a new Vector with the result of linear interpolation between this Vector and the Vector v by the Value f */
+	Vec2d lerp(Vec2fBase v, float f, Vec2d r);
+	
+	/** Returns a new Vector with the result of linear interpolation between this Vector and the Vector v by the Value f */
+	Vec2d lerp(Vec2dBase v, float f, Vec2d r);
+	
+	/** Returns a new Vector with the result of linear interpolation between this Vector and the Vector v by the Value f */
+	Vec2d lerp(Vec2fBase v, double f, Vec2d r);
+	
+	/** Returns  a new Vector with the result of linear interpolation between this Vector and the Vector v by the Value f */
+	Vec2d lerp(Vec2dBase v, double f, Vec2d r);
+	
+	
+	
+	/** Returns a new Vector with the result of spherical linear interpolation between this Vector and the Vector v by the Value f */
+	Vec2d slerp(Vec2fBase v, float f, Vec2d r);
+	
+	/** Returns a new Vector with the result of spherical linear interpolation between this Vector and the Vector v by the Value f */
+	Vec2d slerp(Vec2dBase v, float f, Vec2d r);
+	
+	/** Returns a new Vector with the result of spherical linear interpolation between this Vector and the Vector v by the Value f */
+	Vec2d slerp(Vec2fBase v, double f, Vec2d r);
+	
+	/** Returns a new Vector with the result of spherical linear interpolation between this Vector and the Vector v by the Value f */
+	Vec2d slerp(Vec2dBase v, double f, Vec2d r);
+	
+	/*
+	########################################
+	##                                    ##
+	##  VECTOR INTERPOLATION WITH CLONING ##
+	##                                    ##
+	########################################
 	 */
 	
 	/** Returns a new Vector with the result of linear interpolation between this Vector and the Vector v by the Value f */
