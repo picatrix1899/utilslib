@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cmn.utilslib.essentials.Auto;
+import cmn.utilslib.math.matrix.Matrix3f;
 import cmn.utilslib.math.matrix.Matrix4f;
 import cmn.utilslib.math.vector.Vector3f;
 
@@ -96,7 +97,7 @@ public class MinkowskiSum3f implements ConvexPolygonalShape3f
 		return null;
 	}
 
-	public OBB3f getOBBf(Matrix4f t)
+	public OBB3f getOBBf(Matrix3f t)
 	{
 		return null;
 	}

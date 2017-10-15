@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cmn.utilslib.essentials.Auto;
+import cmn.utilslib.math.matrix.Matrix3f;
 import cmn.utilslib.math.matrix.Matrix4f;
 
 public class ConcaveTriangleMesh3f implements ConcavePolygonalShape3f
@@ -37,7 +38,7 @@ public class ConcaveTriangleMesh3f implements ConcavePolygonalShape3f
 		return mesh.getAABBf(aabb);
 	}
 
-	public OBB3f getOBBf(Matrix4f t)
+	public OBB3f getOBBf(Matrix3f t)
 	{
 		Point3f min = new Point3f(getMinX(), getMinY(), getMinZ());
 		Point3f max = new Point3f(getMaxX(), getMaxY(), getMaxZ());
@@ -45,9 +46,8 @@ public class ConcaveTriangleMesh3f implements ConcavePolygonalShape3f
 		return new OBB3f(min, max, t);
 	}
 	
-	public OBB3f getOBBf(Matrix4f TS, Matrix4f R)
+	public OBB3f getOBBf(Matrix4f TS, Matrix3f R)
 	{
-
 		ConcaveTriangleMesh3f mesh = transform(TS);
 		
 		Point3f min = new Point3f(mesh.getMinX(), mesh.getMinY(), mesh.getMinZ());
@@ -81,7 +81,7 @@ public class ConcaveTriangleMesh3f implements ConcavePolygonalShape3f
 		Point3f min = new Point3f(getMinX(), getMinY(), getMinZ());
 		Point3f max = new Point3f(getMaxX(), getMaxY(), getMaxZ());
 		
-		return new OBB3f(min, max, Matrix4f.identity());
+		return new OBB3f(min, max, Matrix3f.iIdentity());
 	}
 
 	public BoundingSpheref getBoundingSpheref()

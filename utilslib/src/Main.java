@@ -9,6 +9,7 @@ public class Main
 	{
 		
 		Vector3f v = new Vector3f(2,4,8);
+		Vector3f v2 = new Vector3f(2,4,8);
 		
 		Matrix4f t = Matrix4f.translation(1,1,0);
 		Matrix4f s = Matrix4f.scaling(new Vector3f(0.5));
@@ -20,16 +21,25 @@ public class Main
 		
 		Matrix4f ts = Matrix4f.mul(t, s, new Matrix4f());
 		
-		Matrix4f model = Matrix4f.mul(r, ts, new Matrix4f());
+		Matrix4f rts = Matrix4f.mul(r, ts, new Matrix4f());
+		
+		//Matrix4f model = Matrix4f.mul(r, ts, new Matrix4f());
 		
 		//Matrix4f.transform(ts, v, v); // ts * v (2, 3, 4) -> (4, 3, -2)
 		
 		//Matrix4f.transform(r, v, v);
 		
-		Matrix4f.transform(model,  v, v);
+		Matrix4f.transform(ts, v, v);
 		
 		System.out.println(v);
 		
+		Matrix4f.transform(r, v, v);
+		
+		System.out.println(v);
+		
+		Matrix4f.transform(rts, v2, v2);
+		
+		System.out.println(v2);
 	}
 	
 }

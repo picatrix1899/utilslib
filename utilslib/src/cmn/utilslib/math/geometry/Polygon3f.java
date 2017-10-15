@@ -1,5 +1,6 @@
 package cmn.utilslib.math.geometry;
 
+import cmn.utilslib.math.matrix.Matrix3f;
 import cmn.utilslib.math.matrix.Matrix4f;
 
 public class Polygon3f implements ConvexPolygonalShape3f
@@ -15,7 +16,7 @@ public class Polygon3f implements ConvexPolygonalShape3f
 		return null;
 	}
 
-	public OBB3f getOBBf(Matrix4f t)
+	public OBB3f getOBBf(Matrix3f t)
 	{
 		return null;
 	}

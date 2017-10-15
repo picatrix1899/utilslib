@@ -1,5 +1,6 @@
 package cmn.utilslib.math.geometry;
 
+import cmn.utilslib.math.matrix.Matrix3f;
 import cmn.utilslib.math.matrix.Matrix4f;
 
 public interface Shape3f
@@ -11,7 +12,7 @@ public interface Shape3f
 	
 	OBB3f getOBBf();
 	
-	OBB3f getOBBf(Matrix4f t);
+	OBB3f getOBBf(Matrix3f t);
 	
 	BoundingSpheref getBoundingSpheref();
 	

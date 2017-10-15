@@ -1,5 +1,6 @@
 package cmn.utilslib.math.geometry;
 
+import cmn.utilslib.math.matrix.Matrix3f;
 import cmn.utilslib.math.matrix.Matrix4f;
 import cmn.utilslib.math.tuple.api.Tup3fBase;
 import cmn.utilslib.math.vector.Vector3f;
@@ -68,15 +69,12 @@ public class Triangle3f implements ConvexPolygonalShape3f
 		return out;
 	}
 
-	public OBB3f getOBBf(Matrix4f t)
+	public OBB3f getOBBf(Matrix3f t)
 	{
 		Point3f min = new Point3f(getMinX(), getMinY(), getMinZ());
 		Point3f max = new Point3f(getMaxX(), getMaxY(), getMaxZ());
 		
-		Matrix4f.transform(t, min, min);
-		Matrix4f.transform(t, max, max);
-		
-		return new OBB3f(min, max, Matrix4f.identity());
+		return new OBB3f(min, max, Matrix3f.iIdentity());
 	}
 
 	public BoundingSpheref getBoundingSpheref(Matrix4f t)
@@ -122,7 +120,7 @@ public class Triangle3f implements ConvexPolygonalShape3f
 		Point3f min = new Point3f(getMinX(), getMinY(), getMinZ());
 		Point3f max = new Point3f(getMaxX(), getMaxY(), getMaxZ());
 		
-		return new OBB3f(min, max, Matrix4f.identity());
+		return new OBB3f(min, max, Matrix3f.iIdentity());
 	}
 
 	public BoundingSpheref getBoundingSpheref()

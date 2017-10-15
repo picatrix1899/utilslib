@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cmn.utilslib.essentials.Auto;
+import cmn.utilslib.math.matrix.Matrix3f;
 import cmn.utilslib.math.matrix.Matrix4f;
 
 public class ConvexTriangleMesh3f implements ConvexPolygonalShape3f
@@ -38,7 +39,7 @@ public class ConvexTriangleMesh3f implements ConvexPolygonalShape3f
 
 	}
 
-	public OBB3f getOBBf(Matrix4f t)
+	public OBB3f getOBBf(Matrix3f t)
 	{
 		Point3f min = new Point3f(getMinX(), getMinY(), getMinZ());
 		Point3f max = new Point3f(getMaxX(), getMaxY(), getMaxZ());
@@ -71,7 +72,7 @@ public class ConvexTriangleMesh3f implements ConvexPolygonalShape3f
 		Point3f min = new Point3f(getMinX(), getMinY(), getMinZ());
 		Point3f max = new Point3f(getMaxX(), getMaxY(), getMaxZ());
 		
-		return new OBB3f(min, max, new Matrix4f());
+		return new OBB3f(min, max, new Matrix3f());
 	}
 
 	public BoundingSpheref getBoundingSpheref()
