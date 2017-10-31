@@ -59,8 +59,8 @@ public class Point3f implements Tup3f
 	public Point3f(Vector3d v) { this.x = (float)v.x; this.y = (float)v.y; this.z = (float)v.z; }
 	public Point3f(Vec3fBase v) { this.x = v.getX(); this.y = v.getY(); this.z = v.getZ(); }
 	public Point3f(Vec3dBase v) { this.x = (float)v.getX(); this.y = (float)v.getY(); this.z = (float)v.getZ(); }
-	public Point3f(Tuple3f t) { this.x = t.get(0); this.y = t.get(1); this.z = t.get(2); }
-	public Point3f(Tuple3d t) { this.x = (float)t.get(0); this.y = (float)t.get(1); this.z = (float)t.get(2); }
+	public Point3f(Tuple3f t) { this.x = t.v[0]; this.y = t.v[1]; this.z = t.v[2]; }
+	public Point3f(Tuple3d t) { this.x = (float)t.v[0]; this.y = (float)t.v[1]; this.z = (float)t.v[2]; }
 	public Point3f(Tup3fBase t) { this.x = t.get(0); this.y = t.get(1); this.z = t.get(2); }
 	public Point3f(Tup3dBase t) { this.x = (float)t.get(0); this.y = (float)t.get(1); this.z = (float)t.get(2); }
 	public Point3f(Point3f p) { this.x = p.x; this.y = p.y; this.z = p.z; }
@@ -102,8 +102,8 @@ public class Point3f implements Tup3f
 	public Point3f set(Vector3d v) { this.x = (float)v.x; this.y = (float)v.y; this.z = (float)v.z; return this; }
 	public Point3f set(Vec3fBase v) { this.x = v.getX(); this.y = v.getY(); this.z = v.getZ(); return this; }
 	public Point3f set(Vec3dBase v) { this.x = (float)v.getX(); this.y = (float)v.getY(); this.z = (float)v.getZ(); return this; }
-	public Point3f set(Tuple3f t) { this.x = t.get(0); this.y = t.get(1); this.z = t.get(2); return this; }
-	public Point3f set(Tuple3d t) { this.x = (float)t.get(0); this.y = (float)t.get(1); this.z = (float)t.get(2); return this; }
+	public Point3f set(Tuple3f t) { this.x = t.v[0]; this.y = t.v[1]; this.z = t.v[2]; return this; }
+	public Point3f set(Tuple3d t) { this.x = (float)t.v[0]; this.y = (float)t.v[1]; this.z = (float)t.v[2]; return this; }
 	public Point3f set(Tup3fBase t) { this.x = t.get(0); this.y = t.get(1); this.z = t.get(2); return this; }
 	public Point3f set(Tup3dBase t) { this.x = (float)t.get(0); this.y = (float)t.get(1); this.z = (float)t.get(2); return this; }
 	public Point3f set(Point3f p) { this.x = p.x; this.y = p.y; this.z = p.z; return this; }
