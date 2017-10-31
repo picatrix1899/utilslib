@@ -6,7 +6,6 @@ import cmn.utilslib.essentials.BufferUtils;
 import cmn.utilslib.math.Quaternion;
 import cmn.utilslib.math.tuple.Tuple3f;
 import cmn.utilslib.math.vector.Vector3f;
-import cmn.utilslib.math.vector.api.Vec3f;
 import cmn.utilslib.math.vector.api.Vec3fBase;
 
 /**
@@ -49,7 +48,7 @@ public class Matrix3f
 		return this;
 	}
 	
-	public static Matrix3f iZero()
+	public static Matrix3f zero()
 	{
 		Matrix3f m = new Matrix3f();
 		
@@ -69,7 +68,7 @@ public class Matrix3f
 		return this;
 	}
 	
-	public static Matrix3f iIdentity()
+	public static Matrix3f identity()
 	{
 		Matrix3f m = new Matrix3f();
 		
@@ -89,21 +88,21 @@ public class Matrix3f
 		return this;
 	}
 	
-	public static Matrix3f iRotation(Quaternion q)
+	public static Matrix3f rotation(Quaternion q)
 	{
 		Matrix3f m = new Matrix3f();
 		
-		m.m0.v[0] = (float)(1 - 2		*	(q.y * q.y + q.z * q.z));
-		m.m0.v[1] = (float)(2			*	(q.x * q.y - q.w * q.z));
-		m.m0.v[2] = (float)(2			*	(q.x * q.z + q.w * q.y));
+		m.m0.v[0] = (float) (1.0d - 2.0d	*	(q.getY() * q.getY() + q.getZ() * q.getZ()));
+		m.m0.v[1] = (float) (2.0d			*	(q.getX() * q.getY() - q.getW() * q.getZ()));
+		m.m0.v[2] = (float) (2.0d			*	(q.getX() * q.getZ() + q.getW() * q.getY()));
 		
-		m.m1.v[0] = (float)(2			*	(q.x * q.y + q.w * q.z));
-		m.m1.v[1] = (float)(1 - 2		*	(q.x * q.x + q.z * q.z));
-		m.m1.v[2] = (float)(2			*	(q.y * q.z - q.w * q.x));
+		m.m1.v[0] = (float) (2.0d			*	(q.getX() * q.getY() + q.getW() * q.getZ()));
+		m.m1.v[1] = (float) (1.0d - 2.0d	*	(q.getX() * q.getX() + q.getZ() * q.getZ()));
+		m.m1.v[2] = (float) (2.0d			*	(q.getY() * q.getZ() - q.getW() * q.getX()));
 		
-		m.m2.v[0] = (float)(2			*	(q.x * q.z - q.w * q.y));
-		m.m2.v[1] = (float)(2			*	(q.y * q.z + q.w * q.x));
-		m.m2.v[2] = (float)(1 - 2		*	(q.x * q.x + q.y * q.y));
+		m.m2.v[0] = (float) (2.0d			*	(q.getX() * q.getZ() - q.getW() * q.getY()));
+		m.m2.v[1] = (float) (2.0d			*	(q.getY() * q.getZ() + q.getW() * q.getX()));
+		m.m2.v[2] = (float) (1.0d - 2.0d	*	(q.getX() * q.getX() + q.getY() * q.getY()));
 		
 		return m;
 	}
@@ -125,7 +124,7 @@ public class Matrix3f
 		return this;
 	}
 	
-	public static Matrix3f iRotation(Vec3fBase axis, float angle)
+	public static Matrix3f rotation(Vec3fBase axis, float angle)
 	{
 		Matrix3f m = new Matrix3f();
 		
@@ -187,7 +186,7 @@ public class Matrix3f
 		return this;
 	}
 	
-	public static Matrix3f iScaling(Vec3fBase v)
+	public static Matrix3f scaling(Vec3fBase v)
 	{
 		Matrix3f m = new Matrix3f();
 		
@@ -206,7 +205,7 @@ public class Matrix3f
 		return m;
 	}
 	
-	public static Matrix3f iScaling(float sx, float sy, float sz)
+	public static Matrix3f scaling(float sx, float sy, float sz)
 	{
 		Matrix3f m = new Matrix3f();
 		
@@ -289,29 +288,33 @@ public class Matrix3f
 		return dest;
 	}
 	
-	public Vec3f transformN(Vec3fBase v)
+	public Vector3f transformN(Vec3fBase v)
 	{
 		return transform(this, v, null);
 	}
 	
-	public Vec3f transform(Vec3f dest)
+	public Vector3f transform(Vector3f dest)
 	{
 		if (dest == null) dest = new Vector3f();
 
-		dest.setX(this.m0.v[0] * dest.getX() + this.m0.v[1] * dest.getY() + this.m0.v[2] * dest.getZ());
-		dest.setY(this.m1.v[0] * dest.getX() + this.m1.v[1] * dest.getY() + this.m1.v[2] * dest.getZ());
-		dest.setZ(this.m2.v[0] * dest.getX() + this.m2.v[1] * dest.getY() + this.m2.v[2] * dest.getZ());
+		float x_ = this.m0.v[0] * dest.x + this.m0.v[1] * dest.y + this.m0.v[2] * dest.z;
+		float y_ = this.m1.v[0] * dest.x + this.m1.v[1] * dest.y + this.m1.v[2] * dest.z;
+		float z_ = this.m2.v[0] * dest.x + this.m2.v[1] * dest.y + this.m2.v[2] * dest.z;
+
+		dest.set(x_, y_, z_);
 		
 		return dest;
 	}
 	
-	public static Vec3f transform(Matrix3f l, Vec3fBase r, Vec3f dest)
+	public static Vector3f transform(Matrix3f l, Vec3fBase r, Vector3f dest)
 	{
 		if (dest == null) dest = new Vector3f();
 
-		dest.setX(l.m0.v[0] * r.getX() + l.m0.v[1] * r.getY() + l.m0.v[2] * r.getZ());
-		dest.setY(l.m1.v[0] * r.getX() + l.m1.v[1] * r.getY() + l.m1.v[2] * r.getZ());
-		dest.setZ(l.m2.v[0] * r.getX() + l.m2.v[1] * r.getY() + l.m2.v[2] * r.getZ());
+		float x_ = l.m0.v[0] * r.getX() + l.m0.v[1] * r.getY() + l.m0.v[2] * r.getZ();
+		float y_ = l.m1.v[0] * r.getX() + l.m1.v[1] * r.getY() + l.m1.v[2] * r.getZ();
+		float z_ = l.m2.v[0] * r.getX() + l.m2.v[1] * r.getY() + l.m2.v[2] * r.getZ();
+		
+		dest.set(x_, y_ , z_);
 		
 		return dest;
 	}

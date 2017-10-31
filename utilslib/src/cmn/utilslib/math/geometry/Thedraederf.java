@@ -66,5 +66,50 @@ public class Thedraederf implements ConvexPolygonalShape3f
 	{
 		return null;
 	}
+
+	public AABB3f getAABBf()
+	{
+		return null;
+	}
+
+	public AABB3f getAABBf(Matrix4f t)
+	{
+		return null;
+	}
+
+	public OBB3f getOBBf(OBB3f obb)
+	{
+		return null;
+	}
+
+	public OBB3f getOBBf(Matrix4f t, Matrix4f r)
+	{
+		return null;
+	}
+
+	public OBB3f getOBBf(Matrix4f t, Matrix4f r, OBB3f obb)
+	{
+		return null;
+	}
+
+	public BoundingSpheref getBoundingSpheref(BoundingSpheref s)
+	{
+		return null;
+	}
+
+	public BoundingSpheref getBoundingSpheref(Matrix4f t, BoundingSpheref s)
+	{
+		return null;
+	}
+
+	public BoundingElipsoidf getBoundingElisoidf(BoundingElipsoidf e)
+	{
+		return null;
+	}
+
+	public BoundingElipsoidf getBoundingElipsoidf(Matrix4f t, BoundingElipsoidf e)
+	{
+		return null;
+	}
 	
 }

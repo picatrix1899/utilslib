@@ -60,33 +60,6 @@ public class Triangle3f implements ConvexPolygonalShape3f
 		return new Point3f[] {this.a, this.b, this.c};
 	}
 
-	public AABB3f getAABBf(Matrix4f t, AABB3f aabb)
-	{
-		Triangle3f tr = transform(t, new Triangle3f());
-		
-		AABB3f out = tr.getAABBf(aabb);
-		
-		return out;
-	}
-
-	public OBB3f getOBBf(Matrix3f t)
-	{
-		Point3f min = new Point3f(getMinX(), getMinY(), getMinZ());
-		Point3f max = new Point3f(getMaxX(), getMaxY(), getMaxZ());
-		
-		return new OBB3f(min, max, Matrix3f.iIdentity());
-	}
-
-	public BoundingSpheref getBoundingSpheref(Matrix4f t)
-	{
-		return null;
-	}
-
-	public BoundingElipsoidf getBoundingElipsoidf(Matrix4f t)
-	{
-		return null;
-	}
-
 	public Point3f[] getPoints(Matrix4f t)
 	{
 		Point3f a = Matrix4f.transform(t, this.a, new Point3f());
@@ -96,6 +69,116 @@ public class Triangle3f implements ConvexPolygonalShape3f
 		return new Point3f[] {a, b, c};
 	}
 
+	
+	public AABB3f getAABBf()
+	{
+		Vector3f min = new Vector3f(getMinX(), getMinY(), getMinZ());
+		Vector3f max = new Vector3f(getMaxX(), getMaxY(), getMaxZ());
+		
+		Vector3f halfExtend = max.subN(min).mul(0.5);
+		Vector3f center = min.addN(halfExtend);
+		
+		return new AABB3f(new Point3f(center), halfExtend);
+	}
+	
+	public AABB3f getAABBf(AABB3f aabb)
+	{
+		Vector3f min = new Vector3f(getMinX(), getMinY(), getMinZ());
+		Vector3f max = new Vector3f(getMaxX(), getMaxY(), getMaxZ());
+		
+		Vector3f halfExtend = max.subN(min).mul(0.5);
+		Vector3f center = min.addN(halfExtend);
+		
+		return aabb.set(new Point3f(center), halfExtend);
+	}
+	
+	public AABB3f getAABBf(Matrix4f t)
+	{
+		Triangle3f tr = transform(t);
+		
+		Vector3f min = new Vector3f(tr.getMinX(), tr.getMinY(), tr.getMinZ());
+		Vector3f max = new Vector3f(tr.getMaxX(), tr.getMaxY(), tr.getMaxZ());
+		
+		Vector3f halfExtend = max.subN(min).mul(0.5);
+		Vector3f center = min.addN(halfExtend);
+		
+		return new AABB3f(new Point3f(center), halfExtend);
+	}
+	
+	public AABB3f getAABBf(Matrix4f t, AABB3f aabb)
+	{
+		Triangle3f tr = transform(t);
+		
+		Vector3f min = new Vector3f(tr.getMinX(), tr.getMinY(), tr.getMinZ());
+		Vector3f max = new Vector3f(tr.getMaxX(), tr.getMaxY(), tr.getMaxZ());
+		
+		Vector3f halfExtend = max.subN(min).mul(0.5);
+		Vector3f center = min.addN(halfExtend);
+		
+		return new AABB3f(new Point3f(center), halfExtend);
+	}
+
+	public OBB3f getOBBf()
+	{
+		Vector3f min = new Vector3f(getMinX(), getMinY(), getMinZ());
+		Vector3f max = new Vector3f(getMaxX(), getMaxY(), getMaxZ());
+
+		Vector3f halfExtend = max.subN(min).mul(0.5f);
+		Point3f center = new Point3f(min.addN(halfExtend));
+		
+		return new OBB3f(center, halfExtend, Matrix4f.identity());
+	}
+	
+	public OBB3f getOBBf(OBB3f obb)
+	{
+		Vector3f min = new Vector3f(getMinX(), getMinY(), getMinZ());
+		Vector3f max = new Vector3f(getMaxX(), getMaxY(), getMaxZ());
+
+		Vector3f halfExtend = max.subN(min).mul(0.5f);
+		Point3f center = new Point3f(min.addN(halfExtend));
+		
+		return obb.set(center, halfExtend, Matrix4f.identity());
+	}
+	
+
+	public OBB3f getOBBf(Matrix4f t, Matrix4f r)
+	{
+		Vector3f min = new Vector3f(getMinX(), getMinY(), getMinZ());
+		Vector3f max = new Vector3f(getMaxX(), getMaxY(), getMaxZ());
+
+		t.transform(min);
+		t.transform(max);
+		
+		Vector3f halfExtend = max.subN(min).mul(0.5f);
+		Point3f center = new Point3f(min.addN(halfExtend));
+		
+		return new OBB3f(center, halfExtend, r);
+	}
+	
+	public OBB3f getOBBf(Matrix4f t, Matrix4f r, OBB3f obb)
+	{
+		Vector3f min = new Vector3f(getMinX(), getMinY(), getMinZ());
+		Vector3f max = new Vector3f(getMaxX(), getMaxY(), getMaxZ());
+
+		t.transform(min);
+		t.transform(max);
+		
+		Vector3f halfExtend = max.subN(min).mul(0.5f);
+		Point3f center = new Point3f(min.addN(halfExtend));
+		
+		return obb.set(center, halfExtend, r);
+	}
+
+
+	public Triangle3f transform(Matrix4f m)
+	{
+		Point3f a = Matrix4f.transform(m, this.a, new Point3f());
+		Point3f b = Matrix4f.transform(m, this.b, new Point3f());
+		Point3f c = Matrix4f.transform(m, this.c, new Point3f());
+		
+		return new Triangle3f(a, b, c);
+	}
+	
 	public Triangle3f transform(Matrix4f m, Triangle3f t)
 	{
 		if(t == null) t = new Triangle3f();
@@ -107,21 +190,18 @@ public class Triangle3f implements ConvexPolygonalShape3f
 		return t.set(a, b, c);
 	}
 
-	public AABB3f getAABBf(AABB3f aabb)
+	public Triangle3f transform(Matrix3f m, Triangle3f t)
 	{
-		Point3f min = new Point3f(getMinX(), getMinY(), getMinZ());
-		Point3f max = new Point3f(getMaxX(), getMaxY(), getMaxZ());
+		if(t == null) t = new Triangle3f();
 		
-		return new AABB3f(min, max);
+		Point3f a = new Point3f(Matrix3f.transform(m, this.a.asVector3f(new Vector3f()), null));
+		Point3f b = new Point3f(Matrix3f.transform(m, this.b.asVector3f(new Vector3f()), null));
+		Point3f c = new Point3f(Matrix3f.transform(m, this.c.asVector3f(new Vector3f()), null));
+		
+		return t.set(a, b, c);
 	}
+	
 
-	public OBB3f getOBBf()
-	{
-		Point3f min = new Point3f(getMinX(), getMinY(), getMinZ());
-		Point3f max = new Point3f(getMaxX(), getMaxY(), getMaxZ());
-		
-		return new OBB3f(min, max, Matrix3f.iIdentity());
-	}
 
 	public BoundingSpheref getBoundingSpheref()
 	{
@@ -145,5 +225,35 @@ public class Triangle3f implements ConvexPolygonalShape3f
 		double alpha = 1 - gamma - beta;
 		
 		return 0 <= alpha && alpha <= 1 && 0 <= beta && beta <= 1 && 0 <= gamma && gamma <= 1;
+	}
+
+	public BoundingSpheref getBoundingSpheref(Matrix4f t)
+	{
+		return null;
+	}
+
+	public BoundingElipsoidf getBoundingElipsoidf(Matrix4f t)
+	{
+		return null;
+	}
+
+	public BoundingSpheref getBoundingSpheref(BoundingSpheref s)
+	{
+		return null;
+	}
+
+	public BoundingSpheref getBoundingSpheref(Matrix4f t, BoundingSpheref s)
+	{
+		return null;
+	}
+
+	public BoundingElipsoidf getBoundingElisoidf(BoundingElipsoidf e)
+	{
+		return null;
+	}
+
+	public BoundingElipsoidf getBoundingElipsoidf(Matrix4f t, BoundingElipsoidf e)
+	{
+		return null;
 	}
 }

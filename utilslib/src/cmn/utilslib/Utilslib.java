@@ -8,4 +8,7 @@ public class Utilslib
 	
 	public static final SimpleErrorHandler SIMPLE_ERROR_HANDLER = new SimpleErrorHandler();
 	
+	public static final String AABB3F_TOSTRING_PRESENTATION_CENTER_EXTEND = "";
+	public static final String AABB3F_TOSTRING_PRESENTATION_MIN_MAX = "";
+	
 }

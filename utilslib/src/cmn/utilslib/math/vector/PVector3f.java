@@ -46,6 +46,7 @@ public abstract class PVector3f implements Vec3fBase
 				{
 					case 0: return x;
 					case 1: return y;
+					case 2: return z;
 				}
 				
 				return Float.NaN;
