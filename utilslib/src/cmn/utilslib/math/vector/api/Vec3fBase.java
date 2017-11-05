@@ -358,39 +358,7 @@ public interface Vec3fBase extends Tup3fBase
 	/** Returns the squared length of the Vector */
 	double squaredLength();
 	
-	/*
-	############################
-	##                        ##
-	##  VECTOR INTERPOLATION  ##
-	##                        ##
-	############################
-	 */
-	
-	/** Returns a new Vector with the result of linear interpolation between this Vector and the Vector v by the Value f */
-	Vec3f lerpN(Vec3fBase v, float f);
-	
-	/** Returns a new Vector with the result of linear interpolation between this Vector and the Vector v by the Value f */
-	Vec3f lerpN(Vec3dBase v, float f);
-	
-	/** Returns a new Vector with the result of linear interpolation between this Vector and the Vector v by the Value f */
-	Vec3f lerpN(Vec3fBase v, double f);
-	
-	/** Returns a new Vector with the result of linear interpolation between this Vector and the Vector v by the Value f */
-	Vec3f lerpN(Vec3dBase v, double f);
-	
-	
-	
-	/** Returns a new Vector with the result of spherical linear interpolation between this Vector and the Vector v by the Value f */
-	Vec3f slerpN(Vec3fBase v, float f);
-	
-	/** Returns a new Vector with the result of spherical linear interpolation between this Vector and the Vector v by the Value f */
-	Vec3f slerpN(Vec3dBase v, float f);
-	
-	/** Returns a new Vector with the result of spherical linear interpolation between this Vector and the Vector v by the Value f */
-	Vec3f slerpN(Vec3fBase v, double f);
-	
-	/** Returns a new Vector with the result of spherical linear interpolation between this Vector and the Vector v by the Value f */
-	Vec3f slerpN(Vec3dBase v, double f);
+
 	
 	/*
 	#######################

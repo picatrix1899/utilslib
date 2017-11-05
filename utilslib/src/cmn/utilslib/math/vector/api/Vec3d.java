@@ -260,39 +260,5 @@ public interface Vec3d extends Vec3dBase, Tup3d
 	
 	/** Rotates the Vector by the Quaternion q and returns it */
 	Vec3d rotate(Quaternion q);
-
-	/*
-	############################
-	##                        ##
-	##  VECTOR INTERPOLATION  ##
-	##                        ##
-	############################
-	 */
-	
-	/** Sets the Vector to the result of the linear interpolation between the Vector and the Vector v with the Value f and returns it */
-	Vec3d lerp(Vec3fBase v, float f);
-	
-	/** Sets the Vector to the result of the linear interpolation between the Vector and the Vector v with the Value f and returns it */
-	Vec3d lerp(Vec3dBase v, float f);
-	
-	/** Sets the Vector to the result of the linear interpolation between the Vector and the Vector v with the Value f and returns it */
-	Vec3d lerp(Vec3fBase v, double f);
-	
-	/** Sets the Vector to the result of the linear interpolation between the Vector and the Vector v with the Value f and returns it */
-	Vec3d lerp(Vec3dBase v, double f);
-	
-	
-	
-	/** Sets the Vector to the result of the spherical linear interpolation between the Vector and the Vector v with the Value f and returns it */
-	Vec3d slerp(Vec3fBase v, float f);
-	
-	/** Sets the Vector to the result of the spherical linear interpolation between the Vector and the Vector v with the Value f and returns it */
-	Vec3d slerp(Vec3dBase v, float f);
-	
-	/** Sets the Vector to the result of the spherical linear interpolation between the Vector and the Vector v with the Value f and returns it */
-	Vec3d slerp(Vec3fBase v, double f);
-	
-	/** Sets the Vector to the result of the spherical linear interpolation between the Vector and the Vector v with the Value f and returns it */
-	Vec3d slerp(Vec3dBase v, double f);
 	
 }
