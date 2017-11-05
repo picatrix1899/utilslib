@@ -253,39 +253,6 @@ public abstract class PVector3d implements Vec3dBase
 			/** {@inheritDoc} */
 			public Vector3d rotateN(Quaternion q) { return clone().rotate(q); }
 		 	
-			/*
-			############################
-			##                        ##
-			##  VECTOR INTERPOLATION  ##
-			##                        ##
-			############################
-			 */
-
-			/** {@inheritDoc} */
-			public Vector3d lerpN(Vec3fBase v, float f) { return clone().lerp(v, f); }
-			
-			/** {@inheritDoc} */
-			public Vector3d lerpN(Vec3dBase v, float f) { return clone().lerp(v, f); }
-			
-			/** {@inheritDoc} */
-			public Vector3d lerpN(Vec3fBase v, double f) { return clone().lerp(v, f); }
-			
-			/** {@inheritDoc} */
-			public Vector3d lerpN(Vec3dBase v, double f) { return clone().lerp(v, f); }
-
-			
-			
-			/** {@inheritDoc} */
-			public Vector3d slerpN(Vec3fBase v, float f) { return clone().slerp(v, f); }
-			
-			/** {@inheritDoc} */
-			public Vector3d slerpN(Vec3dBase v, float f) { return clone().slerp(v, f); }
-			
-			/** {@inheritDoc} */
-			public Vector3d slerpN(Vec3fBase v, double f) { return clone().slerp(v, f); }
-			
-			/** {@inheritDoc} */
-			public Vector3d slerpN(Vec3dBase v, double f) { return clone().slerp(v, f); }
 			
 			/*
 			#######################
