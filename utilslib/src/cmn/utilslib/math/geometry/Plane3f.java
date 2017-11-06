@@ -21,8 +21,8 @@ public class Plane3f
 	{
 		setP(p);
 		
-		setX(p.vectorTo(pointB, Vector3f.TEMP));
-		setY(p.vectorTo(pointD, Vector3f.TEMP));
+		setX(p.vectorTof(pointB, Vector3f.TEMP));
+		setY(p.vectorTof(pointD, Vector3f.TEMP));
 	}
 	
 	public Plane3f(Plane3f e)
@@ -56,11 +56,11 @@ public class Plane3f
 	
 	public Plane3f set(Plane3f e) { return setP(e.p).setX(e.x).setY(e.y); }
 	public Plane3f set(Point3f p, Vector3f x, Vector3f y) { return setP(p).setX(x).setY(y); }
-	public Plane3f set(Point3f p, Point3f pointB, Point3f pointD) { return setP(p).setX(p.vectorTo(pointB,Vector3f.TEMP0)).setY(p.vectorTo(pointD, Vector3f.TEMP1)); }
+	public Plane3f set(Point3f p, Point3f pointB, Point3f pointD) { return setP(p).setX(p.vectorTof(pointB,Vector3f.TEMP0)).setY(p.vectorTof(pointD, Vector3f.TEMP1)); }
 	
 	public boolean liesPointOnPlane(Point3f p)
 	{
-		Vector3f off = getNormal().mul(this.p.vectorTo(p, Vector3f.TEMP));
+		Vector3f off = getNormal().mul(this.p.vectorTof(p, Vector3f.TEMP));
 		
 		float sum = off.getX() + off.getY() + off.getZ();
 		
@@ -118,7 +118,7 @@ public class Plane3f
 	
 	public Point3f intersectPointWithPlane(Line3f s)
 	{
-		Vector3f v = s.p1.vectorTo(s.p2, Vector3f.TEMP0);
+		Vector3f v = s.p1.vectorTof(s.p2, Vector3f.TEMP0);
 		
 		if(v.length() == 0.0f) return null;
 		if(this.x.length() == 0.0f) return null;
@@ -139,7 +139,7 @@ public class Plane3f
 		
 		if(lambda < 0.0d) return null;
 		
-		Vector3f p1p2 = s.p1.vectorTo(s.p2, Vector3f.TEMP1);
+		Vector3f p1p2 = s.p1.vectorTof(s.p2, Vector3f.TEMP1);
 		
 		if(lambda > p1p2.length()) return null;
 

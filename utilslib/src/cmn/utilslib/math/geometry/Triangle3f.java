@@ -215,10 +215,10 @@ public class Triangle3f implements ConvexPolygonalShape3f
 	
 	public boolean containsPointProjection(Point3f p)
 	{
-		Vector3f u = this.a.vectorTo(this.b, new Vector3f());
-		Vector3f v = this.a.vectorTo(this.c, new Vector3f());
+		Vector3f u = this.a.vectorTof(this.b, new Vector3f());
+		Vector3f v = this.a.vectorTof(this.c, new Vector3f());
 		Vector3f n = u.cross(v);
-		Vector3f w = this.a.vectorTo(p, new Vector3f());
+		Vector3f w = this.a.vectorTof(p, new Vector3f());
 		
 		double gamma = n.dot(u.cross(w)) / n.dot(n);
 		double beta = n.dot(w.cross(v)) / n.dot(n);

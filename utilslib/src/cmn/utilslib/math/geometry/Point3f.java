@@ -107,7 +107,6 @@ public class Point3f implements Tup3f
 	public Point3f set(Tup3fBase t) { this.x = t.get(0); this.y = t.get(1); this.z = t.get(2); return this; }
 	public Point3f set(Tup3dBase t) { this.x = (float)t.get(0); this.y = (float)t.get(1); this.z = (float)t.get(2); return this; }
 	public Point3f set(Point3f p) { this.x = p.x; this.y = p.y; this.z = p.z; return this; }
-
 	public Point3f set(float scalar) { this.x = scalar; this.y = scalar; this.z = scalar; return this; }
 	public Point3f set(double scalar) { this.x = (float)scalar; this.y = (float)scalar; this.z = (float)scalar; return this; }
 	public Point3f set(float x, float y, float z) { this.x = x; this.y = y; this.z = z; return this; }
@@ -138,24 +137,36 @@ public class Point3f implements Tup3f
 	}
 	
 	public Vector3f asVector3f(Vector3f dst) { return dst.set(x, y, z); }
+	public Vector3d asVector3d(Vector3d dst) { return dst.set(x, y, z); }
 	public Vector3f asVector3f() { return new Vector3f(x, y, z); }
+	public Vector3d asVector3d() { return new Vector3d(x, y, z); }
 	
 
 	
-	public Vector3f vectorTo(Point3f p, Vector3f v) { return p.asVector3f(v).sub(asVector3f(Vector3f.TEMP)); }
-	public Vector3f vectorFrom(Point3f p, Vector3f v) { return asVector3f(v).sub(p.asVector3f(Vector3f.TEMP)); }
+	public Vector3f vectorTof(Point3f p, Vector3f v) { return p.asVector3f(v).sub(asVector3f()); }
+	public Vector3d vectorTod(Point3f p, Vector3d v) { return p.asVector3d(v).sub(asVector3d()); }
+	public Vector3f vectorFromf(Point3f p, Vector3f v) { return asVector3f(v).sub(p.asVector3f()); }
+	public Vector3d vectorFromd(Point3f p, Vector3d v) { return asVector3d(v).sub(p.asVector3d()); }
 	
-	public Vector3f vectorTo(Point3f p) { return p.asVector3f().sub(asVector3f(Vector3f.TEMP)); }
-	public Vector3f vectorFrom(Point3f p) { return asVector3f().sub(p.asVector3f(Vector3f.TEMP)); };
+	public Vector3f vectorTof(Point3f p) { return p.asVector3f().sub(asVector3f()); }
+	public Vector3d vectorTod(Point3f p) { return p.asVector3d().sub(asVector3d()); }
+	public Vector3f vectorFromf(Point3f p) { return asVector3f().sub(p.asVector3f()); };
+	public Vector3d vectorFromd(Point3f p) { return asVector3d().sub(p.asVector3d()); };
 	
-	public Vector3f directionTo(Point3f p, Vector3f v) { return vectorTo(p, v).normalize(); }
-	public Vector3f directionFrom(Point3f p, Vector3f v) { return vectorFrom(p, v).normalize(); }
+	public Vector3f directionTof(Point3f p, Vector3f v) { return vectorTof(p, v).normalize(); }
+	public Vector3d directionTod(Point3f p, Vector3d v) { return vectorTod(p, v).normalize(); }
+	public Vector3f directionFromf(Point3f p, Vector3f v) { return vectorFromf(p, v).normalize(); }
+	public Vector3d directionFromd(Point3f p, Vector3d v) { return vectorFromd(p, v).normalize(); }
 	
-	public Vector3f directionTo(Point3f p) { return vectorTo(p).normalize(); }
-	public Vector3f directionFrom(Point3f p) { return vectorFrom(p).normalize(); }
+	public Vector3f directionTof(Point3f p) { return vectorTof(p).normalize(); }
+	public Vector3d directionTod(Point3f p) { return vectorTod(p).normalize(); }
+	public Vector3f directionFromf(Point3f p) { return vectorFromf(p).normalize(); }
+	public Vector3d directionFromd(Point3f p) { return vectorFromd(p).normalize(); }
 	
-	public Point3f jump(Vec3fBase v) { return set(asVector3f(Vector3f.TEMP).add(v)); }
+	public Point3f jump(Vec3fBase v) { return set(asVector3f().add(v)); }
+	public Point3f jump(Vec3dBase v) { return set(asVector3d().add(v)); }
 	public Point3f jumpN(Vec3fBase v) { return clone().jump(v); }
+	public Point3f jumpN(Vec3dBase v) { return clone().jump(v); }
 	
 	public Point3f clone() { return new Point3f(this); }
 	

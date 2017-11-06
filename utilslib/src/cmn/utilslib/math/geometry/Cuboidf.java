@@ -13,7 +13,7 @@ public class Cuboidf implements ConvexPolygonalShape3f
 	
 	public Cuboidf(Point3f min, Point3f max)
 	{
-		this.halfExtend.set(min.vectorTo(max, new Vector3f()).mul(0.5));
+		this.halfExtend.set(min.vectorTof(max, new Vector3f()).mul(0.5));
 		this.center.set(min.asVector3f(new Vector3f()).add(this.halfExtend));
 	}
 	

@@ -19,7 +19,7 @@ public class Area3f
 	
 	public Plane3f asPlane()
 	{
-		return new Plane3f(this.p2, this.p2.directionTo(this.p3, Vector3f.TEMP0) , this.p2.directionTo(p1, Vector3f.TEMP1));
+		return new Plane3f(this.p2, this.p2.directionTof(this.p3, Vector3f.TEMP0) , this.p2.directionTof(p1, Vector3f.TEMP1));
 	}
 
 	
@@ -35,14 +35,14 @@ public class Area3f
 		Vector3f p2vp = vp.sub(p2.asVector3f(Vector3f.TEMP));
 		
 		// calculate border line functions
-		Vector3f minXLine = p2.vectorTo(p3, Vector3f.TEMP1);
+		Vector3f minXLine = p2.vectorTof(p3, Vector3f.TEMP1);
 		minXLine = minXLine.div(minXLine.getX());
-		Vector3f maxXLine = p1.vectorTo(p4, Vector3f.TEMP2);
+		Vector3f maxXLine = p1.vectorTof(p4, Vector3f.TEMP2);
 		maxXLine = maxXLine.div(maxXLine.getX());
 		
-		Vector3f minYLine = p2.vectorTo(p1, Vector3f.TEMP3);
+		Vector3f minYLine = p2.vectorTof(p1, Vector3f.TEMP3);
 		minYLine = minYLine.div(minYLine.getY());
-		Vector3f maxYLine = p3.vectorTo(p4, Vector3f.TEMP4);
+		Vector3f maxYLine = p3.vectorTof(p4, Vector3f.TEMP4);
 		maxYLine = maxYLine.div(maxYLine.getY());
 		
 		Vector3f minPosX = p2.asVector3f(Vector3f.TEMP1).add(minXLine.mul(p2vp.getX()));
@@ -72,14 +72,14 @@ public class Area3f
 		Vector3f p2vp = vp.sub(p2.asVector3f(Vector3f.TEMP));
 		
 		// calculate border line functions
-		Vector3f minXLine = p2.vectorTo(p3, Vector3f.TEMP1);
+		Vector3f minXLine = p2.vectorTof(p3, Vector3f.TEMP1);
 		minXLine = minXLine.div(minXLine.getX());
-		Vector3f maxXLine = p1.vectorTo(p4, Vector3f.TEMP2);
+		Vector3f maxXLine = p1.vectorTof(p4, Vector3f.TEMP2);
 		maxXLine = maxXLine.div(maxXLine.getX());
 		
-		Vector3f minYLine = p2.vectorTo(p1, Vector3f.TEMP3);
+		Vector3f minYLine = p2.vectorTof(p1, Vector3f.TEMP3);
 		minYLine = minYLine.div(minYLine.getY());
-		Vector3f maxYLine = p3.vectorTo(p4, Vector3f.TEMP4);
+		Vector3f maxYLine = p3.vectorTof(p4, Vector3f.TEMP4);
 		maxYLine = maxYLine.div(maxYLine.getY());
 		
 		Vector3f minPosX = p2.asVector3f(Vector3f.TEMP1).add(minXLine.mul(p2vp.getX()));

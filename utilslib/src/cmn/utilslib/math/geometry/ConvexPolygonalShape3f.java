@@ -395,6 +395,6 @@ public interface ConvexPolygonalShape3f extends Shape3f
 		Point3f p1 = getFarthestPointInDirection(a, v);
 		Point3f p2 = getFarthestPointInDirection(b, v.negateN());
 		
-		return p2.jump(p1.vectorFrom(p2, Vector3f.TEMP.setZero()));
+		return p2.jump(p1.vectorFromf(p2, Vector3f.TEMP.setZero()));
 	}
 }
