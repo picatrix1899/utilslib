@@ -1,58 +1,48 @@
 package cmn.utilslib.math.geometry;
 
+import cmn.utilslib.Pool;
 import cmn.utilslib.math.matrix.Matrix3f;
 import cmn.utilslib.math.matrix.Matrix4f;
+import cmn.utilslib.math.tuple.Tuple3d;
+import cmn.utilslib.math.tuple.Tuple3f;
+import cmn.utilslib.math.tuple.api.Tup3dBase;
 import cmn.utilslib.math.tuple.api.Tup3fBase;
+import cmn.utilslib.math.vector.Vector3d;
 import cmn.utilslib.math.vector.Vector3f;
+import cmn.utilslib.math.vector.api.Vec3dBase;
+import cmn.utilslib.math.vector.api.Vec3fBase;
 
 public class Triangle3f implements ConvexPolygonalShape3f
-{
+{	
 	public Point3f a = new Point3f();
 	public Point3f b = new Point3f();
 	public Point3f c = new Point3f();
 	
+	public static final Pool<Triangle3f> pool = new Pool<Triangle3f>(Triangle3f.class);
+	
 	public Triangle3f() { }
+	public Triangle3f(Vector3f a, Vector3f b, Vector3f c) { this.a.set(a); this.b.set(b); this.c.set(c); }
+	public Triangle3f(Vector3d a, Vector3d b, Vector3d c) { this.a.set(a); this.b.set(b); this.c.set(c); }
+	public Triangle3f(Vec3fBase a, Vec3fBase b, Vec3fBase c) { this.a.set(a); this.b.set(b); this.c.set(c); }
+	public Triangle3f(Vec3dBase a, Vec3dBase b, Vec3dBase c) { this.a.set(a); this.b.set(b); this.c.set(c); }
+	public Triangle3f(Tuple3f a, Tuple3f b, Tuple3f c) { this.a.set(a); this.b.set(b); this.c.set(c); }
+	public Triangle3f(Tuple3d a, Tuple3d b, Tuple3d c) { this.a.set(a); this.b.set(b); this.c.set(c); }
+	public Triangle3f(Tup3fBase a, Tup3fBase b, Tup3fBase c) { this.a.set(a); this.b.set(b); this.c.set(c); }
+	public Triangle3f(Tup3dBase a, Tup3dBase b, Tup3dBase c) { this.a.set(a); this.b.set(b); this.c.set(c); }
+	public Triangle3f(Point3f a, Point3f b, Point3f c) { this.a.set(a); this.b.set(b); this.c.set(c); }
+	public Triangle3f(Triangle3f t) { this.a.set(t.a); this.b.set(t.b); this.c.set(t.c); }
 	
-	public Triangle3f(Tup3fBase a, Tup3fBase b, Tup3fBase c)
-	{
-		this.a.set(a);
-		this.b.set(b);
-		this.c.set(c);
-	}
 	
-	public Triangle3f(Triangle3f t)
-	{
-		this.a.set(t.a);
-		this.b.set(t.b);
-		this.c.set(t.c);
-	}
-	
-	public Triangle3f set(Triangle3f t)
-	{
-		this.a.set(t.a);
-		this.b.set(t.b);
-		this.c.set(t.c);
-		
-		return this;
-	}
-	
-	public Triangle3f set(Tup3fBase a, Tup3fBase b, Tup3fBase c)
-	{
-		this.a.set(a);
-		this.b.set(b);
-		this.c.set(c);
-		
-		return this;
-	}
-	
-	public Triangle3f set(Point3f a, Point3f b, Point3f c)
-	{
-		this.a.set(a);
-		this.b.set(b);
-		this.c.set(c);
-		
-		return this;
-	}
+	public Triangle3f set(Vector3f a, Vector3f b, Vector3f c) { this.a.set(a); this.b.set(b); this.c.set(c); return this; }
+	public Triangle3f set(Vector3d a, Vector3d b, Vector3d c) { this.a.set(a); this.b.set(b); this.c.set(c); return this; }
+	public Triangle3f set(Vec3fBase a, Vec3fBase b, Vec3fBase c) { this.a.set(a); this.b.set(b); this.c.set(c); return this; }
+	public Triangle3f set(Vec3dBase a, Vec3dBase b, Vec3dBase c) { this.a.set(a); this.b.set(b); this.c.set(c); return this; }
+	public Triangle3f set(Tuple3f a, Tuple3f b, Tuple3f c) { this.a.set(a); this.b.set(b); this.c.set(c); return this; }
+	public Triangle3f set(Tuple3d a, Tuple3d b, Tuple3d c) { this.a.set(a); this.b.set(b); this.c.set(c); return this; }
+	public Triangle3f set(Tup3fBase a, Tup3fBase b, Tup3fBase c) { this.a.set(a); this.b.set(b); this.c.set(c); return this; }
+	public Triangle3f set(Tup3dBase a, Tup3dBase b, Tup3dBase c) { this.a.set(a); this.b.set(b); this.c.set(c); return this; }
+	public Triangle3f set(Point3f a, Point3f b, Point3f c) { this.a.set(a); this.b.set(b); this.c.set(c); return this; }
+	public Triangle3f set(Triangle3f t) { this.a.set(t.a); this.b.set(t.b); this.c.set(t.c); return this; }
 	
 	@Override
 	public Point3f[] getPoints()
@@ -62,9 +52,9 @@ public class Triangle3f implements ConvexPolygonalShape3f
 
 	public Point3f[] getPoints(Matrix4f t)
 	{
-		Point3f a = Matrix4f.transform(t, this.a, new Point3f());
-		Point3f b = Matrix4f.transform(t, this.b, new Point3f());
-		Point3f c = Matrix4f.transform(t, this.c, new Point3f());
+		Point3f a = t.transformN(this.a);
+		Point3f b = t.transformN(this.b);
+		Point3f c = t.transformN(this.c);
 		
 		return new Point3f[] {a, b, c};
 	}
@@ -172,9 +162,9 @@ public class Triangle3f implements ConvexPolygonalShape3f
 
 	public Triangle3f transform(Matrix4f m)
 	{
-		Point3f a = Matrix4f.transform(m, this.a, new Point3f());
-		Point3f b = Matrix4f.transform(m, this.b, new Point3f());
-		Point3f c = Matrix4f.transform(m, this.c, new Point3f());
+		Point3f a = m.transformN(this.a);
+		Point3f b = m.transformN(this.b);
+		Point3f c = m.transformN(this.c);
 		
 		return new Triangle3f(a, b, c);
 	}
@@ -183,9 +173,9 @@ public class Triangle3f implements ConvexPolygonalShape3f
 	{
 		if(t == null) t = new Triangle3f();
 		
-		Point3f a = Matrix4f.transform(m, this.a, new Point3f());
-		Point3f b = Matrix4f.transform(m, this.b, new Point3f());
-		Point3f c = Matrix4f.transform(m, this.c, new Point3f());
+		Point3f a = m.transformN(this.a);
+		Point3f b = m.transformN(this.b);
+		Point3f c = m.transformN(this.c);
 		
 		return t.set(a, b, c);
 	}

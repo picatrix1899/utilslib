@@ -92,6 +92,6 @@ public interface ConvexPolygonalShape2f extends Shape2f
 		Point2f p1 = getFarthestPointInDirection(a, v);
 		Point2f p2 = getFarthestPointInDirection(b, v.negateN());
 		
-		return p2.move(p1.vectorFrom(p2, Vector2f.TEMP));
+		return p2.jump(p1.vectorFromf(p2));
 	}
 }

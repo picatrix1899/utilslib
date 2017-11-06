@@ -5,9 +5,17 @@ import java.nio.FloatBuffer;
 import cmn.utilslib.essentials.BufferUtils;
 import cmn.utilslib.math.Quaternion;
 import cmn.utilslib.math.geometry.Point3f;
+import cmn.utilslib.math.tuple.Tuple3d;
+import cmn.utilslib.math.tuple.Tuple3f;
+import cmn.utilslib.math.tuple.api.Tup3d;
+import cmn.utilslib.math.tuple.api.Tup3dBase;
+import cmn.utilslib.math.tuple.api.Tup3f;
 import cmn.utilslib.math.tuple.api.Tup3fBase;
+import cmn.utilslib.math.vector.Vector3d;
 import cmn.utilslib.math.vector.Vector3f;
 import cmn.utilslib.math.vector.Vector4f;
+import cmn.utilslib.math.vector.api.Vec3d;
+import cmn.utilslib.math.vector.api.Vec3dBase;
 import cmn.utilslib.math.vector.api.Vec3f;
 import cmn.utilslib.math.vector.api.Vec3fBase;
 
@@ -337,37 +345,6 @@ public class Matrix4f
 		return dest;
 	}
 	
-	
-	public Vector3f transformN(Vec3fBase r) { return Matrix4f.transform(this, r, (Vector3f)null); }
-	
-	public Vector3f transform(Vector3f r) { return Matrix4f.transform(this, r, r); }
-	
-	public static Point3f transform(Matrix4f l, Tup3fBase r, Point3f dest)
-	{
-		if (dest == null) dest = new Point3f();
-
-		float x_ = l.m0.x * r.get(0) + l.m0.y * r.get(1) + l.m0.z * r.get(2) + l.m0.a * 1.0f;
-		float y_ = l.m1.x * r.get(0) + l.m1.y * r.get(1) + l.m1.z * r.get(2) + l.m1.a * 1.0f;
-		float z_ = l.m2.x * r.get(0) + l.m2.y * r.get(1) + l.m2.z * r.get(2) + l.m2.a * 1.0f;
-
-		dest.set(x_, y_, z_);
-		
-		return dest;
-	}
-	
-	public static Vector3f transform(Matrix4f l, Tup3fBase r, Vector3f dest)
-	{
-		if (dest == null) dest = new Vector3f();
-
-		float x_ = l.m0.x * r.get(0) + l.m0.y * r.get(1) + l.m0.z * r.get(2) + l.m0.a * 1.0f;
-		float y_ = l.m1.x * r.get(0) + l.m1.y * r.get(1) + l.m1.z * r.get(2) + l.m1.a * 1.0f;
-		float z_ = l.m2.x * r.get(0) + l.m2.y * r.get(1) + l.m2.z * r.get(2) + l.m2.a * 1.0f;
-
-		dest.set(x_, y_, z_);
-		
-		return dest;
-	}
-	
 	public FloatBuffer getRowMajorBuffer() { return (FloatBuffer) BufferUtils.wrapFloatBuffer(getRowMajor()).flip(); }	
 	
 	public float[] getRowMajor()
@@ -499,6 +476,783 @@ public class Matrix4f
 				m0y * -Matrix3f.det3x3(m1x, m1z, m1w, m2x, m2z, m2w, m3x, m3z, m3w) +
 				m0z * +Matrix3f.det3x3(m1x, m1y, m1w, m2x, m2y, m2w, m3x, m3y, m3w) +
 				m0w * -Matrix3f.det3x3(m1x, m1y, m1z, m2x, m2y, m2z, m3x, m3y, m3z);
+	}
+	
+	public Vector3f transform(Vector3f r)
+	{
+		float x_ = this.m0.x * r.x + this.m0.y * r.y + this.m0.z * r.z + this.m0.a * 1.0f;
+		float y_ = this.m1.x * r.x + this.m1.y * r.y + this.m1.z * r.z + this.m1.a * 1.0f;
+		float z_ = this.m2.x * r.x + this.m2.y * r.y + this.m2.z * r.z + this.m2.a * 1.0f;
+
+		r.x = x_;
+		r.y = y_;
+		r.z = z_;
+		
+		return r;
+	}
+	
+	public Vector3d transform(Vector3d r)
+	{
+		double x_ = this.m0.x * r.x + this.m0.y * r.y + this.m0.z * r.z + this.m0.a * 1.0f;
+		double y_ = this.m1.x * r.x + this.m1.y * r.y + this.m1.z * r.z + this.m1.a * 1.0f;
+		double z_ = this.m2.x * r.x + this.m2.y * r.y + this.m2.z * r.z + this.m2.a * 1.0f;
+
+		r.x = x_;
+		r.y = y_;
+		r.z = z_;
+		
+		return r;
+	}
+	
+	public Vec3f transform(Vec3f r)
+	{
+		float x_ = this.m0.x * r.getX() + this.m0.y * r.getY() + this.m0.z * r.getZ() + this.m0.a * 1.0f;
+		float y_ = this.m1.x * r.getX() + this.m1.y * r.getY() + this.m1.z * r.getZ() + this.m1.a * 1.0f;
+		float z_ = this.m2.x * r.getX() + this.m2.y * r.getY() + this.m2.z * r.getZ() + this.m2.a * 1.0f;
+
+		r.set(x_, y_, z_);
+		
+		return r;
+	}
+	
+	public Vec3d transform(Vec3d r)
+	{
+		double x_ = this.m0.x * r.getX() + this.m0.y * r.getY() + this.m0.z * r.getZ() + this.m0.a * 1.0f;
+		double y_ = this.m1.x * r.getX() + this.m1.y * r.getY() + this.m1.z * r.getZ() + this.m1.a * 1.0f;
+		double z_ = this.m2.x * r.getX() + this.m2.y * r.getY() + this.m2.z * r.getZ() + this.m2.a * 1.0f;
+
+		r.set(x_, y_, z_);
+		
+		return r;
+	}
+	
+	public Tuple3f transform(Tuple3f r)
+	{
+		float x_ = this.m0.x * r.v[0] + this.m0.y * r.v[1] + this.m0.z * r.v[2] + this.m0.a * 1.0f;
+		float y_ = this.m1.x * r.v[0] + this.m1.y * r.v[1] + this.m1.z * r.v[2] + this.m1.a * 1.0f;
+		float z_ = this.m2.x * r.v[0] + this.m2.y * r.v[1] + this.m2.z * r.v[2] + this.m2.a * 1.0f;
+
+		r.v[0] = x_;
+		r.v[1] = y_;
+		r.v[2] = z_;
+		
+		return r;
+	}
+	
+	public Tuple3d transform(Tuple3d r)
+	{
+		double x_ = this.m0.x * r.v[0] + this.m0.y * r.v[1] + this.m0.z * r.v[2] + this.m0.a * 1.0f;
+		double y_ = this.m1.x * r.v[0] + this.m1.y * r.v[1] + this.m1.z * r.v[2] + this.m1.a * 1.0f;
+		double z_ = this.m2.x * r.v[0] + this.m2.y * r.v[1] + this.m2.z * r.v[2] + this.m2.a * 1.0f;
+
+		r.v[0] = x_;
+		r.v[1] = y_;
+		r.v[2] = z_;
+		
+		return r;
+	}
+	
+	public Tup3f transform(Tup3f r)
+	{
+		float x_ = this.m0.x * r.get(0) + this.m0.y * r.get(1) + this.m0.z * r.get(2) + this.m0.a * 1.0f;
+		float y_ = this.m1.x * r.get(0) + this.m1.y * r.get(1) + this.m1.z * r.get(2) + this.m1.a * 1.0f;
+		float z_ = this.m2.x * r.get(0) + this.m2.y * r.get(1) + this.m2.z * r.get(2) + this.m2.a * 1.0f;
+
+		r.set(x_, y_, z_);
+		
+		return r;
+	}
+	
+	public Tup3d transform(Tup3d r)
+	{
+		double x_ = this.m0.x * r.get(0) + this.m0.y * r.get(1) + this.m0.z * r.get(2) + this.m0.a * 1.0f;
+		double y_ = this.m1.x * r.get(0) + this.m1.y * r.get(1) + this.m1.z * r.get(2) + this.m1.a * 1.0f;
+		double z_ = this.m2.x * r.get(0) + this.m2.y * r.get(1) + this.m2.z * r.get(2) + this.m2.a * 1.0f;
+
+		r.set(x_, y_, z_);
+		
+		return r;
+	}
+	
+	public Point3f transform(Point3f r)
+	{
+		float x_ = this.m0.x * r.x + this.m0.y * r.y + this.m0.z * r.z + this.m0.a * 1.0f;
+		float y_ = this.m1.x * r.x + this.m1.y * r.y + this.m1.z * r.z + this.m1.a * 1.0f;
+		float z_ = this.m2.x * r.x + this.m2.y * r.y + this.m2.z * r.z + this.m2.a * 1.0f;
+		
+		r.x = x_;
+		r.y = y_;
+		r.z = z_;
+		
+		return r;
+	}
+	
+	public Vector3f transformN(Vector3f r)
+	{		
+		float x_ = this.m0.x * r.x + this.m0.y * r.y + this.m0.z * r.z + this.m0.a * 1.0f;
+		float y_ = this.m1.x * r.x + this.m1.y * r.y + this.m1.z * r.z + this.m1.a * 1.0f;
+		float z_ = this.m2.x * r.x + this.m2.y * r.y + this.m2.z * r.z + this.m2.a * 1.0f;
+		
+		return new Vector3f(x_, y_, z_);
+	}
+	
+	public Vector3d transformN(Vector3d r)
+	{		
+		double x_ = this.m0.x * r.x + this.m0.y * r.y + this.m0.z * r.z + this.m0.a * 1.0f;
+		double y_ = this.m1.x * r.x + this.m1.y * r.y + this.m1.z * r.z + this.m1.a * 1.0f;
+		double z_ = this.m2.x * r.x + this.m2.y * r.y + this.m2.z * r.z + this.m2.a * 1.0f;
+		
+		return new Vector3d(x_, y_, z_);
+	}
+	
+	public Vector3f transformN(Vec3fBase r)
+	{		
+		float x_ = this.m0.x * r.getX() + this.m0.y * r.getY() + this.m0.z * r.getZ() + this.m0.a * 1.0f;
+		float y_ = this.m1.x * r.getX() + this.m1.y * r.getY() + this.m1.z * r.getZ() + this.m1.a * 1.0f;
+		float z_ = this.m2.x * r.getX() + this.m2.y * r.getY() + this.m2.z * r.getZ() + this.m2.a * 1.0f;
+		
+		return new Vector3f(x_, y_, z_);
+	}
+	
+	public Vector3d transformN(Vec3dBase r)
+	{		
+		double x_ = this.m0.x * r.getX() + this.m0.y * r.getY() + this.m0.z * r.getZ() + this.m0.a * 1.0f;
+		double y_ = this.m1.x * r.getX() + this.m1.y * r.getY() + this.m1.z * r.getZ() + this.m1.a * 1.0f;
+		double z_ = this.m2.x * r.getX() + this.m2.y * r.getY() + this.m2.z * r.getZ() + this.m2.a * 1.0f;
+		
+		return new Vector3d(x_, y_, z_);
+	}
+
+	
+	public Tuple3f transformN(Tuple3f r)
+	{		
+		float x_ = this.m0.x * r.v[0] + this.m0.y * r.v[1] + this.m0.z * r.v[2] + this.m0.a * 1.0f;
+		float y_ = this.m1.x * r.v[0] + this.m1.y * r.v[1] + this.m1.z * r.v[2] + this.m1.a * 1.0f;
+		float z_ = this.m2.x * r.v[0] + this.m2.y * r.v[1] + this.m2.z * r.v[2] + this.m2.a * 1.0f;
+		
+		return new Tuple3f(x_, y_, z_);
+	}
+	
+	public Tuple3d transformN(Tuple3d r)
+	{		
+		double x_ = this.m0.x * r.v[0] + this.m0.y * r.v[1] + this.m0.z * r.v[2] + this.m0.a * 1.0f;
+		double y_ = this.m1.x * r.v[0] + this.m1.y * r.v[1] + this.m1.z * r.v[2] + this.m1.a * 1.0f;
+		double z_ = this.m2.x * r.v[0] + this.m2.y * r.v[1] + this.m2.z * r.v[2] + this.m2.a * 1.0f;
+		
+		return new Tuple3d(x_, y_, z_);
+	}
+	
+	public Tuple3f transformN(Tup3fBase r)
+	{		
+		float x_ = this.m0.x * r.get(0) + this.m0.y * r.get(1) + this.m0.z * r.get(2) + this.m0.a * 1.0f;
+		float y_ = this.m1.x * r.get(0) + this.m1.y * r.get(1) + this.m1.z * r.get(2) + this.m1.a * 1.0f;
+		float z_ = this.m2.x * r.get(0) + this.m2.y * r.get(1) + this.m2.z * r.get(2) + this.m2.a * 1.0f;
+		
+		return new Tuple3f(x_, y_, z_);
+	}
+	
+	public Tuple3d transformN(Tup3dBase r)
+	{		
+		double x_ = this.m0.x * r.get(0) + this.m0.y * r.get(1) + this.m0.z * r.get(2) + this.m0.a * 1.0f;
+		double y_ = this.m1.x * r.get(0) + this.m1.y * r.get(1) + this.m1.z * r.get(2) + this.m1.a * 1.0f;
+		double z_ = this.m2.x * r.get(0) + this.m2.y * r.get(1) + this.m2.z * r.get(2) + this.m2.a * 1.0f;
+		
+		return new Tuple3d(x_, y_, z_);
+	}
+	
+	public Point3f transformN(Point3f r)
+	{		
+		float x_ = this.m0.x * r.x + this.m0.y * r.y + this.m0.z * r.z + this.m0.a * 1.0f;
+		float y_ = this.m1.x * r.x + this.m1.y * r.y + this.m1.z * r.z + this.m1.a * 1.0f;
+		float z_ = this.m2.x * r.x + this.m2.y * r.y + this.m2.z * r.z + this.m2.a * 1.0f;
+		
+		return new Point3f(x_, y_, z_);
+	}
+	
+	public Vector3f transform(Vector3f r, Vector3f dest)
+	{
+		float x_ = this.m0.x * r.x + this.m0.y * r.y + this.m0.z * r.z + this.m0.a * 1.0f;
+		float y_ = this.m1.x * r.x + this.m1.y * r.y + this.m1.z * r.z + this.m1.a * 1.0f;
+		float z_ = this.m2.x * r.x + this.m2.y * r.y + this.m2.z * r.z + this.m2.a * 1.0f;
+
+		dest.x = x_;
+		dest.y = y_;
+		dest.z = z_;
+		
+		return dest;
+	}
+	
+	public Vector3d transform(Vector3d r, Vector3d dest)
+	{
+		double x_ = this.m0.x * r.x + this.m0.y * r.y + this.m0.z * r.z + this.m0.a * 1.0f;
+		double y_ = this.m1.x * r.x + this.m1.y * r.y + this.m1.z * r.z + this.m1.a * 1.0f;
+		double z_ = this.m2.x * r.x + this.m2.y * r.y + this.m2.z * r.z + this.m2.a * 1.0f;
+
+		dest.x = x_;
+		dest.y = y_;
+		dest.z = z_;
+		
+		return dest;
+	}
+	
+	public Vector3f transform(Vector3d r, Vector3f dest)
+	{
+		double x_ = this.m0.x * r.x + this.m0.y * r.y + this.m0.z * r.z + this.m0.a * 1.0f;
+		double y_ = this.m1.x * r.x + this.m1.y * r.y + this.m1.z * r.z + this.m1.a * 1.0f;
+		double z_ = this.m2.x * r.x + this.m2.y * r.y + this.m2.z * r.z + this.m2.a * 1.0f;
+		
+		dest.x = (float)x_;
+		dest.y = (float)y_;
+		dest.z = (float)z_;
+		
+		return dest;
+	}
+	
+	public Vector3d transform(Vector3f r, Vector3d dest)
+	{
+		float x_ = this.m0.x * r.x + this.m0.y * r.y + this.m0.z * r.z + this.m0.a * 1.0f;
+		float y_ = this.m1.x * r.x + this.m1.y * r.y + this.m1.z * r.z + this.m1.a * 1.0f;
+		float z_ = this.m2.x * r.x + this.m2.y * r.y + this.m2.z * r.z + this.m2.a * 1.0f;
+
+		dest.x = x_;
+		dest.y = y_;
+		dest.z = z_;
+		
+		return dest;
+	}
+	
+	public Vector3f transform(Vec3fBase r, Vector3f dest)
+	{
+		float x_ = this.m0.x * r.getX() + this.m0.y * r.getY() + this.m0.z * r.getZ() + this.m0.a * 1.0f;
+		float y_ = this.m1.x * r.getX() + this.m1.y * r.getY() + this.m1.z * r.getZ() + this.m1.a * 1.0f;
+		float z_ = this.m2.x * r.getX() + this.m2.y * r.getY() + this.m2.z * r.getZ() + this.m2.a * 1.0f;
+
+		dest.x = x_;
+		dest.y = y_;
+		dest.z = z_;
+		
+		return dest;
+	}
+	
+	public Vector3f transform(Vec3dBase r, Vector3f dest)
+	{
+		double x_ = this.m0.x * r.getX() + this.m0.y * r.getY() + this.m0.z * r.getZ() + this.m0.a * 1.0f;
+		double y_ = this.m1.x * r.getX() + this.m1.y * r.getY() + this.m1.z * r.getZ() + this.m1.a * 1.0f;
+		double z_ = this.m2.x * r.getX() + this.m2.y * r.getY() + this.m2.z * r.getZ() + this.m2.a * 1.0f;
+
+		dest.x = (float)x_;
+		dest.y = (float)y_;
+		dest.z = (float)z_;
+		
+		return dest;
+	}
+	
+	public Vector3d transform(Vec3fBase r, Vector3d dest)
+	{
+		float x_ = this.m0.x * r.getX() + this.m0.y * r.getY() + this.m0.z * r.getZ() + this.m0.a * 1.0f;
+		float y_ = this.m1.x * r.getX() + this.m1.y * r.getY() + this.m1.z * r.getZ() + this.m1.a * 1.0f;
+		float z_ = this.m2.x * r.getX() + this.m2.y * r.getY() + this.m2.z * r.getZ() + this.m2.a * 1.0f;
+
+		dest.x = x_;
+		dest.y = y_;
+		dest.z = z_;
+		
+		return dest;
+	}
+	
+	public Vector3d transform(Vec3dBase r, Vector3d dest)
+	{
+		double x_ = this.m0.x * r.getX() + this.m0.y * r.getY() + this.m0.z * r.getZ() + this.m0.a * 1.0f;
+		double y_ = this.m1.x * r.getX() + this.m1.y * r.getY() + this.m1.z * r.getZ() + this.m1.a * 1.0f;
+		double z_ = this.m2.x * r.getX() + this.m2.y * r.getY() + this.m2.z * r.getZ() + this.m2.a * 1.0f;
+
+		dest.x = x_;
+		dest.y = y_;
+		dest.z = z_;
+		
+		return dest;
+	}
+	
+	public Vector3f transform(Tuple3f r, Vector3f dest)
+	{
+		float x_ = this.m0.x * r.v[0] + this.m0.y * r.v[1] + this.m0.z * r.v[2] + this.m0.a * 1.0f;
+		float y_ = this.m1.x * r.v[0] + this.m1.y * r.v[1] + this.m1.z * r.v[2] + this.m1.a * 1.0f;
+		float z_ = this.m2.x * r.v[0] + this.m2.y * r.v[1] + this.m2.z * r.v[2] + this.m2.a * 1.0f;
+
+		dest.x = x_;
+		dest.y = y_;
+		dest.z = z_;
+		
+		return dest;
+	}
+	
+	public Vector3f transform(Tuple3d r, Vector3f dest)
+	{
+		double x_ = this.m0.x * r.v[0] + this.m0.y * r.v[1] + this.m0.z * r.v[2] + this.m0.a * 1.0f;
+		double y_ = this.m1.x * r.v[0] + this.m1.y * r.v[1] + this.m1.z * r.v[2] + this.m1.a * 1.0f;
+		double z_ = this.m2.x * r.v[0] + this.m2.y * r.v[1] + this.m2.z * r.v[2] + this.m2.a * 1.0f;
+
+		dest.x = (float)x_;
+		dest.y = (float)y_;
+		dest.z = (float)z_;
+		
+		return dest;
+	}
+	
+	public Vector3d transform(Tuple3f r, Vector3d dest)
+	{
+		float x_ = this.m0.x * r.v[0] + this.m0.y * r.v[1] + this.m0.z * r.v[2] + this.m0.a * 1.0f;
+		float y_ = this.m1.x * r.v[0] + this.m1.y * r.v[1] + this.m1.z * r.v[2] + this.m1.a * 1.0f;
+		float z_ = this.m2.x * r.v[0] + this.m2.y * r.v[1] + this.m2.z * r.v[2] + this.m2.a * 1.0f;
+
+		dest.x = x_;
+		dest.y = y_;
+		dest.z = z_;
+		
+		return dest;
+	}
+	
+	public Vector3d transform(Tuple3d r, Vector3d dest)
+	{
+		double x_ = this.m0.x * r.v[0] + this.m0.y * r.v[1] + this.m0.z * r.v[2] + this.m0.a * 1.0f;
+		double y_ = this.m1.x * r.v[0] + this.m1.y * r.v[1] + this.m1.z * r.v[2] + this.m1.a * 1.0f;
+		double z_ = this.m2.x * r.v[0] + this.m2.y * r.v[1] + this.m2.z * r.v[2] + this.m2.a * 1.0f;
+
+		dest.x = x_;
+		dest.y = y_;
+		dest.z = z_;
+		
+		return dest;
+	}
+	
+	public Vector3f transform(Tup3fBase r, Vector3f dest)
+	{
+		float x_ = this.m0.x * r.get(0) + this.m0.y * r.get(1) + this.m0.z * r.get(2) + this.m0.a * 1.0f;
+		float y_ = this.m1.x * r.get(0) + this.m1.y * r.get(1) + this.m1.z * r.get(2) + this.m1.a * 1.0f;
+		float z_ = this.m2.x * r.get(0) + this.m2.y * r.get(1) + this.m2.z * r.get(2) + this.m2.a * 1.0f;
+
+		dest.x = x_;
+		dest.y = y_;
+		dest.z = z_;
+		
+		return dest;
+	}
+	
+	public Vector3f transform(Tup3dBase r, Vector3f dest)
+	{
+		double x_ = this.m0.x * r.get(0) + this.m0.y * r.get(1) + this.m0.z * r.get(2) + this.m0.a * 1.0f;
+		double y_ = this.m1.x * r.get(0) + this.m1.y * r.get(1) + this.m1.z * r.get(2) + this.m1.a * 1.0f;
+		double z_ = this.m2.x * r.get(0) + this.m2.y * r.get(1) + this.m2.z * r.get(2) + this.m2.a * 1.0f;
+
+		dest.x = (float)x_;
+		dest.y = (float)y_;
+		dest.z = (float)z_;
+		
+		return dest;
+	}
+	
+	public Vector3d transform(Tup3fBase r, Vector3d dest)
+	{
+		float x_ = this.m0.x * r.get(0) + this.m0.y * r.get(1) + this.m0.z * r.get(2) + this.m0.a * 1.0f;
+		float y_ = this.m1.x * r.get(0) + this.m1.y * r.get(1) + this.m1.z * r.get(2) + this.m1.a * 1.0f;
+		float z_ = this.m2.x * r.get(0) + this.m2.y * r.get(1) + this.m2.z * r.get(2) + this.m2.a * 1.0f;
+
+		dest.x = x_;
+		dest.y = y_;
+		dest.z = z_;
+		
+		return dest;
+	}
+	
+	public Vector3d transform(Tup3dBase r, Vector3d dest)
+	{
+		double x_ = this.m0.x * r.get(0) + this.m0.y * r.get(1) + this.m0.z * r.get(2) + this.m0.a * 1.0f;
+		double y_ = this.m1.x * r.get(0) + this.m1.y * r.get(1) + this.m1.z * r.get(2) + this.m1.a * 1.0f;
+		double z_ = this.m2.x * r.get(0) + this.m2.y * r.get(1) + this.m2.z * r.get(2) + this.m2.a * 1.0f;
+
+		dest.x = x_;
+		dest.y = y_;
+		dest.z = z_;
+		
+		return dest;
+	}
+	
+	public Vector3f transform(Point3f r, Vector3f dest)
+	{
+		float x_ = this.m0.x * r.x + this.m0.y * r.x + this.m0.z * r.x + this.m0.a * 1.0f;
+		float y_ = this.m1.x * r.x + this.m1.y * r.x + this.m1.z * r.x + this.m1.a * 1.0f;
+		float z_ = this.m2.x * r.x + this.m2.y * r.x + this.m2.z * r.x + this.m2.a * 1.0f;
+
+		dest.x = x_;
+		dest.y = y_;
+		dest.z = z_;
+		
+		return dest;
+	}
+	
+	public Vector3d transform(Point3f r, Vector3d dest)
+	{
+		float x_ = this.m0.x * r.x + this.m0.y * r.y + this.m0.z * r.z + this.m0.a * 1.0f;
+		float y_ = this.m1.x * r.x + this.m1.y * r.y + this.m1.z * r.z + this.m1.a * 1.0f;
+		float z_ = this.m2.x * r.x + this.m2.y * r.y + this.m2.z * r.z + this.m2.a * 1.0f;
+
+		dest.x = x_;
+		dest.y = y_;
+		dest.z = z_;
+		
+		return dest;
+	}
+	
+	public Tuple3f transform(Vector3f r, Tuple3f dest)
+	{
+		float x_ = this.m0.x * r.x + this.m0.y * r.y + this.m0.z * r.z + this.m0.a * 1.0f;
+		float y_ = this.m1.x * r.x + this.m1.y * r.y + this.m1.z * r.z + this.m1.a * 1.0f;
+		float z_ = this.m2.x * r.x + this.m2.y * r.y + this.m2.z * r.z + this.m2.a * 1.0f;
+
+		dest.v[0] = x_;
+		dest.v[1] = y_;
+		dest.v[2] = z_;
+		
+		return dest;
+	}
+	
+	public Tuple3d transform(Vector3d r, Tuple3d dest)
+	{
+		double x_ = this.m0.x * r.x + this.m0.y * r.y + this.m0.z * r.z + this.m0.a * 1.0f;
+		double y_ = this.m1.x * r.x + this.m1.y * r.y + this.m1.z * r.z + this.m1.a * 1.0f;
+		double z_ = this.m2.x * r.x + this.m2.y * r.y + this.m2.z * r.z + this.m2.a * 1.0f;
+
+		dest.v[0] = x_;
+		dest.v[1] = y_;
+		dest.v[2] = z_;
+		
+		return dest;
+	}
+	
+	public Tuple3f transform(Vector3d r, Tuple3f dest)
+	{
+		double x_ = this.m0.x * r.x + this.m0.y * r.y + this.m0.z * r.z + this.m0.a * 1.0f;
+		double y_ = this.m1.x * r.x + this.m1.y * r.y + this.m1.z * r.z + this.m1.a * 1.0f;
+		double z_ = this.m2.x * r.x + this.m2.y * r.y + this.m2.z * r.z + this.m2.a * 1.0f;
+
+		dest.v[0] = (float)x_;
+		dest.v[1] = (float)y_;
+		dest.v[2] = (float)z_;
+		
+		return dest;
+	}
+	
+	public Tuple3d transform(Vector3f r, Tuple3d dest)
+	{
+		float x_ = this.m0.x * r.x + this.m0.y * r.y + this.m0.z * r.z + this.m0.a * 1.0f;
+		float y_ = this.m1.x * r.x + this.m1.y * r.y + this.m1.z * r.z + this.m1.a * 1.0f;
+		float z_ = this.m2.x * r.x + this.m2.y * r.y + this.m2.z * r.z + this.m2.a * 1.0f;
+
+		dest.v[0] = x_;
+		dest.v[1] = y_;
+		dest.v[2] = z_;
+		
+		return dest;
+	}
+	
+	public Tuple3f transform(Vec3fBase r, Tuple3f dest)
+	{
+		float x_ = this.m0.x * r.getX() + this.m0.y * r.getY() + this.m0.z * r.getZ() + this.m0.a * 1.0f;
+		float y_ = this.m1.x * r.getX() + this.m1.y * r.getY() + this.m1.z * r.getZ() + this.m1.a * 1.0f;
+		float z_ = this.m2.x * r.getX() + this.m2.y * r.getY() + this.m2.z * r.getZ() + this.m2.a * 1.0f;
+
+		dest.v[0] = x_;
+		dest.v[1] = y_;
+		dest.v[2] = z_;
+		
+		return dest;
+	}
+	
+	public Tuple3f transform(Vec3dBase r, Tuple3f dest)
+	{
+		double x_ = this.m0.x * r.getX() + this.m0.y * r.getY() + this.m0.z * r.getZ() + this.m0.a * 1.0f;
+		double y_ = this.m1.x * r.getX() + this.m1.y * r.getY() + this.m1.z * r.getZ() + this.m1.a * 1.0f;
+		double z_ = this.m2.x * r.getX() + this.m2.y * r.getY() + this.m2.z * r.getZ() + this.m2.a * 1.0f;
+
+		dest.v[0] = (float)x_;
+		dest.v[1] = (float)y_;
+		dest.v[2] = (float)z_;
+		
+		return dest;
+	}
+	
+	public Tuple3d transform(Vec3fBase r, Tuple3d dest)
+	{
+		float x_ = this.m0.x * r.getX() + this.m0.y * r.getY() + this.m0.z * r.getZ() + this.m0.a * 1.0f;
+		float y_ = this.m1.x * r.getX() + this.m1.y * r.getY() + this.m1.z * r.getZ() + this.m1.a * 1.0f;
+		float z_ = this.m2.x * r.getX() + this.m2.y * r.getY() + this.m2.z * r.getZ() + this.m2.a * 1.0f;
+
+		dest.v[0] = x_;
+		dest.v[1] = y_;
+		dest.v[2] = z_;
+		
+		return dest;
+	}
+	
+	public Tuple3d transform(Vec3dBase r, Tuple3d dest)
+	{
+		double x_ = this.m0.x * r.getX() + this.m0.y * r.getY() + this.m0.z * r.getZ() + this.m0.a * 1.0f;
+		double y_ = this.m1.x * r.getX() + this.m1.y * r.getY() + this.m1.z * r.getZ() + this.m1.a * 1.0f;
+		double z_ = this.m2.x * r.getX() + this.m2.y * r.getY() + this.m2.z * r.getZ() + this.m2.a * 1.0f;
+
+		dest.v[0] = x_;
+		dest.v[1] = y_;
+		dest.v[2] = z_;
+		
+		return dest;
+	}
+	
+	public Tuple3f transform(Tuple3f r, Tuple3f dest)
+	{
+		float x_ = this.m0.x * r.v[0] + this.m0.y * r.v[1] + this.m0.z * r.v[2] + this.m0.a * 1.0f;
+		float y_ = this.m1.x * r.v[0] + this.m1.y * r.v[1] + this.m1.z * r.v[2] + this.m1.a * 1.0f;
+		float z_ = this.m2.x * r.v[0] + this.m2.y * r.v[1] + this.m2.z * r.v[2] + this.m2.a * 1.0f;
+
+		dest.v[0] = x_;
+		dest.v[1] = y_;
+		dest.v[2] = z_;
+		
+		return dest;
+	}
+	
+	public Tuple3f transform(Tuple3d r, Tuple3f dest)
+	{
+		double x_ = this.m0.x * r.v[0] + this.m0.y * r.v[1] + this.m0.z * r.v[2] + this.m0.a * 1.0f;
+		double y_ = this.m1.x * r.v[0] + this.m1.y * r.v[1] + this.m1.z * r.v[2] + this.m1.a * 1.0f;
+		double z_ = this.m2.x * r.v[0] + this.m2.y * r.v[1] + this.m2.z * r.v[2] + this.m2.a * 1.0f;
+
+		dest.v[0] = (float)x_;
+		dest.v[1] = (float)y_;
+		dest.v[2] = (float)z_;
+		
+		return dest;
+	}
+	
+	public Tuple3d transform(Tuple3f r, Tuple3d dest)
+	{
+		float x_ = this.m0.x * r.v[0] + this.m0.y * r.v[1] + this.m0.z * r.v[2] + this.m0.a * 1.0f;
+		float y_ = this.m1.x * r.v[0] + this.m1.y * r.v[1] + this.m1.z * r.v[2] + this.m1.a * 1.0f;
+		float z_ = this.m2.x * r.v[0] + this.m2.y * r.v[1] + this.m2.z * r.v[2] + this.m2.a * 1.0f;
+
+		dest.v[0] = x_;
+		dest.v[1] = y_;
+		dest.v[2] = z_;
+		
+		return dest;
+	}
+	
+	public Tuple3d transform(Tuple3d r, Tuple3d dest)
+	{
+		double x_ = this.m0.x * r.v[0] + this.m0.y * r.v[1] + this.m0.z * r.v[2] + this.m0.a * 1.0f;
+		double y_ = this.m1.x * r.v[0] + this.m1.y * r.v[1] + this.m1.z * r.v[2] + this.m1.a * 1.0f;
+		double z_ = this.m2.x * r.v[0] + this.m2.y * r.v[1] + this.m2.z * r.v[2] + this.m2.a * 1.0f;
+
+		dest.v[0] = x_;
+		dest.v[1] = y_;
+		dest.v[2] = z_;
+		
+		return dest;
+	}
+	
+	public Tuple3f transform(Tup3fBase r, Tuple3f dest)
+	{
+		float x_ = this.m0.x * r.get(0) + this.m0.y * r.get(1) + this.m0.z * r.get(2) + this.m0.a * 1.0f;
+		float y_ = this.m1.x * r.get(0) + this.m1.y * r.get(1) + this.m1.z * r.get(2) + this.m1.a * 1.0f;
+		float z_ = this.m2.x * r.get(0) + this.m2.y * r.get(1) + this.m2.z * r.get(2) + this.m2.a * 1.0f;
+
+		dest.v[0] = x_;
+		dest.v[1] = y_;
+		dest.v[2] = z_;
+		
+		return dest;
+	}
+	
+	public Tuple3f transform(Tup3dBase r, Tuple3f dest)
+	{
+		double x_ = this.m0.x * r.get(0) + this.m0.y * r.get(1) + this.m0.z * r.get(2) + this.m0.a * 1.0f;
+		double y_ = this.m1.x * r.get(0) + this.m1.y * r.get(1) + this.m1.z * r.get(2) + this.m1.a * 1.0f;
+		double z_ = this.m2.x * r.get(0) + this.m2.y * r.get(1) + this.m2.z * r.get(2) + this.m2.a * 1.0f;
+
+		dest.v[0] = (float)x_;
+		dest.v[1] = (float)y_;
+		dest.v[2] = (float)z_;
+		
+		return dest;
+	}
+	
+	public Tuple3d transform(Tup3fBase r, Tuple3d dest)
+	{
+		float x_ = this.m0.x * r.get(0) + this.m0.y * r.get(1) + this.m0.z * r.get(2) + this.m0.a * 1.0f;
+		float y_ = this.m1.x * r.get(0) + this.m1.y * r.get(1) + this.m1.z * r.get(2) + this.m1.a * 1.0f;
+		float z_ = this.m2.x * r.get(0) + this.m2.y * r.get(1) + this.m2.z * r.get(2) + this.m2.a * 1.0f;
+
+		dest.v[0] = x_;
+		dest.v[1] = y_;
+		dest.v[2] = z_;
+		
+		return dest;
+	}
+	
+	public Tuple3d transform(Tup3dBase r, Tuple3d dest)
+	{
+		double x_ = this.m0.x * r.get(0) + this.m0.y * r.get(1) + this.m0.z * r.get(2) + this.m0.a * 1.0f;
+		double y_ = this.m1.x * r.get(0) + this.m1.y * r.get(1) + this.m1.z * r.get(2) + this.m1.a * 1.0f;
+		double z_ = this.m2.x * r.get(0) + this.m2.y * r.get(1) + this.m2.z * r.get(2) + this.m2.a * 1.0f;
+
+		dest.v[0] = x_;
+		dest.v[1] = y_;
+		dest.v[2] = z_;
+		
+		return dest;
+	}
+	
+	public Tuple3f transform(Point3f r, Tuple3f dest)
+	{
+		float x_ = this.m0.x * r.x + this.m0.y * r.x + this.m0.z * r.x + this.m0.a * 1.0f;
+		float y_ = this.m1.x * r.x + this.m1.y * r.x + this.m1.z * r.x + this.m1.a * 1.0f;
+		float z_ = this.m2.x * r.x + this.m2.y * r.x + this.m2.z * r.x + this.m2.a * 1.0f;
+
+		dest.v[0] = x_;
+		dest.v[1] = y_;
+		dest.v[2] = z_;
+		
+		return dest;
+	}
+	
+	public Tuple3d transform(Point3f r, Tuple3d dest)
+	{
+		float x_ = this.m0.x * r.x + this.m0.y * r.y + this.m0.z * r.z + this.m0.a * 1.0f;
+		float y_ = this.m1.x * r.x + this.m1.y * r.y + this.m1.z * r.z + this.m1.a * 1.0f;
+		float z_ = this.m2.x * r.x + this.m2.y * r.y + this.m2.z * r.z + this.m2.a * 1.0f;
+
+		dest.v[0] = x_;
+		dest.v[1] = y_;
+		dest.v[2] = z_;
+		
+		return dest;
+	}
+	
+	public Point3f transform(Vector3f r, Point3f dest)
+	{
+		float x_ = this.m0.x * r.x + this.m0.y * r.y + this.m0.z * r.z + this.m0.a * 1.0f;
+		float y_ = this.m1.x * r.x + this.m1.y * r.y + this.m1.z * r.z + this.m1.a * 1.0f;
+		float z_ = this.m2.x * r.x + this.m2.y * r.y + this.m2.z * r.z + this.m2.a * 1.0f;
+
+		dest.x = x_;
+		dest.y = y_;
+		dest.z = z_;
+		
+		return dest;
+	}
+	
+	public Point3f transform(Vector3d r, Point3f dest)
+	{
+		double x_ = this.m0.x * r.x + this.m0.y * r.y + this.m0.z * r.z + this.m0.a * 1.0f;
+		double y_ = this.m1.x * r.x + this.m1.y * r.y + this.m1.z * r.z + this.m1.a * 1.0f;
+		double z_ = this.m2.x * r.x + this.m2.y * r.y + this.m2.z * r.z + this.m2.a * 1.0f;
+
+		dest.x = (float)x_;
+		dest.y = (float)y_;
+		dest.z = (float)z_;
+		
+		return dest;
+	}
+	
+	
+	public Point3f transform(Vec3fBase r, Point3f dest)
+	{
+		float x_ = this.m0.x * r.getX() + this.m0.y * r.getY() + this.m0.z * r.getZ() + this.m0.a * 1.0f;
+		float y_ = this.m1.x * r.getX() + this.m1.y * r.getY() + this.m1.z * r.getZ() + this.m1.a * 1.0f;
+		float z_ = this.m2.x * r.getX() + this.m2.y * r.getY() + this.m2.z * r.getZ() + this.m2.a * 1.0f;
+
+		dest.x = x_;
+		dest.y = y_;
+		dest.z = z_;
+		
+		return dest;
+	}
+	
+	public Point3f transform(Vec3dBase r, Point3f dest)
+	{
+		double x_ = this.m0.x * r.getX() + this.m0.y * r.getY() + this.m0.z * r.getZ() + this.m0.a * 1.0f;
+		double y_ = this.m1.x * r.getX() + this.m1.y * r.getY() + this.m1.z * r.getZ() + this.m1.a * 1.0f;
+		double z_ = this.m2.x * r.getX() + this.m2.y * r.getY() + this.m2.z * r.getZ() + this.m2.a * 1.0f;
+
+		dest.x = (float)x_;
+		dest.y = (float)y_;
+		dest.z = (float)z_;
+		
+		return dest;
+	}
+	
+	public Point3f transform(Tuple3f r, Point3f dest)
+	{
+		float x_ = this.m0.x * r.v[0] + this.m0.y * r.v[1] + this.m0.z * r.v[2] + this.m0.a * 1.0f;
+		float y_ = this.m1.x * r.v[0] + this.m1.y * r.v[1] + this.m1.z * r.v[2] + this.m1.a * 1.0f;
+		float z_ = this.m2.x * r.v[0] + this.m2.y * r.v[1] + this.m2.z * r.v[2] + this.m2.a * 1.0f;
+
+		dest.x = x_;
+		dest.y = y_;
+		dest.z = z_;
+		
+		return dest;
+	}
+	
+	public Point3f transform(Tuple3d r, Point3f dest)
+	{
+		double x_ = this.m0.x * r.v[0] + this.m0.y * r.v[1] + this.m0.z * r.v[2] + this.m0.a * 1.0f;
+		double y_ = this.m1.x * r.v[0] + this.m1.y * r.v[1] + this.m1.z * r.v[2] + this.m1.a * 1.0f;
+		double z_ = this.m2.x * r.v[0] + this.m2.y * r.v[1] + this.m2.z * r.v[2] + this.m2.a * 1.0f;
+
+		dest.x = (float)x_;
+		dest.y = (float)y_;
+		dest.z = (float)z_;
+		
+		return dest;
+	}
+	
+	public Point3f transform(Tup3fBase r, Point3f dest)
+	{
+		float x_ = this.m0.x * r.get(0) + this.m0.y * r.get(1) + this.m0.z * r.get(2) + this.m0.a * 1.0f;
+		float y_ = this.m1.x * r.get(0) + this.m1.y * r.get(1) + this.m1.z * r.get(2) + this.m1.a * 1.0f;
+		float z_ = this.m2.x * r.get(0) + this.m2.y * r.get(1) + this.m2.z * r.get(2) + this.m2.a * 1.0f;
+
+		dest.x = x_;
+		dest.y = y_;
+		dest.z = z_;
+		
+		return dest;
+	}
+	
+	public Point3f transform(Tup3dBase r, Point3f dest)
+	{
+		double x_ = this.m0.x * r.get(0) + this.m0.y * r.get(1) + this.m0.z * r.get(2) + this.m0.a * 1.0f;
+		double y_ = this.m1.x * r.get(0) + this.m1.y * r.get(1) + this.m1.z * r.get(2) + this.m1.a * 1.0f;
+		double z_ = this.m2.x * r.get(0) + this.m2.y * r.get(1) + this.m2.z * r.get(2) + this.m2.a * 1.0f;
+
+		dest.x = (float)x_;
+		dest.y = (float)y_;
+		dest.z = (float)z_;
+		
+		return dest;
+	}
+	
+	public Point3f transform(Point3f r, Point3f dest)
+	{
+		float x_ = this.m0.x * r.x + this.m0.y * r.x + this.m0.z * r.x + this.m0.a * 1.0f;
+		float y_ = this.m1.x * r.x + this.m1.y * r.x + this.m1.z * r.x + this.m1.a * 1.0f;
+		float z_ = this.m2.x * r.x + this.m2.y * r.x + this.m2.z * r.x + this.m2.a * 1.0f;
+
+		dest.x = x_;
+		dest.y = y_;
+		dest.z = z_;
+		
+		return dest;
 	}
 	
 	public Matrix4f clone() { return new Matrix4f(this); }

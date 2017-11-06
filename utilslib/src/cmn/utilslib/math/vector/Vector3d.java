@@ -487,9 +487,13 @@ public class Vector3d implements Vec3d
 	/** {@inheritDoc} */
  	public Vector3d cross(Vec3fBase v) 
 	{
- 		this.x = this.y * v.getZ() - this.z * v.getY();
- 		this.y = this.z * v.getX() - this.x * v.getZ();
- 		this.z = this.x * v.getY() - this.y * v.getX();
+ 		double x_ = this.y * v.getZ() - this.z * v.getY();
+ 		double y_ = this.z * v.getX() - this.x * v.getZ();
+ 		double z_ = this.x * v.getY() - this.y * v.getX();
+ 		
+ 		this.x = x_;
+ 		this.y = y_;
+ 		this.z = z_;
  		
  		return this;
 	}
@@ -497,9 +501,13 @@ public class Vector3d implements Vec3d
  	/** {@inheritDoc} */
  	public Vector3d cross(Vec3dBase v)
  	{
- 		this.x = this.y * v.getZ() - this.z * (float)v.getY();
- 		this.y = this.z * v.getX() - this.x * (float)v.getZ();
- 		this.z = this.x * v.getY() - this.y * (float)v.getX();
+ 		double x_ = this.y * v.getZ() - this.z * v.getY();
+ 		double y_ = this.z * v.getX() - this.x * v.getZ();
+ 		double z_ = this.x * v.getY() - this.y * v.getX();
+ 		
+ 		this.x = x_;
+ 		this.y = y_;
+ 		this.z = z_;
  		
  		return this;
  	}
@@ -509,8 +517,8 @@ public class Vector3d implements Vec3d
  	/** {@inheritDoc} */
  	public Vector3d project(Vec3fBase v)
 	{	
-		Vec3d vn = Vector3d.getInstance();
-		vn.set(v).normalize();
+		Vector3d vn = Vector3d.getInstance(v);
+		vn.normalize();
 
 		set(vn.mul(dot(vn)));
 		
@@ -522,8 +530,8 @@ public class Vector3d implements Vec3d
  	/** {@inheritDoc} */
 	public Vector3d project(Vec3dBase v)
 	{
-		Vec3d vn = Vector3d.getInstance();
-		vn.set(v).normalize();
+		Vector3d vn = Vector3d.getInstance(v);
+		vn.normalize();
 
 		set(vn.mul(dot(vn)));
 		

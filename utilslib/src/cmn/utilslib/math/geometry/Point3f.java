@@ -171,7 +171,4 @@ public class Point3f implements Tup3f
 	public Point3f clone() { return new Point3f(this); }
 	
 	public String toString() { return String.format("point3f(%sf, %sf, %sf)", x, y, z); }
-	
-
-
 }

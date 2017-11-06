@@ -89,8 +89,8 @@ public class MinkowskiSum2f implements ConvexPolygonalShape2f
 
 	public AABB2f getAABB()
 	{
-		Point2f min = Point2f.TEMP0.set(getMinX(), getMinY());
-		Point2f max = Point2f.TEMP0.set(getMaxX(), getMaxY());
+		Point2f min = new Point2f(getMinX(), getMinY());
+		Point2f max = new Point2f(getMaxX(), getMaxY());
 		
 		return new AABB2f(min, max);
 	}

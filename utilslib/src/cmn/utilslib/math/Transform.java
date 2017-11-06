@@ -59,7 +59,7 @@ public class Transform
 	public Vector3f getTransformedPos()
 	{
 		if(this.parent != null)
-			return Matrix4f.transform(this.parent.getTransformationMatrix(), this.pos, (Vector3f)null);
+			return this.parent.getTransformationMatrix().transformN(this.pos);
 		return this.pos;
 	}
 	

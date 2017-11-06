@@ -113,8 +113,8 @@ public class Cuboidf implements ConvexPolygonalShape3f
 		Vector3f min = this.center.asVector3f(new Vector3f()).subN(this.halfExtend);
 		Vector3f max = this.center.asVector3f(new Vector3f()).addN(this.halfExtend);
 		
-		Matrix4f.transform(t, min, min);
-		Matrix4f.transform(t, max, max);
+		t.transform(min);
+		t.transform(max);
 		
 		Vector3f halfExtend = max.subN(min).mul(0.5);
 		Vector3f center = min.addN(halfExtend);

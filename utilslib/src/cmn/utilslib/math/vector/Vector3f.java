@@ -946,9 +946,13 @@ public class Vector3f implements Vec3f
 	/** {@inheritDoc} */
  	public Vector3f cross(Vec3fBase v) 
 	{
- 		this.x = this.y * v.getZ() - this.z * v.getY();
- 		this.y = this.z * v.getX() - this.x * v.getZ();
- 		this.z = this.x * v.getY() - this.y * v.getX();
+ 		float x_ = this.y * v.getZ() - this.z * v.getY();
+ 		float y_= this.z * v.getX() - this.x * v.getZ();
+ 		float z_ = this.x * v.getY() - this.y * v.getX();
+ 		
+ 		this.x = x_;
+ 		this.y = y_;
+ 		this.z = z_;
  		
  		return this;
 	}
@@ -956,9 +960,13 @@ public class Vector3f implements Vec3f
  	/** {@inheritDoc} */
  	public Vector3f cross(Vec3dBase v)
  	{
- 		this.x = this.y * (float)v.getZ() - this.z * (float)v.getY();
- 		this.y = this.z * (float)v.getX() - this.x * (float)v.getZ();
- 		this.z = this.x * (float)v.getY() - this.y * (float)v.getX();
+ 		float x_ = this.y * (float)v.getZ() - this.z * (float)v.getY();
+ 		float y_ = this.z * (float)v.getX() - this.x * (float)v.getZ();
+ 		float z_ = this.x * (float)v.getY() - this.y * (float)v.getX();
+ 		
+ 		this.x = x_;
+ 		this.y = y_;
+ 		this.z = z_;
  		
  		return this;
  	}
@@ -968,8 +976,8 @@ public class Vector3f implements Vec3f
  	/** {@inheritDoc} */
  	public Vector3f project(Vec3fBase v)
 	{	
-		Vec3f vn = Vector3f.getInstance();
-		vn.set(v).normalize();
+		Vector3f vn = Vector3f.getInstance(v);
+		vn.normalize();
 
 		set(vn.mul(dot(vn)));
 		
@@ -981,8 +989,8 @@ public class Vector3f implements Vec3f
  	/** {@inheritDoc} */
 	public Vector3f project(Vec3dBase v)
 	{
-		Vec3f vn = Vector3f.getInstance();
-		vn.set(v).normalize();
+		Vector3f vn = Vector3f.getInstance(v);
+		vn.normalize();
 
 		set(vn.mul(dot(vn)));
 		
