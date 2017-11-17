@@ -3,21 +3,13 @@ package cmn.utilslib.math.geometry;
 import cmn.utilslib.Pool;
 import cmn.utilslib.math.tuple.Tuple2d;
 import cmn.utilslib.math.tuple.Tuple2f;
-import cmn.utilslib.math.tuple.Tuple3d;
-import cmn.utilslib.math.tuple.Tuple3f;
 import cmn.utilslib.math.tuple.api.Tup2dBase;
 import cmn.utilslib.math.tuple.api.Tup2f;
 import cmn.utilslib.math.tuple.api.Tup2fBase;
-import cmn.utilslib.math.tuple.api.Tup3dBase;
-import cmn.utilslib.math.tuple.api.Tup3fBase;
 import cmn.utilslib.math.vector.Vector2d;
 import cmn.utilslib.math.vector.Vector2f;
-import cmn.utilslib.math.vector.Vector3d;
-import cmn.utilslib.math.vector.Vector3f;
 import cmn.utilslib.math.vector.api.Vec2dBase;
 import cmn.utilslib.math.vector.api.Vec2fBase;
-import cmn.utilslib.math.vector.api.Vec3dBase;
-import cmn.utilslib.math.vector.api.Vec3fBase;
 
 
 public class Point2f implements Tup2f

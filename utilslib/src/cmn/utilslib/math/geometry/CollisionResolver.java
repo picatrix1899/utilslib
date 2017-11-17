@@ -1,6 +1,8 @@
 package cmn.utilslib.math.geometry;
 
 
+import cmn.utilslib.math.matrix.Matrix3f;
+import cmn.utilslib.math.matrix.Matrix4f;
 import cmn.utilslib.math.vector.Vector3f;
 import cmn.utilslib.math.vector.api.Vec3f;
 
@@ -59,54 +61,40 @@ public class CollisionResolver
 
 		if(aCenter.x < bCenter.x)
 		{
-			if(aMaxX <= bMinX)
-			{
+			if(!(aMaxX > bMinX))
 				return false;
-			}
-			
 		}
 		else
 		{
-			if(bMaxX <= aMinX)
-			{
+			if(!(bMaxX > aMinX))
 				return false;
-			}
 		}
 		
 		if(aCenter.y < bCenter.y)
 		{
-			if(aMaxY <= bMinY)
-			{
+			if(!(aMaxY > bMinY))
 				return false;
-			}
-			
 		}
 		else
 		{
-			if(bMaxY <= aMinY)
-			{
+			if(!(bMaxY > aMinY))
 				return false;
-			}
 		}
 		
 		if(aCenter.z < bCenter.z)
 		{
-			if(aMaxZ <= bMinZ)
-			{
+			if(!(aMaxZ > bMinZ))
 				return false;
-			}
-			
 		}
 		else
 		{
-			if(bMaxZ <= aMinZ)
-			{
+			if(!(bMaxZ > aMinZ))
 				return false;
-			}
 		}
 		
 		return true;
 	}
+
 	
 	public static Vector3f rAABBAABB3f(AABB3f a, AABB3f b)
 	{
@@ -233,5 +221,7 @@ public class CollisionResolver
 		
 		return out;
 	}
+	
+	
 
 }
