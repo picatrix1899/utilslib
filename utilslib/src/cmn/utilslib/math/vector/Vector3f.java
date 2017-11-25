@@ -907,7 +907,7 @@ public class Vector3f implements Vec3f
 	 */
 
 	/** {@inheritDoc} */
-	public Vector3f normalize() { return this.x != 0  && this.y != 0 && this.z != 0 ? div(length()) : this; }
+	public Vector3f normalize() { return this.x + this.y + this.z != 0 ? div(length()) : this; }
 	
 	/** {@inheritDoc} */
  	public Vector3f reflect(Vec3fBase normal)

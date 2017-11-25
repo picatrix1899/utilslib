@@ -473,10 +473,29 @@ public class Matrix3f
 		
 		return this;
 	}
+	
+	public Matrix4f extend()
+	{
+		Matrix4f m = Matrix4f.identity();
+		
+		m.m0.set(m0.get(0), m0.get(1), m0.get(2),0);
+		m.m1.set(m1.get(0), m1.get(1), m1.get(2),0);
+		m.m2.set(m2.get(0), m2.get(1), m2.get(2),0);
+		
+		return m;
+	}
 
 	public Matrix3f clone()
 	{
 		return new Matrix3f(this);
+	}
+	
+	public String toString()
+	{
+		return
+				"matrix3f(	" + m0.v[0] + "f	" + m0.v[1] + "f	" + m0.v[2] + "f	" + ")\n" + 
+				"        (	" + m1.v[0] + "f	" + m1.v[1] + "f	" + m1.v[2] + "f	" + ")\n" +
+				"        (	" + m2.v[0] + "f	" + m2.v[1] + "f	" + m2.v[2] + "f	" + ")";
 	}
 	
 }
