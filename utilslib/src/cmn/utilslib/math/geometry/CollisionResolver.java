@@ -1,8 +1,6 @@
 package cmn.utilslib.math.geometry;
 
 
-import cmn.utilslib.math.matrix.Matrix3f;
-import cmn.utilslib.math.matrix.Matrix4f;
 import cmn.utilslib.math.vector.Vector3f;
 import cmn.utilslib.math.vector.api.Vec3f;
 
