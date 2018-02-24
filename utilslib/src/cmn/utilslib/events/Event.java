@@ -32,6 +32,11 @@ public class Event<A extends EventArgs>
 		this.handlers.remove(index);
 	}
 	
+	public void clearHandlers()
+	{
+		this.handlers.clear();
+	}
+	
 	@SuppressWarnings("unchecked")
 	public void raise(A args)
 	{

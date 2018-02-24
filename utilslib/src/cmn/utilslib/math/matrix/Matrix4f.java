@@ -3,6 +3,7 @@ package cmn.utilslib.math.matrix;
 import java.nio.FloatBuffer;
 
 import cmn.utilslib.essentials.BufferUtils;
+import cmn.utilslib.math.Maths;
 import cmn.utilslib.math.Quaternion;
 import cmn.utilslib.math.geometry.Point3f;
 import cmn.utilslib.math.tuple.Tuple3d;
@@ -171,8 +172,8 @@ public class Matrix4f
 	public Matrix4f initRotation(Vec3fBase axis, float angle)
 	{
 		
-		float c = (float)Math.cos(angle);
-		float s = (float)Math.sin(angle);
+		float c = (float)Math.cos(angle * Maths.DEG_TO_RAD);
+		float s = (float)Math.sin(angle * Maths.DEG_TO_RAD);
 		
 		float omc = 1 - c;
 		
@@ -184,11 +185,25 @@ public class Matrix4f
 		float sy = s * axis.getY();
 		float sz = s * axis.getZ();
 		
-		this.m0.set(	axis.getX() * axis.getX() * omc + c	,	xy * omc - sz				,	xz * omc + sy				,	0.0f	);
-		this.m1.set(	xy * omc + sz				,	axis.getY() * axis.getY() * omc + c	,	yz * omc - sx				,	0.0f	);
-		this.m2.set(	xz * omc - sy				,	yz * omc + sx				,	axis.getZ() * axis.getZ() * omc + c	,	0.0f	);
-		this.m3.set(	0.0							,	0.0f						,	0.0f						,	1.0f	);
-
+		this.m0.x = (float)(axis.getX() * axis.getX() * omc + c);
+		this.m0.y = (float)(xy * omc - sz);
+		this.m0.z = (float)(xz * omc + sy);
+		this.m0.a = 0;
+		
+		this.m1.x = (float)(xy * omc + sz);
+		this.m1.y = (float)(axis.getY() * axis.getY() * omc + c);
+		this.m1.z = (float)(yz * omc - sx);
+		this.m1.a = 0;
+		
+		this.m2.x = (float)(xz * omc - sy);
+		this.m2.y = (float)(yz * omc + sx);
+		this.m2.z = (float)(axis.getZ() * axis.getZ() * omc + c);
+		this.m2.a = 0;
+				
+		this.m3.x = 0;
+		this.m3.y = 0;
+		this.m3.z = 0;
+		this.m3.a = 1;
 		return this;
 	}
 	

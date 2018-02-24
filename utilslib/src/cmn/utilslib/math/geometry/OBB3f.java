@@ -31,6 +31,7 @@ public class OBB3f implements ConvexPolygonalShape3f
 		this.halfExtend.set(obb.halfExtend);	
 		this.r.set(obb.r);
 		
+		
 		return this;
 	}
 	
@@ -80,15 +81,39 @@ public class OBB3f implements ConvexPolygonalShape3f
 		
 		Matrix3f objToWorld = new Matrix3f();
 		
-		objToWorld.m0.v[0] = modelSpace.m0.v[0];
-		objToWorld.m0.v[1] = modelSpace.m1.v[0];
-		objToWorld.m0.v[2] = modelSpace.m2.v[0];
-		objToWorld.m1.v[0] = modelSpace.m0.v[1];
-		objToWorld.m1.v[1] = modelSpace.m1.v[1];
-		objToWorld.m1.v[2] = modelSpace.m2.v[1];
-		objToWorld.m2.v[0] = modelSpace.m0.v[2];
-		objToWorld.m2.v[1] = modelSpace.m1.v[2];
-		objToWorld.m2.v[2] = modelSpace.m2.v[2];
+//		objToWorld.m0.x = modelSpace.m0.x;
+//		objToWorld.m0.y = modelSpace.m1.x;
+//		objToWorld.m0.z = modelSpace.m2.x;
+//		objToWorld.m1.x = modelSpace.m0.y;
+//		objToWorld.m1.y = modelSpace.m1.y;
+//		objToWorld.m1.z = modelSpace.m2.y;
+//		objToWorld.m2.x = modelSpace.m0.z;
+//		objToWorld.m2.y = modelSpace.m1.z;
+//		objToWorld.m2.z = modelSpace.m2.z;
+//		
+//		v = this.halfExtend;
+//		
+//		return new Point3f[] {
+//				new Point3f(c.addN(modelSpace.transformN(v))),
+//				new Point3f(c.addN(modelSpace.transform(new Vector3f(-v.x, v.y, v.z)))),
+//				new Point3f(c.addN(modelSpace.transform(new Vector3f(-v.x, -v.y, v.z)))),
+//				new Point3f(c.addN(modelSpace.transform(new Vector3f(v.x, -v.y, v.z)))),
+//				
+//				new Point3f(c.subN(modelSpace.transformN(v))),
+//				new Point3f(c.subN(modelSpace.transform(new Vector3f(-v.x, v.y, v.z)))),
+//				new Point3f(c.subN(modelSpace.transform(new Vector3f(-v.x, -v.y, v.z)))),
+//				new Point3f(c.subN(modelSpace.transform(new Vector3f(v.x, -v.y, v.z)))),
+//		};
+		
+		objToWorld.m0.x = modelSpace.m0.x;
+		objToWorld.m0.y = modelSpace.m1.x;
+		objToWorld.m0.z = modelSpace.m2.x;
+		objToWorld.m1.x = modelSpace.m0.y;
+		objToWorld.m1.y = modelSpace.m1.y;
+		objToWorld.m1.z = modelSpace.m2.y;
+		objToWorld.m2.x = modelSpace.m0.z;
+		objToWorld.m2.y = modelSpace.m1.z;
+		objToWorld.m2.z = modelSpace.m2.z;
 		
 		v = modelSpace.transformN(this.halfExtend);
 		
