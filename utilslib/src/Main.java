@@ -25,6 +25,8 @@ public class Main
 		
 		OBB3f obb = new OBB3f(c, e, m);
 		
+		//trwsfsfs
+		
 		for(Point3f p : obb.getPoints())
 		{
 			System.out.println(p);
