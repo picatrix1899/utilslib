@@ -13,7 +13,7 @@ public class VE_isEqual extends ValidationException
 	{
 		this();
 		
-		if(Check.notEqual(value))
+		if(Check.notEqual(expected, value))
 		{
 			this.details.clear();
 			this.details.add("expected: " + expected);
