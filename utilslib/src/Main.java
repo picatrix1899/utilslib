@@ -23,8 +23,6 @@ public class Main
 		Point3f c = new Point3f(0,0,0);
 		Vector3f e = new Vector3f(20);
 		
-		//yxdcyxc
-		
 		OBB3f obb = new OBB3f(c, e, m);
 		
 		for(Point3f p : obb.getPoints())
