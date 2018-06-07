@@ -5,7 +5,9 @@ package cmn.utilslib.color.colors;
 
 import java.io.Serializable;
 
+import cmn.utilslib.color.colors.api.IColor4;
 import cmn.utilslib.color.colors.api.IColor4Base;
+import cmn.utilslib.color.colors.api.IHDRColor4;
 import cmn.utilslib.color.colors.api.ILDRColor4;
 import cmn.utilslib.math.Maths;
 
@@ -114,5 +116,29 @@ public class LDRColor4 implements ILDRColor4, Serializable
 		
 		return false;
 	}
+	@Override
+	public IColor4 setUnityA(float a) {}
+	@Override
+	public IHDRColor4 setR(int r) {}
+	@Override
+	public IHDRColor4 setG(int g) {}
+	@Override
+	public IHDRColor4 setB(int b) {}
+	@Override
+	public IHDRColor4 setUnityR(float r) {}
+	@Override
+	public IHDRColor4 setUnityG(float g) {}
+	@Override
+	public IHDRColor4 setUnityB(float b) {}
+	@Override
+	public IHDRColor4 set(int brightness) {}
+	@Override
+	public IHDRColor4 set(IColor4Base color){}
+	@Override
+	public IHDRColor4 set(int r, int g, int b, int a){}
+	@Override
+	public IHDRColor4 setUnity(float brightness){}
+	@Override
+	public IHDRColor4 setUnity(float r, float g, float b, float a){}
 
 }

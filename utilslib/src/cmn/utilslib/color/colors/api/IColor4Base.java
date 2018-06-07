@@ -43,7 +43,6 @@ public interface IColor4Base extends IColor3Base, Streamable.Readable
 	IColor4Base clone();
 	
 	
-	
 	/** {@inheritDoc} */ @Override
 	default void writeData(OutputStream stream) throws IOException
 	{

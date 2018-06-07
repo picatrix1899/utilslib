@@ -7,18 +7,36 @@ public interface ILDRColor4 extends ILDRColor4Base, IColor4
 {
 	
 	/** {@inheritDoc}} */ @Override
-	default ILDRColor4 set(IColor4Base color) { return (ILDRColor4) setR(color.getR()).setG(color.getG()).setB(color.getB()).setA(color.getA()); }
+	IHDRColor4 setR(int r);
 	/** {@inheritDoc}} */ @Override
-	default ILDRColor4 set(int r, int g, int b, int a) { return (ILDRColor4) setR(r).setG(g).setB(b).setA(a); }
+	IHDRColor4 setG(int g);
+	/** {@inheritDoc}} */ @Override
+	IHDRColor4 setB(int b);
 	
+	
+	IHDRColor4 setUnityR(float r);
+	/** {@inheritDoc}} */ @Override
+	IHDRColor4 setUnityG(float g);
+	/** {@inheritDoc}} */ @Override
+	IHDRColor4 setUnityB(float b);
 	
 	
 	/** {@inheritDoc}} */ @Override
-	default ILDRColor4 setUnity(float r, float g, float b, float a) { return (ILDRColor4) setUnityR(r).setUnityG(g).setUnityB(b).setUnityA(a); }
+	IHDRColor4 set(int brightness);
+	/** {@inheritDoc}} */ @Override
+	IHDRColor4 set(IColor4Base color);
+	/** {@inheritDoc}} */ @Override
+	IHDRColor4 set(int r, int g, int b, int a);
+	
+	
+	/** {@inheritDoc}} */ @Override
+	IHDRColor4 setUnity(float brightness);
+	/** {@inheritDoc}} */ @Override
+	IHDRColor4 setUnity(float r, float g, float b, float a);
 	
 
 	
-	@Override
+	/** {@inheritDoc}} */ @Override
 	ILDRColor4 clone();
 	
 }

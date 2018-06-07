@@ -15,6 +15,13 @@ public interface IColor4 extends IColor4Base, Streamable.Writeable
 {
 	
 	/**
+	 * Sets a black-white based on brightness where 0 is black and 255 is white;
+	 * @param brightness: the brightness from 0(black) to 255(white)
+	 * @return The current instance.
+	 */
+	IColor4 set(int brightness);
+	
+	/**
 	 * Sets the color based on another color.
 	 * @param color : another color as base.
 	 * @return The current instance.
@@ -31,6 +38,12 @@ public interface IColor4 extends IColor4Base, Streamable.Writeable
 	IColor4 set(int r, int g, int b, int a);
 	
 	
+	/**
+	 * Sets a black-white based on brightness where 0 is black and 1 is white;
+	 * @param brightness: the brightness from 0(black) to 1(white)
+	 * @return The current instance.
+	 */
+	IColor4 setUnity(float brightness);
 	
 	/**
 	 * Sets the color based on 3 unity-range values.
@@ -76,25 +89,25 @@ public interface IColor4 extends IColor4Base, Streamable.Writeable
 	 * @param r : The red component as an unity-range value.
 	 * @return The current instance.
 	 */
-	default IColor4 setUnityR(float r) { return (ILDRColor4) setR(Math.round(r * 255.0f)); }
+	IColor4 setUnityR(float r);
 	/** 
 	 * Sets the green component based on an unity-range value.
 	 * @param g : The green component as an unity-range value.
 	 * @return The current instance.
 	 */
-	default IColor4 setUnityG(float g) { return (ILDRColor4) setG(Math.round(g * 255.0f)); }
+	IColor4 setUnityG(float g);
 	/**
 	 * Sets the blue component based on an unity-range value.
 	 * @param b : The blue component as an unity-range value.
 	 * @return The current instance.
 	 */
-	default IColor4 setUnityB(float b) { return (ILDRColor4) setB(Math.round(b * 255.0f)); }
+	IColor4 setUnityB(float b);
 	/**
 	 * Sets the alpha component based on an unity-range value.
 	 * @param a : The alpha component as an unity-range value.
 	 * @return The current instance.
 	 */
-	default IColor4 setUnityA(float a) { return (ILDRColor4) setA(Math.round(a * 255.0f)); }
+	IColor4 setUnityA(float a);
 
 
 	

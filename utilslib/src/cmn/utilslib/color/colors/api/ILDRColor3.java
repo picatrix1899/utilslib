@@ -2,24 +2,38 @@
 package cmn.utilslib.color.colors.api;
 
 
-
 public interface ILDRColor3 extends ILDRColor3Base, IColor3
 {
+	/** {@inheritDoc}} */ @Override
+	ILDRColor3 setR(int r);
+	/** {@inheritDoc}} */ @Override
+	ILDRColor3 setG(int g);
+	/** {@inheritDoc}} */ @Override
+	ILDRColor3 setB(int b);
+	
+	
+	ILDRColor3 setUnityR(float r);
+	/** {@inheritDoc}} */ @Override
+	ILDRColor3 setUnityG(float g);
+	/** {@inheritDoc}} */ @Override
+	ILDRColor3 setUnityB(float b);
+	
 	
 	/** {@inheritDoc}} */ @Override
-	default ILDRColor3 set(IColor3Base color) { return (ILDRColor3) setR(color.getR()).setG(color.getG()).setB(color.getB()); }
+	ILDRColor3 set(int brightness);
 	/** {@inheritDoc}} */ @Override
-	default ILDRColor3 set(int r, int g, int b) { return (ILDRColor3) setR(r).setG(g).setB(b); }
-	
+	ILDRColor3 set(IColor3Base color);
+	/** {@inheritDoc}} */ @Override
+	ILDRColor3 set(int r, int g, int b);
 	
 	
 	/** {@inheritDoc}} */ @Override
-	default ILDRColor3 setUnity(float r, float g, float b) { return (ILDRColor3) setUnityR(r).setUnityG(g).setUnityB(b); }
-	
+	ILDRColor3 setUnity(float brightness);
+	/** {@inheritDoc}} */ @Override
+	ILDRColor3 setUnity(float r, float g, float b);
 	
 	
 	@Override
 	ILDRColor3 clone();
-	
 }
 
