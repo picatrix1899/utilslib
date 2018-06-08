@@ -11,5 +11,5 @@ public interface IDateBase
 	byte month();
 	byte day();
 	
-	boolean isValidDate();
+	boolean isValid();
 }

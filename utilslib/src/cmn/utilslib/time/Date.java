@@ -73,7 +73,7 @@ public class Date implements IDate
 	}
 	
 	@Override
-	public boolean isValidDate()
+	public boolean isValid()
 	{
 		if(this.year < 0)  return false;
 		if(this.month < 1 || this.month > 12) return false;
@@ -106,5 +106,19 @@ public class Date implements IDate
 	@Override
 	public Date day(int day) { this.day = (byte)day; return this; }
 
-
+	public boolean equals(Object o)
+	{
+		if(o instanceof Date)
+		{
+			Date d = (Date)o;
+			
+			if(this.year != d.year) return false;
+			if(this.month != d.month) return false;
+			if(this.day != d.day) return false;
+		
+			return true;
+		}
+		
+		return false;
+	}
 }

@@ -27,7 +27,7 @@ public abstract class PDate implements IDateBase
 			}
 
 			@Override
-			public boolean isValidDate()
+			public boolean isValid()
 			{
 				return true;
 			}

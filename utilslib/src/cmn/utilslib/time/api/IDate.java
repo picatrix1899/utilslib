@@ -11,4 +11,6 @@ public interface IDate extends IDateBase
 	IDate set(int year, byte month, byte day);
 	IDate set(int year, int month, int day);
 	IDate set(IDateBase date);
+	
+	default IDate copy(IDate date) { return date.set(this); } 
 }
