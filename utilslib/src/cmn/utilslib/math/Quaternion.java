@@ -9,6 +9,7 @@ import cmn.utilslib.math.vector.api.Vec3f;
 import cmn.utilslib.math.vector.api.Vec3fBase;
 import cmn.utilslib.math.vector.api.Vec4dBase;
 import cmn.utilslib.math.vector.api.Vec4fBase;
+import cmn.utilslib.math.vector.pools.Vector3fPool;
 
 /**
  * A Quaternion
@@ -169,8 +170,8 @@ public class Quaternion
 	
 	public static Quaternion getFromVectors(Vec3fBase v1, Vec3fBase v2)
 	{
-		Vec3f a = Vector3f.getInstance();
-		Vec3f b = Vector3f.getInstance();
+		Vector3f a = Vector3fPool.get();
+		Vector3f b = Vector3fPool.get();
 		
 		a.set(v1).normalize();
 		b.set(v2).normalize();
@@ -223,8 +224,8 @@ public class Quaternion
 	public Quaternion rotateTo(Vec3fBase v)
 	{
 		
-		Vec3f a = Vector3f.getInstance();
-		Vec3f b = Vector3f.getInstance();
+		Vector3f a = Vector3fPool.get();
+		Vector3f b = Vector3fPool.get();
 		
 		getForwardf(a);
 		b.set(v).normalize();
@@ -242,8 +243,8 @@ public class Quaternion
 		
 		normalize();
 		
-		Vector3f.storeInstance((Vector3f) a);
-		Vector3f.storeInstance((Vector3f) b);
+		Vector3fPool.store(a);
+		Vector3fPool.store(b);
 		
 		return this;
 		
@@ -252,8 +253,8 @@ public class Quaternion
 	public double getEulerPitch()
 	{
 
-		Vec3f a = Vector3f.getInstance();
-		Vec3f b = Vector3f.getInstance();
+		Vector3f a = Vector3fPool.get();
+		Vector3f b = Vector3fPool.get();
 		
 		getForwardf(a);
 		
@@ -263,8 +264,8 @@ public class Quaternion
 		
 		double out = i * b.angleDeg(a);
 		
-		Vector3f.storeInstance((Vector3f) a);
-		Vector3f.storeInstance((Vector3f) b);
+		Vector3fPool.store(a);
+		Vector3fPool.store(b);
 		
 		return out;
 	}

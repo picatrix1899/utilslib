@@ -1,7 +1,6 @@
 package cmn.utilslib.math.vector;
 
 
-import cmn.utilslib.Pool;
 import cmn.utilslib.math.Maths;
 import cmn.utilslib.math.Quaternion;
 import cmn.utilslib.math.geometry.Point3f;
@@ -12,6 +11,7 @@ import cmn.utilslib.math.tuple.api.Tup3fBase;
 import cmn.utilslib.math.vector.api.Vec3dBase;
 import cmn.utilslib.math.vector.api.Vec3f;
 import cmn.utilslib.math.vector.api.Vec3fBase;
+import cmn.utilslib.math.vector.pools.Vector3fPool;
 
 
 /**
@@ -63,24 +63,7 @@ public class Vector3f implements Vec3f
 	##################
 	 */
 	
-	private static Pool<Vector3f> pool = new Pool<Vector3f>(Vector3f.class);
-	
-	public static Vector3f getInstance() { return pool.get().setZero(); }
-	public static Vector3f getInstance(Vector3f v) { return pool.get().set(v); }
-	public static Vector3f getInstance(Vector3d v) { return pool.get().set(v); }
-	public static Vector3f getInstance(Vec3fBase v) { return pool.get().set(v); }
-	public static Vector3f getInstance(Vec3dBase v) { return pool.get().set(v); }
-	public static Vector3f getInstance(Tuple3f t) { return pool.get().set(t); }
-	public static Vector3f getInstance(Tuple3d t) { return pool.get().set(t); }
-	public static Vector3f getInstance(Tup3fBase t) { return pool.get().set(t); }
-	public static Vector3f getInstance(Tup3dBase t) { return pool.get().set(t); }
-	public static Vector3f getInstance(Point3f p) { return pool.get().set(p); }
-	public static Vector3f getInstance(float scalar) { return pool.get().set(scalar); }
-	public static Vector3f getInstance(double scalar) { return pool.get().set(scalar); }
-	public static Vector3f getInstance(float x, float y, float z) { return pool.get().set(x, y, z); }
-	public static Vector3f getInstance(double x, double y, double z) { return pool.get().set(x, y, z); }
-	
-	public static void storeInstance(Vector3f v) { pool.store(v); }
+
 
 	/*
 	####################
@@ -976,12 +959,12 @@ public class Vector3f implements Vec3f
  	/** {@inheritDoc} */
  	public Vector3f project(Vec3fBase v)
 	{	
-		Vector3f vn = Vector3f.getInstance(v);
+		Vector3f vn = Vector3fPool.get(v);
 		vn.normalize();
 
 		set(vn.mul(dot(vn)));
 		
-		Vector3f.storeInstance((Vector3f) vn);
+		Vector3fPool.store((Vector3f) vn);
 		
 		return this;
 	}
@@ -989,12 +972,12 @@ public class Vector3f implements Vec3f
  	/** {@inheritDoc} */
 	public Vector3f project(Vec3dBase v)
 	{
-		Vector3f vn = Vector3f.getInstance(v);
+		Vector3f vn = Vector3fPool.get(v);
 		vn.normalize();
 
 		set(vn.mul(dot(vn)));
 		
-		Vector3f.storeInstance((Vector3f) vn);
+		Vector3fPool.store((Vector3f) vn);
 		
 		return this;
 	}
