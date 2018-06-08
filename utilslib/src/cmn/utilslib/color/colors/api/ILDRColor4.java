@@ -7,32 +7,32 @@ public interface ILDRColor4 extends ILDRColor4Base, IColor4
 {
 	
 	/** {@inheritDoc}} */ @Override
-	IHDRColor4 setR(int r);
+	ILDRColor4 setR(int r);
 	/** {@inheritDoc}} */ @Override
-	IHDRColor4 setG(int g);
+	ILDRColor4 setG(int g);
 	/** {@inheritDoc}} */ @Override
-	IHDRColor4 setB(int b);
+	ILDRColor4 setB(int b);
 	
 	
-	IHDRColor4 setUnityR(float r);
+	ILDRColor4 setUnityR(float r);
 	/** {@inheritDoc}} */ @Override
-	IHDRColor4 setUnityG(float g);
+	ILDRColor4 setUnityG(float g);
 	/** {@inheritDoc}} */ @Override
-	IHDRColor4 setUnityB(float b);
-	
-	
-	/** {@inheritDoc}} */ @Override
-	IHDRColor4 set(int brightness);
-	/** {@inheritDoc}} */ @Override
-	IHDRColor4 set(IColor4Base color);
-	/** {@inheritDoc}} */ @Override
-	IHDRColor4 set(int r, int g, int b, int a);
+	ILDRColor4 setUnityB(float b);
 	
 	
 	/** {@inheritDoc}} */ @Override
-	IHDRColor4 setUnity(float brightness);
+	ILDRColor4 set(int brightness);
 	/** {@inheritDoc}} */ @Override
-	IHDRColor4 setUnity(float r, float g, float b, float a);
+	ILDRColor4 set(IColor4Base color);
+	/** {@inheritDoc}} */ @Override
+	ILDRColor4 set(int r, int g, int b, int a);
+	
+	
+	/** {@inheritDoc}} */ @Override
+	ILDRColor4 setUnity(float brightness);
+	/** {@inheritDoc}} */ @Override
+	ILDRColor4 setUnity(float r, float g, float b, float a);
 	
 
 	

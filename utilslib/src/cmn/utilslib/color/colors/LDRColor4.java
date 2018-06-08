@@ -5,9 +5,7 @@ package cmn.utilslib.color.colors;
 
 import java.io.Serializable;
 
-import cmn.utilslib.color.colors.api.IColor4;
 import cmn.utilslib.color.colors.api.IColor4Base;
-import cmn.utilslib.color.colors.api.IHDRColor4;
 import cmn.utilslib.color.colors.api.ILDRColor4;
 import cmn.utilslib.math.Maths;
 
@@ -68,13 +66,13 @@ public class LDRColor4 implements ILDRColor4, Serializable
 	
 	
 	/** {@inheritDoc} */ @Override
-	public ILDRColor4 setR(int r) { this.r = Maths.clamp(r, LDRColor4.MIN, LDRColor4.MAX); return this; }
+	public LDRColor4 setR(int r) { this.r = Maths.clamp(r, LDRColor4.MIN, LDRColor4.MAX); return this; }
 	/** {@inheritDoc} */ @Override
-	public ILDRColor4 setG(int g) { this.g = Maths.clamp(g, LDRColor4.MIN, LDRColor4.MAX); return this; }
+	public LDRColor4 setG(int g) { this.g = Maths.clamp(g, LDRColor4.MIN, LDRColor4.MAX); return this; }
 	/** {@inheritDoc} */ @Override
-	public ILDRColor4 setB(int b) { this.b = Maths.clamp(b, LDRColor4.MIN, LDRColor4.MAX); return this; }
+	public LDRColor4 setB(int b) { this.b = Maths.clamp(b, LDRColor4.MIN, LDRColor4.MAX); return this; }
 	/** {@inheritDoc} */ @Override
-	public ILDRColor4 setA(int a) { this.a = Maths.clamp(a, LDRColor4.MIN, LDRColor4.MAX); return this; }
+	public LDRColor4 setA(int a) { this.a = Maths.clamp(a, LDRColor4.MIN, LDRColor4.MAX); return this; }
 	
 	
 
@@ -99,8 +97,7 @@ public class LDRColor4 implements ILDRColor4, Serializable
 	
 	
 	
-	/** {@inheritDoc} */
-	@Override
+	/** {@inheritDoc} */ @Override
 	public boolean equals(Object o)
 	{
 		if(o instanceof LDRColor4)
@@ -116,29 +113,23 @@ public class LDRColor4 implements ILDRColor4, Serializable
 		
 		return false;
 	}
-	@Override
-	public IColor4 setUnityA(float a) {}
-	@Override
-	public IHDRColor4 setR(int r) {}
-	@Override
-	public IHDRColor4 setG(int g) {}
-	@Override
-	public IHDRColor4 setB(int b) {}
-	@Override
-	public IHDRColor4 setUnityR(float r) {}
-	@Override
-	public IHDRColor4 setUnityG(float g) {}
-	@Override
-	public IHDRColor4 setUnityB(float b) {}
-	@Override
-	public IHDRColor4 set(int brightness) {}
-	@Override
-	public IHDRColor4 set(IColor4Base color){}
-	@Override
-	public IHDRColor4 set(int r, int g, int b, int a){}
-	@Override
-	public IHDRColor4 setUnity(float brightness){}
-	@Override
-	public IHDRColor4 setUnity(float r, float g, float b, float a){}
+	/** {@inheritDoc} */ @Override
+	public LDRColor4 setUnityA(float a) { return setA(Math.round(a * 255)); }
+	/** {@inheritDoc} */ @Override
+	public LDRColor4 setUnityR(float r) { return setR(Math.round(r * 255)); }
+	/** {@inheritDoc} */ @Override
+	public LDRColor4 setUnityG(float g) { return setG(Math.round(g * 255)); }
+	/** {@inheritDoc} */ @Override
+	public LDRColor4 setUnityB(float b) { return setB(Math.round(b * 255)); }
+	/** {@inheritDoc} */ @Override
+	public LDRColor4 set(int brightness) { return setR(brightness).setG(brightness).setB(brightness).setA(255); }
+	/** {@inheritDoc} */ @Override
+	public LDRColor4 set(IColor4Base color) { return setR(color.getR()).setG(color.getG()).setB(color.getB()).setA(color.getA()); }
+	/** {@inheritDoc} */ @Override
+	public LDRColor4 set(int r, int g, int b, int a) { return setR(r).setG(g).setB(b); }
+	/** {@inheritDoc} */ @Override
+	public LDRColor4 setUnity(float brightness) { return setUnityR(brightness).setUnityG(brightness).setUnityB(brightness).setUnityA(1);  }
+	/** {@inheritDoc} */ @Override
+	public LDRColor4 setUnity(float r, float g, float b, float a) { return setUnityR(r).setUnityG(g).setUnityB(b); }
 
 }
