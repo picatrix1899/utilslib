@@ -1,5 +1,12 @@
 import cmn.utilslib.math.Maths;
 import cmn.utilslib.math.Quaternion;
+import cmn.utilslib.math.btree.BTree;
+import cmn.utilslib.math.btree.BTreeEvaluation;
+import cmn.utilslib.math.btree.BTreeLeaf;
+import cmn.utilslib.math.btree.BTreeNode;
+import cmn.utilslib.math.btree.BTreeWalker;
+import cmn.utilslib.math.geometry.AABB3f;
+import cmn.utilslib.math.geometry.CollisionResolver;
 import cmn.utilslib.math.geometry.OBB3f;
 import cmn.utilslib.math.geometry.Point3f;
 import cmn.utilslib.math.geometry.RayOBBResolver;
@@ -14,21 +21,23 @@ public class Main
 {
 	public static void main(String[] args)
 	{
-		Matrix4f m = Matrix4f.identity();
+//		Matrix4f m = Matrix4f.identity();
+//		
+//		Quaternion q = Quaternion.getFromAxis(Vector3f.aZ, 45);
+//		
+//		 m = m.initRotation(q);
+//		
+//		Point3f c = new Point3f(0,0,0);
+//		Vector3f e = new Vector3f(20);
+//		
+//		OBB3f obb = new OBB3f(c, e, m);
+//		
+//		for(Point3f p : obb.getPoints())
+//		{
+//			System.out.println(p);
+//		}
 		
-		Quaternion q = Quaternion.getFromAxis(Vector3f.aZ, 45);
-		
-		 m = m.initRotation(q);
-		
-		Point3f c = new Point3f(0,0,0);
-		Vector3f e = new Vector3f(20);
-		
-		OBB3f obb = new OBB3f(c, e, m);
-		
-		for(Point3f p : obb.getPoints())
-		{
-			System.out.println(p);
-		}
+		testBTree();
 	}
 	
 	public static Point3f test(Vector3f halfExtend, Matrix3f modelSpace)
@@ -183,4 +192,126 @@ public class Main
 //
 //	    return true;
 //	}
+	
+	public static void testBTree()
+	{
+		BTreeLeaf<String,AABB3f> leaf1 = new BTreeLeaf<String,AABB3f>();
+		leaf1.evalData = new AABB3f(new Vector3f(-60, -60, -20), new Vector3f(-20,-20,20));
+		leaf1.data = "Leaf1 (-60,-60) - (-20,-20)";
+		
+		BTreeLeaf<String,AABB3f> leaf2 = new BTreeLeaf<String,AABB3f>();
+		leaf2.evalData = new AABB3f(new Vector3f(-120, -60,-20), new Vector3f(-80,-20,20));
+		leaf2.data = "Leaf2 (-120,-60) - (-80,-20)";
+		
+		BTreeNode<String,AABB3f> nodeA = new BTreeNode<String,AABB3f>();
+		nodeA.a = leaf1;
+		nodeA.b = leaf2;
+		nodeA.evalData = new AABB3f(new Vector3f(-120,-60,-20), new Vector3f(-20,-20,20));
+		
+		
+		BTreeLeaf<String,AABB3f> leaf3 = new BTreeLeaf<String,AABB3f>();
+		leaf3.evalData = new AABB3f(new Vector3f(-180, -60, -20), new Vector3f(-140,-20,20));
+		leaf3.data = "Leaf3 (-180,-60) - (-140,-20)";
+		
+		BTreeLeaf<String,AABB3f> leaf4 = new BTreeLeaf<String,AABB3f>();
+		leaf4.evalData = new AABB3f(new Vector3f(-240, -60,-20), new Vector3f(-200,-20,20));
+		leaf4.data = "Leaf4 (-240,-60) - (-200,-20)";
+		
+		BTreeNode<String,AABB3f> nodeB = new BTreeNode<String,AABB3f>();
+		nodeB.a = leaf3;
+		nodeB.b = leaf4;
+		nodeB.evalData = new AABB3f(new Vector3f(-240,-60,-20), new Vector3f(-140,-20,20));
+		
+		
+		BTreeLeaf<String,AABB3f> leaf5 = new BTreeLeaf<String,AABB3f>();
+		leaf5.evalData = new AABB3f(new Vector3f(-120, -120, -20), new Vector3f(-80,-80,20));
+		leaf5.data = "Leaf5 (-120,-120) - (-80,-80)";
+		
+		BTreeLeaf<String,AABB3f> leaf6 = new BTreeLeaf<String,AABB3f>();
+		leaf6.evalData = new AABB3f(new Vector3f(-60, -120,-20), new Vector3f(-20,-80,20));
+		leaf6.data = "Leaf6 (-60,-120) - (-20,-80)";
+		
+		BTreeNode<String,AABB3f> nodeC = new BTreeNode<String,AABB3f>();
+		nodeC.a = leaf5;
+		nodeC.b = leaf6;
+		nodeC.evalData = new AABB3f(new Vector3f(-120,-120,-20), new Vector3f(-20,-80,20));
+		
+		
+		BTreeLeaf<String,AABB3f> leaf7 = new BTreeLeaf<String,AABB3f>();
+		leaf7.evalData = new AABB3f(new Vector3f(-60, -180, -20), new Vector3f(-20,-140,20));
+		leaf7.data = "Leaf7 (-60,-180) - (-20,-140)";
+		
+		BTreeLeaf<String,AABB3f> leaf8 = new BTreeLeaf<String,AABB3f>();
+		leaf8.evalData = new AABB3f(new Vector3f(-60, -240,-20), new Vector3f(-20,-200,20));
+		leaf8.data = "Leaf8 (-60,-240) - (-20,-200)";
+		
+		BTreeNode<String,AABB3f> nodeD = new BTreeNode<String,AABB3f>();
+		nodeD.a = leaf7;
+		nodeD.b = leaf8;
+		nodeD.evalData = new AABB3f(new Vector3f(-60,-240,-20), new Vector3f(-20,-140,20));
+		
+		
+		BTreeNode<String,AABB3f> nodeAB = new BTreeNode<String,AABB3f>();
+		nodeAB.a = nodeA;
+		nodeAB.b = nodeB;
+		nodeAB.evalData = new AABB3f(new Vector3f(-240,-60,-20), new Vector3f(-140,-20,20));
+		
+		BTreeNode<String,AABB3f> nodeCD = new BTreeNode<String,AABB3f>();
+		nodeCD.a = nodeC;
+		nodeCD.b = nodeD;
+		nodeCD.evalData = new AABB3f(new Vector3f(-120,-240,-20), new Vector3f(-20,-80,20));
+		
+		
+		BTreeNode<String,AABB3f> nodeABCD = new BTreeNode<String,AABB3f>();
+		nodeABCD.a = nodeAB;
+		nodeABCD.b = nodeCD;
+		nodeABCD.evalData = new AABB3f(new Vector3f(-240,-240,-20), new Vector3f(-20,-20,20));
+		
+		
+		
+		
+		BTreeLeaf<String,AABB3f> leaf9 = new BTreeLeaf<String,AABB3f>();
+		leaf1.evalData = new AABB3f(new Vector3f(20, 20, -20), new Vector3f(60,60,20));
+		leaf1.data = "Leaf9 (20,20) - (60,60)";
+		
+		
+		BTreeLeaf<String,AABB3f> leaf10 = new BTreeLeaf<String,AABB3f>();
+		leaf2.evalData = new AABB3f(new Vector3f(80, 20,-20), new Vector3f(120,60,20));
+		leaf2.data = "Leaf10 (80,20) - (120,60)";
+		
+		BTreeLeaf<String,AABB3f> leaf11 = new BTreeLeaf<String,AABB3f>();
+		leaf3.evalData = new AABB3f(new Vector3f(80, 80, -20), new Vector3f(120,120,20));
+		leaf3.data = "Leaf11 (80,80) - (120,120)";
+		
+		BTreeNode<String,AABB3f> nodeE = new BTreeNode<String,AABB3f>();
+		nodeE.a = leaf10;
+		nodeE.b = leaf11;
+		nodeE.evalData = new AABB3f(new Vector3f(80,20,-20), new Vector3f(120,120,20));
+		
+		BTreeNode<String,AABB3f> nodeEF = new BTreeNode<String,AABB3f>();
+		nodeEF.a = leaf9;
+		nodeEF.b = nodeE;
+		nodeEF.evalData = new AABB3f(new Vector3f(20,20,-20), new Vector3f(120,120,20));
+		
+		
+		
+		BTree<String,AABB3f> btree = new BTree<String,AABB3f>();
+		
+		btree.a = nodeABCD;
+		btree.b = nodeEF;
+		
+		
+		AABB3f player = new AABB3f(new Point3f(-200,-40,0), new Vector3f(10,10,10));
+		
+		BTreeEvaluation<AABB3f> eval = (e) ->
+		{
+			return CollisionResolver.iAABBAABB3f(e, player);
+		};
+		
+		BTreeWalker<String,AABB3f> walker = new BTreeWalker<String,AABB3f>(btree);
+		
+		String s = walker.walk(eval);
+		
+		System.out.println(s);
+	}
 }

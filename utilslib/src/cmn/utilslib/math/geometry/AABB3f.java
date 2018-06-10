@@ -3,6 +3,7 @@ package cmn.utilslib.math.geometry;
 import cmn.utilslib.interfaces.Source;
 import cmn.utilslib.math.matrix.Matrix4f;
 import cmn.utilslib.math.vector.Vector3f;
+import cmn.utilslib.math.vector.api.Vec3fBase;
 
 public class AABB3f implements ConvexPolygonalShape3f
 {
@@ -16,6 +17,28 @@ public class AABB3f implements ConvexPolygonalShape3f
 	{
 		this.center.set(center);
 		this.halfExtend.set(halfExtend);
+	}
+	
+	public AABB3f(Vec3fBase min, Vec3fBase max)
+	{
+		float minX = min.getX() < max.getX() ? min.getX() : max.getX();
+		float minY = min.getY() < max.getY() ? min.getY() : max.getY();
+		float minZ = min.getZ() < max.getZ() ? min.getZ() : max.getZ();
+		
+		float maxX = max.getX() > min.getX() ? max.getX() : min.getX();
+		float maxY = max.getY() > min.getY() ? max.getY() : min.getY();
+		float maxZ = max.getZ() > min.getZ() ? max.getZ() : min.getZ();
+		
+		float halfX = (maxX - minX) * 0.5f;
+		float halfY = (maxY - minY) * 0.5f;
+		float halfZ = (maxZ - minZ) * 0.5f;
+		
+		float centerX = (minX + maxX) * 0.5f;
+		float centerY = (minY + maxY) * 0.5f;
+		float centerZ = (minZ + maxZ) * 0.5f;
+		
+		this.center.set(centerX, centerY, centerZ);
+		this.halfExtend.set(halfX, halfY, halfZ);
 	}
 	
 	public AABB3f(AABB3f aabb)
