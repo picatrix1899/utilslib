@@ -4,7 +4,6 @@ import java.nio.FloatBuffer;
 
 import cmn.utilslib.essentials.BufferUtils;
 import cmn.utilslib.math.vector.Vector2f;
-import cmn.utilslib.math.vector.api.Vec2f;
 import cmn.utilslib.math.vector.api.Vec2fBase;
 
 public class Matrix2f

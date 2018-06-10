@@ -61,6 +61,8 @@ public interface IColor3Base extends Streamable.Readable
 	
 	IColor3Base clone();
 	
+	@SuppressWarnings("unchecked")
+	default <T extends IColor3> T copy(T dest) { return (T) dest.set(this); }
 	
 	
 	@Override

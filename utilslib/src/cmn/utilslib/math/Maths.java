@@ -1,5 +1,6 @@
 package cmn.utilslib.math;
 
+import cmn.utilslib.math.SigmaSum.SigmaSumAlgorythm;
 
 /**
  * 
@@ -148,4 +149,23 @@ public class Maths
 		return (a >= (b - epsilon) && (epsilon + b) >= a) || (b >= (a - epsilon) && (epsilon + a) >= b);
 	}
 
+	/**
+	 * Lightweight Implementation of a Sigma Sum. The algorythm is an implementation
+	 * of the Functional Interface SigmaSumAlgorythm that gets the current index per call.
+	 * @param start : the start Index to begin with.
+	 * @param end : the last Index to end with.
+	 * @param algorythm : the algorythm the sigma sum uses to calculate its value.
+	 * @return the result of the sigma sum.
+	 */
+	public static double sigmaSum(int start, int end, SigmaSumAlgorythm algorythm)
+	{
+		double out = 0;
+		
+		for(int i = start; i <= end; i++)
+		{
+			out += algorythm.step(i);
+		}
+		
+		return out;
+	}
 }

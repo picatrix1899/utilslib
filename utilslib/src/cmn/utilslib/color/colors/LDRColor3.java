@@ -24,11 +24,7 @@ public class LDRColor3 implements ILDRColor3, Serializable
 	/** the maximum value */
 	public static final int MAX = 255;
 	
-	
-	
 	private static final long serialVersionUID = 1L;
-	
-	
 	
 	private int r = 0;
 	private int g = 0;
@@ -63,13 +59,34 @@ public class LDRColor3 implements ILDRColor3, Serializable
 	
 
 	/** {@inheritDoc} */ @Override
-	public ILDRColor3 setR(int r) { this.r = Maths.clamp(r, LDRColor3.MIN, LDRColor3.MAX); return this; }
+	public LDRColor3 setR(int r) { this.r = Maths.clamp(r, LDRColor3.MIN, LDRColor3.MAX); return this; }
 	/** {@inheritDoc} */ @Override
-	public ILDRColor3 setG(int g) { this.g = Maths.clamp(g, LDRColor3.MIN, LDRColor3.MAX); return this; }
+	public LDRColor3 setG(int g) { this.g = Maths.clamp(g, LDRColor3.MIN, LDRColor3.MAX); return this; }
 	/** {@inheritDoc} */ @Override
-	public ILDRColor3 setB(int b) { this.b = Maths.clamp(b, LDRColor3.MIN, LDRColor3.MAX); return this; }
+	public LDRColor3 setB(int b) { this.b = Maths.clamp(b, LDRColor3.MIN, LDRColor3.MAX); return this; }
 	
-
+	
+	/** {@inheritDoc} */ @Override
+	public LDRColor3 setUnityR(float r) { return setR(Math.round(r * 255)); }
+	/** {@inheritDoc} */ @Override
+	public LDRColor3 setUnityG(float g) { return setG(Math.round(g * 255)); }
+	/** {@inheritDoc} */ @Override
+	public LDRColor3 setUnityB(float b) { return setB(Math.round(b * 255)); }
+	
+	
+	/** {@inheritDoc} */ @Override
+	public LDRColor3 set(int brightness) { return setR(brightness).setG(brightness).setB(brightness); }
+	/** {@inheritDoc}} */ @Override
+	public LDRColor3 set(IColor3Base color) { return setR(color.getR()).setG(color.getG()).setB(color.getB()); }
+	/** {@inheritDoc}} */ @Override
+	public LDRColor3 set(int r, int g, int b) { return setR(r).setG(g).setB(b); }
+	
+	
+	/** {@inheritDoc} */ @Override
+	public LDRColor3 setUnity(float brightness) { return setUnityR(brightness).setUnityG(brightness).setUnityB(brightness); }
+	/** {@inheritDoc}} */ @Override
+	public LDRColor3 setUnity(float r, float g, float b) { return setUnityR(r).setUnityG(g).setUnityB(b); }
+	
 	
 	/** {@inheritDoc} */ @Override
 	public int getR() { return this.r; }
@@ -80,8 +97,8 @@ public class LDRColor3 implements ILDRColor3, Serializable
 	
 	
 
-	@Override
-	public ILDRColor3 clone() { return new LDRColor3(this); }
+	/** {@inheritDoc} */ @Override
+	public LDRColor3 clone() { return new LDRColor3(this); }
 	
 	
 	
@@ -108,5 +125,7 @@ public class LDRColor3 implements ILDRColor3, Serializable
 		
 		return false;
 	}
+
+
 
 }

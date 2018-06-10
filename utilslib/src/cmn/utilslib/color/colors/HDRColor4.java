@@ -66,13 +66,13 @@ public class HDRColor4 implements  IHDRColor4, Serializable
 	
 	
 	/** {@inheritDoc}} */ @Override
-	public IHDRColor4 setR(int r) { this.r = r; return this; }
+	public HDRColor4 setR(int r) { this.r = r; return this; }
 	/** {@inheritDoc}} */ @Override
-	public IHDRColor4 setG(int g) { this.g = g; return this; }
+	public HDRColor4 setG(int g) { this.g = g; return this; }
 	/** {@inheritDoc}} */ @Override
-	public IHDRColor4 setB(int b) { this.b = b; return this; }
+	public HDRColor4 setB(int b) { this.b = b; return this; }
 	/** {@inheritDoc}} */ @Override
-	public IHDRColor4 setA(int a) { this.a = a; return this; }
+	public HDRColor4 setA(int a) { this.a = a; return this; }
 	
 	
 
@@ -88,7 +88,7 @@ public class HDRColor4 implements  IHDRColor4, Serializable
 
 
 	/** {@inheritDoc} */ @Override
-	public IHDRColor4 clone() { return new HDRColor4(this); }
+	public HDRColor4 clone() { return new HDRColor4(this); }
 	
 	
 	
@@ -113,5 +113,23 @@ public class HDRColor4 implements  IHDRColor4, Serializable
 		
 		return false;
 	}
+	@Override
+	public HDRColor4 setUnityA(float a) { return setA(Math.round(a * 255)); }
+	@Override
+	public HDRColor4 setUnityR(float r) { return setR(Math.round(r * 255)); }
+	@Override
+	public HDRColor4 setUnityG(float g) { return setG(Math.round(g * 255)); }
+	@Override
+	public HDRColor4 setUnityB(float b) { return setB(Math.round(b * 255)); }
+	@Override
+	public HDRColor4 set(int brightness) { return setR(brightness).setG(brightness).setB(brightness).setA(255); }
+	@Override
+	public HDRColor4 set(IColor4Base color) { return setR(color.getR()).setG(color.getG()).setB(color.getB()).setA(color.getA()); }
+	@Override
+	public HDRColor4 set(int r, int g, int b, int a) { return setR(r).setG(g).setB(b).setA(a); }
+	@Override
+	public HDRColor4 setUnity(float brightness) { return setUnityR(brightness).setUnityG(brightness).setUnityB(brightness).setUnityA(1); }
+	@Override
+	public HDRColor4 setUnity(float r, float g, float b, float a) { return setUnityR(r).setUnityG(g).setUnityB(b).setUnityA(a); }
 
 }

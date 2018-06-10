@@ -72,16 +72,36 @@ public class HDRColor3 implements IHDRColor3, Serializable
 	
 		
 	/** {@inheritDoc}} */ @Override
-	public IHDRColor3 setR(int r) { this.r = r; return this; }
+	public HDRColor3 setR(int r) { this.r = r; return this; }
 	/** {@inheritDoc}} */ @Override
-	public IHDRColor3 setG(int g) { this.g = g; return this; }
+	public HDRColor3 setG(int g) { this.g = g; return this; }
 	/** {@inheritDoc}} */ @Override
-	public IHDRColor3 setB(int b) { this.b = b; return this; }
-	
+	public HDRColor3 setB(int b) { this.b = b; return this; }
 
+	/** {@inheritDoc}} */ @Override
+	public HDRColor3 setUnityR(float r) { return setR(Math.round(r * 255.0f)); }
+	/** {@inheritDoc}} */ @Override
+	public HDRColor3 setUnityG(float g) { return setG(Math.round(g * 255.0f)); }
+	/** {@inheritDoc}} */ @Override
+	public HDRColor3 setUnityB(float b) { return setB(Math.round(b * 255.0f)); }
+	
+	
+	/** {@inheritDoc}} */ @Override
+	public HDRColor3 set(int brightness) { return setR(brightness).setG(brightness).setB(brightness); }
+	/** {@inheritDoc}} */ @Override
+	public HDRColor3 set(IColor3Base color) { return setR(color.getR()).setG(color.getG()).setB(color.getB()); }
+	/** {@inheritDoc}} */ @Override
+	public HDRColor3 set(int r, int g, int b) { return setR(r).setG(g).setB(b); }
+	
+	
+	/** {@inheritDoc}} */ @Override
+	public HDRColor3 setUnity(float brightness) { return setUnityR(brightness).setUnityG(brightness).setUnityB(brightness); }
+	/** {@inheritDoc}} */ @Override
+	public HDRColor3 setUnity(float r, float g, float b) { return setUnityR(r).setUnityG(g).setUnityB(b); }
+	
 	
 	/** {@inheritDoc} */ @Override
-	public IHDRColor3 clone() { return new HDRColor3(this); }
+	public HDRColor3 clone() { return new HDRColor3(this); }
 	
 	
 	

@@ -1,3 +1,4 @@
+
 import cmn.utilslib.math.Maths;
 import cmn.utilslib.math.Quaternion;
 import cmn.utilslib.math.btree.BTree;
@@ -7,19 +8,39 @@ import cmn.utilslib.math.btree.BTreeNode;
 import cmn.utilslib.math.btree.BTreeWalker;
 import cmn.utilslib.math.geometry.AABB3f;
 import cmn.utilslib.math.geometry.CollisionResolver;
+import cmn.utilslib.math.SigmaSum;
 import cmn.utilslib.math.geometry.OBB3f;
 import cmn.utilslib.math.geometry.Point3f;
-import cmn.utilslib.math.geometry.RayOBBResolver;
-import cmn.utilslib.math.matrix.Matrix2f;
 import cmn.utilslib.math.matrix.Matrix3f;
 import cmn.utilslib.math.matrix.Matrix4f;
 import cmn.utilslib.math.vector.Vector2f;
 import cmn.utilslib.math.vector.Vector3f;
-import cmn.utilslib.math.vector.api.Vec2fBase;
 
 public class Main
 {
 	public static void main(String[] args)
+	{
+
+		test5();
+	}
+	
+	public static void test5()
+	{
+		SigmaSum sigma = new SigmaSum(1, 200, (index) -> index);
+		
+		System.out.println(sigma.start());
+		
+		double[] a = new double[4];
+		a[0] = 1;
+		a[1] = 2;
+		a[2] = 3;
+		a[3] = 4;
+		
+		double x = 3.2;
+		System.out.println(Maths.sigmaSum(0, 3, (index -> a[index] * Math.pow(x, index))));
+	}
+	
+	public static void test4()
 	{
 //		Matrix4f m = Matrix4f.identity();
 //		
