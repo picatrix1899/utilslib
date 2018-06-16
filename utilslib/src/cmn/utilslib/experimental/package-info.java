@@ -5,4 +5,4 @@
  * @author fz
  *
  */
-package cmn.utilslib.math.trees;
+package cmn.utilslib.experimental;
