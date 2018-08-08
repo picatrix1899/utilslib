@@ -5,15 +5,21 @@ import cmn.utilslib.time.api.IDateBase;
 
 public class Date implements IDate
 {
+	
+	public static final Date INVALID = new Date() {public boolean isValid() { return false; } };
+	
 	public int year;
 	public byte month;
 	public byte day;
+	public boolean bc;
+
 	
 	public Date()
 	{
 		this.year = 0001;
 		this.month = 01;
 		this.day = 01;
+		this.bc = false;
 	}
 	
 	public Date(int year, byte month, byte day)
@@ -21,6 +27,7 @@ public class Date implements IDate
 		this.year = year;
 		this.month = month;
 		this.day = day;
+		this.bc = false;
 	}
 	
 	public Date(int year, int month, int day)
@@ -28,6 +35,23 @@ public class Date implements IDate
 		this.year = year;
 		this.month = (byte)month;
 		this.day = (byte)day;
+		this.bc = false;
+	}
+	
+	public Date(int year, byte month, byte day, boolean bc)
+	{
+		this.year = year;
+		this.month = month;
+		this.day = day;
+		this.bc = bc;
+	}
+	
+	public Date(int year, int month, int day, boolean bc)
+	{
+		this.year = year;
+		this.month = (byte)month;
+		this.day = (byte)day;
+		this.bc = bc;
 	}
 	
 	public Date(Date date)
@@ -35,6 +59,7 @@ public class Date implements IDate
 		this.year = date.year;
 		this.month = date.month;
 		this.day = date.day;
+		this.bc = date.bc;
 	}
 	
 	@Override
@@ -56,11 +81,32 @@ public class Date implements IDate
 	}
 	
 	@Override
+	public Date set(int year, byte month, byte day, boolean bc)
+	{
+		this.year = year;
+		this.month = month;
+		this.day = day;
+		this.bc = bc;
+		return this;
+	}
+	
+	@Override
+	public Date set(int year, int month, int day, boolean bc)
+	{
+		this.year = year;
+		this.month = (byte)month;
+		this.day = (byte)day;
+		this.bc = bc;
+		return this;
+	}
+	
+	@Override
 	public Date set(IDateBase date)
 	{
 		this.year = date.year();
 		this.month = date.month();
 		this.day = date.day();
+		this.bc = date.beforeChrist();
 		return this;
 	}
 	
@@ -90,6 +136,9 @@ public class Date implements IDate
 	
 	@Override
 	public byte day() { return this.day; }
+	
+	@Override
+	public boolean beforeChrist() { return this.bc; }
 
 	@Override
 	public Date year(int year) { this.year = year; return this; }
@@ -106,19 +155,25 @@ public class Date implements IDate
 	@Override
 	public Date day(int day) { this.day = (byte)day; return this; }
 
-	public boolean equals(Object o)
+	@Override
+	public Date beforeChrist(boolean bc) {  this.bc = bc; return this; }
+	
+	public boolean equals(Object obj)
 	{
-		if(o instanceof Date)
+		if(obj instanceof IDateBase)
 		{
-			Date d = (Date)o;
+			IDateBase d = (IDateBase)obj;
 			
-			if(this.year != d.year) return false;
-			if(this.month != d.month) return false;
-			if(this.day != d.day) return false;
-		
+			if(this.isValid() != d.isValid()) return false;
+			if(this.year != d.year()) return false;
+			if(this.month != d.month()) return false;
+			if(this.day != d.day()) return false;
+			if(this.bc != d.beforeChrist()) return false;
+			
 			return true;
 		}
 		
 		return false;
 	}
+
 }

@@ -4,12 +4,15 @@ import cmn.utilslib.time.PDate;
 
 public interface IDateBase
 {
-	public static final PDate MIN = PDate.gen(0001, 01, 01);
-	public static final PDate MAX = PDate.gen(9999, 12, 31);
+	public static final PDate MIN_BC = PDate.gen(0001, 01, 01, true);
+	public static final PDate MAX_BC = PDate.gen(9999, 12, 31, true);
+	public static final PDate MIN_AC = PDate.gen(0001, 01, 01, false);
+	public static final PDate MAX_AC = PDate.gen(9999, 12, 31, false);
 	
 	int year();
 	byte month();
 	byte day();
+	boolean beforeChrist();
 	
 	boolean isValid();
 }

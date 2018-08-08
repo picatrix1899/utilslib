@@ -1,5 +1,6 @@
 package cmn.utilslib.validation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cmn.utilslib.essentials.Check;
@@ -97,20 +98,32 @@ public abstract class Validate
 
 
 	
-	public static void isAbove(int max, int value) { new VE_isAbove(1, max, value); }
-	public static void isAbove(long max, long value) { new VE_isAbove(1, max, value);  }
-	public static void isAbove(float max, float value) { new VE_isAbove(1, max, value); }
-	public static void isAbove(double max, double value) { new VE_isAbove(1, max, value); }
+	public static void isAbove(int max, int value) { ValidateAbove.isAbove(1, max, value); }
+	public static void isAbove(long max, long value) { ValidateAbove.isAbove(1, max, value);  }
+	public static void isAbove(float max, float value) { ValidateAbove.isAbove(1, max, value); }
+	public static void isAbove(double max, double value) { ValidateAbove.isAbove(1, max, value); }
 	
-	public static void isAbove(int max, int... values) { new VE_isAboveMulti(1, max, values); }
-	public static void isAbove(long max, long... values) { new VE_isAboveMulti(1, max, values);  }
-	public static void isAbove(float max, float... values) { new VE_isAboveMulti(1, max, values); }
-	public static void isAbove(double max, double... values) { new VE_isAboveMulti(1, max, values); }
+	public static void isAbove(int max, int... values) { ValidateAbove.isAbove(1, max, values); }
+	public static void isAbove(long max, long... values) { ValidateAbove.isAbove(1, max, values);  }
+	public static void isAbove(float max, float... values) { ValidateAbove.isAbove(1, max, values); }
+	public static void isAbove(double max, double... values) { ValidateAbove.isAbove(1, max, values); }
 	
-	public static void isAboveOOO(int max, int... values) { new VE_isAboveOOO(1, max, values); }
-	public static void isAboveOOO(long max, long... values) { new VE_isAboveOOO(1, max, values);  }
-	public static void isAboveOOO(float max, float... values) { new VE_isAboveOOO(1, max, values); }
-	public static void isAboveOOO(double max, double... values) { new VE_isAboveOOO(1, max, values); }
+	public static void isAboveOOO(int max, int... values) { ValidateAbove.isAboveOOO(1, max, values); }
+	public static void isAboveOOO(long max, long... values) { ValidateAbove.isAboveOOO(1, max, values);  }
+	public static void isAboveOOO(float max, float... values) { ValidateAbove.isAboveOOO(1, max, values); }
+	public static void isAboveOOO(double max, double... values) { ValidateAbove.isAboveOOO(1, max, values); }
+	
+	
+	
+	public static void isAbove(Error exception, int min, int value) { if(Check.notAbove(min, value)) throw exception; }
+	public static void isAbove(RuntimeException exception, int min, int value) { if(Check.notAbove(min, value)) throw exception; }
+	public static <T extends Exception> void isAbove(T exception, int min, int value) throws T { if(Check.notAbove(min, value)) throw exception; }
+	
+	
+	
+	public static void isAbove(Error exception, int min, int...values) { for(int value : values) if(Check.notAbove(min, value)) { throw exception; } }
+	public static void isAbove(RuntimeException exception, int min, int...values) { for(int value : values) if(Check.notAbove(min, value)) throw exception; }
+	public static <T extends Exception> void isAbove(T exception, int min, int...values) throws T { for(int value : values) if(Check.notAbove(min, value)) throw exception; }
 	
 	
 	
@@ -214,20 +227,20 @@ public abstract class Validate
 
 
 	
-	public static void notAbove(int max, int value) { new VE_notAbove(1, max, value); }
-	public static void notAbove(long max, long value) { new VE_notAbove(1, max, value); }
-	public static void notAbove(float max, float value) { new VE_notAbove(1, max, value); }
-	public static void notAbove(double max, double value) { new VE_notAbove(1, max, value); }
+	public static void notAbove(int max, int value) { ValidateAbove.notAbove(1, max, value); }
+	public static void notAbove(long max, long value) { ValidateAbove.notAbove(1, max, value); }
+	public static void notAbove(float max, float value) { ValidateAbove.notAbove(1, max, value); }
+	public static void notAbove(double max, double value) { ValidateAbove.notAbove(1, max, value); }
 	
-	public static void notAbove(int max, int... values) { new VE_notAboveMulti(1, max, values); }
-	public static void notAbove(long max, long... values) { new VE_notAboveMulti(1, max, values); }
-	public static void notAbove(float max, float... values) { new VE_notAboveMulti(1, max, values); }
-	public static void notAbove(double max, double... values) { new VE_notAboveMulti(1, max, values); }
+	public static void notAbove(int max, int... values) { ValidateAbove.notAbove(1, max, values); }
+	public static void notAbove(long max, long... values) { ValidateAbove.notAbove(1, max, values); }
+	public static void notAbove(float max, float... values) { ValidateAbove.notAbove(1, max, values); }
+	public static void notAbove(double max, double... values) { ValidateAbove.notAbove(1, max, values); }
 
-	public static void notAboveOOO(int max, int... values) { new VE_notAboveOOO(1, max, values); }
-	public static void notAboveOOO(long max, long... values) { new VE_notAboveOOO(1, max, values); }
-	public static void notAboveOOO(float max, float... values) { new VE_notAboveOOO(1, max, values); }
-	public static void notAboveOOO(double max, double... values) { new VE_notAboveOOO(1, max, values); }
+	public static void notAboveOOO(int max, int... values) { ValidateAbove.notAboveOOO(1, max, values); }
+	public static void notAboveOOO(long max, long... values) { ValidateAbove.notAboveOOO(1, max, values); }
+	public static void notAboveOOO(float max, float... values) { ValidateAbove.notAboveOOO(1, max, values); }
+	public static void notAboveOOO(double max, double... values) { ValidateAbove.notAboveOOO(1, max, values); }
 	
 	
 	

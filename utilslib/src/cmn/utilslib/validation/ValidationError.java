@@ -1,27 +1,26 @@
 package cmn.utilslib.validation;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import cmn.utilslib.essentials.Auto;
-import cmn.utilslib.exceptions.ErrorHandler;
-import cmn.utilslib.exceptions.SimpleErrorHandler;
+import cmn.utilslib.Utilslib;
 
-public class ValidationException extends Error
+public class ValidationError extends Error
 {
+
 	private static final long serialVersionUID = 1L;
-	
-	protected List<String> details = Auto.ArrayList();
+
+	protected List<String> details = new ArrayList<String>();
 	private String type = "";
 	
 	
-	
-	public ValidationException(String msg)
+	public ValidationError(String msg)
 	{
 		super(msg);
 	}
 	
-	public ValidationException(String type, String msg)
+	public ValidationError(String type, String msg)
 	{
 		super(msg);
 		this.type = type;
@@ -46,14 +45,18 @@ public class ValidationException extends Error
 		return builder.toString();
 	}
 	
-	public void handle(int stackreduction)
+	public void throwError(int stackreduction)
 	{
+		if(Utilslib.FLAG__USE_VALIDATION_STACKREDUCTION)
+		{
 			StackTraceElement[] element = this.getStackTrace();
 			
 			element = Arrays.copyOfRange(element, 0 + stackreduction, element.length);
 			
 			this.setStackTrace(element);
-			
-			throw this;				
+		}
+
+		throw this;				
 	}
+	
 }

@@ -10,5 +10,7 @@ public class Utilslib
 	
 	public static final String AABB3F_TOSTRING_PRESENTATION_CENTER_EXTEND = "";
 	public static final String AABB3F_TOSTRING_PRESENTATION_MIN_MAX = "";
+
+	public static boolean FLAG__USE_VALIDATION_STACKREDUCTION = true;
 	
 }
