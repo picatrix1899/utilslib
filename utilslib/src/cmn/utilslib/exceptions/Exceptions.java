@@ -14,7 +14,6 @@ public class Exceptions
 {
 	
 	public static Class<? extends RuntimeException> IllegalArgument = IllegalArgumentException.class;
-	public static Class<? extends RuntimeException> Validation = ValidationException.class; 
 	
 	public static void handle(RuntimeException e,  int stackreduction)
 	{
