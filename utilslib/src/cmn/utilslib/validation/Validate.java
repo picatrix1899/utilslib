@@ -15,11 +15,11 @@ import cmn.utilslib.exceptions.Exceptions;
 public abstract class Validate
 {
 	
-	public static void isTrue(boolean value) { new VE_isTrue(1, value); }
+	public static void isTrue(boolean value) { ValidateTrue.isTrue(1, value); }
 	
-	public static void isTrue(boolean... values) { new VE_isTrueMulti(1, values); }
+	public static void isTrue(boolean... values) { ValidateTrue.isTrue(1, values); }
 
-	public static void isTrueOOO(boolean... values) { new VE_isTrueOOO(1, values); }
+	public static void isTrueOOO(boolean... values) { ValidateTrue.isTrueOOO(1, values); }
 
 	
 	
@@ -119,11 +119,13 @@ public abstract class Validate
 	public static void isAbove(RuntimeException exception, int min, int value) { if(Check.notAbove(min, value)) throw exception; }
 	public static <T extends Exception> void isAbove(T exception, int min, int value) throws T { if(Check.notAbove(min, value)) throw exception; }
 	
-	
-	
 	public static void isAbove(Error exception, int min, int...values) { for(int value : values) if(Check.notAbove(min, value)) { throw exception; } }
 	public static void isAbove(RuntimeException exception, int min, int...values) { for(int value : values) if(Check.notAbove(min, value)) throw exception; }
-	public static <T extends Exception> void isAbove(T exception, int min, int...values) throws T { for(int value : values) if(Check.notAbove(min, value)) throw exception; }
+	public static <T extends Exception> void isAbove(T exception, int min, int...values) throws T { for(int value : values) if(Check.notAbove(min, value)) throw exception; } 
+	
+	public static void isAboveOOO(Error exception, int min, int...values) { if(Check.notAbove(min, values)) { throw exception; } }
+	public static void isAboveOOO(RuntimeException exception, int min, int...values) { if(Check.notAbove(min, values)) throw exception; }
+	public static <T extends Exception> void isAboveOOO(T exception, int min, int...values) throws T { if(Check.notAbove(min, values)) throw exception; }
 	
 	
 	
@@ -144,11 +146,11 @@ public abstract class Validate
 	
 	
 	
-	public static void notTrue(boolean value) { new VE_notTrue(1, value); }
+	public static void notTrue(boolean value) { ValidateTrue.notTrue(1, value); }
 	
-	public static void notTrue(boolean... values) { new VE_notTrueMulti(1, values); }
+	public static void notTrue(boolean... values) { ValidateTrue.notTrue(1, values); }
 
-	public static void notTrueOOO(boolean... values) { new VE_notTrueOOO(1, values); }
+	public static void notTrueOOO(boolean... values) { ValidateTrue.notTrueOOO(1, values); }
 
 	
 	
