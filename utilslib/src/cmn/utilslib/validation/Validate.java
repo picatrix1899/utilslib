@@ -23,6 +23,20 @@ public abstract class Validate
 
 	
 	
+	public static void isTrue(Error exception, boolean value) { if(Check.notTrue(value)) throw exception; }
+	public static void isTrue(RuntimeException exception, boolean value) { if(Check.notTrue(value)) throw exception; }
+	public static <T extends Exception> void isTrue(T exception, boolean value) throws T { if(Check.notTrue(value)) throw exception; }
+	
+	public static void isTrue(Error exception, boolean...values) { for(boolean value : values) if(Check.notTrue(value)) { throw exception; } }
+	public static void isTrue(RuntimeException exception, boolean...values) { for(boolean value : values) if(Check.notTrue(value)) throw exception; }
+	public static <T extends Exception> void isTrue(T exception, boolean...values) throws T { for(boolean value : values) if(Check.notTrue(value)) throw exception; } 
+	
+	public static void isTrueOOO(Error exception, boolean...values) { if(Check.notTrue(values)) { throw exception; } }
+	public static void isTrueOOO(RuntimeException exception, boolean...values) { if(Check.notTrue(values)) throw exception; }
+	public static <T extends Exception> void isTrueOOO(T exception, boolean...values) throws T { if(Check.notTrue(values)) throw exception; }
+	
+	
+	
 	public static void isFalse(boolean value) { new VE_isFalse(1, value); }
 	
 	public static void isFalse(boolean... values) { new VE_isFalseMulti(1, values); }
@@ -81,22 +95,36 @@ public abstract class Validate
 	
 	
 	
-	public static void isBelow(int min, int value) { new VE_isBelow(1, min, value);  }
-	public static void isBelow(long min, long value) { new VE_isBelow(1, min, value); }
-	public static void isBelow(float min, float value) { new VE_isBelow(1, min, value); }
-	public static void isBelow(double min, double value) { new VE_isBelow(1, min, value); }
+	public static void isBelow(int min, int value) { ValidateBelow.isBelow(1, min, value);  }
+	public static void isBelow(long min, long value) { ValidateBelow.isBelow(1, min, value); }
+	public static void isBelow(float min, float value) { ValidateBelow.isBelow(1, min, value); }
+	public static void isBelow(double min, double value) { ValidateBelow.isBelow(1, min, value); }
 	
-	public static void isBelow(int min, int... values) { new VE_isBelowMulti(1, min, values);  }
-	public static void isBelow(long min, long... values) { new VE_isBelowMulti(1, min, values); }
-	public static void isBelow(float min, float... values) { new VE_isBelowMulti(1, min, values); }
-	public static void isBelow(double min, double... values) { new VE_isBelowMulti(1, min, values); }
+	public static void isBelow(int min, int... values) { ValidateBelow.isBelow(1, min, values);  }
+	public static void isBelow(long min, long... values) { ValidateBelow.isBelow(1, min, values); }
+	public static void isBelow(float min, float... values) { ValidateBelow.isBelow(1, min, values); }
+	public static void isBelow(double min, double... values) { ValidateBelow.isBelow(1, min, values); }
 	
-	public static void isBelowOOO(int min, int... values) { new VE_isBelowOOO(1, min, values);  }
-	public static void isBelowOOO(long min, long... values) { new VE_isBelowOOO(1, min, values); }
-	public static void isBelowOOO(float min, float... values) { new VE_isBelowOOO(1, min, values); }
-	public static void isBelowOOO(double min, double... values) { new VE_isBelowOOO(1, min, values); }
+	public static void isBelowOOO(int min, int... values) { ValidateBelow.isBelowOOO(1, min, values);  }
+	public static void isBelowOOO(long min, long... values) { ValidateBelow.isBelowOOO(1, min, values); }
+	public static void isBelowOOO(float min, float... values) { ValidateBelow.isBelowOOO(1, min, values); }
+	public static void isBelowOOO(double min, double... values) { ValidateBelow.isBelowOOO(1, min, values); }
 
 
+	
+	public static void isBelow(Error exception, int min, int value) { if(Check.notBelow(min, value)) throw exception; }
+	public static void isBelow(RuntimeException exception, int min, int value) { if(Check.notBelow(min, value)) throw exception; }
+	public static <T extends Exception> void isBelow(T exception, int min, int value) throws T { if(Check.notBelow(min, value)) throw exception; }
+	
+	public static void isBelow(Error exception, int min, int...values) { for(int value : values) if(Check.notBelow(min, value)) { throw exception; } }
+	public static void isBelow(RuntimeException exception, int min, int...values) { for(int value : values) if(Check.notBelow(min, value)) throw exception; }
+	public static <T extends Exception> void isBelow(T exception, int min, int...values) throws T { for(int value : values) if(Check.notBelow(min, value)) throw exception; } 
+	
+	public static void isBelowOOO(Error exception, int min, int...values) { if(Check.notBelow(min, values)) { throw exception; } }
+	public static void isBelowOOO(RuntimeException exception, int min, int...values) { if(Check.notBelow(min, values)) throw exception; }
+	public static <T extends Exception> void isBelowOOO(T exception, int min, int...values) throws T { if(Check.notBelow(min, values)) throw exception; }
+	
+	
 	
 	public static void isAbove(int max, int value) { ValidateAbove.isAbove(1, max, value); }
 	public static void isAbove(long max, long value) { ValidateAbove.isAbove(1, max, value);  }
@@ -118,14 +146,41 @@ public abstract class Validate
 	public static void isAbove(Error exception, int min, int value) { if(Check.notAbove(min, value)) throw exception; }
 	public static void isAbove(RuntimeException exception, int min, int value) { if(Check.notAbove(min, value)) throw exception; }
 	public static <T extends Exception> void isAbove(T exception, int min, int value) throws T { if(Check.notAbove(min, value)) throw exception; }
+	public static void isAbove(Error exception, long min, long value) { if(Check.notAbove(min, value)) throw exception; }
+	public static void isAbove(RuntimeException exception, long min, long value) { if(Check.notAbove(min, value)) throw exception; }
+	public static <T extends Exception> void isAbove(T exception, long min, long value) throws T { if(Check.notAbove(min, value)) throw exception; }
+	public static void isAbove(Error exception, float min, float value) { if(Check.notAbove(min, value)) throw exception; }
+	public static void isAbove(RuntimeException exception, float min, float value) { if(Check.notAbove(min, value)) throw exception; }
+	public static <T extends Exception> void isAbove(T exception, float min, float value) throws T { if(Check.notAbove(min, value)) throw exception; }
+	public static void isAbove(Error exception, double min, double value) { if(Check.notAbove(min, value)) throw exception; }
+	public static void isAbove(RuntimeException exception, double min, double value) { if(Check.notAbove(min, value)) throw exception; }
+	public static <T extends Exception> void isAbove(T exception, double min, double value) throws T { if(Check.notAbove(min, value)) throw exception; }
 	
 	public static void isAbove(Error exception, int min, int...values) { for(int value : values) if(Check.notAbove(min, value)) { throw exception; } }
 	public static void isAbove(RuntimeException exception, int min, int...values) { for(int value : values) if(Check.notAbove(min, value)) throw exception; }
 	public static <T extends Exception> void isAbove(T exception, int min, int...values) throws T { for(int value : values) if(Check.notAbove(min, value)) throw exception; } 
+	public static void isAbove(Error exception, long min, long...values) { for(long value : values) if(Check.notAbove(min, value)) { throw exception; } }
+	public static void isAbove(RuntimeException exception, long min, long...values) { for(long value : values) if(Check.notAbove(min, value)) throw exception; }
+	public static <T extends Exception> void isAbove(T exception, long min, long...values) throws T { for(long value : values) if(Check.notAbove(min, value)) throw exception; } 
+	public static void isAbove(Error exception, float min, float...values) { for(float value : values) if(Check.notAbove(min, value)) { throw exception; } }
+	public static void isAbove(RuntimeException exception, float min, float...values) { for(float value : values) if(Check.notAbove(min, value)) throw exception; }
+	public static <T extends Exception> void isAbove(T exception, float min, float...values) throws T { for(float value : values) if(Check.notAbove(min, value)) throw exception; } 
+	public static void isAbove(Error exception, double min, double...values) { for(double value : values) if(Check.notAbove(min, value)) { throw exception; } }
+	public static void isAbove(RuntimeException exception, double min, double...values) { for(double value : values) if(Check.notAbove(min, value)) throw exception; }
+	public static <T extends Exception> void isAbove(T exception, double min, double...values) throws T { for(double value : values) if(Check.notAbove(min, value)) throw exception; } 
 	
 	public static void isAboveOOO(Error exception, int min, int...values) { if(Check.notAbove(min, values)) { throw exception; } }
 	public static void isAboveOOO(RuntimeException exception, int min, int...values) { if(Check.notAbove(min, values)) throw exception; }
 	public static <T extends Exception> void isAboveOOO(T exception, int min, int...values) throws T { if(Check.notAbove(min, values)) throw exception; }
+	public static void isAboveOOO(Error exception, long min, long...values) { if(Check.notAbove(min, values)) { throw exception; } }
+	public static void isAboveOOO(RuntimeException exception, long min, long...values) { if(Check.notAbove(min, values)) throw exception; }
+	public static <T extends Exception> void isAboveOOO(T exception, long min, long...values) throws T { if(Check.notAbove(min, values)) throw exception; }
+	public static void isAboveOOO(Error exception, float min, float...values) { if(Check.notAbove(min, values)) { throw exception; } }
+	public static void isAboveOOO(RuntimeException exception, float min, float...values) { if(Check.notAbove(min, values)) throw exception; }
+	public static <T extends Exception> void isAboveOOO(T exception, float min, float...values) throws T { if(Check.notAbove(min, values)) throw exception; }
+	public static void isAboveOOO(Error exception, double min, double...values) { if(Check.notAbove(min, values)) { throw exception; } }
+	public static void isAboveOOO(RuntimeException exception, double min, double...values) { if(Check.notAbove(min, values)) throw exception; }
+	public static <T extends Exception> void isAboveOOO(T exception, double min, double...values) throws T { if(Check.notAbove(min, values)) throw exception; }
 	
 	
 	
@@ -152,6 +207,20 @@ public abstract class Validate
 
 	public static void notTrueOOO(boolean... values) { ValidateTrue.notTrueOOO(1, values); }
 
+	
+	
+	public static void notTrue(Error exception, boolean value) { if(Check.isTrue(value)) throw exception; }
+	public static void notTrue(RuntimeException exception, boolean value) { if(Check.isTrue( value)) throw exception; }
+	public static <T extends Exception> void notTrue(T exception, boolean value) throws T { if(Check.isTrue(value)) throw exception; }
+	
+	public static void notTrue(Error exception, boolean...values) { for(boolean value : values) if(Check.isTrue(value)) { throw exception; } }
+	public static void notTrue(RuntimeException exception, boolean...values) { for(boolean value : values) if(Check.isTrue(value)) throw exception; }
+	public static <T extends Exception> void notTrue(T exception, boolean...values) throws T { for(boolean value : values) if(Check.isTrue(value)) throw exception; } 
+	
+	public static void notTrueOOO(Error exception, boolean...values) { if(Check.isTrue(values)) { throw exception; } }
+	public static void notTrueOOO(RuntimeException exception, boolean...values) { if(Check.isTrue(values)) throw exception; }
+	public static <T extends Exception> void notTrueOOO(T exception, boolean...values) throws T { if(Check.isTrue( values)) throw exception; }
+	
 	
 	
 	public static void notFalse(boolean value) { new VE_notFalse(1, value); }
@@ -212,20 +281,20 @@ public abstract class Validate
 
 	
 	
-	public static void notBelow(int min, int value) { new VE_notBelow(1, min, value); }
-	public static void notBelow(long min, long value) { new VE_notBelow(1, min, value); }
-	public static void notBelow(float min, float value) { new VE_notBelow(1, min, value); }
-	public static void notBelow(double min, double value) { new VE_notBelow(1, min, value); }
+	public static void notBelow(int min, int value) { ValidateBelow.notBelow(1, min, value); }
+	public static void notBelow(long min, long value) { ValidateBelow.notBelow(1, min, value); }
+	public static void notBelow(float min, float value) { ValidateBelow.notBelow(1, min, value); }
+	public static void notBelow(double min, double value) { ValidateBelow.notBelow(1, min, value); }
 	
-	public static void notBelow(int min, int... values) { new VE_notBelowMulti(1, min, values); }
-	public static void notBelow(long min, long... values) { new VE_notBelowMulti(1, min, values); }
-	public static void notBelow(float min, float... values) { new VE_notBelowMulti(1, min, values); }
-	public static void notBelow(double min, double... values) { new VE_notBelowMulti(1, min, values); }
+	public static void notBelow(int min, int... values) { ValidateBelow.notBelow(1, min, values); }
+	public static void notBelow(long min, long... values) { ValidateBelow.notBelow(1, min, values); }
+	public static void notBelow(float min, float... values) { ValidateBelow.notBelow(1, min, values); }
+	public static void notBelow(double min, double... values) { ValidateBelow.notBelow(1, min, values); }
 	
-	public static void notBelowOOO(int min, int... values) { new VE_notBelowOOO(1, min, values); }
-	public static void notBelowOOO(long min, long... values) { new VE_notBelowOOO(1, min, values); }
-	public static void notBelowOOO(float min, float... values) { new VE_notBelowOOO(1, min, values); }
-	public static void notBelowOOO(double min, double... values) { new VE_notBelowOOO(1, min, values); }
+	public static void notBelowOOO(int min, int... values) { ValidateBelow.notBelowOOO(1, min, values); }
+	public static void notBelowOOO(long min, long... values) { ValidateBelow.notBelowOOO(1, min, values); }
+	public static void notBelowOOO(float min, float... values) { ValidateBelow.notBelowOOO(1, min, values); }
+	public static void notBelowOOO(double min, double... values) { ValidateBelow.notBelowOOO(1, min, values); }
 
 
 	
