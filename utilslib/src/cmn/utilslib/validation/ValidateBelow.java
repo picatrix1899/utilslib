@@ -1,19 +1,31 @@
 package cmn.utilslib.validation;
 
-import java.util.ArrayList;
-
 import cmn.utilslib.essentials.Check;
 
 class ValidateBelow
 {
 	
+	private static final String TYPE__IS_BELOW = "isBelow";
+	private static final String TYPE__IS_BELOW_MULIT = "isBelow(Multi)";
+	private static final String TYPE__IS_BELOW_OOO = "notBelow(OneOutOf)";
+	private static final String TYPE__NOT_BELOW = "notBelow";
+	private static final String TYPE__NOT_BELOW_MULTI = "notBelow(Multi)";
+	private static final String TYPE__NOT_BELOW_OOO = "notBelow(One Out Of)";
+	
+	private static final String DESC__IS_BELOW = "The value is not below exclusive maximum!";
+	private static final String DESC__IS_BELOW_MULTI = "At least one of the values is not below exclusive maximum!";
+	private static final String DESC__IS_BELOW_OOO = "None of the values is below exclusive maximum!";
+	private static final String DESC__NOT_BELOW = "The value is below exclusive maximum!";
+	private static final String DESC__NOT_BELOW_MULTI = "At least one of the values is below exclusive maximum!";
+	private static final String DESC__NOT_BELOW_OOO = "All of the values are below exclusive maximum!";
+	
 	static void isBelow(int stackreduction, int max, int value)
 	{
 		if(Check.notBelow(max, value))
 		{
-			ValidationError error = new ValidationError("isBelow", "The value is not below threshold!");
+			ValidationError error = new ValidationError(TYPE__IS_BELOW, DESC__IS_BELOW);
 
-			error.details.add("exclusive maximum threshold: " + max);
+			error.details.add("exclusive maximum: " + max);
 			error.details.add("value: " + value);
 			
 			error.throwError(stackreduction);
@@ -24,9 +36,9 @@ class ValidateBelow
 	{
 		if(Check.notBelow(max, value))
 		{
-			ValidationError error = new ValidationError("isBelow", "The value is not below threshold!");
+			ValidationError error = new ValidationError(TYPE__IS_BELOW, DESC__IS_BELOW);
 
-			error.details.add("exclusive maximum threshold: " + max + "L");
+			error.details.add("exclusive maximum: " + max + "L");
 			error.details.add("value: " + value + "L");
 			
 			error.throwError(stackreduction);
@@ -37,9 +49,9 @@ class ValidateBelow
 	{
 		if(Check.notBelow(max, value))
 		{
-			ValidationError error = new ValidationError("isBelow", "The value is not below threshold!");
+			ValidationError error = new ValidationError(TYPE__IS_BELOW, DESC__IS_BELOW);
 
-			error.details.add("exclusive maximum threshold: " + max + "F");
+			error.details.add("exclusive maximum: " + max + "F");
 			error.details.add("value: " + value + "F");
 			
 			error.throwError(stackreduction);
@@ -50,9 +62,9 @@ class ValidateBelow
 	{
 		if(Check.notBelow(max, value))
 		{
-			ValidationError error = new ValidationError("isBelow", "The value is not below threshold!");
+			ValidationError error = new ValidationError(TYPE__IS_BELOW, DESC__IS_BELOW);
 
-			error.details.add("exclusive maximum threshold: " + max + "D");
+			error.details.add("exclusive maximum: " + max + "D");
 			error.details.add("value: " + value + "D");
 			
 			error.throwError(stackreduction);
@@ -62,33 +74,26 @@ class ValidateBelow
 	
 	static void isBelow(int stackreduction, int max, int... values)
 	{
-		ArrayList<Integer> indices = new ArrayList<Integer>();
-		ArrayList<Integer> vals = new ArrayList<Integer>();
+		StringBuilder builderIndices = new StringBuilder();
+		StringBuilder builderValues = new StringBuilder();
+		
+		int count = 0;
 		
 		for(int i = 0; i < values.length; i++)
 			if(Check.notBelow(max, values[i]))
 			{
-				indices.add(i);
-				vals.add(values[i]);
+				builderIndices.append((count > 1 ? ", " : "") + i + 1);
+				builderValues.append((count > 1 ? ", " : "") + values[i]);
 			}
 		
-		if(indices.size() > 0)
+		if(count > 0)
 		{
-			StringBuilder builder1 = new StringBuilder();
-			StringBuilder builder2 = new StringBuilder();
+			ValidationError error = new ValidationError(TYPE__IS_BELOW_MULIT, DESC__IS_BELOW_MULTI);
 			
-			for(int i = 0; i < indices.size(); i++)
-				builder1.append(indices.get(i) + 1).append(i == indices.size() - 1 ? "" : ", ");
-			
-			for(int i = 0; i < vals.size(); i++)
-				builder2.append(vals.get(i)).append(i == vals.size() - 1 ? "" : ", ");
-				
-			ValidationError error = new ValidationError("isBelow(Multi)", "At least one of the values is not below exclusive maximum threshold!");
-			
-			error.details.add("failed indices(1 based): " + "[" + builder1.toString() + "]");
-			error.details.add("failed values: [" + builder2.toString() + "]");
-			error.details.add("total failed: " + indices.size());
-			error.details.add("exclusive maximum threshold: " + max);
+			error.details.add("failed indices(1 based): " + "[" + builderIndices.toString() + "]");
+			error.details.add("failed values: [" + builderValues.toString() + "]");
+			error.details.add("total failed: " + count);
+			error.details.add("exclusive maximum: " + max);
 			
 			error.throwError(stackreduction);
 		}
@@ -96,33 +101,26 @@ class ValidateBelow
 	
 	static void isBelow(int stackreduction, long max, long... values)
 	{
-		ArrayList<Integer> indices = new ArrayList<Integer>();
-		ArrayList<Long> vals = new ArrayList<Long>();
+		StringBuilder builderIndices = new StringBuilder();
+		StringBuilder builderValues = new StringBuilder();
+		
+		int count = 0;
 		
 		for(int i = 0; i < values.length; i++)
 			if(Check.notBelow(max, values[i]))
 			{
-				indices.add(i);
-				vals.add(values[i]);
+				builderIndices.append((count > 1 ? ", " : "") + i + 1);
+				builderValues.append((count > 1 ? ", " : "") + values[i]);
 			}
 		
-		if(indices.size() > 0)
+		if(count > 0)
 		{
-			StringBuilder builder1 = new StringBuilder();
-			StringBuilder builder2 = new StringBuilder();
+			ValidationError error = new ValidationError(TYPE__IS_BELOW_MULIT, DESC__IS_BELOW_MULTI);
 			
-			for(int i = 0; i < indices.size(); i++)
-				builder1.append(indices.get(i) + 1).append(i == indices.size() - 1 ? "" : ", ");
-			
-			for(int i = 0; i < vals.size(); i++)
-				builder2.append(vals.get(i)).append(i == vals.size() - 1 ? "" : ", ");
-			
-			ValidationError error = new ValidationError("isBelow(Multi)", "At least one of the values is not below exclusive maximum threshold!");
-			
-			error.details.add("failed indices(1 based): " + "[" + builder1.toString() + "]");
-			error.details.add("failed values: [" + builder2.toString() + "]");
-			error.details.add("total failed: " + indices.size());
-			error.details.add("exclusive maximum threshold: " + max + "L");
+			error.details.add("failed indices(1 based): " + "[" + builderIndices.toString() + "]");
+			error.details.add("failed values: [" + builderValues.toString() + "]");
+			error.details.add("total failed: " + count);
+			error.details.add("exclusive maximum: " + max + "L");
 			
 			error.throwError(stackreduction);
 		}
@@ -130,33 +128,26 @@ class ValidateBelow
 	
 	static void isBelow(int stackreduction, float max, float... values)
 	{
-		ArrayList<Integer> indices = new ArrayList<Integer>();
-		ArrayList<Float> vals = new ArrayList<Float>();
+		StringBuilder builderIndices = new StringBuilder();
+		StringBuilder builderValues = new StringBuilder();
+		
+		int count = 0;
 		
 		for(int i = 0; i < values.length; i++)
 			if(Check.notBelow(max, values[i]))
 			{
-				indices.add(i);
-				vals.add(values[i]);
+				builderIndices.append((count > 1 ? ", " : "") + i + 1);
+				builderValues.append((count > 1 ? ", " : "") + values[i]);
 			}
 		
-		if(indices.size() > 0)
+		if(count > 0)
 		{
-			StringBuilder builder1 = new StringBuilder();
-			StringBuilder builder2 = new StringBuilder();
+			ValidationError error = new ValidationError(TYPE__IS_BELOW_MULIT, DESC__IS_BELOW_MULTI);
 			
-			for(int i = 0; i < indices.size(); i++)
-				builder1.append(indices.get(i) + 1).append(i == indices.size() - 1 ? "" : ", ");
-			
-			for(int i = 0; i < vals.size(); i++)
-				builder2.append(vals.get(i)).append(i == vals.size() - 1 ? "" : ", ");
-				
-			ValidationError error = new ValidationError("isBelow(Multi)", "At least one of the values is not below exclusive maximum threshold!");
-			
-			error.details.add("failed indices(1 based): " + "[" + builder1.toString() + "]");
-			error.details.add("failed values: [" + builder2.toString() + "]");
-			error.details.add("total failed: " + indices.size());
-			error.details.add("exclusive maximum threshold: " + max + "F");
+			error.details.add("failed indices(1 based): " + "[" + builderIndices.toString() + "]");
+			error.details.add("failed values: [" + builderValues.toString() + "]");
+			error.details.add("total failed: " + count);
+			error.details.add("exclusive maximum: " + max + "F");
 			
 			error.throwError(stackreduction);
 		}
@@ -164,33 +155,26 @@ class ValidateBelow
 	
 	static void isBelow(int stackreduction, double max, double... values)
 	{
-		ArrayList<Integer> indices = new ArrayList<Integer>();
-		ArrayList<Double> vals = new ArrayList<Double>();
+		StringBuilder builderIndices = new StringBuilder();
+		StringBuilder builderValues = new StringBuilder();
+		
+		int count = 0;
 		
 		for(int i = 0; i < values.length; i++)
 			if(Check.notBelow(max, values[i]))
 			{
-				indices.add(i);
-				vals.add(values[i]);
+				builderIndices.append((count > 1 ? ", " : "") + i + 1);
+				builderValues.append((count > 1 ? ", " : "") + values[i]);
 			}
 		
-		if(indices.size() > 0)
+		if(count > 0)
 		{
-			StringBuilder builder1 = new StringBuilder();
-			StringBuilder builder2 = new StringBuilder();
+			ValidationError error = new ValidationError(TYPE__IS_BELOW_MULIT, DESC__IS_BELOW_MULTI);
 			
-			for(int i = 0; i < indices.size(); i++)
-				builder1.append(indices.get(i) + 1).append(i == indices.size() - 1 ? "" : ", ");
-			
-			for(int i = 0; i < vals.size(); i++)
-				builder2.append(vals.get(i)).append(i == vals.size() - 1 ? "" : ", ");
-			
-			ValidationError error = new ValidationError("isBelow(Multi)", "At least one of the values is not below exclusive maximum threshold!");
-			
-			error.details.add("failed indices(1 based): " + "[" + builder1.toString() + "]");
-			error.details.add("failed values: [" + builder2.toString() + "]");
-			error.details.add("total failed: " + indices.size());
-			error.details.add("exclusive maximum threshold: " + max + "D");
+			error.details.add("failed indices(1 based): " + "[" + builderIndices.toString() + "]");
+			error.details.add("failed values: [" + builderValues.toString() + "]");
+			error.details.add("total failed: " + count);
+			error.details.add("exclusive maximum: " + max + "D");
 			
 			error.throwError(stackreduction);
 		}
@@ -200,9 +184,9 @@ class ValidateBelow
 	{
 		if(Check.notBelow(max, values))
 		{
-			ValidationError error = new ValidationError("isBelow(One Out Of)", "None of the values is below exclusive maximum threshold!");
+			ValidationError error = new ValidationError(TYPE__IS_BELOW_OOO, DESC__IS_BELOW_OOO);
 
-			error.details.add("exclusive maximum threshold: " + max);
+			error.details.add("exclusive maximum: " + max);
 			
 			error.throwError(stackreduction);
 		}
@@ -212,9 +196,9 @@ class ValidateBelow
 	{
 		if(Check.notBelow(max, values))
 		{
-			ValidationError error = new ValidationError("isBelow(One Out Of)", "None of the values is below exclusive maximum threshold!");
+			ValidationError error = new ValidationError(TYPE__IS_BELOW_OOO, DESC__IS_BELOW_OOO);
 
-			error.details.add("exclusive maximum threshold: " + max + "L");
+			error.details.add("exclusive maximum: " + max + "L");
 			
 			error.throwError(stackreduction);
 		}
@@ -224,9 +208,9 @@ class ValidateBelow
 	{
 		if(Check.notBelow(max, values))
 		{
-			ValidationError error = new ValidationError("isBelow(One Out Of)", "None of the values is below exclusive maximum threshold!");
+			ValidationError error = new ValidationError(TYPE__IS_BELOW_OOO, DESC__IS_BELOW_OOO);
 
-			error.details.add("exclusive maximum threshold: " + max + "F");
+			error.details.add("exclusive maximum: " + max + "F");
 			
 			error.throwError(stackreduction);
 		}
@@ -236,9 +220,9 @@ class ValidateBelow
 	{
 		if(Check.notBelow(max, values))
 		{
-			ValidationError error = new ValidationError("isBelow(One Out Of)", "None of the values is below exclusive maximum threshold!");
+			ValidationError error = new ValidationError(TYPE__IS_BELOW_OOO, DESC__IS_BELOW_OOO);
 
-			error.details.add("exclusive maximum threshold: " + max + "D");
+			error.details.add("exclusive maximum: " + max + "D");
 			
 			error.throwError(stackreduction);
 		}
@@ -248,9 +232,9 @@ class ValidateBelow
 	{
 		if(Check.isBelow(max, value))
 		{
-			ValidationError error = new ValidationError("notBelow", "The value is below threshold!");
+			ValidationError error = new ValidationError(TYPE__NOT_BELOW, DESC__NOT_BELOW);
 			
-			error.details.add("exclusive maximum threshold: " + max);
+			error.details.add("exclusive maximum: " + max);
 			error.details.add("value: " + value);
 			
 			error.throwError(stackreduction);
@@ -261,9 +245,9 @@ class ValidateBelow
 	{
 		if(Check.isBelow(max, value))
 		{
-			ValidationError error = new ValidationError("notBelow", "The value is below threshold!");
+			ValidationError error = new ValidationError(TYPE__NOT_BELOW, DESC__NOT_BELOW);
 			
-			error.details.add("exclusive maximum threshold: " + max + "L");
+			error.details.add("exclusive maximum: " + max + "L");
 			error.details.add("value: " + value + "L");
 			
 			error.throwError(stackreduction);
@@ -274,9 +258,9 @@ class ValidateBelow
 	{
 		if(Check.isBelow(max, value))
 		{
-			ValidationError error = new ValidationError("notBelow", "The value is below threshold!");
+			ValidationError error = new ValidationError(TYPE__NOT_BELOW, DESC__NOT_BELOW);
 			
-			error.details.add("exclusive maximum threshold: " + max + "F");
+			error.details.add("exclusive maximum: " + max + "F");
 			error.details.add("value: " + value + "F");
 			
 			error.throwError(stackreduction);
@@ -287,9 +271,9 @@ class ValidateBelow
 	{
 		if(Check.isBelow(max, value))
 		{
-			ValidationError error = new ValidationError("notBelow", "The value is below threshold!");
+			ValidationError error = new ValidationError(TYPE__NOT_BELOW, DESC__NOT_BELOW);
 			
-			error.details.add("exclusive maximum threshold: " + max + "D");
+			error.details.add("exclusive maximum: " + max + "D");
 			error.details.add("value: " + value + "D");
 			
 			error.throwError(stackreduction);
@@ -298,33 +282,26 @@ class ValidateBelow
 	
 	static void notBelow(int stackreduction, int max, int... values)
 	{
-		ArrayList<Integer> indices = new ArrayList<Integer>();
-		ArrayList<Integer> vals = new ArrayList<Integer>();
+		StringBuilder builderIndices = new StringBuilder();
+		StringBuilder builderValues = new StringBuilder();
+		
+		int count = 0;
 		
 		for(int i = 0; i < values.length; i++)
 			if(Check.isBelow(max, values[i]))
 			{
-				indices.add(i);
-				vals.add(values[i]);
+				builderIndices.append((count > 1 ? ", " : "") + i + 1);
+				builderValues.append((count > 1 ? ", " : "") + values[i]);
 			}
 		
-		if(indices.size() > 0)
+		if(count > 0)
 		{
-			StringBuilder builder1 = new StringBuilder();
-			StringBuilder builder2 = new StringBuilder();
+			ValidationError error = new ValidationError(TYPE__NOT_BELOW_MULTI, DESC__NOT_BELOW_MULTI);
 			
-			for(int i = 0; i < indices.size(); i++)
-				builder1.append(indices.get(i) + 1).append(i == indices.size() - 1 ? "" : ", ");
-			
-			for(int i = 0; i < vals.size(); i++)
-				builder2.append(vals.get(i)).append(i == vals.size() - 1 ? "" : ", ");
-				
-			ValidationError error = new ValidationError("notBelow(Multi)", "At least one of the values is below exclusive maximum threshold!");
-			
-			error.details.add("failed indices(1 based): " + "[" + builder1.toString() + "]");
-			error.details.add("failed values: [" + builder2.toString() + "]");
-			error.details.add("total failed: " + indices.size());
-			error.details.add("exclusive maximum threshold: " + max);
+			error.details.add("failed indices(1 based): " + "[" + builderIndices.toString() + "]");
+			error.details.add("failed values: [" + builderValues.toString() + "]");
+			error.details.add("total failed: " + count);
+			error.details.add("exclusive maximum: " + max);
 			
 			error.throwError(stackreduction);
 		}
@@ -332,33 +309,26 @@ class ValidateBelow
 	
 	static void notBelow(int stackreduction, long max, long... values)
 	{
-		ArrayList<Integer> indices = new ArrayList<Integer>();
-		ArrayList<Long> vals = new ArrayList<Long>();
+		StringBuilder builderIndices = new StringBuilder();
+		StringBuilder builderValues = new StringBuilder();
+		
+		int count = 0;
 		
 		for(int i = 0; i < values.length; i++)
 			if(Check.isBelow(max, values[i]))
 			{
-				indices.add(i);
-				vals.add(values[i]);
+				builderIndices.append((count > 1 ? ", " : "") + i + 1);
+				builderValues.append((count > 1 ? ", " : "") + values[i]);
 			}
 		
-		if(indices.size() > 0)
+		if(count > 0)
 		{
-			StringBuilder builder1 = new StringBuilder();
-			StringBuilder builder2 = new StringBuilder();
+			ValidationError error = new ValidationError(TYPE__NOT_BELOW_MULTI, DESC__NOT_BELOW_MULTI);
 			
-			for(int i = 0; i < indices.size(); i++)
-				builder1.append(indices.get(i) + 1).append(i == indices.size() - 1 ? "" : ", ");
-			
-			for(int i = 0; i < vals.size(); i++)
-				builder2.append(vals.get(i)).append(i == vals.size() - 1 ? "" : ", ");
-				
-			ValidationError error = new ValidationError("notBelow(Multi)", "At least one of the values is below exclusive maximum threshold!");
-			
-			error.details.add("failed indices(1 based): " + "[" + builder1.toString() + "]");
-			error.details.add("failed values: [" + builder2.toString() + "]");
-			error.details.add("total failed: " + indices.size());
-			error.details.add("exclusive maximum threshold: " + max + "L");
+			error.details.add("failed indices(1 based): " + "[" + builderIndices.toString() + "]");
+			error.details.add("failed values: [" + builderValues.toString() + "]");
+			error.details.add("total failed: " + count);
+			error.details.add("exclusive maximum: " + max + "L");
 			
 			error.throwError(stackreduction);
 		}
@@ -366,33 +336,26 @@ class ValidateBelow
 	
 	static void notBelow(int stackreduction, float max, float... values)
 	{
-		ArrayList<Integer> indices = new ArrayList<Integer>();
-		ArrayList<Float> vals = new ArrayList<Float>();
+		StringBuilder builderIndices = new StringBuilder();
+		StringBuilder builderValues = new StringBuilder();
+		
+		int count = 0;
 		
 		for(int i = 0; i < values.length; i++)
 			if(Check.isBelow(max, values[i]))
 			{
-				indices.add(i);
-				vals.add(values[i]);
+				builderIndices.append((count > 1 ? ", " : "") + i + 1);
+				builderValues.append((count > 1 ? ", " : "") + values[i]);
 			}
 		
-		if(indices.size() > 0)
+		if(count > 0)
 		{
-			StringBuilder builder1 = new StringBuilder();
-			StringBuilder builder2 = new StringBuilder();
+			ValidationError error = new ValidationError(TYPE__NOT_BELOW_MULTI, DESC__NOT_BELOW_MULTI);
 			
-			for(int i = 0; i < indices.size(); i++)
-				builder1.append(indices.get(i) + 1).append(i == indices.size() - 1 ? "" : ", ");
-			
-			for(int i = 0; i < vals.size(); i++)
-				builder2.append(vals.get(i)).append(i == vals.size() - 1 ? "" : ", ");
-				
-			ValidationError error = new ValidationError("notBelow(Multi)", "At least one of the values is below exclusive maximum threshold!");
-			
-			error.details.add("failed indices(1 based): " + "[" + builder1.toString() + "]");
-			error.details.add("failed values: [" + builder2.toString() + "]");
-			error.details.add("total failed: " + indices.size());
-			error.details.add("exclusive maximum threshold: " + max + "F");
+			error.details.add("failed indices(1 based): " + "[" + builderIndices.toString() + "]");
+			error.details.add("failed values: [" + builderValues.toString() + "]");
+			error.details.add("total failed: " + count);
+			error.details.add("exclusive maximum: " + max + "F");
 			
 			error.throwError(stackreduction);
 		}
@@ -400,33 +363,26 @@ class ValidateBelow
 	
 	static void notBelow(int stackreduction, double max, double... values)
 	{
-		ArrayList<Integer> indices = new ArrayList<Integer>();
-		ArrayList<Double> vals = new ArrayList<Double>();
+		StringBuilder builderIndices = new StringBuilder();
+		StringBuilder builderValues = new StringBuilder();
+		
+		int count = 0;
 		
 		for(int i = 0; i < values.length; i++)
 			if(Check.isBelow(max, values[i]))
 			{
-				indices.add(i);
-				vals.add(values[i]);
+				builderIndices.append((count > 1 ? ", " : "") + i + 1);
+				builderValues.append((count > 1 ? ", " : "") + values[i]);
 			}
 		
-		if(indices.size() > 0)
+		if(count > 0)
 		{
-			StringBuilder builder1 = new StringBuilder();
-			StringBuilder builder2 = new StringBuilder();
+			ValidationError error = new ValidationError(TYPE__NOT_BELOW_MULTI, DESC__NOT_BELOW_MULTI);
 			
-			for(int i = 0; i < indices.size(); i++)
-				builder1.append(indices.get(i) + 1).append(i == indices.size() - 1 ? "" : ", ");
-			
-			for(int i = 0; i < vals.size(); i++)
-				builder2.append(vals.get(i)).append(i == vals.size() - 1 ? "" : ", ");
-				
-			ValidationError error = new ValidationError("notBelow(Multi)", "At least one of the values is below exclusive maximum threshold!");
-			
-			error.details.add("failed indices(1 based): " + "[" + builder1.toString() + "]");
-			error.details.add("failed values: [" + builder2.toString() + "]");
-			error.details.add("total failed: " + indices.size());
-			error.details.add("exclusive maximum threshold: " + max + "D");
+			error.details.add("failed indices(1 based): " + "[" + builderIndices.toString() + "]");
+			error.details.add("failed values: [" + builderValues.toString() + "]");
+			error.details.add("total failed: " + count);
+			error.details.add("exclusive maximum: " + max + "D");
 			
 			error.throwError(stackreduction);
 		}
@@ -436,9 +392,9 @@ class ValidateBelow
 	{
 		if(Check.isBelow(max, values))
 		{
-			ValidationError error = new ValidationError("notBelow(One Out Of)", "All of the values are below exclusive maximum threshold!");
+			ValidationError error = new ValidationError(TYPE__NOT_BELOW_OOO, DESC__NOT_BELOW_OOO);
 
-			error.details.add("exclusive maximum threshold: " + max);
+			error.details.add("exclusive maximum: " + max);
 			
 			error.throwError(stackreduction);
 		}
@@ -448,9 +404,9 @@ class ValidateBelow
 	{
 		if(Check.isBelow(max, values))
 		{
-			ValidationError error = new ValidationError("notBelow(One Out Of)", "All of the values are below exclusive maximum threshold!");
+			ValidationError error = new ValidationError(TYPE__NOT_BELOW_OOO, DESC__NOT_BELOW_OOO);
 
-			error.details.add("exclusive maximum threshold: " + max + "L");
+			error.details.add("exclusive maximum: " + max + "L");
 			
 			error.throwError(stackreduction);
 		}
@@ -460,9 +416,9 @@ class ValidateBelow
 	{
 		if(Check.isBelow(max, values))
 		{
-			ValidationError error = new ValidationError("notBelow(One Out Of)", "All of the values are below exclusive maximum threshold!");
+			ValidationError error = new ValidationError(TYPE__NOT_BELOW_OOO, DESC__NOT_BELOW_OOO);
 			
-			error.details.add("exclusive maximum threshold: " + max + "F");
+			error.details.add("exclusive maximum: " + max + "F");
 			
 			error.throwError(stackreduction);
 		}
@@ -472,9 +428,9 @@ class ValidateBelow
 	{
 		if(Check.isBelow(max, values))
 		{
-			ValidationError error = new ValidationError("notBelow(One Out Of)", "All of the values are below exclusive maximum threshold!");
+			ValidationError error = new ValidationError(TYPE__NOT_BELOW_OOO, DESC__NOT_BELOW_OOO);
 			
-			error.details.add("exclusive maximum threshold: " + max + "D");
+			error.details.add("exclusive maximum: " + max + "D");
 			
 			error.throwError(stackreduction);
 		}

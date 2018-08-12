@@ -4,8 +4,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import cmn.utilslib.essentials.Auto;
-import cmn.utilslib.exceptions.ErrorHandler;
-import cmn.utilslib.exceptions.SimpleErrorHandler;
 
 public class ValidationException extends Error
 {

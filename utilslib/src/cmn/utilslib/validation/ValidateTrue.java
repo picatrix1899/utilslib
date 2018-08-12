@@ -1,7 +1,5 @@
 package cmn.utilslib.validation;
 
-import java.util.ArrayList;
-
 import cmn.utilslib.essentials.Check;
 
 public class ValidateTrue
@@ -32,24 +30,25 @@ public class ValidateTrue
 	
 	static void isTrue(int stackreduction, boolean... values)
 	{
-		ArrayList<Integer> indices = new ArrayList<Integer>();
+		StringBuilder builder = new StringBuilder();
+		
+		int count = 0;
 		
 		for(int i = 0; i < values.length; i++)
-			if(Check.notTrue(values[i]))
-				indices.add(i);
-		
-		if(indices.size() > 0)
 		{
-			StringBuilder builder = new StringBuilder();
+			if(Check.notTrue(values[i]))
+			{
+				builder.append((count > 1 ? ", " : "") + i + 1);
+				count++;
+			}
+		}
 		
-			builder.append(indices.get(0) + 1);			
-			for(int i = 1; i < indices.size(); i++)
-				builder.append((", " + indices.get(i) + 1));
-			
+		if(count > 0)
+		{
 			ValidationError error = new ValidationError(TYPE__IS_TRUE_MULTI, DESC__IS_TRUE_MULTI);
 			
 			error.details.add("failed indices(1 based): " + "[" + builder.toString() + "]");
-			error.details.add("total failed: " + indices.size());
+			error.details.add("total failed: " + count);
 			
 			error.throwError(stackreduction);
 		}
@@ -77,24 +76,25 @@ public class ValidateTrue
 	
 	static void notTrue(int stackreduction, boolean... values)
 	{
-		ArrayList<Integer> indices = new ArrayList<Integer>();
+		StringBuilder builder = new StringBuilder();
+		
+		int count = 0;
 		
 		for(int i = 0; i < values.length; i++)
-			if(Check.isTrue(values[i]))
-				indices.add(i);
-		
-		if(indices.size() > 0)
 		{
-			StringBuilder builder = new StringBuilder();
-			
-			builder.append(indices.get(0) + 1);
-			for(int i = 0; i < indices.size(); i++)
-				builder.append(", " + (indices.get(i) + 1));
-			
+			if(Check.isTrue(values[i]))
+			{
+				builder.append((count > 1 ? ", " : "") + i + 1);
+				count++;
+			}
+		}
+		
+		if(count > 0)
+		{
 			ValidationError error = new ValidationError(TYPE__NOT_TRUE_MULTI, DESC__NOT_TRUE_MULTI);
 			
 			error.details.add("failed indices(1 based): " + "[" + builder.toString() + "]");
-			error.details.add("total failed: " + indices.size());
+			error.details.add("total failed: " + count);
 			
 			error.throwError(stackreduction);
 		}
