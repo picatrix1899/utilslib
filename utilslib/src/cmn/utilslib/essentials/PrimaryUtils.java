@@ -8,7 +8,7 @@ package cmn.utilslib.essentials;
  * @author picatrix1899
  *
  */
-public class PrimeUtils
+public class PrimaryUtils
 {
 	
 	/**
@@ -31,7 +31,7 @@ public class PrimeUtils
 		int[] out = new int[i.length];
 		
 		for(int x = 0; x < i.length; x++)
-			out[x] = PrimeUtils.toInt(def, i[x]);
+			out[x] = PrimaryUtils.toInt(def, i[x]);
 		
 		return out;
 	}
@@ -53,7 +53,7 @@ public class PrimeUtils
 		double[] out = new double[i.length];
 		
 		for(int x = 0; x < i.length; x++)
-			out[x] = PrimeUtils.toDouble(def, i[x]);
+			out[x] = PrimaryUtils.toDouble(def, i[x]);
 		
 		return out;
 	}
@@ -75,7 +75,7 @@ public class PrimeUtils
 		long[] out = new long[i.length];
 		
 		for(int x = 0; x < i.length; x++)
-			out[x] = PrimeUtils.toLong(def, i[x]);
+			out[x] = PrimaryUtils.toLong(def, i[x]);
 		
 		return out;
 	}
@@ -97,7 +97,7 @@ public class PrimeUtils
 		float[] out = new float[i.length];
 		
 		for(int x = 0; x < i.length; x++)
-			out[x] = PrimeUtils.toFloat(def, i[x]);
+			out[x] = PrimaryUtils.toFloat(def, i[x]);
 		
 		return out;
 	}
@@ -119,7 +119,7 @@ public class PrimeUtils
 		short[] out = new short[i.length];
 		
 		for(int x = 0; x < i.length; x++)
-			out[x] = PrimeUtils.toShort(def, i[x]);
+			out[x] = PrimaryUtils.toShort(def, i[x]);
 		
 		return out;
 	}
@@ -141,7 +141,7 @@ public class PrimeUtils
 		boolean[] out = new boolean[i.length];
 		
 		for(int x = 0; x < i.length; x++)
-			out[x] = PrimeUtils.toBoolean(def, i[x]);
+			out[x] = PrimaryUtils.toBoolean(def, i[x]);
 		
 		return out;
 	}

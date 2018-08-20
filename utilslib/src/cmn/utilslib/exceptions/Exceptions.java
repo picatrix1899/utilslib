@@ -2,8 +2,6 @@ package cmn.utilslib.exceptions;
 
 import java.util.Arrays;
 
-import cmn.utilslib.validation.ValidationException;
-
 /**
  * 
 

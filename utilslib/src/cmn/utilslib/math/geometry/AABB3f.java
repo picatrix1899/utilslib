@@ -1,6 +1,5 @@
 package cmn.utilslib.math.geometry;
 
-import cmn.utilslib.interfaces.Source;
 import cmn.utilslib.math.matrix.Matrix4f;
 import cmn.utilslib.math.vector.Vector3f;
 import cmn.utilslib.math.vector.api.Vec3fBase;
@@ -79,21 +78,18 @@ public class AABB3f implements ConvexPolygonalShape3f
 	}
 
 	@Override
-	@Source(Shape3f.class)
 	public OBB3f getOBBf()
 	{
 		return new OBB3f(this.center, this.halfExtend, Matrix4f.identity());
 	}
 	
 	@Override
-	@Source(Shape3f.class)
 	public OBB3f getOBBf(OBB3f obb)
 	{
 		return obb.set(this.center, this.halfExtend, Matrix4f.identity());
 	}
 	
 	@Override
-	@Source(Shape3f.class)
 	public OBB3f getOBBf(Matrix4f t, Matrix4f r)
 	{
 		Vector3f min = this.center.asVector3f().sub(this.halfExtend);
@@ -109,7 +105,6 @@ public class AABB3f implements ConvexPolygonalShape3f
 	}
 	
 	@Override
-	@Source(Shape3f.class)
 	public OBB3f getOBBf(Matrix4f t, Matrix4f r, OBB3f obb)
 	{
 		Vector3f min = this.center.asVector3f().sub(this.halfExtend);
@@ -125,21 +120,18 @@ public class AABB3f implements ConvexPolygonalShape3f
 	}
 
 	@Override
-	@Source(Shape3f.class)
 	public AABB3f getAABBf()
 	{
 		return new AABB3f(this);
 	}
 	
 	@Override
-	@Source(Shape3f.class)
 	public AABB3f getAABBf(AABB3f aabb)
 	{
 		return aabb.set(this);
 	}
 	
 	@Override
-	@Source(Shape3f.class)
 	public AABB3f getAABBf(Matrix4f t)
 	{
 		Vector3f min = this.center.asVector3f().sub(this.halfExtend);
@@ -155,7 +147,6 @@ public class AABB3f implements ConvexPolygonalShape3f
 	}
 	
 	@Override
-	@Source(Shape3f.class)
 	public AABB3f getAABBf(Matrix4f t, AABB3f aabb)
 	{
 		Vector3f min = this.center.asVector3f().sub(this.halfExtend);
@@ -171,63 +162,54 @@ public class AABB3f implements ConvexPolygonalShape3f
 	}
 
 	@Override
-	@Source(Shape3f.class)
 	public BoundingSpheref getBoundingSpheref()
 	{
 		return null;
 	}
 	
 	@Override
-	@Source(Shape3f.class)
 	public BoundingSpheref getBoundingSpheref(BoundingSpheref s)
 	{
 		return null;
 	}
 	
 	@Override
-	@Source(Shape3f.class)
 	public BoundingSpheref getBoundingSpheref(Matrix4f t)
 	{
 		return null;
 	}
 	
 	@Override
-	@Source(Shape3f.class)
 	public BoundingSpheref getBoundingSpheref(Matrix4f t, BoundingSpheref s)
 	{
 		return null;
 	}
 	
 	@Override
-	@Source(Shape3f.class)
 	public BoundingElipsoidf getBoundingElisoidf()
 	{
 		return null;
 	}
 	
 	@Override
-	@Source(Shape3f.class)
 	public BoundingElipsoidf getBoundingElisoidf(BoundingElipsoidf e)
 	{
 		return null;
 	}
 
 	@Override
-	@Source(Shape3f.class)
 	public BoundingElipsoidf getBoundingElipsoidf(Matrix4f t)
 	{
 		return null;
 	}
 	
 	@Override
-	@Source(Shape3f.class)
 	public BoundingElipsoidf getBoundingElipsoidf(Matrix4f t, BoundingElipsoidf e)
 	{
 		return null;
 	}
 	
 	@Override
-	@Source(ConvexPolygonalShape3f.class)
 	public Point3f[] getPoints()
 	{
 		Vector3f c = center.asVector3f(new Vector3f());
@@ -246,7 +228,6 @@ public class AABB3f implements ConvexPolygonalShape3f
 	}
 	
 	@Override
-	@Source(ConvexPolygonalShape3f.class)
 	public Point3f[] getPoints(Matrix4f t)
 	{
 		return null;

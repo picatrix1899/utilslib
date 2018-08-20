@@ -3,20 +3,12 @@ package cmn.utilslib.color.colors.api;
 
 
 
-import java.io.DataInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-
-import cmn.utilslib.interfaces.Streamable;
-
-
-
 /**
  * Interface for Color representation with 3 components.
  * @author picatrix1899
  * @category Color
  */
-public interface IColor3 extends IColor3Base, Streamable.Writeable
+public interface IColor3 extends IColor3Base
 {
 	
 	/**
@@ -113,16 +105,5 @@ public interface IColor3 extends IColor3Base, Streamable.Writeable
 	/** {@inheritDoc} */
 	@Override
 	String toString();
-	
-	
-	
-	/** {@inheritDoc} */ @Override
-	default void readData(InputStream stream) throws IOException
-	{
-		DataInputStream dis = new DataInputStream(stream);
-		setR(dis.readInt());
-		setG(dis.readInt());
-		setB(dis.readInt());
-	}
 	
 }

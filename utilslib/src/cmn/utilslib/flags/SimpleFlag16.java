@@ -1,12 +1,5 @@
 package cmn.utilslib.flags;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-
-import cmn.utilslib.interfaces.Streamable;
 import cmn.utilslib.validation.Validate;
 
 /**
@@ -15,7 +8,7 @@ import cmn.utilslib.validation.Validate;
  * @author picatrix1899
  *
  */
-public class SimpleFlag16 implements Streamable.Readable, Streamable.Writeable
+public class SimpleFlag16
 {
 	
 	public static final int DIMENSIONS = 16;
@@ -129,20 +122,6 @@ public class SimpleFlag16 implements Streamable.Readable, Streamable.Writeable
 		
 		return out;
 	}
-	
-	
-	
-	public void readData(InputStream stream) throws IOException
-	{
-		DataInputStream dis = new DataInputStream(stream);
-		setFlag16(dis.readShort());
-	}
-	
-	
-	public void writeData(OutputStream stream) throws IOException
-	{
-		DataOutputStream dos = new DataOutputStream(stream);
-		dos.writeShort(getFlag16());
-	}
+
 
 }

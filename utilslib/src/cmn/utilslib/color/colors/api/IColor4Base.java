@@ -3,12 +3,6 @@ package cmn.utilslib.color.colors.api;
 
 
 
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-
-import cmn.utilslib.interfaces.Streamable;
-
 
 
 /**
@@ -16,7 +10,7 @@ import cmn.utilslib.interfaces.Streamable;
  * @author picatrix1899
  * @category Color
  */
-public interface IColor4Base extends IColor3Base, Streamable.Readable
+public interface IColor4Base extends IColor3Base
 {
 	
 	static int DIMENSIONS = 4;
@@ -41,16 +35,5 @@ public interface IColor4Base extends IColor3Base, Streamable.Readable
 	
 	@Override
 	IColor4Base clone();
-	
-	
-	/** {@inheritDoc} */ @Override
-	default void writeData(OutputStream stream) throws IOException
-	{
-		DataOutputStream dos = new DataOutputStream(stream);
-		dos.writeInt(getR());
-		dos.writeInt(getG());
-		dos.writeInt(getB());
-		dos.writeInt(getA());
-	}
 	
 }

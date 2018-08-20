@@ -1,14 +1,8 @@
 package cmn.utilslib.math.vector;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.Serializable;
 
 import cmn.utilslib.essentials.Check;
-import cmn.utilslib.interfaces.Streamable;
 import cmn.utilslib.math.Maths;
 import cmn.utilslib.math.Quaternion;
 import cmn.utilslib.math.vector.api.Vec4d;
@@ -20,7 +14,7 @@ import cmn.utilslib.math.vector.api.Vec4dBase;
  * @author picatrix1899
  *
  */
-public class Vector4d implements Vec4d, Streamable.Readable, Streamable.Writeable, Serializable
+public class Vector4d implements Vec4d, Serializable
 {
 	private static final long serialVersionUID = 1L;
 
@@ -272,36 +266,5 @@ public class Vector4d implements Vec4d, Streamable.Readable, Streamable.Writeabl
 	/** {@inheritDoc} */
 	@Override
 	public String toString() { return "Vec4d(" + this.x + "f, " + this.y + "f, " + this.z + "f, " + this.a + "f)"; }
-	
-	
-	
-	/*
-	 * ===========================
-	 * Streamable SERIALIZATION
-	 * ===========================
-	 */
-	/** {@inheritDoc} */
-	@Override
-	public void readData(InputStream stream) throws IOException
-	{
-		DataInputStream dis = new DataInputStream(stream);
-		this.x = dis.readDouble();
-		this.y = dis.readDouble();
-		this.z = dis.readDouble();
-		this.a = dis.readDouble();
-	}
 
-	/** {@inheritDoc} */
-	@Override
-	public void writeData(OutputStream stream) throws IOException
-	{
-		DataOutputStream dos = new DataOutputStream(stream);
-		dos.writeDouble(this.x);
-		dos.writeDouble(this.y);
-		dos.writeDouble(this.z);
-		dos.writeDouble(this.a);
-	}
-
-
-	
 }

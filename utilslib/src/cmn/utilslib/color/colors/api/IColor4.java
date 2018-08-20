@@ -3,15 +3,7 @@ package cmn.utilslib.color.colors.api;
 
 
 
-import java.io.DataInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-
-import cmn.utilslib.interfaces.Streamable;
-
-
-
-public interface IColor4 extends IColor4Base, Streamable.Writeable
+public interface IColor4 extends IColor4Base
 {
 	
 	/**
@@ -113,17 +105,5 @@ public interface IColor4 extends IColor4Base, Streamable.Writeable
 	
 	@Override
 	IColor4 clone();
-	
-	
-	
-	/** {@inheritDoc} */ @Override
-	default void readData(InputStream stream) throws IOException
-	{
-		DataInputStream dis = new DataInputStream(stream);
-		setR(dis.readInt());
-		setG(dis.readInt());
-		setB(dis.readInt());
-		setA(dis.readInt());
-	}
 	
 }
