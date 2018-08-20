@@ -1,25 +1,22 @@
 package cmn.utilslib.validation;
 
-import java.util.ArrayList;
-
-import cmn.utilslib.essentials.Auto;
 import cmn.utilslib.essentials.Check;
 
 public class ValidateInRange
 {
-	private static final String TYPE__IS_IN_RANGE = "";
-	private static final String TYPE__IS_IN_RANGE_MULTI = "";
-	private static final String TYPE__IS_IN_RANGE_OOO = "";
-	private static final String TYPE__NOT_IN_RANGE = "";
-	private static final String TYPE__NOT_IN_RANGE_MULTI = "";
-	private static final String TYPE__NOT_IN_RANGE_OOO = "";
+	private static final String TYPE__IS_IN_RANGE = "isInRange";
+	private static final String TYPE__IS_IN_RANGE_MULTI = "isInRange(Multi)";
+	private static final String TYPE__IS_IN_RANGE_OOO = "isInRange(One Out Of)";
+	private static final String TYPE__NOT_IN_RANGE = "notInRange";
+	private static final String TYPE__NOT_IN_RANGE_MULTI = "notInRange(Multi)";
+	private static final String TYPE__NOT_IN_RANGE_OOO = "notInRange(One Out Of)";
 	
-	private static final String DESC__IS_IN_RANGE = "";
-	private static final String DESC__IS_IN_RANGE_MULTI = "";
-	private static final String DESC__IS_IN_RANGE_OOO = "";
-	private static final String DESC__NOT_IN_RANGE = "";
-	private static final String DESC__NOT_IN_RANGE_MULTI = "";
-	private static final String DESC__NOT_IN_RANGE_OOO = "";
+	private static final String DESC__IS_IN_RANGE = "The value is not in range!";
+	private static final String DESC__IS_IN_RANGE_MULTI ="At least one of the values is not in range!";
+	private static final String DESC__IS_IN_RANGE_OOO = "None of the values is in range!";
+	private static final String DESC__NOT_IN_RANGE = "The value is in Range!";
+	private static final String DESC__NOT_IN_RANGE_MULTI = "At least one of the values is in range!";
+	private static final String DESC__NOT_IN_RANGE_OOO = "All of the values are in range!";
 	
 	static void isInRange(int stackreduction, int min, int max, int value)
 	{
@@ -75,33 +72,27 @@ public class ValidateInRange
 	
 	static void isInRange(int stackreduction, int min, int max, int... values)
 	{
-		ArrayList<Integer> indices = Auto.ArrayList(); 
-		ArrayList<Integer> vals = Auto.ArrayList();
+		StringBuilder builderIndices = new StringBuilder();
+		StringBuilder builderValues = new StringBuilder();
+		
+		int count = 0;
 		
 		for(int i = 0; i < values.length; i++)
 			if(Check.notInRange(min, max, values[i]))
 			{
-				indices.add(i);
-				vals.add(values[i]);
+				builderIndices.append((count > 0 ? "," : "") + i + 1);
+				builderValues.append((count > 0 ? "," : "") + values[i]);
+				count++;
 			}
 		
-		if(indices.size() > 0)
+		if(count > 0)
 		{
 			ValidationError error = new ValidationError(TYPE__IS_IN_RANGE_MULTI, DESC__IS_IN_RANGE_MULTI);
-			
-			StringBuilder builder1 = new StringBuilder();
-			StringBuilder builder2 = new StringBuilder();
-			
-			for(int i = 0; i < indices.size(); i++)
-				builder1.append(indices.get(i) + 1).append(i == indices.size() - 1 ? "" : ", ");
-			
-			for(int i = 0; i < vals.size(); i++)
-				builder2.append(vals.get(i)).append(i == vals.size() - 1 ? "" : ", ");
-				
-			error.details.add("failed indices(1 based): " + "[" + builder1.toString() + "]");
-			error.details.add("failed values: [" + builder2.toString() + "]");
-			error.details.add("total failed: " + indices.size());
-			error.details.add("expected inclusive limits: [min: " + min + "L, max: " + max + "L]");
+
+			error.details.add("failed indices(1 based): " + "[" + builderIndices.toString() + "]");
+			error.details.add("failed values: [" + builderValues.toString() + "]");
+			error.details.add("total failed: " + count);
+			error.details.add("expected inclusive limits: [min: " + min + ", max: " + max + "]");
 			
 			error.throwError(stackreduction);
 		}
@@ -109,32 +100,26 @@ public class ValidateInRange
 	
 	static void isInRange(int stackreduction, long min, long max, long... values)
 	{
-		ArrayList<Integer> indices = Auto.ArrayList(); 
-		ArrayList<Long> vals = Auto.ArrayList();
+		StringBuilder builderIndices = new StringBuilder();
+		StringBuilder builderValues = new StringBuilder();
+		
+		int count = 0;
 		
 		for(int i = 0; i < values.length; i++)
 			if(Check.notInRange(min, max, values[i]))
 			{
-				indices.add(i);
-				vals.add(values[i]);
+				builderIndices.append((count > 0 ? "," : "") + i + 1);
+				builderValues.append((count > 0 ? "," : "") + values[i]);
+				count++;
 			}
 		
-		if(indices.size() > 0)
+		if(count > 0)
 		{
 			ValidationError error = new ValidationError(TYPE__IS_IN_RANGE_MULTI, DESC__IS_IN_RANGE_MULTI);
-			
-			StringBuilder builder1 = new StringBuilder();
-			StringBuilder builder2 = new StringBuilder();
-			
-			for(int i = 0; i < indices.size(); i++)
-				builder1.append(indices.get(i) + 1).append(i == indices.size() - 1 ? "" : ", ");
-			
-			for(int i = 0; i < vals.size(); i++)
-				builder2.append(vals.get(i) + "L").append(i == vals.size() - 1 ? "" : ", ");
-				
-			error.details.add("failed indices(1 based): " + "[" + builder1.toString() + "]");
-			error.details.add("failed values: [" + builder2.toString() + "]");
-			error.details.add("total failed: " + indices.size());
+
+			error.details.add("failed indices(1 based): " + "[" + builderIndices.toString() + "]");
+			error.details.add("failed values: [" + builderValues.toString() + "]");
+			error.details.add("total failed: " + count);
 			error.details.add("expected inclusive limits: [min: " + min + "L, max: " + max + "L]");
 			
 			error.throwError(stackreduction);
@@ -143,33 +128,27 @@ public class ValidateInRange
 	
 	static void isInRange(int stackreduction, float min, float max, float... values)
 	{
-		ArrayList<Integer> indices = Auto.ArrayList(); 
-		ArrayList<Float> vals = Auto.ArrayList();
+		StringBuilder builderIndices = new StringBuilder();
+		StringBuilder builderValues = new StringBuilder();
+		
+		int count = 0;
 		
 		for(int i = 0; i < values.length; i++)
 			if(Check.notInRange(min, max, values[i]))
 			{
-				indices.add(i);
-				vals.add(values[i]);
+				builderIndices.append((count > 0 ? "," : "") + i + 1);
+				builderValues.append((count > 0 ? "," : "") + values[i]);
+				count++;
 			}
 		
-		if(indices.size() > 0)
+		if(count > 0)
 		{
 			ValidationError error = new ValidationError(TYPE__IS_IN_RANGE_MULTI, DESC__IS_IN_RANGE_MULTI);
-			
-			StringBuilder builder1 = new StringBuilder();
-			StringBuilder builder2 = new StringBuilder();
-			
-			for(int i = 0; i < indices.size(); i++)
-				builder1.append(indices.get(i) + 1).append(i == indices.size() - 1 ? "" : ", ");
-			
-			for(int i = 0; i < vals.size(); i++)
-				builder2.append(vals.get(i) + "F").append(i == vals.size() - 1 ? "" : ", ");
-				
-			error.details.add("failed indices(1 based): " + "[" + builder1.toString() + "]");
-			error.details.add("failed values: [" + builder2.toString() + "]");
-			error.details.add("total failed: " + indices.size());
-			error.details.add("expected inclusive limits: [min: " + min + "L, max: " + max + "L]");
+
+			error.details.add("failed indices(1 based): " + "[" + builderIndices.toString() + "]");
+			error.details.add("failed values: [" + builderValues.toString() + "]");
+			error.details.add("total failed: " + count);
+			error.details.add("expected inclusive limits: [min: " + min + "F, max: " + max + "F]");
 			
 			error.throwError(stackreduction);
 		}
@@ -177,33 +156,27 @@ public class ValidateInRange
 
 	static void isInRange(int stackreduction, double min, double max, double... values)
 	{
-		ArrayList<Integer> indices = Auto.ArrayList(); 
-		ArrayList<Double> vals = Auto.ArrayList();
+		StringBuilder builderIndices = new StringBuilder();
+		StringBuilder builderValues = new StringBuilder();
+		
+		int count = 0;
 		
 		for(int i = 0; i < values.length; i++)
 			if(Check.notInRange(min, max, values[i]))
 			{
-				indices.add(i);
-				vals.add(values[i]);
+				builderIndices.append((count > 0 ? "," : "") + i + 1);
+				builderValues.append((count > 0 ? "," : "") + values[i]);
+				count++;
 			}
 		
-		if(indices.size() > 0)
+		if(count > 0)
 		{
 			ValidationError error = new ValidationError(TYPE__IS_IN_RANGE_MULTI, DESC__IS_IN_RANGE_MULTI);
-			
-			StringBuilder builder1 = new StringBuilder();
-			StringBuilder builder2 = new StringBuilder();
-			
-			for(int i = 0; i < indices.size(); i++)
-				builder1.append(indices.get(i) + 1).append(i == indices.size() - 1 ? "" : ", ");
-			
-			for(int i = 0; i < vals.size(); i++)
-				builder2.append(vals.get(i) + "D").append(i == vals.size() - 1 ? "" : ", ");
-				
-			error.details.add("failed indices(1 based): " + "[" + builder1.toString() + "]");
-			error.details.add("failed values: [" + builder2.toString() + "]");
-			error.details.add("total failed: " + indices.size());
-			error.details.add("expected inclusive limits: [min: " + min + "L, max: " + max + "L]");
+
+			error.details.add("failed indices(1 based): " + "[" + builderIndices.toString() + "]");
+			error.details.add("failed values: [" + builderValues.toString() + "]");
+			error.details.add("total failed: " + count);
+			error.details.add("expected inclusive limits: [min: " + min + "D, max: " + max + "D]");
 			
 			error.throwError(stackreduction);
 		}
@@ -311,33 +284,27 @@ public class ValidateInRange
 	
 	static void notInRange(int stackreduction, int min, int max, int... values)
 	{
-		ArrayList<Integer> indices = Auto.ArrayList(); 
-		ArrayList<Integer> vals = Auto.ArrayList();
+		StringBuilder builderIndices = new StringBuilder();
+		StringBuilder builderValues = new StringBuilder();
+		
+		int count = 0;
 		
 		for(int i = 0; i < values.length; i++)
-			if(Check.isInRange(min, max, values[i]))
+			if(Check.notInRange(min, max, values[i]))
 			{
-				indices.add(i);
-				vals.add(values[i]);
+				builderIndices.append((count > 0 ? "," : "") + i + 1);
+				builderValues.append((count > 0 ? "," : "") + values[i]);
+				count++;
 			}
 		
-		if(indices.size() > 0)
+		if(count > 0)
 		{
 			ValidationError error = new ValidationError(TYPE__NOT_IN_RANGE_MULTI, DESC__NOT_IN_RANGE_MULTI);
-			
-			StringBuilder builder1 = new StringBuilder();
-			StringBuilder builder2 = new StringBuilder();
-			
-			for(int i = 0; i < indices.size(); i++)
-				builder1.append(indices.get(i) + 1).append(i == indices.size() - 1 ? "" : ", ");
-			
-			for(int i = 0; i < vals.size(); i++)
-				builder2.append(vals.get(i)).append(i == vals.size() - 1 ? "" : ", ");
-				
-			error.details.add("failed indices(1 based): " + "[" + builder1.toString() + "]");
-			error.details.add("failed values: [" + builder2.toString() + "]");
-			error.details.add("total failed: " + indices.size());
-			error.details.add("expected inclusive limits: [min: " + min + "L, max: " + max + "L]");
+
+			error.details.add("failed indices(1 based): " + "[" + builderIndices.toString() + "]");
+			error.details.add("failed values: [" + builderValues.toString() + "]");
+			error.details.add("total failed: " + count);
+			error.details.add("expected inclusive limits: [min: " + min + ", max: " + max + "]");
 			
 			error.throwError(stackreduction);
 		}
@@ -345,32 +312,26 @@ public class ValidateInRange
 	
 	static void notInRange(int stackreduction, long min, long max, long... values)
 	{
-		ArrayList<Integer> indices = Auto.ArrayList(); 
-		ArrayList<Long> vals = Auto.ArrayList();
+		StringBuilder builderIndices = new StringBuilder();
+		StringBuilder builderValues = new StringBuilder();
+		
+		int count = 0;
 		
 		for(int i = 0; i < values.length; i++)
-			if(Check.isInRange(min, max, values[i]))
+			if(Check.notInRange(min, max, values[i]))
 			{
-				indices.add(i);
-				vals.add(values[i]);
+				builderIndices.append((count > 0 ? "," : "") + i + 1);
+				builderValues.append((count > 0 ? "," : "") + values[i]);
+				count++;
 			}
 		
-		if(indices.size() > 0)
+		if(count > 0)
 		{
 			ValidationError error = new ValidationError(TYPE__NOT_IN_RANGE_MULTI, DESC__NOT_IN_RANGE_MULTI);
-			
-			StringBuilder builder1 = new StringBuilder();
-			StringBuilder builder2 = new StringBuilder();
-			
-			for(int i = 0; i < indices.size(); i++)
-				builder1.append(indices.get(i) + 1).append(i == indices.size() - 1 ? "" : ", ");
-			
-			for(int i = 0; i < vals.size(); i++)
-				builder2.append(vals.get(i) + "L").append(i == vals.size() - 1 ? "" : ", ");
-				
-			error.details.add("failed indices(1 based): " + "[" + builder1.toString() + "]");
-			error.details.add("failed values: [" + builder2.toString() + "]");
-			error.details.add("total failed: " + indices.size());
+
+			error.details.add("failed indices(1 based): " + "[" + builderIndices.toString() + "]");
+			error.details.add("failed values: [" + builderValues.toString() + "]");
+			error.details.add("total failed: " + count);
 			error.details.add("expected inclusive limits: [min: " + min + "L, max: " + max + "L]");
 			
 			error.throwError(stackreduction);
@@ -379,33 +340,27 @@ public class ValidateInRange
 	
 	static void notInRange(int stackreduction, float min, float max, float... values)
 	{
-		ArrayList<Integer> indices = Auto.ArrayList(); 
-		ArrayList<Float> vals = Auto.ArrayList();
+		StringBuilder builderIndices = new StringBuilder();
+		StringBuilder builderValues = new StringBuilder();
+		
+		int count = 0;
 		
 		for(int i = 0; i < values.length; i++)
-			if(Check.isInRange(min, max, values[i]))
+			if(Check.notInRange(min, max, values[i]))
 			{
-				indices.add(i);
-				vals.add(values[i]);
+				builderIndices.append((count > 0 ? "," : "") + i + 1);
+				builderValues.append((count > 0 ? "," : "") + values[i]);
+				count++;
 			}
 		
-		if(indices.size() > 0)
+		if(count > 0)
 		{
 			ValidationError error = new ValidationError(TYPE__NOT_IN_RANGE_MULTI, DESC__NOT_IN_RANGE_MULTI);
-			
-			StringBuilder builder1 = new StringBuilder();
-			StringBuilder builder2 = new StringBuilder();
-			
-			for(int i = 0; i < indices.size(); i++)
-				builder1.append(indices.get(i) + 1).append(i == indices.size() - 1 ? "" : ", ");
-			
-			for(int i = 0; i < vals.size(); i++)
-				builder2.append(vals.get(i) + "F").append(i == vals.size() - 1 ? "" : ", ");
-				
-			error.details.add("failed indices(1 based): " + "[" + builder1.toString() + "]");
-			error.details.add("failed values: [" + builder2.toString() + "]");
-			error.details.add("total failed: " + indices.size());
-			error.details.add("expected inclusive limits: [min: " + min + "L, max: " + max + "L]");
+
+			error.details.add("failed indices(1 based): " + "[" + builderIndices.toString() + "]");
+			error.details.add("failed values: [" + builderValues.toString() + "]");
+			error.details.add("total failed: " + count);
+			error.details.add("expected inclusive limits: [min: " + min + "F, max: " + max + "F]");
 			
 			error.throwError(stackreduction);
 		}
@@ -413,33 +368,27 @@ public class ValidateInRange
 
 	static void notInRange(int stackreduction, double min, double max, double... values)
 	{
-		ArrayList<Integer> indices = Auto.ArrayList(); 
-		ArrayList<Double> vals = Auto.ArrayList();
+		StringBuilder builderIndices = new StringBuilder();
+		StringBuilder builderValues = new StringBuilder();
+		
+		int count = 0;
 		
 		for(int i = 0; i < values.length; i++)
-			if(Check.isInRange(min, max, values[i]))
+			if(Check.notInRange(min, max, values[i]))
 			{
-				indices.add(i);
-				vals.add(values[i]);
+				builderIndices.append((count > 0 ? "," : "") + i + 1);
+				builderValues.append((count > 0 ? "," : "") + values[i]);
+				count++;
 			}
 		
-		if(indices.size() > 0)
+		if(count > 0)
 		{
 			ValidationError error = new ValidationError(TYPE__NOT_IN_RANGE_MULTI, DESC__NOT_IN_RANGE_MULTI);
-			
-			StringBuilder builder1 = new StringBuilder();
-			StringBuilder builder2 = new StringBuilder();
-			
-			for(int i = 0; i < indices.size(); i++)
-				builder1.append(indices.get(i) + 1).append(i == indices.size() - 1 ? "" : ", ");
-			
-			for(int i = 0; i < vals.size(); i++)
-				builder2.append(vals.get(i) + "D").append(i == vals.size() - 1 ? "" : ", ");
-				
-			error.details.add("failed indices(1 based): " + "[" + builder1.toString() + "]");
-			error.details.add("failed values: [" + builder2.toString() + "]");
-			error.details.add("total failed: " + indices.size());
-			error.details.add("expected inclusive limits: [min: " + min + "L, max: " + max + "L]");
+
+			error.details.add("failed indices(1 based): " + "[" + builderIndices.toString() + "]");
+			error.details.add("failed values: [" + builderValues.toString() + "]");
+			error.details.add("total failed: " + count);
+			error.details.add("expected inclusive limits: [min: " + min + "D, max: " + max + "D]");
 			
 			error.throwError(stackreduction);
 		}

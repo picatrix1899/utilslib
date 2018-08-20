@@ -146,23 +146,61 @@ public abstract class Validate
 	
 	
 	
-	public static void isInRange(int min, int max, int value) { new VE_isInRange(1, min, max, value);  }
-	public static void isInRange(long min, long max, long value) { new VE_isInRange(1, min, max, value); }
-	public static void isInRange(float min, float max, float value) { new VE_isInRange(1, min, max, value); }
-	public static void isInRange(double min, double max, double value) { new VE_isInRange(1, min, max, value); }
+	public static void isInRange(int min, int max, int value) { ValidateInRange.isInRange(1, min, max, value);  }
+	public static void isInRange(long min, long max, long value) { ValidateInRange.isInRange(1, min, max, value); }
+	public static void isInRange(float min, float max, float value) { ValidateInRange.isInRange(1, min, max, value); }
+	public static void isInRange(double min, double max, double value) { ValidateInRange.isInRange(1, min, max, value); }
 
-	public static void isInRange(int min, int max, int... values) { new VE_isInRangeMulti(1, min, max, values); }
-	public static void isInRange(long min, long max, long... values) { new VE_isInRangeMulti(1, min, max, values); }
-	public static void isInRange(float min, float max, float... values) { new VE_isInRangeMulti(1, min, max, values); }
-	public static void isInRange(double min, double max, double... values) { new VE_isInRangeMulti(1, min, max, values); }
+	public static void isInRange(int min, int max, int... values) { ValidateInRange.isInRange(1, min, max, values); }
+	public static void isInRange(long min, long max, long... values) { ValidateInRange.isInRange(1, min, max, values); }
+	public static void isInRange(float min, float max, float... values) { ValidateInRange.isInRange(1, min, max, values); }
+	public static void isInRange(double min, double max, double... values) { ValidateInRange.isInRange(1, min, max, values); }
 	
-	public static void isInRangeOOO(int min, int max, int... values) { new VE_isInRangeOOO(1, min, max, values); }
-	public static void isInRangeOOO(long min, long max, long... values) { new VE_isInRangeOOO(1, min, max, values); }
-	public static void isInRangeOOO(float min, float max, float... values) { new VE_isInRangeOOO(1, min, max, values); }
-	public static void isInRangeOOO(double min, double max, double... values) { new VE_isInRangeOOO(1, min, max, values); }
+	public static void isInRangeOOO(int min, int max, int... values) { ValidateInRange.isInRangeOOO(1, min, max, values); }
+	public static void isInRangeOOO(long min, long max, long... values) { ValidateInRange.isInRangeOOO(1, min, max, values); }
+	public static void isInRangeOOO(float min, float max, float... values) { ValidateInRange.isInRangeOOO(1, min, max, values); }
+	public static void isInRangeOOO(double min, double max, double... values) { ValidateInRange.isInRangeOOO(1, min, max, values); }
 	
 	
 	
+	public static void isInRange(Error exception, int min, int max, int value) { if(Check.notInRange(min, max, value)) throw exception; }
+	public static void isInRange(RuntimeException exception, int min, int max, int value) { if(Check.notInRange(min, max, value)) throw exception; }
+	public static <E extends Exception> void isInRange(E exception, int min, int max, int value) throws E { if(Check.notInRange(min, max, value)) throw exception; }
+	public static void isInRange(Error exception, long min, long max, long value) { if(Check.notInRange(min, max, value)) throw exception; }
+	public static void isInRange(RuntimeException exception, long min, long max, long value) { if(Check.notInRange(min, max, value)) throw exception; }
+	public static <E extends Exception> void isInRange(E exception, long min, long max, long value) throws E { if(Check.notInRange(min, max, value)) throw exception; }
+	public static void isInRange(Error exception, float min, float max, float value) { if(Check.notInRange(min, max, value)) throw exception; }
+	public static void isInRange(RuntimeException exception, float min, float max, float value) { if(Check.notInRange(min, max, value)) throw exception; }
+	public static <E extends Exception> void isInRange(E exception, float min, float max, float value) throws E { if(Check.notInRange(min, max, value)) throw exception; }
+	public static void isInRange(Error exception, double min, double max, double value) { if(Check.notInRange(min, max, value)) throw exception; }
+	public static void isInRange(RuntimeException exception, double min, double max, double value) { if(Check.notInRange(min, max, value)) throw exception; }
+	public static <E extends Exception> void isInRange(E exception, double min, double max, double value) throws E { if(Check.notInRange(min, max, value)) throw exception; }
+	
+	public static void isInRange(Error exception, int min, int max, int...values) { for(int value : values) if(Check.notInRange(min, max, value)) { throw exception; } }
+	public static void isInRange(RuntimeException exception, int min, int max, int...values) { for(int value : values) if(Check.notInRange(min, max, value)) throw exception; }
+	public static <E extends Exception> void isInRange(E exception, int min, int max, int...values) throws E { for(int value : values) if(Check.notInRange(min, max, value)) throw exception; } 
+	public static void isInRange(Error exception, long min, long max, long...values) { for(long value : values) if(Check.notInRange(min, max, value)) { throw exception; } }
+	public static void isInRange(RuntimeException exception, long min, long max, long...values) { for(long value : values) if(Check.notInRange(min, max, value)) throw exception; }
+	public static <E extends Exception> void isInRange(E exception, long min, long max, long...values) throws E { for(long value : values) if(Check.notInRange(min, max, value)) throw exception; } 
+	public static void isInRange(Error exception, float min, float max, float...values) { for(float value : values) if(Check.notInRange(min, max, value)) { throw exception; } }
+	public static void isInRange(RuntimeException exception, float min, float max, float...values) { for(float value : values) if(Check.notInRange(min, max, value)) throw exception; }
+	public static <E extends Exception> void isInRange(E exception, float min, float max, float...values) throws E { for(float value : values) if(Check.notInRange(min, max, value)) throw exception; } 
+	public static void isInRange(Error exception, double min, double max, double...values) { for(double value : values) if(Check.notInRange(min, max, value)) { throw exception; } }
+	public static void isInRange(RuntimeException exception, double min, double max, double...values) { for(double value : values) if(Check.notInRange(min, max, value)) throw exception; }
+	public static <E extends Exception> void isInRange(E exception, double min, double max, double...values) throws E { for(double value : values) if(Check.notInRange(min, max, value)) throw exception; } 
+	
+	public static void isInRangeOOO(Error exception, int min, int max, int...values) { if(Check.notInRange(min, max, values)) { throw exception; } }
+	public static void isInRangeOOO(RuntimeException exception, int min, int max, int...values) { if(Check.notInRange(min, max, values)) throw exception; }
+	public static <E extends Exception> void isInRangeOOO(E exception, int min, int max, int...values) throws E { if(Check.notInRange(min, max, values)) throw exception; }
+	public static void isInRangeOOO(Error exception, long min, long max, long...values) { if(Check.notInRange(min, max, values)) { throw exception; } }
+	public static void isInRangeOOO(RuntimeException exception, long min, long max, long...values) { if(Check.notInRange(min, max, values)) throw exception; }
+	public static <E extends Exception> void isInRangeOOO(E exception, long min, long max, long...values) throws E { if(Check.notInRange(min, max, values)) throw exception; }
+	public static void isInRangeOOO(Error exception, float min, float max, float...values) { if(Check.notInRange(min, max, values)) { throw exception; } }
+	public static void isInRangeOOO(RuntimeException exception, float min, float max, float...values) { if(Check.notInRange(min, max, values)) throw exception; }
+	public static <E extends Exception> void isInRangeOOO(E exception, float min, float max, float...values) throws E { if(Check.notInRange(min, max, values)) throw exception; }
+	public static void isInRangeOOO(Error exception, double min, double max, double...values) { if(Check.notInRange(min, max, values)) { throw exception; } }
+	public static void isInRangeOOO(RuntimeException exception, double min, double max, double...values) { if(Check.notInRange(min, max, values)) throw exception; }
+	public static <E extends Exception> void isInRangeOOO(E exception, double min, double max, double...values) throws E { if(Check.notInRange(min, max, values)) throw exception; }
 
 	
 	
@@ -437,21 +475,62 @@ public abstract class Validate
 	
 
 	
-	public static void notInRange(int min, int max, int value) { new VE_notInRange(1, min, max, value); }
-	public static void notInRange(long min, long max, long value) { new VE_notInRange(1, min, max, value); }
-	public static void notInRange(float min, float max, float value) { new VE_notInRange(1, min, max, value); }
-	public static void notInRange(double min, double max, double value) { new VE_notInRange(1, min, max, value); }
+	public static void notInRange(int min, int max, int value) { ValidateInRange.notInRange(1, min, max, value); }
+	public static void notInRange(long min, long max, long value) { ValidateInRange.notInRange(1, min, max, value); }
+	public static void notInRange(float min, float max, float value) { ValidateInRange.notInRange(1, min, max, value); }
+	public static void notInRange(double min, double max, double value) { ValidateInRange.notInRange(1, min, max, value); }
 
-	public static void notInRange(int min, int max, int... values) { new VE_notInRangeMulti(1, min, max, values); }
-	public static void notInRange(long min, long max, long... values) { new VE_notInRangeMulti(1, min, max, values); }
-	public static void notInRange(float min, float max, float... values) { new VE_notInRangeMulti(1, min, max, values); }
-	public static void notInRange(double min, double max, double... values) { new VE_notInRangeMulti(1, min, max, values); }
+	public static void notInRange(int min, int max, int... values) { ValidateInRange.notInRange(1, min, max, values); }
+	public static void notInRange(long min, long max, long... values) { ValidateInRange.notInRange(1, min, max, values); }
+	public static void notInRange(float min, float max, float... values) { ValidateInRange.notInRange(1, min, max, values); }
+	public static void notInRange(double min, double max, double... values) { ValidateInRange.notInRange(1, min, max, values); }
 	
-	public static void notInRangeOOO(int min, int max, int... values) { new VE_notInRangeOOO(1, min, max, values); }
-	public static void notInRangeOOO(long min, long max, long... values) { new VE_notInRangeOOO(1, min, max, values); }
-	public static void notInRangeOOO(float min, float max, float... values) { new VE_notInRangeOOO(1, min, max, values); }
-	public static void notInRangeOOO(double min, double max, double... values) { new VE_notInRangeOOO(1, min, max, values); }
+	public static void notInRangeOOO(int min, int max, int... values) { ValidateInRange.notInRangeOOO(1, min, max, values); }
+	public static void notInRangeOOO(long min, long max, long... values) { ValidateInRange.notInRangeOOO(1, min, max, values); }
+	public static void notInRangeOOO(float min, float max, float... values) { ValidateInRange.notInRangeOOO(1, min, max, values); }
+	public static void notInRangeOOO(double min, double max, double... values) { ValidateInRange.notInRangeOOO(1, min, max, values); }
 
+	
+	
+	public static void notInRange(Error exception, int min, int max, int value) { if(Check.isInRange(min, max, value)) throw exception; }
+	public static void notInRange(RuntimeException exception, int min, int max, int value) { if(Check.isInRange(min, max, value)) throw exception; }
+	public static <E extends Exception> void notInRange(E exception, int min, int max, int value) throws E { if(Check.isInRange(min, max, value)) throw exception; }
+	public static void notInRange(Error exception, long min, long max, long value) { if(Check.isInRange(min, max, value)) throw exception; }
+	public static void notInRange(RuntimeException exception, long min, long max, long value) { if(Check.isInRange(min, max, value)) throw exception; }
+	public static <E extends Exception> void notInRange(E exception, long min, long max, long value) throws E { if(Check.isInRange(min, max, value)) throw exception; }
+	public static void notInRange(Error exception, float min, float max, float value) { if(Check.isInRange(min, max, value)) throw exception; }
+	public static void notInRange(RuntimeException exception, float min, float max, float value) { if(Check.isInRange(min, max, value)) throw exception; }
+	public static <E extends Exception> void notInRange(E exception, float min, float max, float value) throws E { if(Check.isInRange(min, max, value)) throw exception; }
+	public static void notInRange(Error exception, double min, double max, double value) { if(Check.isInRange(min, max, value)) throw exception; }
+	public static void notInRange(RuntimeException exception, double min, double max, double value) { if(Check.isInRange(min, max, value)) throw exception; }
+	public static <E extends Exception> void notInRange(E exception, double min, double max, double value) throws E { if(Check.isInRange(min, max, value)) throw exception; }
+	
+	public static void notInRange(Error exception, int min, int max, int...values) { for(int value : values) if(Check.isInRange(min, max, value)) { throw exception; } }
+	public static void notInRange(RuntimeException exception, int min, int max, int...values) { for(int value : values) if(Check.isInRange(min, max, value)) throw exception; }
+	public static <E extends Exception> void notInRange(E exception, int min, int max, int...values) throws E { for(int value : values) if(Check.isInRange(min, max, value)) throw exception; } 
+	public static void notInRange(Error exception, long min, long max, long...values) { for(long value : values) if(Check.isInRange(min, max, value)) { throw exception; } }
+	public static void notInRange(RuntimeException exception, long min, long max, long...values) { for(long value : values) if(Check.isInRange(min, max, value)) throw exception; }
+	public static <E extends Exception> void notInRange(E exception, long min, long max, long...values) throws E { for(long value : values) if(Check.isInRange(min, max, value)) throw exception; } 
+	public static void notInRange(Error exception, float min, float max, float...values) { for(float value : values) if(Check.isInRange(min, max, value)) { throw exception; } }
+	public static void notInRange(RuntimeException exception, float min, float max, float...values) { for(float value : values) if(Check.isInRange(min, max, value)) throw exception; }
+	public static <E extends Exception> void notInRange(E exception, float min, float max, float...values) throws E { for(float value : values) if(Check.isInRange(min, max, value)) throw exception; } 
+	public static void notInRange(Error exception, double min, double max, double...values) { for(double value : values) if(Check.isInRange(min, max, value)) { throw exception; } }
+	public static void notInRange(RuntimeException exception, double min, double max, double...values) { for(double value : values) if(Check.isInRange(min, max, value)) throw exception; }
+	public static <E extends Exception> void notInRange(E exception, double min, double max, double...values) throws E { for(double value : values) if(Check.isInRange(min, max, value)) throw exception; } 
+	
+	public static void notInRangeOOO(Error exception, int min, int max, int...values) { if(Check.isInRange(min, max, values)) { throw exception; } }
+	public static void notInRangeOOO(RuntimeException exception, int min, int max, int...values) { if(Check.isInRange(min, max, values)) throw exception; }
+	public static <E extends Exception> void notInRangeOOO(E exception, int min, int max, int...values) throws E { if(Check.isInRange(min, max, values)) throw exception; }
+	public static void notInRangeOOO(Error exception, long min, long max, long...values) { if(Check.isInRange(min, max, values)) { throw exception; } }
+	public static void notInRangeOOO(RuntimeException exception, long min, long max, long...values) { if(Check.isInRange(min, max, values)) throw exception; }
+	public static <E extends Exception> void notInRangeOOO(E exception, long min, long max, long...values) throws E { if(Check.isInRange(min, max, values)) throw exception; }
+	public static void notInRangeOOO(Error exception, float min, float max, float...values) { if(Check.isInRange(min, max, values)) { throw exception; } }
+	public static void notInRangeOOO(RuntimeException exception, float min, float max, float...values) { if(Check.isInRange(min, max, values)) throw exception; }
+	public static <E extends Exception> void notInRangeOOO(E exception, float min, float max, float...values) throws E { if(Check.isInRange(min, max, values)) throw exception; }
+	public static void notInRangeOOO(Error exception, double min, double max, double...values) { if(Check.isInRange(min, max, values)) { throw exception; } }
+	public static void notInRangeOOO(RuntimeException exception, double min, double max, double...values) { if(Check.isInRange(min, max, values)) throw exception; }
+	public static <E extends Exception> void notInRangeOOO(E exception, double min, double max, double...values) throws E { if(Check.isInRange(min, max, values)) throw exception; }
+	
 	
 	
 	public static void notBelow(int min, int value) { ValidateBelow.notBelow(1, min, value); }
