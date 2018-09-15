@@ -1,5 +1,7 @@
 package cmn.utilslib.math.btree;
 
+import java.util.ArrayList;
+
 import cmn.utilslib.math.geometry.AABB3f;
 import cmn.utilslib.math.vector.Vector3f;
 
@@ -11,7 +13,7 @@ public class AABB3fBTreeWalker<T> extends BTreeWalker<T, AABB3f>
 		super(tree);
 	}
 
-	public T walk(AABB3f aabb)
+	public ArrayList<T> walk(AABB3f aabb)
 	{
 		return super.walk((AABB3f oldAABB) -> { return isOverlapping(oldAABB, aabb);
 			

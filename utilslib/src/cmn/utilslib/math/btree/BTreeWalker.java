@@ -1,8 +1,6 @@
 package cmn.utilslib.math.btree;
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Deque;
 import java.util.Iterator;
 import java.util.List;
 
@@ -19,11 +17,15 @@ public class BTreeWalker<T,E>
 		this.values = new ArrayList<T>();
 	}
 	
-	public T walk(BTreeEvaluation<E> evaluation)
+	public ArrayList<T> walk(BTreeEvaluation<E> evaluation)
 	{
-		BTreeLeaf<T,E> leaf = walkToLeaf(evaluation);
+		ArrayList<BTreeLeaf<T,E>> leafes = walkToLeaf(evaluation);
+		ArrayList<T> out = new ArrayList<T>();
 		
-		return leaf == null ? null: leaf.data;
+		for(BTreeLeaf<T,E> leaf : leafes)
+			out.add(leaf.data);
+			
+		return out;
 	}
 	
 	public List<T> getValueList()
@@ -31,42 +33,44 @@ public class BTreeWalker<T,E>
 		return this.values;
 	}
 	
-	public BTreeLeaf<T,E> walkToLeaf(BTreeEvaluation<E> evaluation)
+	public ArrayList<BTreeLeaf<T,E>> walkToLeaf(BTreeEvaluation<E> evaluation)
 	{
-		Deque<BTreeContent<T,E>> queue = new ArrayDeque<BTreeContent<T,E>>();
+		BTreeNode<T,E> node = this.tree;
 		
-		BTreeContent<T,E> current;
-		BTreeNode<T,E> currentNode;
-		BTreeLeaf<T,E> currentLeaf;
+		ArrayList<BTreeLeaf<T,E>> out = new ArrayList<BTreeLeaf<T,E>>();
 		
-		queue.add(this.tree);
+		if(node.a == null) return out;
 		
-		while(!queue.isEmpty())
+		walkDeep(out, node, evaluation);
+		
+		return out;
+	}
+	
+	public void walkDeep(ArrayList<BTreeLeaf<T,E>> list, BTreeNode<T,E> node, BTreeEvaluation<E> evaluation)
+	{
+		if(evaluation.eval(node.a.evalData))
 		{
-			current = queue.poll();
-			
-			if(current instanceof BTreeNode)
+			if(node.a instanceof BTreeNode)
 			{
-				currentNode = (BTreeNode<T,E>)current;
-				
-				if(evaluation.eval(currentNode.b.evalData))
-				{
-					queue.addFirst(currentNode.b);
-				}
-				
-				if(evaluation.eval(currentNode.a.evalData))
-				{
-					queue.addFirst(currentNode.a);
-				}
+				walkDeep(list, (BTreeNode<T,E>)node.a, evaluation);
 			}
 			else
 			{
-				currentLeaf = (BTreeLeaf<T,E>)current;
-				return currentLeaf;
+				list.add((BTreeLeaf<T,E>)node.a);
 			}
 		}
 		
-		return null;
+		if(node.b != null)
+		{
+			if(node.b instanceof BTreeNode)
+			{
+				walkDeep(list, (BTreeNode<T,E>)node.b, evaluation);
+			}
+			else
+			{
+				list.add((BTreeLeaf<T,E>)node.b);
+			}
+		}
 	}
 	
 	public void refreshLeafList()
