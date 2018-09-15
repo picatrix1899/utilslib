@@ -1,8 +1,10 @@
-package cmn.utilslib.math.btree;
+package cmn.utilslib.trees.btree;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import cmn.utilslib.trees.TreeEvaluation;
 
 public class BTreeWalker<T,E>
 {
@@ -17,7 +19,7 @@ public class BTreeWalker<T,E>
 		this.values = new ArrayList<T>();
 	}
 	
-	public ArrayList<T> walk(BTreeEvaluation<E> evaluation)
+	public ArrayList<T> walk(TreeEvaluation<E> evaluation)
 	{
 		ArrayList<BTreeLeaf<T,E>> leafes = walkToLeaf(evaluation);
 		ArrayList<T> out = new ArrayList<T>();
@@ -33,7 +35,7 @@ public class BTreeWalker<T,E>
 		return this.values;
 	}
 	
-	public ArrayList<BTreeLeaf<T,E>> walkToLeaf(BTreeEvaluation<E> evaluation)
+	public ArrayList<BTreeLeaf<T,E>> walkToLeaf(TreeEvaluation<E> evaluation)
 	{
 		BTreeNode<T,E> node = this.tree;
 		
@@ -46,7 +48,7 @@ public class BTreeWalker<T,E>
 		return out;
 	}
 	
-	public void walkDeep(ArrayList<BTreeLeaf<T,E>> list, BTreeNode<T,E> node, BTreeEvaluation<E> evaluation)
+	public void walkDeep(ArrayList<BTreeLeaf<T,E>> list, BTreeNode<T,E> node, TreeEvaluation<E> evaluation)
 	{
 		if(evaluation.eval(node.a.evalData))
 		{

@@ -1,4 +1,4 @@
-package cmn.utilslib.math.btree;
+package cmn.utilslib.trees.btree;
 
 import java.util.ArrayList;
 

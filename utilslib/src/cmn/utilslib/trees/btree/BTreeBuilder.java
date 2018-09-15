@@ -1,4 +1,4 @@
-package cmn.utilslib.math.btree;
+package cmn.utilslib.trees.btree;
 
 public abstract class BTreeBuilder<T,E>
 {
@@ -85,7 +85,7 @@ public abstract class BTreeBuilder<T,E>
 			}
 			else if(isInRange(currentNode.b.evalData, newLeaf.evalData))
 			{
-				if(currentNode.a instanceof BTreeNode)
+				if(currentNode.b instanceof BTreeNode)
 				{
 					addDeep(newLeaf, (BTreeNode<T,E>)currentNode.b);
 				}

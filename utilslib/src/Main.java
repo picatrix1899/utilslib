@@ -1,6 +1,6 @@
-import cmn.utilslib.math.btree.AABB3fBTree;
-import cmn.utilslib.math.btree.AABB3fBTreeBuilder;
-import cmn.utilslib.math.btree.AABB3fBTreeWalker;
+import cmn.utilslib.trees.btree.AABB3fBTree;
+import cmn.utilslib.trees.btree.AABB3fBTreeBuilder;
+import cmn.utilslib.trees.btree.AABB3fBTreeWalker;
 import cmn.utilslib.math.geometry.AABB3f;
 import cmn.utilslib.math.vector.Vector3f;
 

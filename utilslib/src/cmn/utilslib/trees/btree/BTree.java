@@ -1,4 +1,4 @@
-package cmn.utilslib.math.btree;
+package cmn.utilslib.trees.btree;
 
 public class BTree<T,E> extends BTreeNode<T,E>
 {
