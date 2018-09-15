@@ -4,6 +4,7 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.Iterator;
+import java.util.List;
 
 public class BTreeWalker<T,E>
 {
@@ -23,6 +24,11 @@ public class BTreeWalker<T,E>
 		BTreeLeaf<T,E> leaf = walkToLeaf(evaluation);
 		
 		return leaf == null ? null: leaf.data;
+	}
+	
+	public List<T> getValueList()
+	{
+		return this.values;
 	}
 	
 	public BTreeLeaf<T,E> walkToLeaf(BTreeEvaluation<E> evaluation)
@@ -67,9 +73,8 @@ public class BTreeWalker<T,E>
 	{
 		this.leafes = new ArrayList<BTreeLeaf<T,E>>();
 		
-		if(this.tree.a == null)
-		
-		iterativeWalk(leafes, this.tree);
+		if(this.tree.a != null)
+			iterativeWalk(leafes, this.tree);
 	}
 	
 	public Iterator<BTreeLeaf<T,E>> leafIterator()
@@ -93,15 +98,17 @@ public class BTreeWalker<T,E>
 			leafes.add((BTreeLeaf<T,E>)currentNode.a);
 			values.add(((BTreeLeaf<T,E>)currentNode.a).data);
 		}
-		
-		if(currentNode.b instanceof BTreeNode)
+		if(currentNode.b != null)
 		{
-			iterativeWalk(leafes, (BTreeNode<T,E>)currentNode.b);
-		}
-		else
-		{
-			leafes.add((BTreeLeaf<T,E>)currentNode.b);
-			values.add(((BTreeLeaf<T,E>)currentNode.b).data);
+			if(currentNode.b instanceof BTreeNode)
+			{
+				iterativeWalk(leafes, (BTreeNode<T,E>)currentNode.b);
+			}
+			else
+			{
+				leafes.add((BTreeLeaf<T,E>)currentNode.b);
+				values.add(((BTreeLeaf<T,E>)currentNode.b).data);
+			}
 		}
 	}
 }

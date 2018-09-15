@@ -77,6 +77,16 @@ public class AABB3f implements ConvexPolygonalShape3f
 		return new AABB3f(new Point3f(center), halfExtend);
 	}
 
+	public Vector3f getMin()
+	{
+		return this.center.asVector3f().sub(this.halfExtend);
+	}
+	
+	public Vector3f getMax()
+	{
+		return this.center.asVector3f().add(this.halfExtend);
+	}
+	
 	@Override
 	public OBB3f getOBBf()
 	{
