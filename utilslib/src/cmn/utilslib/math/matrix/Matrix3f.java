@@ -7,7 +7,6 @@ import cmn.utilslib.math.Maths;
 import cmn.utilslib.math.Quaternion;
 import cmn.utilslib.math.vector.Vector3f;
 import cmn.utilslib.math.vector.api.Vec3f;
-import cmn.utilslib.math.vector.api.Vec3fBase;
 
 /**
  * A 3 by 3 float Row Major Matrix 
@@ -71,9 +70,9 @@ public class Matrix3f
 		return this;
 	}
 	
-	public static Matrix3f rotation(Vec3fBase forward, Vec3fBase up, Vec3fBase right) { return new Matrix3f().initRotation(forward, up, right); }
+	public static Matrix3f rotation(Vec3f forward, Vec3f up, Vec3f right) { return new Matrix3f().initRotation(forward, up, right); }
 	
-	public Matrix3f initRotation(Vec3fBase forward, Vec3fBase up, Vec3fBase right)
+	public Matrix3f initRotation(Vec3f forward, Vec3f up, Vec3f right)
 	{
 		this.m0.set(right);
 		this.m1.set(up);
@@ -82,13 +81,13 @@ public class Matrix3f
 		return this;
 	}
 	
-	public Matrix3f initRotation(Vec3fBase forward, Vec3fBase up)
+	public Matrix3f initRotation(Vec3f forward, Vec3f up)
 	{
-		Vec3f f = forward.normalizeN();
-		Vec3f r = up.normalizeN();
+		Vector3f f = (Vector3f)forward.normalizeN();
+		Vector3f r = (Vector3f)up.normalizeN();
 		r = r.cross(f);
 		
-		Vec3f u = f.cross(r);
+		Vector3f u = f.cross(r);
 		
 		u.normalize();
 		
@@ -118,9 +117,9 @@ public class Matrix3f
 		return this;
 	}
 	
-	public static Matrix3f rotation(Vec3fBase axis, float angle) { return new Matrix3f().initRotation(axis, angle); }
+	public static Matrix3f rotation(Vec3f axis, float angle) { return new Matrix3f().initRotation(axis, angle); }
 	
-	public Matrix3f initRotation(Vec3fBase axis, float angle)
+	public Matrix3f initRotation(Vec3f axis, float angle)
 	{
 		double c = Math.cos(angle * Maths.DEG_TO_RAD);
 		double s = Math.sin(angle * Maths.DEG_TO_RAD);
@@ -150,9 +149,9 @@ public class Matrix3f
 		return this;
 	}
 	
-	public static Matrix3f scaling(Vec3fBase v) { return new Matrix3f().initScaling(v); }
+	public static Matrix3f scaling(Vec3f v) { return new Matrix3f().initScaling(v); }
 	
-	public Matrix3f initScaling(Vec3fBase v)
+	public Matrix3f initScaling(Vec3f v)
 	{
 		this.m0.x = v.getX();
 		this.m0.y = 0;
@@ -218,7 +217,7 @@ public class Matrix3f
 		return dest;
 	}
 	
-	public Vector3f transformN(Vec3fBase v)
+	public Vector3f transformN(Vec3f v)
 	{
 		return transform(this, v, null);
 	}
@@ -236,7 +235,7 @@ public class Matrix3f
 		return dest;
 	}
 	
-	public static Vector3f transform(Matrix3f l, Vec3fBase r, Vector3f dest)
+	public static Vector3f transform(Matrix3f l, Vec3f r, Vector3f dest)
 	{
 		if (dest == null) dest = new Vector3f();
 
@@ -408,9 +407,9 @@ public class Matrix3f
 	{
 		Matrix4f m = Matrix4f.identity();
 		
-		m.m0.set(m0.get(0), m0.get(1), m0.get(2),0);
-		m.m1.set(m1.get(0), m1.get(1), m1.get(2),0);
-		m.m2.set(m2.get(0), m2.get(1), m2.get(2),0);
+		m.m0.set(m0.x, m0.y, m0.z,0);
+		m.m1.set(m1.x, m1.y, m1.z,0);
+		m.m2.set(m2.x, m2.y, m2.z,0);
 		
 		return m;
 	}

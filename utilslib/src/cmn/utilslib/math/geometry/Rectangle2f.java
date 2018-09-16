@@ -11,8 +11,8 @@ public class Rectangle2f implements ConvexPolygonalShape2f
 	
 	public Rectangle2f(Point2f min, Point2f max)
 	{
-		this.halfExtend.set(min.vectorTof(max, Vector2f.TEMP0).mul(0.5));
-		this.center.set(min.addVector(this.halfExtend, Vector2f.TEMP1));
+		this.halfExtend.set(min.vectorTof(max, new Vector2f()).mul(0.5));
+		this.center.set(min.addVector(this.halfExtend, new Vector2f()));
 	}
 
 	public Rectangle2f(Point2f center, Vector2f halfExtend)
@@ -35,12 +35,12 @@ public class Rectangle2f implements ConvexPolygonalShape2f
 
 	public Point2f getMin()
 	{
-		return new Point2f(this.center.asVector2f(Vector2f.TEMP).sub(this.halfExtend));
+		return new Point2f(this.center.asVector2f(new Vector2f()).sub(this.halfExtend));
 	}
 	
 	public Point2f getMax()
 	{
-		return new Point2f(this.center.asVector2f(Vector2f.TEMP).add(this.halfExtend));
+		return new Point2f(this.center.asVector2f(new Vector2f()).add(this.halfExtend));
 	}
 	
 }

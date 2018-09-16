@@ -4,6 +4,7 @@ import java.nio.FloatBuffer;
 
 import cmn.utilslib.essentials.BufferUtils;
 import cmn.utilslib.math.vector.Vector2f;
+import cmn.utilslib.math.vector.api.Vec2f;
 import cmn.utilslib.math.vector.api.Vec2fBase;
 
 public class Matrix2f
@@ -43,9 +44,9 @@ public class Matrix2f
 		return this;
 	}
 	
-	public static Matrix2f rotation(Vec2fBase up, Vec2fBase right) { return new Matrix2f().initRotation(up, right); }
+	public static Matrix2f rotation(Vec2f up, Vec2f right) { return new Matrix2f().initRotation(up, right); }
 	
-	public Matrix2f initRotation(Vec2fBase up, Vec2fBase right)
+	public Matrix2f initRotation(Vec2f up, Vec2f right)
 	{
 		this.m0.set(right);
 		this.m1.set(up);

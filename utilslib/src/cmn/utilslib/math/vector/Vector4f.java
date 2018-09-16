@@ -1,7 +1,5 @@
 package cmn.utilslib.math.vector;
 
-import java.io.Serializable;
-
 import cmn.utilslib.essentials.Check;
 import cmn.utilslib.math.Maths;
 import cmn.utilslib.math.Quaternion;
@@ -14,12 +12,8 @@ import cmn.utilslib.math.vector.api.Vec4fBase;
  * @author picatrix1899
  *
  */
-public class Vector4f implements Vec4f, Serializable
+public class Vector4f implements Vec4f
 {
-	private static final long serialVersionUID = 1L;
-
-	public static transient final int DIMENSIONS = 4;
-	
 	public float x = 0.0f;
 	public float y = 0.0f;
 	public float z = 0.0f;
@@ -56,34 +50,26 @@ public class Vector4f implements Vec4f, Serializable
 	public Vector4f set(float x, float y, float z, float a) { return setX(x).setY(y).setZ(z).setA(a); }
 	public Vector4f set(double x, double y, double z, double a) { return setX(x).setY(y).setZ(z).setA(a); }
 	
-	@Override
 	public Vector4f setX(float x) { this.x = x; return this; }
 
-	@Override
 	public Vector4f setX(double x) { this.x = (float)x; return this; }
 
-	@Override
 	public Vector4f setY(float y) { this.y = y; return this; }
 
-	@Override
 	public Vector4f setY(double y) { this.y = (float)y; return this; }
 
-	@Override
 	public Vector4f setZ(float z) { this.z = z; return this; }
 
-	@Override
 	public Vector4f setZ(double z) { this.z = (float)z; return this; }
 
-	@Override
 	public Vector4f setA(float a) { this.a = a; return this; }
 
-	@Override
 	public Vector4f setA(double a) { this.a = (float)a; return this; }
 	
 	
-	public Vector4f inverted() { return clone().invert(); }
+	public Vector4f invertN() { return clone().invert(); }
 	
-	public Vector4f normalized() { return clone().normalize(); }
+	public Vector4f normalizeN() { return clone().normalize(); }
 	
 	
 	public Vector4f add(Vec4fBase v) { return add(v.getX(), v.getY(), v.getZ(), v.getA()); }
@@ -111,25 +97,25 @@ public class Vector4f implements Vec4f, Serializable
 	
 	public Vector4f addN(float x, float y, float z, float a) { return clone().add(x, y, z, a); }
 	public Vector4f addN(double x, double y, double z, double a) { return clone().add(x, y, z, a); }
-	public Vector4f addN(Vec4fBase v) { return addN(v.getX(), v.getY(), v.getZ(), v.getA()); }
+	public Vector4f addN(Vec4f v) { return addN(v.getX(), v.getY(), v.getZ(), v.getA()); }
 	public Vector4f addN(float scalar) { return addN(scalar, scalar, scalar, scalar); }
 	public Vector4f addN(double scalar) { return addN(scalar, scalar, scalar, scalar); }
 	
 	public Vector4f subN(float x, float y, float z, float a) { return clone().sub(x, y, z, a); }
 	public Vector4f subN(double x, double y, double z, double a) { return clone().sub(x, y, z, a); }
-	public Vector4f subN(Vec4fBase v) { return subN(v.getX(), v.getY(), v.getZ(), v.getA()); }
+	public Vector4f subN(Vec4f v) { return subN(v.getX(), v.getY(), v.getZ(), v.getA()); }
 	public Vector4f subN(float scalar) { return subN(scalar, scalar, scalar, scalar); }
 	public Vector4f subN(double scalar) { return subN(scalar, scalar, scalar, scalar); }	
 	
 	public Vector4f mulN(float x, float y, float z, float a) { return clone().mul(x, y, z, a); }
 	public Vector4f mulN(double x, double y, double z, double a) { return clone().mul(x, y, z, a); }
-	public Vector4f mulN(Vec4fBase v) { return mulN(v.getX(), v.getY(), v.getZ(), v.getA()); }
+	public Vector4f mulN(Vec4f v) { return mulN(v.getX(), v.getY(), v.getZ(), v.getA()); }
 	public Vector4f mulN(float scalar) { return mulN(scalar, scalar, scalar, scalar); }
 	public Vector4f mulN(double scalar) { return mulN(scalar, scalar, scalar, scalar); }	
 	
 	public Vector4f divN(float x, float y, float z, float a) { return clone().div(x, y, z, a); }
 	public Vector4f divN(double x, double y, double z, double a) { return clone().div(x, y, z, a); }
-	public Vector4f divN(Vec4fBase v) { return divN(v.getX(), v.getY(), v.getZ(), v.getA()); }
+	public Vector4f divN(Vec4f v) { return divN(v.getX(), v.getY(), v.getZ(), v.getA()); }
 	public Vector4f divN(float scalar) { return divN(scalar, scalar, scalar, scalar); }
 	public Vector4f divN(double scalar) { return divN(scalar, scalar, scalar, scalar); }
 	
@@ -138,7 +124,12 @@ public class Vector4f implements Vec4f, Serializable
 
 	public Vector4f invert() { return mul(-1.0f); }
 	
-	public Vector4f reflect(Vec4fBase normal)
+	public double dot(Vec4f v)
+	{
+		return this.x * v.getX() + this.y * v.getY() + this.z * v.getZ() + this.a * v.getA();
+	}
+	
+	public Vector4f reflect(Vec4f normal)
 	{
 		double angle = dot(normal) * 2;
 		
@@ -149,52 +140,17 @@ public class Vector4f implements Vec4f, Serializable
 		
 		return this;
 	}
-	
-	public Vector4f lerp(Vec4fBase v, double f)
-	{
-		setX(getX() + (v.getX() - getX()) * f);
-		setY(getY() + (v.getY() - getY()) * f);
-		setZ(getZ() + (v.getZ() - getZ()) * f);
-		setA(getA() + (v.getA() - getA()) * f);
-		
-		return this;
-	}
-	
-	public Vector4f slerp(Vec4fBase v, double f)
-	{
-		double angle = angleRad(v);
-		
-		double sinAngle = Math.sin(angle);
 
-		double x_1 = (1 - f)	* sinAngle / sinAngle * getX();
-		double x_2 = f			* sinAngle / sinAngle * v.getX();
-		float x = (float) (x_1 + x_2);
-		
-		double y_1 = (1 - f)	* sinAngle / sinAngle * getY();
-		double y_2 = f			* sinAngle / sinAngle * v.getY();
-		float y = (float) (y_1 + y_2);
-		
-		double z_1 = (1 - f)	* sinAngle / sinAngle * getZ();
-		double z_2 = f			* sinAngle / sinAngle * v.getZ();
-		float z = (float) (z_1 + z_2);
-		
-		double a_1 = (1 - f)	* sinAngle / sinAngle * getA();
-		double a_2 = f			* sinAngle / sinAngle * v.getA();
-		float a = (float) (a_1 + a_2);
-		
-		return new Vector4f(x, y, z, a);
-	}
-	
-	public Vector4f project(Vec4fBase v)
+	public Vector4f project(Vec4f v)
 	{
-		Vector4f vn = (Vector4f) v.normalized();
+		Vector4f vn = (Vector4f) v.normalizeN();
 		 double f = this.dot(vn);
 		 
 		 return vn.mul((float)f);
 	}
 	
 	
-	public Vector4f rot(Vec4fBase axis, float angle)
+	public Vector4f rotate(Vec4f axis, float angle)
 	{
 		
 		angle *= 0.5f;
@@ -210,10 +166,29 @@ public class Vector4f implements Vec4f, Serializable
 		
 		Quaternion rotation = new Quaternion(rW, rX, rY, rZ);
 		
-		return rot(rotation);
+		return rotate(rotation);
 	}
 	
-	public Vector4f rot(Quaternion q)
+	public Vector4f rotate(Vec4f axis, double angle)
+	{
+		
+		angle *= 0.5f;
+		angle *= Maths.DEG_TO_RAD;
+		
+		double sinHalfAngle = Math.sin(angle);
+		double cosHalfAngle = Math.cos(angle);
+		
+		double rX = axis.getX() * sinHalfAngle;
+		double rY = axis.getY() * sinHalfAngle;
+		double rZ = axis.getZ() * sinHalfAngle;
+		double rW = cosHalfAngle;
+		
+		Quaternion rotation = new Quaternion(rW, rX, rY, rZ);
+		
+		return rotate(rotation);
+	}
+	
+	public Vector4f rotate(Quaternion q)
 	{
 		Quaternion conjugate = q.conjugated();
 		Quaternion w = q.mulN(this).mulN(conjugate);
@@ -222,7 +197,7 @@ public class Vector4f implements Vec4f, Serializable
 	}
 
 	
-	public Vector4f reflected(Vec4fBase normal)
+	public Vector4f reflectN(Vec4f normal)
 	{
 		Vector4f out = clone();
 		
@@ -230,14 +205,128 @@ public class Vector4f implements Vec4f, Serializable
 		
 		return out;
 	}
-	
-	public Vector4f lerped(Vec4fBase v, double f)
+
+	public Vector4f invertFrom(Vec4f v)
 	{
-		Vector4f out = clone();
-		out.lerp(v, f);
-		return out;
+		this.x = v.getX() - this.x;
+		this.y = v.getY() - this.y;
+		this.z = v.getZ() - this.z;
+		this.a = v.getA() - this.a;
+		return this;
+	}
+
+	public Vector4f invertFrom(float max)
+	{
+		this.x = max - this.x;
+		this.y = max - this.y;
+		this.z = max - this.z;
+		this.a = max - this.a;
+		return this;
 	}
 	
+	public Vector4f invertFrom(double max)
+	{
+		this.x = (float)max - this.x;
+		this.y = (float)max - this.y;
+		this.z = (float)max - this.z;
+		this.a = (float)max - this.a;
+		return this;
+	}
+	
+	public Vector4f invertFrom(float x, float y, float z, float a)
+	{
+		this.x = x - this.x;
+		this.y = y - this.y;
+		this.z = z - this.z;
+		this.a = a - this.a;
+		return this;
+	}
+	
+	public Vector4f invertFrom(double x, double y, double z, double a)
+	{
+		this.x = (float)x - this.x;
+		this.y = (float)y - this.y;
+		this.z = (float)z - this.z;
+		this.a = (float)a - this.a;
+		return this;
+	}
+	
+	public Vector4f negate()
+	{
+		this.x = -this.x;
+		this.y = -this.y;
+		this.z = -this.z;
+		this.a = -this.a;
+		return this;
+	}
+	
+	public Vector4f inverse()
+	{
+		this.x = 1.0f / this.x;
+		this.y = 1.0f / this.y;
+		this.z = 1.0f / this.z;
+		this.a = 1.0f / this.a;
+		return this;
+	}
+	
+	
+	public Vector4f invertFromN(Vec4f v)
+	{
+		return clone().invertFrom(v);
+	}
+
+	public Vector4f invertFromN(float max)
+	{
+		return clone().invertFrom(max);
+	}
+
+	public Vector4f invertFromN(double max)
+	{
+		return clone().invertFrom(max);
+	}
+
+	public Vector4f invertFromN(float x, float y, float z, float a)
+	{
+		return clone().invertFrom(x,y,z,a);
+	}
+
+	public Vector4f invertFromN(double x, double y, double z, double a)
+	{
+		return clone().invertFrom(x,y,z,a);
+	}
+
+	public Vector4f inverseN()
+	{
+		return clone().inverse();
+	}
+
+	public Vector4f negateN()
+	{
+		return clone().negate();
+	}
+
+	public Vector4f rotateN(Vec4f axis, float angle)
+	{
+		return clone().rotate(axis, angle);
+	}
+
+	public Vector4f rotateN(Vec4f axis, double angle)
+	{
+		return clone().rotate(axis, angle);
+	}
+
+	public Vector4f rotateN(Quaternion q)
+	{
+		return clone().rotate(q);
+	}
+
+	public double angleRad(Vec4f v) { return Math.acos((dot(v)) / (length() * v.length())); }
+
+	public double angleDeg(Vec4f v) { return angleRad(v) * Maths.RAD_TO_DEG; }
+
+	public double length() { return Math.sqrt(squaredLength()); }
+
+	public double squaredLength() { return this.x * this.x + this.y * this.y + this.z * this.z + this.a * this.a; }
 	
 	/*
 	 * ===========================

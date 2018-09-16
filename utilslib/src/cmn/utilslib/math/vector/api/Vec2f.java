@@ -1,86 +1,10 @@
 package cmn.utilslib.math.vector.api;
 
 import cmn.utilslib.math.Quaternion;
-import cmn.utilslib.math.tuple.api.Tup2dBase;
-import cmn.utilslib.math.tuple.api.Tup2f;
-import cmn.utilslib.math.tuple.api.Tup2fBase;
 
-public interface Vec2f extends Vec2fBase, Tup2f
+public interface Vec2f extends Vec2fBase
 {
 	
-	/* 
-	###############
-	##           ##
-	##  SETTERS  ##
-	##           ##
-	###############
-	*/
-	
-	/** Sets the Dimensions to 0 and returns the Vector */
-	Vec2f setZero();
-	
-	
-	
-	/** Sets the Dimensions based on the Vector v and returns the Vector */
-	Vec2f set(Vec2fBase v);
-	
-	/** Sets the Dimensions based on the Vector v and returns the Vector */
-	Vec2f set(Vec2dBase v);
-	
-	/** Sets the Dimensions based on the Tuple t and returns the Vector */
-	Vec2f set(Tup2fBase t);
-	
-	/** Sets the Dimensions based on the Tuple t and returns the Vector */
-	Vec2f set(Tup2dBase t);
-	
-	/** Sets the Dimensions based on the Value scalar and returns the Vector */
-	Vec2f set(float scalar);
-	
-	/** Sets the Dimensions based on the Value scalar and returns the Vector */
-	Vec2f set(double scalar);
-	
-	/** Sets the Dimensions based on the Values x, y and z and returns the Vector */
-	Vec2f set(float x, float y);
-	
-	/** Sets the Dimensions based on the Values x, y and z and returns the Vector */
-	Vec2f set(double x, double y);
-	
-	
-	
-	/** Sets the X-Dimension based on the Value x and returns the Vector */
-	Vec2f setX(float x);
-	
-	/** Sets the X-Dimension based on the Value x and returns the Vector */
-	Vec2f setX(double x); 
-	
-	/** Sets the Y-Dimension based on the Value y and returns the Vector */
-	Vec2f setY(float y);
-	
-	/** Sets the Y-Dimension based on the Value y and returns the Vector */
-	Vec2f setY(double y); 
-	
-	default Vec2f set(int index, float value)
-	{
-		switch(index)
-		{
-			case 0: setX(value); break;
-			case 1: setY(value); break;
-		}
-		
-		return this;
-	}
-	
-	default Vec2f set(int index, double value)
-	{
-		switch(index)
-		{
-			case 0: setX(value); break;
-			case 1: setY(value); break;
-		}
-		
-		return this;
-	}
-
 	/*
 	#########################
 	##                     ##
@@ -89,113 +13,75 @@ public interface Vec2f extends Vec2fBase, Tup2f
 	#########################
 	 */
 	
-	/** Returns the Vector with addition of the Vector v */
-	Vec2f add(Vec2fBase v);
+	/** Returns a clone of the Vector with addition of the Vector v */
+	Vec2f addN(Vec2f v);
 	
-	/** Returns the Vector with addition of the Vector v */
-	Vec2f add(Vec2dBase v);
+	/** Returns a clone of the Vector with addition of the Value scalar */
+	Vec2f addN(float scalar);
 	
-	/** Returns the Vector with addition of the Value scalar */
-	Vec2f add(float scalar);
+	/** Returns a clone of the Vector with addition of the Value scalar */
+	Vec2f addN(double scalar);
 	
-	/** Returns the Vector with addition of the Value scalar */
-	Vec2f add(double scalar);
+	/** Returns a clone of the Vector with addition of the Values x and y */
+	Vec2f addN(float x, float y);
 	
-	/** Returns the Vector with addition of the Values x, y and z */
-	Vec2f add(float x, float y);
-	
-	/** Returns the Vector with addition of the Values x, y and z */
-	Vec2f add(double x, double y);
+	/** Returns a clone of the Vector with addition of the Values x and y */
+	Vec2f addN(double x, double y);
 	
 	
 	
-	/** Returns the Vector with subtraction of the Vector v */
-	Vec2f sub(Vec2fBase v);
+	/** Returns a clone of the Vector with subtraction of the Vector v */
+	Vec2f subN(Vec2f v);
 	
-	/** Returns the Vector with subtraction of the Vector v */
-	Vec2f sub(Vec2dBase v);
+	/** Returns a clone of the Vector with subtraction of the Value scalar */
+	Vec2f subN(float scalar);
 	
-	/** Returns the Vector with subtraction of the Value scalar */
-	Vec2f sub(float scalar);
+	/** Returns a clone of the Vector with subtraction of the Value scalar */
+	Vec2f subN(double scalar);
 	
-	/** Returns the Vector with subtraction of the Value scalar */
-	Vec2f sub(double scalar);
+	/** Returns a clone of the Vector with subtraction of the Values x and y */
+	Vec2f subN(float x, float y);
 	
-	/** Returns the Vector with subtraction of the Values x, y and z */
-	Vec2f sub(float x, float y);
-	
-	/** Returns the Vector with subtraction of the Values x, y and z */
-	Vec2f sub(double x, double y);
+	/** Returns a clone of the Vector with subtraction of the Values x and y */
+	Vec2f subN(double x, double y);
 	
 	
 	
-	/** Returns the Vector with multiplication of the Vector v */
-	Vec2f mul(Vec2fBase v);
+	/** Returns a clone of the Vector with multiplication of the Vector v */
+	Vec2f mulN(Vec2f v);
 	
-	/** Returns the Vector with multiplication of the Vector v */
-	Vec2f mul(Vec2dBase v);
+	/** Returns a clone of the Vector with multiplication of the Value scalar */
+	Vec2f mulN(float scalar);
 	
-	/** Returns the Vector with multiplication of the Value scalar */
-	Vec2f mul(float scalar);
+	/** Returns a clone of the Vector with multiplication of the Value scalar */
+	Vec2f mulN(double scalar);
 	
-	/** Returns the Vector with multiplication of the Value scalar */
-	Vec2f mul(double scalar);
+	/** Returns a clone of the Vector with multiplication of the Values x and y */
+	Vec2f mulN(float x, float y);
 	
-	/** Returns the Vector with multiplication of the Values x, y and z */
-	Vec2f mul(float x, float y);
-	
-	/** Returns the Vector with multiplication of the Values x, y and z */
-	Vec2f mul(double x, double y);
+	/** Returns a clone of the Vector with multiplication of the Values xand y */
+	Vec2f mulN(double x, double y);
 	
 	
 	
-	/** Returns the Vector with division of the Vector v */
-	Vec2f div(Vec2fBase v);
+	/** Returns a clone of the Vector with division of the Vector v */
+	Vec2f divN(Vec2f v);
 	
-	/** Returns the Vector with division of the Vector v */
-	Vec2f div(Vec2dBase v);
+	/** Returns a clone of the Vector with division of the Value scalar */
+	Vec2f divN(float scalar);
 	
-	/** Returns the Vector with division of the Value scalar */
-	Vec2f div(float scalar);
+	/** Returns a clone of the Vector with division of the Value scalar */
+	Vec2f divN(double scalar);
 	
-	/** Returns the Vector with division of the Value scalar */
-	Vec2f div(double scalar);
+	/** Returns a clone of the Vector with division of the Values x and y */
+	Vec2f divN(float x, float y);
 	
-	/** Returns the Vector with division of the Values x, y and z */
-	Vec2f div(float x, float y);
-	
-	/** Returns the Vector with division of the Values x, y and z */
-	Vec2f div(double x, double y);
+	/** Returns a clone of the Vector with division of the Values x and y */
+	Vec2f divN(double x, double y);
 	
 	
 	
-	/** inverses the Vector based on the Vector v and returns it(i.e. out.x = v.x - this.x) */
-	Vec2f invertFrom(Vec2fBase v);
-	
-	/** inverses the Vector based on the Vector v and returns it(i.e. out.x = v.x - this.x) */
-	Vec2f invertFrom(Vec2dBase v);
-	
-	/** inverses the Vector based on the Value max and returns it(i.e. out.x = max - this.x) */
-	Vec2f invertFrom(float max);
-	
-	/** inverses the Vector based on the Value max and returns it(i.e. out.x = max - this.x) */
-	Vec2f invertFrom(double max);
-	
-	/** inverses the Vector based on the Values x, y and z and returns it(i.e. out.x = x - this.x) */
-	Vec2f invertFrom(float x, float y);
-	
-	/** inverses the Vector based on the Values x, y and z and returns it(i.e. out.x = x - this.x) */
-	Vec2f invertFrom(double x ,double y);
-	
-	
-	
-	/** inverses the Vector and returns it */
-	Vec2f inverse();
-	
-	
-	
-	/** negates the Vector and returns it */
-	Vec2f negate();
+
 	
 	/*
 	##########################
@@ -205,68 +91,83 @@ public interface Vec2f extends Vec2fBase, Tup2f
 	##########################
 	 */
 	
-	/** normalizes the Vector and returns it */
-	Vec2f normalize();
+	/** Returns a clone of the Vector with invertion based on the Vector v (i.e. out.x = v.x - this.x) */
+	Vec2f invertFromN(Vec2f v);
+	
+	/** Returns a clone of the Vector with invertion based on the Value max (i.e. out.x = max - this.x) */
+	Vec2f invertFromN(float max);
+	
+	/** Returns a clone of the Vector with invertion based on the Value max (i.e. out.x = max - this.x) */
+	Vec2f invertFromN(double max);
+	
+	/** Returns a clone of the Vector with invertion based on the Values x and y (i.e. out.x = x - this.x) */
+	Vec2f invertFromN(float x, float y);
+	
+	/** Returns a clone of the Vector with invertion based on the Values x and y (i.e. out.x = x - this.x) */
+	Vec2f invertFromN(double x ,double y);
 	
 	
 	
-	/** Sets the Vector to the reflection of the Vector on the Vector normal and returns it */
-	Vec2f reflect(Vec2fBase normal);
-	
-	/** Sets the Vector to the reflection of the Vector on the Vector normal and returns it */
-	Vec2f reflect(Vec2dBase normal);	
+	/** Returns a inversed clone of the Vector */
+	Vec2f inverseN();
 	
 	
 	
-	/** Rotates the Vector around the Vector axis by the Amount of angle in degrees and returns it */
-	Vec2f rotate(Vec2fBase axis, float angle);
-	
-	/** Rotates the Vector around the Vector axis by the Amount of angle in degrees and returns it */
-	Vec2f rotate(Vec2dBase axis, float angle);
-	
-	/** Rotates the Vector around the Vector axis by the Amount of angle in degrees and returns it */
-	Vec2f rotate(Vec2fBase axis, double angle);
-	
-	/** Rotates the Vector around the Vector axis by the Amount of angle in degrees and returns it */
-	Vec2f rotate(Vec2dBase axis, double angle);
+	/** Returns a negated clone of the Vector */
+	Vec2f negateN();
 	
 	
 	
-	/** Rotates the Vector by the Quaternion q and returns it */
-	Vec2f rotate(Quaternion q);
+	/** Return a normalized clone of the Vector */
+	Vec2f normalizeN();
+	
+	
+	
+	/** Returns a new Vector with the Reflection of this Vector on the Vector normal */
+	Vec2f reflectN(Vec2f normal);
+	
+	
+	
+	/** Return a clone of this Vector rotated around the Vector axis and the Amount of angle in Degrees */
+	Vec2f rotateN(Vec2f axis, float angle);
+	
+	/** Return a clone of this Vector rotated around the Vector axis and the Amount of angle in Degrees */
+	Vec2f rotateN(Vec2f axis, double angle);
+	
+	
+	
+	/** Return a clone of this Vector rotated by the Qauternion q */
+	Vec2f rotateN(Quaternion q);
+	
+	
+	
+	/** Returns the Dot-Product/Scalar-Product of this Vector with the Vector v */
+	double dot(Vec2f v);
+	
+	
+	
+	/** Returns the angle in Radians between this Vector and the Vector v */
+	double angleRad(Vec2f v);
+	
+	/** Returns the angle in Degrees between this Vector and the Vector v */
+	double angleDeg(Vec2f v);
 
+	
+	
+	/** Returns the length of the Vector */
+	double length();
+	
+	/** Returns the squared length of the Vector */
+	double squaredLength();
+	
 	/*
-	############################
-	##                        ##
-	##  VECTOR INTERPOLATION  ##
-	##                        ##
-	############################
+	#######################
+	##                   ##
+	##  OBJECT OVERRIDE  ##
+	##                   ##
+	#######################
 	 */
 	
-	/** Sets the Vector to the result of the linear interpolation between the Vector and the Vector v with the Value f and returns it */
-	Vec2f lerp(Vec2fBase v, float f);
-	
-	/** Sets the Vector to the result of the linear interpolation between the Vector and the Vector v with the Value f and returns it */
-	Vec2f lerp(Vec2dBase v, float f);
-	
-	/** Sets the Vector to the result of the linear interpolation between the Vector and the Vector v with the Value f and returns it */
-	Vec2f lerp(Vec2fBase v, double f);
-	
-	/** Sets the Vector to the result of the linear interpolation between the Vector and the Vector v with the Value f and returns it */
-	Vec2f lerp(Vec2dBase v, double f);
-	
-	
-	
-	/** Sets the Vector to the result of the spherical linear interpolation between the Vector and the Vector v with the Value f and returns it */
-	Vec2f slerp(Vec2fBase v, float f);
-	
-	/** Sets the Vector to the result of the spherical linear interpolation between the Vector and the Vector v with the Value f and returns it */
-	Vec2f slerp(Vec2dBase v, float f);
-	
-	/** Sets the Vector to the result of the spherical linear interpolation between the Vector and the Vector v with the Value f and returns it */
-	Vec2f slerp(Vec2fBase v, double f);
-	
-	/** Sets the Vector to the result of the spherical linear interpolation between the Vector and the Vector v with the Value f and returns it */
-	Vec2f slerp(Vec2dBase v, double f);
-	
+	/** Returns a clone of the Vector */
+	Vec2f clone();
 }

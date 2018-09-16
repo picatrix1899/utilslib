@@ -1,7 +1,7 @@
 package cmn.utilslib.math;
 
 import cmn.utilslib.math.Quaternion;
-import cmn.utilslib.math.vector.api.Vec3fBase;
+import cmn.utilslib.math.vector.api.Vec3f;
 
 public interface Rotation
 {
@@ -10,7 +10,7 @@ public interface Rotation
 	
 	void rotate(double rx, double ry, double rz);
 
-	void rotate(Vec3fBase v, double angle);
+	void rotate(Vec3f v, double angle);
 
 	double getEulerPitch();
 	double getEulerYaw();

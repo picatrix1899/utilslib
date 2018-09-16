@@ -76,7 +76,7 @@ public interface ConvexPolygonalShape2f extends Shape2f
         
         for (int i = 0; i < points.length; i++)
         {
-            double dot = points[i].asVector2f(Vector2f.TEMP).dot(directionToMove);
+            double dot = points[i].asVector2f(new Vector2f()).dot(directionToMove);
             
             if (dot > max)
             {

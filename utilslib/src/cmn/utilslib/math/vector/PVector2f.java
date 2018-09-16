@@ -3,15 +3,14 @@ package cmn.utilslib.math.vector;
 
 import cmn.utilslib.math.Maths;
 import cmn.utilslib.math.Quaternion;
-import cmn.utilslib.math.vector.api.Vec2dBase;
-import cmn.utilslib.math.vector.api.Vec2fBase;
+import cmn.utilslib.math.vector.api.Vec2f;
 
 /** 
  * A persistent representation of a vector2f
  * @category Vector
  * @author picatrix1899
  */
-public abstract class PVector2f implements Vec2fBase
+public abstract class PVector2f implements Vec2f
 {
 
 	/** {@inheritDoc} */ @Override
@@ -39,19 +38,6 @@ public abstract class PVector2f implements Vec2fBase
 			public float getY() { return y; }
 
 			
-			
-			/** {@inheritDoc} */
-			public float get(int index)
-			{
-				switch(index)
-				{
-					case 0: return x;
-					case 1: return y;
-				}
-				
-				return Float.NaN;
-			}
-			
 			/*
 			#########################
 			##                     ##
@@ -61,10 +47,7 @@ public abstract class PVector2f implements Vec2fBase
 			*/
 
 			/** {@inheritDoc} */
-		 	public Vector2f addN(Vec2fBase v) { return clone().add(v); }
-		 	
-		 	/** {@inheritDoc} */
-		 	public Vector2f addN(Vec2dBase v) { return clone().add(v); }
+		 	public Vector2f addN(Vec2f v) { return clone().add(v); }
 
 		 	/** {@inheritDoc} */
 		 	public Vector2f addN(float scalar) { return clone().add(scalar); }
@@ -81,10 +64,7 @@ public abstract class PVector2f implements Vec2fBase
 		 	
 		 	
 		 	/** {@inheritDoc} */
-		 	public Vector2f subN(Vec2fBase v) { return clone().sub(v); }
-		 	
-		 	/** {@inheritDoc} */
-		 	public Vector2f subN(Vec2dBase v) { return clone().sub(v); }
+		 	public Vector2f subN(Vec2f v) { return clone().sub(v); }
 		 	
 		 	/** {@inheritDoc} */
 		 	public Vector2f subN(float scalar) { return clone().sub(scalar); }
@@ -101,10 +81,7 @@ public abstract class PVector2f implements Vec2fBase
 		 	
 		 	
 		 	/** {@inheritDoc} */
-		 	public Vector2f mulN(Vec2fBase v) { return clone().mul(v); }
-		 	
-		 	/** {@inheritDoc} */
-		 	public Vector2f mulN(Vec2dBase v) { return clone().mul(v); }
+		 	public Vector2f mulN(Vec2f v) { return clone().mul(v); }
 
 		 	/** {@inheritDoc} */
 		 	public Vector2f mulN(float scalar) { return clone().mul(scalar); }
@@ -121,10 +98,7 @@ public abstract class PVector2f implements Vec2fBase
 		 	
 		 	
 		 	/** {@inheritDoc} */
-		 	public Vector2f divN(Vec2fBase v) { return clone().div(v); }
-		 	
-		 	/** {@inheritDoc} */
-		 	public Vector2f divN(Vec2dBase v) { return clone().div(v); }
+		 	public Vector2f divN(Vec2f v) { return clone().div(v); }
 
 		 	/** {@inheritDoc} */
 		 	public Vector2f divN(float scalar) { return clone().div(scalar); }
@@ -141,10 +115,7 @@ public abstract class PVector2f implements Vec2fBase
 		 	
 		 	
 		 	/** {@inheritDoc} */
-			public Vector2f invertFromN(Vec2fBase v) { return clone().invertFrom(v); }
-			
-			/** {@inheritDoc} */
-			public Vector2f invertFromN(Vec2dBase v) { return clone().invertFrom(v); }
+			public Vector2f invertFromN(Vec2f v) { return clone().invertFrom(v); }
 			
 			/** {@inheritDoc} */
 			public Vector2f invertFromN(float max) { return clone().invertFrom(max); }
@@ -177,26 +148,17 @@ public abstract class PVector2f implements Vec2fBase
 			 */
 
 		 	/** {@inheritDoc} */
-			public double dot(Vec2fBase v) { return (double) getX() * v.getX() + getY() * v.getY(); }
-			
-			/** {@inheritDoc} */
-			public double dot(Vec2dBase v) { return (double) getX() * v.getX() + getY() * v.getY(); }
+			public double dot(Vec2f v) { return (double) getX() * v.getX() + getY() * v.getY(); }
 			
 			
 			
 			/** {@inheritDoc} */
-			public double angleRad(Vec2fBase v) { return Math.acos((dot(v)) / (length() * v.length())); }
-			
-			/** {@inheritDoc} */
-			public double angleRad(Vec2dBase v) { return Math.acos((dot(v)) / (length() * v.length())); }
+			public double angleRad(Vec2f v) { return Math.acos((dot(v)) / (length() * v.length())); }
 			
 			
 			
 			/** {@inheritDoc} */
-			public double angleDeg(Vec2fBase v) { return angleRad(v) * Maths.RAD_TO_DEG; }
-			
-			/** {@inheritDoc} */
-			public double angleDeg(Vec2dBase v) { return angleRad(v) * Maths.RAD_TO_DEG; }
+			public double angleDeg(Vec2f v) { return angleRad(v) * Maths.RAD_TO_DEG; }
 			
 		 	
 			
@@ -206,10 +168,7 @@ public abstract class PVector2f implements Vec2fBase
 			
 			
 			/** {@inheritDoc} */
-			public Vector2f reflectN(Vec2fBase normal) { return clone().reflect(normal); }
-			
-			/** {@inheritDoc} */
-			public Vector2f reflectN(Vec2dBase normal) { return clone().reflect(normal); }
+			public Vector2f reflectN(Vec2f normal) { return clone().reflect(normal); }
 
 			
 			
@@ -222,53 +181,13 @@ public abstract class PVector2f implements Vec2fBase
 			
 			
 			/** {@inheritDoc} */
-			public Vector2f rotateN(Vec2fBase axis, float angle) { return clone().rotate(axis, angle); }
+			public Vector2f rotateN(Vec2f axis, float angle) { return clone().rotate(axis, angle); }
 			
 			/** {@inheritDoc} */
-			public Vector2f rotateN(Vec2dBase axis, float angle) { return clone().rotate(axis, angle); }
-			
-			/** {@inheritDoc} */
-			public Vector2f rotateN(Vec2fBase axis, double angle) { return clone().rotate(axis, angle); }
-			
-			/** {@inheritDoc} */
-			public Vector2f rotateN(Vec2dBase axis, double angle) { return clone().rotate(axis, angle); }
+			public Vector2f rotateN(Vec2f axis, double angle) { return clone().rotate(axis, angle); }
 			
 			/** {@inheritDoc} */
 			public Vector2f rotateN(Quaternion q) { return clone().rotate(q); }
-			
-			/*
-			############################
-			##                        ##
-			##  VECTOR INTERPOLATION  ##
-			##                        ##
-			############################
-			 */
-
-			/** {@inheritDoc} */
-			public Vector2f lerpN(Vec2fBase v, float f) { return clone().lerp(v, f); }
-			
-			/** {@inheritDoc} */
-			public Vector2f lerpN(Vec2dBase v, float f) { return clone().lerp(v, f); }
-			
-			/** {@inheritDoc} */
-			public Vector2f lerpN(Vec2fBase v, double f) { return clone().lerp(v, f); }
-			
-			/** {@inheritDoc} */
-			public Vector2f lerpN(Vec2dBase v, double f) { return clone().lerp(v, f); }
-
-			
-			
-			/** {@inheritDoc} */
-			public Vector2f slerpN(Vec2fBase v, float f) { return clone().slerp(v, f); }
-			
-			/** {@inheritDoc} */
-			public Vector2f slerpN(Vec2dBase v, float f) { return clone().slerp(v, f); }
-			
-			/** {@inheritDoc} */
-			public Vector2f slerpN(Vec2fBase v, double f) { return clone().slerp(v, f); }
-			
-			/** {@inheritDoc} */
-			public Vector2f slerpN(Vec2dBase v, double f) { return clone().slerp(v, f); }
 			
 			/*
 			#######################
@@ -284,7 +203,7 @@ public abstract class PVector2f implements Vec2fBase
 
 			/** {@inheritDoc} */
 			@Override
-			public String toString() { return "PVec2f(" + getX() + "f, " + getY() + "f, "; }
+			public String toString() { return "PVec2f(" + getX() + "f, " + getY() + "f)"; }
 			
 		};
 	}

@@ -3,15 +3,14 @@ package cmn.utilslib.math.vector;
 
 import cmn.utilslib.math.Maths;
 import cmn.utilslib.math.Quaternion;
-import cmn.utilslib.math.vector.api.Vec3dBase;
-import cmn.utilslib.math.vector.api.Vec3fBase;
+import cmn.utilslib.math.vector.api.Vec3f;
 
 /** 
  * A persistent representation of a vector3f
  * @category Vector
  * @author picatrix1899
  */
-public abstract class PVector3f implements Vec3fBase
+public abstract class PVector3f implements Vec3f
 {
 
 	public abstract Vector3f clone();
@@ -38,19 +37,6 @@ public abstract class PVector3f implements Vec3fBase
 			
 			/** {@inheritDoc} */
 			public float getZ() { return z; }
-			
-			/** {@inheritDoc} */
-			public float get(int index)
-			{
-				switch(index)
-				{
-					case 0: return x;
-					case 1: return y;
-					case 2: return z;
-				}
-				
-				return Float.NaN;
-			}
 
 			/*
 			#########################
@@ -61,10 +47,7 @@ public abstract class PVector3f implements Vec3fBase
 			*/
 
 			/** {@inheritDoc} */
-		 	public Vector3f addN(Vec3fBase v) { return clone().add(v); }
-		 	
-		 	/** {@inheritDoc} */
-		 	public Vector3f addN(Vec3dBase v) { return clone().add(v); }
+		 	public Vector3f addN(Vec3f v) { return clone().add(v); }
 
 		 	
 		 	/** {@inheritDoc} */
@@ -82,10 +65,7 @@ public abstract class PVector3f implements Vec3fBase
 		 	
 		 	
 		 	/** {@inheritDoc} */
-		 	public Vector3f subN(Vec3fBase v) { return clone().sub(v); }
-		 	
-		 	/** {@inheritDoc} */
-		 	public Vector3f subN(Vec3dBase v) { return clone().sub(v); }
+		 	public Vector3f subN(Vec3f v) { return clone().sub(v); }
 
 		 	/** {@inheritDoc} */
 		 	public Vector3f subN(float scalar) { return clone().sub(scalar); }
@@ -102,10 +82,7 @@ public abstract class PVector3f implements Vec3fBase
 		 	
 		 	
 		 	/** {@inheritDoc} */
-		 	public Vector3f mulN(Vec3fBase v) { return clone().mul(v); }
-		 	
-		 	/** {@inheritDoc} */
-		 	public Vector3f mulN(Vec3dBase v) { return clone().mul(v); }
+		 	public Vector3f mulN(Vec3f v) { return clone().mul(v); }
 		 	
 		 	/** {@inheritDoc} */
 		 	public Vector3f mulN(float scalar) { return clone().mul(scalar); }
@@ -122,10 +99,7 @@ public abstract class PVector3f implements Vec3fBase
 		 	
 		 	
 		 	/** {@inheritDoc} */
-		 	public Vector3f divN(Vec3fBase v) { return clone().div(v); }
-		 	
-		 	/** {@inheritDoc} */
-		 	public Vector3f divN(Vec3dBase v) { return clone().div(v); }
+		 	public Vector3f divN(Vec3f v) { return clone().div(v); }
 
 		 	/** {@inheritDoc} */
 		 	public Vector3f divN(float scalar) { return clone().div(scalar); }
@@ -142,10 +116,7 @@ public abstract class PVector3f implements Vec3fBase
 		 	
 		 	
 		 	/** {@inheritDoc} */
-			public Vector3f invertFromN(Vec3fBase v) { return clone().invertFrom(v); }
-			
-			/** {@inheritDoc} */
-			public Vector3f invertFromN(Vec3dBase v) { return clone().invertFrom(v); }
+			public Vector3f invertFromN(Vec3f v) { return clone().invertFrom(v); }
 
 			/** {@inheritDoc} */
 			public Vector3f invertFromN(float max) { return clone().invertFrom(max); }
@@ -178,26 +149,17 @@ public abstract class PVector3f implements Vec3fBase
 			 */
 
 		 	/** {@inheritDoc} */
-			public double dot(Vec3fBase v) { return (double) getX() * v.getX() + getY() * v.getY() + getZ() * v.getZ(); }
-			
-			/** {@inheritDoc} */
-			public double dot(Vec3dBase v) { return (double) getX() * v.getX() + getY() * v.getY() + getZ() * v.getZ(); }
+			public double dot(Vec3f v) { return (double) getX() * v.getX() + getY() * v.getY() + getZ() * v.getZ(); }
 			
 			
 			
 			/** {@inheritDoc} */
-			public double angleRad(Vec3fBase v) { return Math.acos((dot(v)) / (length() * v.length())); }
-			
-			/** {@inheritDoc} */
-			public double angleRad(Vec3dBase v) { return Math.acos((dot(v)) / (length() * v.length())); }
+			public double angleRad(Vec3f v) { return Math.acos((dot(v)) / (length() * v.length())); }
 			
 			
 			
 			/** {@inheritDoc} */
-			public double angleDeg(Vec3fBase v) { return angleRad(v) * Maths.RAD_TO_DEG; }
-			
-			/** {@inheritDoc} */
-			public double angleDeg(Vec3dBase v) { return angleRad(v) * Maths.RAD_TO_DEG; }
+			public double angleDeg(Vec3f v) { return angleRad(v) * Maths.RAD_TO_DEG; }
 			
 		 	
 			
@@ -207,26 +169,17 @@ public abstract class PVector3f implements Vec3fBase
 			
 		 	
 		 	/** {@inheritDoc} */
-		 	public Vector3f crossN(Vec3fBase v) { return clone().cross(v); }
-			
-			/** {@inheritDoc} */
-			public Vector3f crossN(Vec3dBase v) { return clone().cross(v); }
+		 	public Vector3f crossN(Vec3f v) { return clone().cross(v); }
 
 			
 			
 			/** {@inheritDoc} */
-			public Vector3f projectN(Vec3fBase v) { return clone().project(v); }
-			
-			/** {@inheritDoc} */
-			public Vector3f projectN(Vec3dBase v) { return clone().project(v); }
+			public Vector3f projectN(Vec3f v) { return clone().project(v); }
 			
 			
 			
 			/** {@inheritDoc} */
-			public Vector3f reflectN(Vec3fBase normal) { return clone().reflect(normal); }
-			
-			/** {@inheritDoc} */
-			public Vector3f reflectN(Vec3dBase normal) { return clone().reflect(normal); }
+			public Vector3f reflectN(Vec3f normal) { return clone().reflect(normal); }
 
 			
 			
@@ -239,16 +192,10 @@ public abstract class PVector3f implements Vec3fBase
 			
 			
 			/** {@inheritDoc} */
-			public Vector3f rotateN(Vec3fBase axis, float angle) { return clone().rotate(axis, angle); }
+			public Vector3f rotateN(Vec3f axis, float angle) { return clone().rotate(axis, angle); }
 			
 			/** {@inheritDoc} */
-			public Vector3f rotateN(Vec3dBase axis, float angle) { return clone().rotate(axis, angle); }
-			
-			/** {@inheritDoc} */
-			public Vector3f rotateN(Vec3fBase axis, double angle) { return clone().rotate(axis, angle); }
-			
-			/** {@inheritDoc} */
-			public Vector3f rotateN(Vec3dBase axis, double angle) { return clone().rotate(axis, angle); }
+			public Vector3f rotateN(Vec3f axis, double angle) { return clone().rotate(axis, angle); }
 			
 			/** {@inheritDoc} */
 			public Vector3f rotateN(Quaternion q) { return clone().rotate(q); }

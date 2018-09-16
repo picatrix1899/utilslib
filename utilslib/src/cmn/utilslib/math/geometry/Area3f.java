@@ -19,7 +19,7 @@ public class Area3f
 	
 	public Plane3f asPlane()
 	{
-		return new Plane3f(this.p2, this.p2.directionTof(this.p3, Vector3f.TEMP0) , this.p2.directionTof(p1, Vector3f.TEMP1));
+		return new Plane3f(this.p2, this.p2.directionTof(this.p3, new Vector3f()) , this.p2.directionTof(p1, new Vector3f()));
 	}
 
 	
@@ -30,25 +30,25 @@ public class Area3f
 		
 		if(p == null) return null;
 		
-		Vector3f vp = p.asVector3f(Vector3f.TEMP0);
+		Vector3f vp = p.asVector3f(new Vector3f());
 	
-		Vector3f p2vp = vp.sub(p2.asVector3f(Vector3f.TEMP));
+		Vector3f p2vp = vp.sub(p2.asVector3f(new Vector3f()));
 		
 		// calculate border line functions
-		Vector3f minXLine = p2.vectorTof(p3, Vector3f.TEMP1);
+		Vector3f minXLine = p2.vectorTof(p3, new Vector3f());
 		minXLine = minXLine.div(minXLine.getX());
-		Vector3f maxXLine = p1.vectorTof(p4, Vector3f.TEMP2);
+		Vector3f maxXLine = p1.vectorTof(p4, new Vector3f());
 		maxXLine = maxXLine.div(maxXLine.getX());
 		
-		Vector3f minYLine = p2.vectorTof(p1, Vector3f.TEMP3);
+		Vector3f minYLine = p2.vectorTof(p1, new Vector3f());
 		minYLine = minYLine.div(minYLine.getY());
-		Vector3f maxYLine = p3.vectorTof(p4, Vector3f.TEMP4);
+		Vector3f maxYLine = p3.vectorTof(p4, new Vector3f());
 		maxYLine = maxYLine.div(maxYLine.getY());
 		
-		Vector3f minPosX = p2.asVector3f(Vector3f.TEMP1).add(minXLine.mul(p2vp.getX()));
-		Vector3f maxPosX = p1.asVector3f(Vector3f.TEMP2).add(maxXLine.mul(p2vp.getX()));
-		Vector3f minPosY = p2.asVector3f(Vector3f.TEMP3).add(minYLine.mul(p2vp.getY()));
-		Vector3f maxPosY = p3.asVector3f(Vector3f.TEMP4).add(maxYLine.mul(p2vp.getY()));
+		Vector3f minPosX = p2.asVector3f(new Vector3f()).add(minXLine.mul(p2vp.getX()));
+		Vector3f maxPosX = p1.asVector3f(new Vector3f()).add(maxXLine.mul(p2vp.getX()));
+		Vector3f minPosY = p2.asVector3f(new Vector3f()).add(minYLine.mul(p2vp.getY()));
+		Vector3f maxPosY = p3.asVector3f(new Vector3f()).add(maxYLine.mul(p2vp.getY()));
 		
 		if(p2vp.getY() < minPosX.getY() || p2vp.getZ() < minPosX.getZ()) return null;
 		
@@ -67,25 +67,25 @@ public class Area3f
 		
 		if(p == null) return null;
 		
-		Vector3f vp = p.asVector3f(Vector3f.TEMP0);
+		Vector3f vp = p.asVector3f(new Vector3f());
 	
-		Vector3f p2vp = vp.sub(p2.asVector3f(Vector3f.TEMP));
+		Vector3f p2vp = vp.sub(p2.asVector3f(new Vector3f()));
 		
 		// calculate border line functions
-		Vector3f minXLine = p2.vectorTof(p3, Vector3f.TEMP1);
+		Vector3f minXLine = p2.vectorTof(p3, new Vector3f());
 		minXLine = minXLine.div(minXLine.getX());
-		Vector3f maxXLine = p1.vectorTof(p4, Vector3f.TEMP2);
+		Vector3f maxXLine = p1.vectorTof(p4, new Vector3f());
 		maxXLine = maxXLine.div(maxXLine.getX());
 		
-		Vector3f minYLine = p2.vectorTof(p1, Vector3f.TEMP3);
+		Vector3f minYLine = p2.vectorTof(p1, new Vector3f());
 		minYLine = minYLine.div(minYLine.getY());
-		Vector3f maxYLine = p3.vectorTof(p4, Vector3f.TEMP4);
+		Vector3f maxYLine = p3.vectorTof(p4, new Vector3f());
 		maxYLine = maxYLine.div(maxYLine.getY());
 		
-		Vector3f minPosX = p2.asVector3f(Vector3f.TEMP1).add(minXLine.mul(p2vp.getX()));
-		Vector3f maxPosX = p1.asVector3f(Vector3f.TEMP2).add(maxXLine.mul(p2vp.getX()));
-		Vector3f minPosY = p2.asVector3f(Vector3f.TEMP3).add(minYLine.mul(p2vp.getY()));
-		Vector3f maxPosY = p3.asVector3f(Vector3f.TEMP4).add(maxYLine.mul(p2vp.getY()));
+		Vector3f minPosX = p2.asVector3f(new Vector3f()).add(minXLine.mul(p2vp.getX()));
+		Vector3f maxPosX = p1.asVector3f(new Vector3f()).add(maxXLine.mul(p2vp.getX()));
+		Vector3f minPosY = p2.asVector3f(new Vector3f()).add(minYLine.mul(p2vp.getY()));
+		Vector3f maxPosY = p3.asVector3f(new Vector3f()).add(maxYLine.mul(p2vp.getY()));
 		
 		if(p2vp.getY() < minPosX.getY() || p2vp.getZ() < minPosX.getZ()) return null;
 		

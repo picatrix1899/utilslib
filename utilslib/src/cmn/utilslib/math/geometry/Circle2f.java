@@ -16,7 +16,7 @@ public class Circle2f implements Shape2f
 	@Override
 	public AABB2f getAABB()
 	{
-		return new AABB2f(new Point2f(this.origin.asVector2f(Vector2f.TEMP0).sub(radius)), new Point2f(this.origin.asVector2f(Vector2f.TEMP1).add(radius)));
+		return new AABB2f(new Point2f(this.origin.asVector2f(new Vector2f()).sub(radius)), new Point2f(this.origin.asVector2f(new Vector2f()).add(radius)));
 	}
 
 }

@@ -2,7 +2,7 @@ package cmn.utilslib.math.geometry;
 
 import cmn.utilslib.math.matrix.Matrix4f;
 import cmn.utilslib.math.vector.Vector3f;
-import cmn.utilslib.math.vector.api.Vec3fBase;
+import cmn.utilslib.math.vector.api.Vec3f;
 
 public interface ConvexPolygonalShape3f extends Shape3f
 {
@@ -371,7 +371,7 @@ public interface ConvexPolygonalShape3f extends Shape3f
 		return point;
 	}
 	
-	static Point3f getFarthestPointInDirection(ConvexPolygonalShape3f s, Vec3fBase directionToMove)
+	static Point3f getFarthestPointInDirection(ConvexPolygonalShape3f s, Vec3f directionToMove)
     {
 		Point3f[] points = s.getPoints();
 		double max = Double.NEGATIVE_INFINITY;
@@ -379,7 +379,7 @@ public interface ConvexPolygonalShape3f extends Shape3f
         
         for (int i = 0; i < points.length; i++)
         {
-            double dot = points[i].asVector3f(Vector3f.TEMP).dot(directionToMove);
+            double dot = points[i].asVector3f(new Vector3f()).dot(directionToMove);
             
             if (dot > max)
             {
@@ -390,11 +390,11 @@ public interface ConvexPolygonalShape3f extends Shape3f
         return points[index];
     }
 	
-	static Point3f getSupportPointInDirection(ConvexPolygonalShape3f a, ConvexPolygonalShape3f b, Vec3fBase v)
+	static Point3f getSupportPointInDirection(ConvexPolygonalShape3f a, ConvexPolygonalShape3f b, Vec3f v)
 	{
 		Point3f p1 = getFarthestPointInDirection(a, v);
 		Point3f p2 = getFarthestPointInDirection(b, v.negateN());
 		
-		return p2.jump(p1.vectorFromf(p2, Vector3f.TEMP.setZero()));
+		return p2.jump(p1.vectorFromf(p2, new Vector3f()));
 	}
 }

@@ -7,10 +7,8 @@ import cmn.utilslib.math.tuple.Tuple3d;
 import cmn.utilslib.math.tuple.Tuple3f;
 import cmn.utilslib.math.tuple.api.Tup3dBase;
 import cmn.utilslib.math.tuple.api.Tup3fBase;
-import cmn.utilslib.math.vector.Vector3d;
 import cmn.utilslib.math.vector.Vector3f;
-import cmn.utilslib.math.vector.api.Vec3dBase;
-import cmn.utilslib.math.vector.api.Vec3fBase;
+import cmn.utilslib.math.vector.api.Vec3f;
 
 public class Triangle3f implements ConvexPolygonalShape3f
 {	
@@ -22,9 +20,7 @@ public class Triangle3f implements ConvexPolygonalShape3f
 	
 	public Triangle3f() { }
 	public Triangle3f(Vector3f a, Vector3f b, Vector3f c) { this.a.set(a); this.b.set(b); this.c.set(c); }
-	public Triangle3f(Vector3d a, Vector3d b, Vector3d c) { this.a.set(a); this.b.set(b); this.c.set(c); }
-	public Triangle3f(Vec3fBase a, Vec3fBase b, Vec3fBase c) { this.a.set(a); this.b.set(b); this.c.set(c); }
-	public Triangle3f(Vec3dBase a, Vec3dBase b, Vec3dBase c) { this.a.set(a); this.b.set(b); this.c.set(c); }
+	public Triangle3f(Vec3f a, Vec3f b, Vec3f c) { this.a.set(a); this.b.set(b); this.c.set(c); }
 	public Triangle3f(Tuple3f a, Tuple3f b, Tuple3f c) { this.a.set(a); this.b.set(b); this.c.set(c); }
 	public Triangle3f(Tuple3d a, Tuple3d b, Tuple3d c) { this.a.set(a); this.b.set(b); this.c.set(c); }
 	public Triangle3f(Tup3fBase a, Tup3fBase b, Tup3fBase c) { this.a.set(a); this.b.set(b); this.c.set(c); }
@@ -34,9 +30,7 @@ public class Triangle3f implements ConvexPolygonalShape3f
 	
 	
 	public Triangle3f set(Vector3f a, Vector3f b, Vector3f c) { this.a.set(a); this.b.set(b); this.c.set(c); return this; }
-	public Triangle3f set(Vector3d a, Vector3d b, Vector3d c) { this.a.set(a); this.b.set(b); this.c.set(c); return this; }
-	public Triangle3f set(Vec3fBase a, Vec3fBase b, Vec3fBase c) { this.a.set(a); this.b.set(b); this.c.set(c); return this; }
-	public Triangle3f set(Vec3dBase a, Vec3dBase b, Vec3dBase c) { this.a.set(a); this.b.set(b); this.c.set(c); return this; }
+	public Triangle3f set(Vec3f a, Vec3f b, Vec3f c) { this.a.set(a); this.b.set(b); this.c.set(c); return this; }
 	public Triangle3f set(Tuple3f a, Tuple3f b, Tuple3f c) { this.a.set(a); this.b.set(b); this.c.set(c); return this; }
 	public Triangle3f set(Tuple3d a, Tuple3d b, Tuple3d c) { this.a.set(a); this.b.set(b); this.c.set(c); return this; }
 	public Triangle3f set(Tup3fBase a, Tup3fBase b, Tup3fBase c) { this.a.set(a); this.b.set(b); this.c.set(c); return this; }

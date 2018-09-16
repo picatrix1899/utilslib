@@ -1,8 +1,8 @@
 package cmn.utilslib.math;
 
 import cmn.utilslib.math.Quaternion;
+import cmn.utilslib.math.vector.Vector3f;
 import cmn.utilslib.math.vector.api.Vec3f;
-import cmn.utilslib.math.vector.api.Vec3fBase;
 
 public class EulerRotation implements Rotation
 {
@@ -29,7 +29,7 @@ public class EulerRotation implements Rotation
 		this.rotRoll += roll;
 	}
 	
-	public void rotate(Vec3fBase v, double angle)
+	public void rotate(Vec3f v, double angle)
 	{
 		
 		rotate(angle * v.getX(), angle * v.getY(), angle * v.getZ());
@@ -52,17 +52,17 @@ public class EulerRotation implements Rotation
 	
 	public Quaternion getRotationPitch()
 	{
-		return Quaternion.getFromAxis(Vec3f.aNX, getEulerPitch());
+		return Quaternion.getFromAxis(Vector3f.aNX, getEulerPitch());
 	}
 
 	public Quaternion getRotationYaw()
 	{
-		return Quaternion.getFromAxis(Vec3f.aY, getEulerYaw());
+		return Quaternion.getFromAxis(Vector3f.aY, getEulerYaw());
 	}
 
 	public Quaternion getRotationRoll()
 	{
-		return Quaternion.getFromAxis(Vec3f.aZ, getEulerRoll());
+		return Quaternion.getFromAxis(Vector3f.aZ, getEulerRoll());
 	}
 	
 }

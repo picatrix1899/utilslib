@@ -12,11 +12,8 @@ import cmn.utilslib.math.tuple.api.Tup3d;
 import cmn.utilslib.math.tuple.api.Tup3dBase;
 import cmn.utilslib.math.tuple.api.Tup3f;
 import cmn.utilslib.math.tuple.api.Tup3fBase;
-import cmn.utilslib.math.vector.Vector3d;
 import cmn.utilslib.math.vector.Vector3f;
 import cmn.utilslib.math.vector.Vector4f;
-import cmn.utilslib.math.vector.api.Vec3d;
-import cmn.utilslib.math.vector.api.Vec3dBase;
 import cmn.utilslib.math.vector.api.Vec3f;
 import cmn.utilslib.math.vector.api.Vec3fBase;
 
@@ -102,7 +99,9 @@ public class Matrix4f
 		return this;
 	}
 	
-	public Matrix4f initRotation(Vec3fBase forward, Vec3fBase up, Vec3fBase right)
+	public static Matrix4f rotation(Vec3f forward, Vec3f up, Vec3f right) { return new Matrix4f().initRotation(forward, up, right); }
+	
+	public Matrix4f initRotation(Vec3f forward, Vec3f up, Vec3f right)
 	{
 		this.m0.setX(right.getX());
 		this.m0.setY(right.getY());
@@ -123,6 +122,8 @@ public class Matrix4f
 		
 		return this;
 	}
+	
+	public static Matrix4f ortho(float left, float right, float bottom, float top, float near, float far) { return new Matrix4f().initOrtho(left, right, bottom, top, near, far); }
 	
 	public Matrix4f initOrtho(float left, float right, float bottom, float top, float near, float far)
 	{
@@ -154,22 +155,50 @@ public class Matrix4f
 		return this;
 	}
 	
-	public Matrix4f initRotation(Vec3fBase forward, Vec3fBase up)
+	public static Matrix4f simpleOrtho(float width, float height, float length) { return new Matrix4f().initSimpleOrtho(width, height, length); }
+	
+	
+	public Matrix4f initSimpleOrtho(float width, float height, float length)
 	{
-		Vec3f f = forward.normalizeN();
-		Vec3f r = up.normalizeN();
+		this.m0.setX(2.0f / width);
+		this.m0.setY(0.0f);
+		this.m0.setZ(0.0f);
+		this.m0.setA(0.0f);
+		
+		this.m1.setX(0.0f);
+		this.m1.setY(2.0f / width);
+		this.m1.setZ(0.0f);
+		this.m1.setA(0.0f);
+		
+		this.m2.setX(0.0f);
+		this.m2.setY(0.0f);
+		this.m2.setZ(-2.0f / width);
+		this.m2.setA(0.0f);
+		
+		this.m3.setX(0.0f);
+		this.m3.setY(0.0f);
+		this.m3.setZ(0.0f);
+		this.m3.setA(1.0f);
+		
+		return this;
+	}
+	
+	public Matrix4f initRotation(Vec3f forward, Vec3f up)
+	{
+		Vector3f f = (Vector3f)forward.normalizeN();
+		Vector3f r = (Vector3f)up.normalizeN();
 		r = r.cross(f);
 		
-		Vec3f u = f.cross(r);
+		Vector3f u = f.cross(r);
 		
 		u.normalize();
 		
 		return initRotation(forward.normalizeN(), u, r);
 	}
 	
-	public static Matrix4f rotation(Vec3fBase axis, float angle) { return new Matrix4f().initRotation(axis, angle); }
+	public static Matrix4f rotation(Vec3f axis, float angle) { return new Matrix4f().initRotation(axis, angle); }
 	
-	public Matrix4f initRotation(Vec3fBase axis, float angle)
+	public Matrix4f initRotation(Vec3f axis, float angle)
 	{
 		
 		float c = (float)Math.cos(angle * Maths.DEG_TO_RAD);
@@ -207,10 +236,10 @@ public class Matrix4f
 		return this;
 	}
 	
-	public static Matrix4f translation(Vec3fBase v) { return new Matrix4f().initTranslation(v); }
+	public static Matrix4f translation(Vec3f v) { return new Matrix4f().initTranslation(v); }
 	public static Matrix4f translation(float tx, float ty, float tz) { return new Matrix4f().initTranslation(tx, ty, tz); }
 	
-	public Matrix4f initTranslation(Vec3fBase v) { return initTranslation(v.getX(), v.getY(), v.getZ()); }	
+	public Matrix4f initTranslation(Vec3f v) { return initTranslation(v.getX(), v.getY(), v.getZ()); }	
 	public Matrix4f initTranslation(float tx, float ty, float tz)
 	{
 		this.m0.set(	1.0f	,	0.0f	,	0.0f	,	tx		);
@@ -221,10 +250,10 @@ public class Matrix4f
 		return this;
 	}
 	
-	public static Matrix4f scaling(Vec3fBase v) { return new Matrix4f().initScaling(v); }
+	public static Matrix4f scaling(Vec3f v) { return new Matrix4f().initScaling(v); }
 	public static Matrix4f scaling(float sx, float sy, float sz) { return new Matrix4f().initScaling(sx, sy, sz); }
 	
-	public Matrix4f initScaling(Vec3fBase v) { return initScaling(v.getX(), v.getY(), v.getZ()); }
+	public Matrix4f initScaling(Vec3f v) { return initScaling(v.getX(), v.getY(), v.getZ()); }
 	public Matrix4f initScaling(float sx, float sy, float sz)
 	{
 		
@@ -236,9 +265,9 @@ public class Matrix4f
 		return this;
 	}
 	
-	public static Matrix4f modelMatrix(Vec3fBase pos, Quaternion rot, Vec3fBase scale) { return new Matrix4f().initModelMatrix(pos, rot, scale); }
+	public static Matrix4f modelMatrix(Vec3f pos, Quaternion rot, Vec3f scale) { return new Matrix4f().initModelMatrix(pos, rot, scale); }
 	
-	public Matrix4f initModelMatrix(Vec3fBase pos, Quaternion rot, Vec3fBase scale)
+	public Matrix4f initModelMatrix(Vec3f pos, Quaternion rot, Vec3f scale)
 	{
 		if(scale == null) scale = new Vector3f(1.0f, 1.0f, 1.0f);
 		
@@ -250,9 +279,9 @@ public class Matrix4f
 		return this;
 	}
 	
-	public static Matrix4f viewMatrix(Vec3fBase pos, Quaternion rot) { return new Matrix4f().initViewMatrix(pos, rot); }
+	public static Matrix4f viewMatrix(Vec3f pos, Quaternion rot) { return new Matrix4f().initViewMatrix(pos, rot); }
 	
-	public Matrix4f initViewMatrix(Vec3fBase pos, Quaternion rot)
+	public Matrix4f initViewMatrix(Vec3f pos, Quaternion rot)
 	{
 		initIdendity();
 		
@@ -262,11 +291,11 @@ public class Matrix4f
 		return this;
 	}
 	
-	public Matrix4f translate(Vec3fBase v){ return translate(v, this); }
+	public Matrix4f translate(Vec3f v){ return translate(v, this); }
 	public Matrix4f translate(float tx, float ty, float tz) { return translate(tx, ty, tz, this); }
-	public Matrix4f translate(Vec3fBase v, Matrix4f dest) { return translate(v, this, dest); }
+	public Matrix4f translate(Vec3f v, Matrix4f dest) { return translate(v, this, dest); }
 	public Matrix4f translate(float tx, float ty, float tz, Matrix4f dest) { return translate(tx, ty, tz, this, dest); }
-	public Matrix4f translate(Vec3fBase v, Matrix4f src, Matrix4f dest) { return translate(v.getX(), v.getY(), v.getZ(), src, dest); }
+	public Matrix4f translate(Vec3f v, Matrix4f src, Matrix4f dest) { return translate(v.getX(), v.getY(), v.getZ(), src, dest); }
 	public Matrix4f translate(float tx, float ty, float tz, Matrix4f src, Matrix4f dest) { return Matrix4f.mul(Matrix4f.translation(tx, ty, tz), src, dest); }
 	
 	
@@ -277,17 +306,17 @@ public class Matrix4f
 	
 	
 	
-	public Matrix4f rotate(Vec3fBase axis, float angle) { return rotate(axis, angle, this); }
-	public Matrix4f rotate(Vec3fBase axis, float angle, Matrix4f dest) { return rotate(axis, angle, this, dest); }
-	public Matrix4f rotate(Vec3fBase axis, float angle, Matrix4f src, Matrix4f dest) { return Matrix4f.mul(new Matrix4f().initRotation(axis, angle), src, dest); }
+	public Matrix4f rotate(Vec3f axis, float angle) { return rotate(axis, angle, this); }
+	public Matrix4f rotate(Vec3f axis, float angle, Matrix4f dest) { return rotate(axis, angle, this, dest); }
+	public Matrix4f rotate(Vec3f axis, float angle, Matrix4f src, Matrix4f dest) { return Matrix4f.mul(new Matrix4f().initRotation(axis, angle), src, dest); }
 	
 	
 	
-	public Matrix4f scale(Vec3fBase v) { return scale(v.getX(), v.getY(), v.getZ()); }
+	public Matrix4f scale(Vec3f v) { return scale(v.getX(), v.getY(), v.getZ()); }
 	public Matrix4f scale(float sx,float sy,float sz) { return scale(sx, sy, sz, this); }
-	public Matrix4f scale(Vec3fBase v, Matrix4f dest) { return scale(v.getX(), v.getY(), v.getZ(), this, dest); }
+	public Matrix4f scale(Vec3f v, Matrix4f dest) { return scale(v.getX(), v.getY(), v.getZ(), this, dest); }
 	public Matrix4f scale(float sx, float sy, float sz, Matrix4f dest) { return scale(sx, sy, sz, this, dest); }
-	public Matrix4f scale(Vec3fBase v, Matrix4f src, Matrix4f dest) { return scale(v.getX(), v.getY(), v.getZ(), src, dest); }
+	public Matrix4f scale(Vec3f v, Matrix4f src, Matrix4f dest) { return scale(v.getX(), v.getY(), v.getZ(), src, dest); }
 	public Matrix4f scale(float sx, float sy, float sz, Matrix4f src, Matrix4f dest) { return Matrix4f.mul(new Matrix4f().initScaling(sx,  sy,  sz), src, dest); }
 	
 	
@@ -495,46 +524,9 @@ public class Matrix4f
 	
 	public Vector3f transform(Vector3f r)
 	{
-		float x_ = this.m0.x * r.x + this.m0.y * r.y + this.m0.z * r.z + this.m0.a * 1.0f;
-		float y_ = this.m1.x * r.x + this.m1.y * r.y + this.m1.z * r.z + this.m1.a * 1.0f;
-		float z_ = this.m2.x * r.x + this.m2.y * r.y + this.m2.z * r.z + this.m2.a * 1.0f;
-
-		r.x = x_;
-		r.y = y_;
-		r.z = z_;
-		
-		return r;
-	}
-	
-	public Vector3d transform(Vector3d r)
-	{
-		double x_ = this.m0.x * r.x + this.m0.y * r.y + this.m0.z * r.z + this.m0.a * 1.0f;
-		double y_ = this.m1.x * r.x + this.m1.y * r.y + this.m1.z * r.z + this.m1.a * 1.0f;
-		double z_ = this.m2.x * r.x + this.m2.y * r.y + this.m2.z * r.z + this.m2.a * 1.0f;
-
-		r.x = x_;
-		r.y = y_;
-		r.z = z_;
-		
-		return r;
-	}
-	
-	public Vec3f transform(Vec3f r)
-	{
 		float x_ = this.m0.x * r.getX() + this.m0.y * r.getY() + this.m0.z * r.getZ() + this.m0.a * 1.0f;
 		float y_ = this.m1.x * r.getX() + this.m1.y * r.getY() + this.m1.z * r.getZ() + this.m1.a * 1.0f;
 		float z_ = this.m2.x * r.getX() + this.m2.y * r.getY() + this.m2.z * r.getZ() + this.m2.a * 1.0f;
-
-		r.set(x_, y_, z_);
-		
-		return r;
-	}
-	
-	public Vec3d transform(Vec3d r)
-	{
-		double x_ = this.m0.x * r.getX() + this.m0.y * r.getY() + this.m0.z * r.getZ() + this.m0.a * 1.0f;
-		double y_ = this.m1.x * r.getX() + this.m1.y * r.getY() + this.m1.z * r.getZ() + this.m1.a * 1.0f;
-		double z_ = this.m2.x * r.getX() + this.m2.y * r.getY() + this.m2.z * r.getZ() + this.m2.a * 1.0f;
 
 		r.set(x_, y_, z_);
 		
@@ -611,31 +603,33 @@ public class Matrix4f
 		return new Vector3f(x_, y_, z_);
 	}
 	
-	public Vector3d transformN(Vector3d r)
+	public Vector4f transformN(Vector4f r)
 	{		
-		double x_ = this.m0.x * r.x + this.m0.y * r.y + this.m0.z * r.z + this.m0.a * 1.0f;
-		double y_ = this.m1.x * r.x + this.m1.y * r.y + this.m1.z * r.z + this.m1.a * 1.0f;
-		double z_ = this.m2.x * r.x + this.m2.y * r.y + this.m2.z * r.z + this.m2.a * 1.0f;
+		float x_ = this.m0.x * r.getX() + this.m0.y * r.getY() + this.m0.z * r.getZ() + this.m0.a * r.getZ();
+		float y_ = this.m1.x * r.getX() + this.m1.y * r.getY() + this.m1.z * r.getZ() + this.m1.a * r.getZ();
+		float z_ = this.m2.x * r.getX() + this.m2.y * r.getY() + this.m2.z * r.getZ() + this.m2.a * r.getZ();
+		float a_ = this.m3.x * r.getX() + this.m3.y * r.getY() + this.m3.z * r.getZ() + this.m3.a * r.getZ();
 		
-		return new Vector3d(x_, y_, z_);
+		return new Vector4f(x_, y_, z_, a_);
 	}
 	
-	public Vector3f transformN(Vec3fBase r)
+	public Vector4f transform(Vector4f r)
+	{		
+		float x_ = this.m0.x * r.getX() + this.m0.y * r.getY() + this.m0.z * r.getZ() + this.m0.a * r.getZ();
+		float y_ = this.m1.x * r.getX() + this.m1.y * r.getY() + this.m1.z * r.getZ() + this.m1.a * r.getZ();
+		float z_ = this.m2.x * r.getX() + this.m2.y * r.getY() + this.m2.z * r.getZ() + this.m2.a * r.getZ();
+		float a_ = this.m3.x * r.getX() + this.m3.y * r.getY() + this.m3.z * r.getZ() + this.m3.a * r.getZ();
+		
+		return r.set(x_, y_, z_, a_);
+	}
+	
+	public Vector3f transformN(Vec3f r)
 	{		
 		float x_ = this.m0.x * r.getX() + this.m0.y * r.getY() + this.m0.z * r.getZ() + this.m0.a * 1.0f;
 		float y_ = this.m1.x * r.getX() + this.m1.y * r.getY() + this.m1.z * r.getZ() + this.m1.a * 1.0f;
 		float z_ = this.m2.x * r.getX() + this.m2.y * r.getY() + this.m2.z * r.getZ() + this.m2.a * 1.0f;
 		
 		return new Vector3f(x_, y_, z_);
-	}
-	
-	public Vector3d transformN(Vec3dBase r)
-	{		
-		double x_ = this.m0.x * r.getX() + this.m0.y * r.getY() + this.m0.z * r.getZ() + this.m0.a * 1.0f;
-		double y_ = this.m1.x * r.getX() + this.m1.y * r.getY() + this.m1.z * r.getZ() + this.m1.a * 1.0f;
-		double z_ = this.m2.x * r.getX() + this.m2.y * r.getY() + this.m2.z * r.getZ() + this.m2.a * 1.0f;
-		
-		return new Vector3d(x_, y_, z_);
 	}
 
 	
@@ -689,97 +683,20 @@ public class Matrix4f
 		float x_ = this.m0.x * r.x + this.m0.y * r.y + this.m0.z * r.z + this.m0.a * 1.0f;
 		float y_ = this.m1.x * r.x + this.m1.y * r.y + this.m1.z * r.z + this.m1.a * 1.0f;
 		float z_ = this.m2.x * r.x + this.m2.y * r.y + this.m2.z * r.z + this.m2.a * 1.0f;
-
+		
 		dest.x = x_;
 		dest.y = y_;
 		dest.z = z_;
 		
 		return dest;
 	}
-	
-	public Vector3d transform(Vector3d r, Vector3d dest)
-	{
-		double x_ = this.m0.x * r.x + this.m0.y * r.y + this.m0.z * r.z + this.m0.a * 1.0f;
-		double y_ = this.m1.x * r.x + this.m1.y * r.y + this.m1.z * r.z + this.m1.a * 1.0f;
-		double z_ = this.m2.x * r.x + this.m2.y * r.y + this.m2.z * r.z + this.m2.a * 1.0f;
 
-		dest.x = x_;
-		dest.y = y_;
-		dest.z = z_;
-		
-		return dest;
-	}
 	
-	public Vector3f transform(Vector3d r, Vector3f dest)
-	{
-		double x_ = this.m0.x * r.x + this.m0.y * r.y + this.m0.z * r.z + this.m0.a * 1.0f;
-		double y_ = this.m1.x * r.x + this.m1.y * r.y + this.m1.z * r.z + this.m1.a * 1.0f;
-		double z_ = this.m2.x * r.x + this.m2.y * r.y + this.m2.z * r.z + this.m2.a * 1.0f;
-		
-		dest.x = (float)x_;
-		dest.y = (float)y_;
-		dest.z = (float)z_;
-		
-		return dest;
-	}
-	
-	public Vector3d transform(Vector3f r, Vector3d dest)
-	{
-		float x_ = this.m0.x * r.x + this.m0.y * r.y + this.m0.z * r.z + this.m0.a * 1.0f;
-		float y_ = this.m1.x * r.x + this.m1.y * r.y + this.m1.z * r.z + this.m1.a * 1.0f;
-		float z_ = this.m2.x * r.x + this.m2.y * r.y + this.m2.z * r.z + this.m2.a * 1.0f;
-
-		dest.x = x_;
-		dest.y = y_;
-		dest.z = z_;
-		
-		return dest;
-	}
-	
-	public Vector3f transform(Vec3fBase r, Vector3f dest)
+	public Vector3f transform(Vec3f r, Vector3f dest)
 	{
 		float x_ = this.m0.x * r.getX() + this.m0.y * r.getY() + this.m0.z * r.getZ() + this.m0.a * 1.0f;
 		float y_ = this.m1.x * r.getX() + this.m1.y * r.getY() + this.m1.z * r.getZ() + this.m1.a * 1.0f;
 		float z_ = this.m2.x * r.getX() + this.m2.y * r.getY() + this.m2.z * r.getZ() + this.m2.a * 1.0f;
-
-		dest.x = x_;
-		dest.y = y_;
-		dest.z = z_;
-		
-		return dest;
-	}
-	
-	public Vector3f transform(Vec3dBase r, Vector3f dest)
-	{
-		double x_ = this.m0.x * r.getX() + this.m0.y * r.getY() + this.m0.z * r.getZ() + this.m0.a * 1.0f;
-		double y_ = this.m1.x * r.getX() + this.m1.y * r.getY() + this.m1.z * r.getZ() + this.m1.a * 1.0f;
-		double z_ = this.m2.x * r.getX() + this.m2.y * r.getY() + this.m2.z * r.getZ() + this.m2.a * 1.0f;
-
-		dest.x = (float)x_;
-		dest.y = (float)y_;
-		dest.z = (float)z_;
-		
-		return dest;
-	}
-	
-	public Vector3d transform(Vec3fBase r, Vector3d dest)
-	{
-		float x_ = this.m0.x * r.getX() + this.m0.y * r.getY() + this.m0.z * r.getZ() + this.m0.a * 1.0f;
-		float y_ = this.m1.x * r.getX() + this.m1.y * r.getY() + this.m1.z * r.getZ() + this.m1.a * 1.0f;
-		float z_ = this.m2.x * r.getX() + this.m2.y * r.getY() + this.m2.z * r.getZ() + this.m2.a * 1.0f;
-
-		dest.x = x_;
-		dest.y = y_;
-		dest.z = z_;
-		
-		return dest;
-	}
-	
-	public Vector3d transform(Vec3dBase r, Vector3d dest)
-	{
-		double x_ = this.m0.x * r.getX() + this.m0.y * r.getY() + this.m0.z * r.getZ() + this.m0.a * 1.0f;
-		double y_ = this.m1.x * r.getX() + this.m1.y * r.getY() + this.m1.z * r.getZ() + this.m1.a * 1.0f;
-		double z_ = this.m2.x * r.getX() + this.m2.y * r.getY() + this.m2.z * r.getZ() + this.m2.a * 1.0f;
 
 		dest.x = x_;
 		dest.y = y_;
@@ -813,33 +730,7 @@ public class Matrix4f
 		
 		return dest;
 	}
-	
-	public Vector3d transform(Tuple3f r, Vector3d dest)
-	{
-		float x_ = this.m0.x * r.v[0] + this.m0.y * r.v[1] + this.m0.z * r.v[2] + this.m0.a * 1.0f;
-		float y_ = this.m1.x * r.v[0] + this.m1.y * r.v[1] + this.m1.z * r.v[2] + this.m1.a * 1.0f;
-		float z_ = this.m2.x * r.v[0] + this.m2.y * r.v[1] + this.m2.z * r.v[2] + this.m2.a * 1.0f;
 
-		dest.x = x_;
-		dest.y = y_;
-		dest.z = z_;
-		
-		return dest;
-	}
-	
-	public Vector3d transform(Tuple3d r, Vector3d dest)
-	{
-		double x_ = this.m0.x * r.v[0] + this.m0.y * r.v[1] + this.m0.z * r.v[2] + this.m0.a * 1.0f;
-		double y_ = this.m1.x * r.v[0] + this.m1.y * r.v[1] + this.m1.z * r.v[2] + this.m1.a * 1.0f;
-		double z_ = this.m2.x * r.v[0] + this.m2.y * r.v[1] + this.m2.z * r.v[2] + this.m2.a * 1.0f;
-
-		dest.x = x_;
-		dest.y = y_;
-		dest.z = z_;
-		
-		return dest;
-	}
-	
 	public Vector3f transform(Tup3fBase r, Vector3f dest)
 	{
 		float x_ = this.m0.x * r.get(0) + this.m0.y * r.get(1) + this.m0.z * r.get(2) + this.m0.a * 1.0f;
@@ -865,33 +756,7 @@ public class Matrix4f
 		
 		return dest;
 	}
-	
-	public Vector3d transform(Tup3fBase r, Vector3d dest)
-	{
-		float x_ = this.m0.x * r.get(0) + this.m0.y * r.get(1) + this.m0.z * r.get(2) + this.m0.a * 1.0f;
-		float y_ = this.m1.x * r.get(0) + this.m1.y * r.get(1) + this.m1.z * r.get(2) + this.m1.a * 1.0f;
-		float z_ = this.m2.x * r.get(0) + this.m2.y * r.get(1) + this.m2.z * r.get(2) + this.m2.a * 1.0f;
 
-		dest.x = x_;
-		dest.y = y_;
-		dest.z = z_;
-		
-		return dest;
-	}
-	
-	public Vector3d transform(Tup3dBase r, Vector3d dest)
-	{
-		double x_ = this.m0.x * r.get(0) + this.m0.y * r.get(1) + this.m0.z * r.get(2) + this.m0.a * 1.0f;
-		double y_ = this.m1.x * r.get(0) + this.m1.y * r.get(1) + this.m1.z * r.get(2) + this.m1.a * 1.0f;
-		double z_ = this.m2.x * r.get(0) + this.m2.y * r.get(1) + this.m2.z * r.get(2) + this.m2.a * 1.0f;
-
-		dest.x = x_;
-		dest.y = y_;
-		dest.z = z_;
-		
-		return dest;
-	}
-	
 	public Vector3f transform(Point3f r, Vector3f dest)
 	{
 		float x_ = this.m0.x * r.x + this.m0.y * r.x + this.m0.z * r.x + this.m0.a * 1.0f;
@@ -904,20 +769,7 @@ public class Matrix4f
 		
 		return dest;
 	}
-	
-	public Vector3d transform(Point3f r, Vector3d dest)
-	{
-		float x_ = this.m0.x * r.x + this.m0.y * r.y + this.m0.z * r.z + this.m0.a * 1.0f;
-		float y_ = this.m1.x * r.x + this.m1.y * r.y + this.m1.z * r.z + this.m1.a * 1.0f;
-		float z_ = this.m2.x * r.x + this.m2.y * r.y + this.m2.z * r.z + this.m2.a * 1.0f;
 
-		dest.x = x_;
-		dest.y = y_;
-		dest.z = z_;
-		
-		return dest;
-	}
-	
 	public Tuple3f transform(Vector3f r, Tuple3f dest)
 	{
 		float x_ = this.m0.x * r.x + this.m0.y * r.y + this.m0.z * r.z + this.m0.a * 1.0f;
@@ -930,33 +782,7 @@ public class Matrix4f
 		
 		return dest;
 	}
-	
-	public Tuple3d transform(Vector3d r, Tuple3d dest)
-	{
-		double x_ = this.m0.x * r.x + this.m0.y * r.y + this.m0.z * r.z + this.m0.a * 1.0f;
-		double y_ = this.m1.x * r.x + this.m1.y * r.y + this.m1.z * r.z + this.m1.a * 1.0f;
-		double z_ = this.m2.x * r.x + this.m2.y * r.y + this.m2.z * r.z + this.m2.a * 1.0f;
 
-		dest.v[0] = x_;
-		dest.v[1] = y_;
-		dest.v[2] = z_;
-		
-		return dest;
-	}
-	
-	public Tuple3f transform(Vector3d r, Tuple3f dest)
-	{
-		double x_ = this.m0.x * r.x + this.m0.y * r.y + this.m0.z * r.z + this.m0.a * 1.0f;
-		double y_ = this.m1.x * r.x + this.m1.y * r.y + this.m1.z * r.z + this.m1.a * 1.0f;
-		double z_ = this.m2.x * r.x + this.m2.y * r.y + this.m2.z * r.z + this.m2.a * 1.0f;
-
-		dest.v[0] = (float)x_;
-		dest.v[1] = (float)y_;
-		dest.v[2] = (float)z_;
-		
-		return dest;
-	}
-	
 	public Tuple3d transform(Vector3f r, Tuple3d dest)
 	{
 		float x_ = this.m0.x * r.x + this.m0.y * r.y + this.m0.z * r.z + this.m0.a * 1.0f;
@@ -983,20 +809,7 @@ public class Matrix4f
 		return dest;
 	}
 	
-	public Tuple3f transform(Vec3dBase r, Tuple3f dest)
-	{
-		double x_ = this.m0.x * r.getX() + this.m0.y * r.getY() + this.m0.z * r.getZ() + this.m0.a * 1.0f;
-		double y_ = this.m1.x * r.getX() + this.m1.y * r.getY() + this.m1.z * r.getZ() + this.m1.a * 1.0f;
-		double z_ = this.m2.x * r.getX() + this.m2.y * r.getY() + this.m2.z * r.getZ() + this.m2.a * 1.0f;
-
-		dest.v[0] = (float)x_;
-		dest.v[1] = (float)y_;
-		dest.v[2] = (float)z_;
-		
-		return dest;
-	}
-	
-	public Tuple3d transform(Vec3fBase r, Tuple3d dest)
+	public Tuple3d transform(Vec3f r, Tuple3d dest)
 	{
 		float x_ = this.m0.x * r.getX() + this.m0.y * r.getY() + this.m0.z * r.getZ() + this.m0.a * 1.0f;
 		float y_ = this.m1.x * r.getX() + this.m1.y * r.getY() + this.m1.z * r.getZ() + this.m1.a * 1.0f;
@@ -1008,20 +821,7 @@ public class Matrix4f
 		
 		return dest;
 	}
-	
-	public Tuple3d transform(Vec3dBase r, Tuple3d dest)
-	{
-		double x_ = this.m0.x * r.getX() + this.m0.y * r.getY() + this.m0.z * r.getZ() + this.m0.a * 1.0f;
-		double y_ = this.m1.x * r.getX() + this.m1.y * r.getY() + this.m1.z * r.getZ() + this.m1.a * 1.0f;
-		double z_ = this.m2.x * r.getX() + this.m2.y * r.getY() + this.m2.z * r.getZ() + this.m2.a * 1.0f;
 
-		dest.v[0] = x_;
-		dest.v[1] = y_;
-		dest.v[2] = z_;
-		
-		return dest;
-	}
-	
 	public Tuple3f transform(Tuple3f r, Tuple3f dest)
 	{
 		float x_ = this.m0.x * r.v[0] + this.m0.y * r.v[1] + this.m0.z * r.v[2] + this.m0.a * 1.0f;
@@ -1164,22 +964,8 @@ public class Matrix4f
 		
 		return dest;
 	}
-	
-	public Point3f transform(Vector3d r, Point3f dest)
-	{
-		double x_ = this.m0.x * r.x + this.m0.y * r.y + this.m0.z * r.z + this.m0.a * 1.0f;
-		double y_ = this.m1.x * r.x + this.m1.y * r.y + this.m1.z * r.z + this.m1.a * 1.0f;
-		double z_ = this.m2.x * r.x + this.m2.y * r.y + this.m2.z * r.z + this.m2.a * 1.0f;
 
-		dest.x = (float)x_;
-		dest.y = (float)y_;
-		dest.z = (float)z_;
-		
-		return dest;
-	}
-	
-	
-	public Point3f transform(Vec3fBase r, Point3f dest)
+	public Point3f transform(Vec3f r, Point3f dest)
 	{
 		float x_ = this.m0.x * r.getX() + this.m0.y * r.getY() + this.m0.z * r.getZ() + this.m0.a * 1.0f;
 		float y_ = this.m1.x * r.getX() + this.m1.y * r.getY() + this.m1.z * r.getZ() + this.m1.a * 1.0f;
@@ -1191,20 +977,7 @@ public class Matrix4f
 		
 		return dest;
 	}
-	
-	public Point3f transform(Vec3dBase r, Point3f dest)
-	{
-		double x_ = this.m0.x * r.getX() + this.m0.y * r.getY() + this.m0.z * r.getZ() + this.m0.a * 1.0f;
-		double y_ = this.m1.x * r.getX() + this.m1.y * r.getY() + this.m1.z * r.getZ() + this.m1.a * 1.0f;
-		double z_ = this.m2.x * r.getX() + this.m2.y * r.getY() + this.m2.z * r.getZ() + this.m2.a * 1.0f;
 
-		dest.x = (float)x_;
-		dest.y = (float)y_;
-		dest.z = (float)z_;
-		
-		return dest;
-	}
-	
 	public Point3f transform(Tuple3f r, Point3f dest)
 	{
 		float x_ = this.m0.x * r.v[0] + this.m0.y * r.v[1] + this.m0.z * r.v[2] + this.m0.a * 1.0f;

@@ -68,7 +68,7 @@ public class MinkowskiSum3f implements ConvexPolygonalShape3f
 		
 		for(Point3f bs : b)
 		{
-			next = new Point3f(a.asVector3f(Vector3f.TEMP0).add(bs.asVector3f(Vector3f.TEMP1)));
+			next = new Point3f(a.asVector3f(new Vector3f()).add(bs.asVector3f(new Vector3f())));
 			if(!out.contains(next))
 				out.add(next);
 		}
@@ -84,7 +84,7 @@ public class MinkowskiSum3f implements ConvexPolygonalShape3f
 		
 		for(Point3f bs : b)
 		{
-			next = new Point3f(a.asVector3f(Vector3f.TEMP0).sub(bs.asVector3f(Vector3f.TEMP1)));
+			next = new Point3f(a.asVector3f(new Vector3f()).sub(bs.asVector3f(new Vector3f())));
 			if(!out.contains(next))
 				out.add(next);
 		}

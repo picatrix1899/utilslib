@@ -15,9 +15,9 @@ public class Ray3f
 	
 	public boolean liesPointOnRay(Point3f p)
 	{
-		Vector3f vx = p.asVector3f(Vector3f.TEMP0);
+		Vector3f vx = p.asVector3f(new Vector3f());
 		Vector3f vv = this.v;
-		Vector3f vp = this.p.asVector3f(Vector3f.TEMP1);
+		Vector3f vp = this.p.asVector3f(new Vector3f());
 		
 		Vector3f lambda = vx.subN(vp).div(vv);
 		
