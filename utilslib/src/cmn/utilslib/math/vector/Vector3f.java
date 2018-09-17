@@ -764,9 +764,9 @@ public class Vector3f implements Vec3f, Vec3fConstants
 	{
 		double angle = dot(normal) * 2;
 		
-		this.x += -angle * normal.getX();
-		this.y += -angle * normal.getY();
-		this.z += -angle * normal.getZ();
+		this.x -= angle * normal.getX();
+		this.y -= angle * normal.getY();
+		this.z -= angle * normal.getZ();
 		
 		return this;
 	}
